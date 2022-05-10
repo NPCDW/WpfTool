@@ -54,7 +54,7 @@ namespace WpfTool
             ocrButton.Click += new EventHandler(OcrButton_Click);
 
             System.Windows.Forms.MenuItem settingButton = new System.Windows.Forms.MenuItem("设置");
-            settingButton.Click += new EventHandler(Exit_Click);
+            settingButton.Click += new EventHandler(Setting_Click);
 
             System.Windows.Forms.MenuItem exitButton = new System.Windows.Forms.MenuItem("退出");
             exitButton.Click += new EventHandler(Exit_Click);
@@ -105,7 +105,33 @@ namespace WpfTool
         }
 
         /// <summary>
-        /// 退出选项
+        /// 设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Setting_Click(object sender, EventArgs e)
+        {
+            SettingWindow window = null;
+            foreach (Window item in System.Windows.Application.Current.Windows)
+            {
+                if (item is SettingWindow)
+                {
+                    window = (SettingWindow)item;
+                    window.WindowState = WindowState.Normal;
+                    window.Activate();
+                    break;
+                }
+            }
+            if (window == null)
+            {
+                window = new SettingWindow();
+                window.Show();
+                window.Activate();
+            }
+        }
+
+        /// <summary>
+        /// 退出
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
