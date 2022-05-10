@@ -1,0 +1,73 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfTool"
+        x:Class="WpfTool.ResultWindow"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="文本识别/机器翻译" Height="600" Width="800" ResizeMode="CanMinimize" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="defaultOcrProvideComboBox" Width="120" Grid.Row="0" Grid.Column="0" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" >
+            <ComboBoxItem DataContext="BaiduCloud" Content="百度云"/>
+            <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+        </ComboBox>
+        <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Grid.Row="0" Grid.Column="1"  Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
+        <CheckBox x:Name="defaultOcrSettingCheck" Grid.Row="0" Grid.Column="2" Margin="5" VerticalAlignment="Center" Content="设为默认" Checked="defaultOcrSettingCheck_Checked"/>
+        <Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Content="重新识别" Cursor="Hand" Click="ocrButton_Click"/>
+
+        <TextBox
+                Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
+                x:Name="ocrTextBox"
+                Margin="5"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                VerticalAlignment="Stretch"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto"
+                materialDesign:HintAssist.Hint="文字识别" Cursor="Arrow" />
+
+        <ComboBox x:Name="defaultTranslateProvideComboBox" Width="120" Margin="5" Grid.Row="2" Grid.Column="0" SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
+            <ComboBoxItem DataContext="BaiduAI" Content="百度翻译开放平台"/>
+            <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+        </ComboBox>
+        <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5" Grid.Row="2" Grid.Column="1" SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
+        <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5" Grid.Row="2" Grid.Column="2" SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
+        <CheckBox x:Name="defaultTranslateSettingCheck" Margin="5" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Content="设为默认" Checked="defaultTranslateSettingCheck_Checked"/>
+        <Button x:Name="translateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right" Content="翻译" Click="translateButton_Click" Cursor="Hand"/>
+
+        <TextBox
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"
+                x:Name="translateTextBox"
+                Margin="5"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                VerticalAlignment="Stretch"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto"
+                materialDesign:HintAssist.Hint="机器翻译" Cursor="Arrow" />
+    </Grid>
+</Window>

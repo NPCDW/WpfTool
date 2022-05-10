@@ -1,0 +1,45 @@
+{
+  "Common": {
+    "defaultOcrProvide": "TencentCloud",
+    "defaultOcrType": "GeneralBasicOCR",
+    "defaultTranslateProvide": "TencentCloud",
+    "defaultTranslateSourceLanguage": "auto",
+    "defaultTranslateTargetLanguage": "zh",
+    "WordSelectionInterval": 200
+  },
+  "BaiduCloud": {
+    "access_token": "",
+    "access_token_expires_time": "2000/1/1 0:00:00",
+    "client_id": "",
+    "client_secret": ""
+  },
+  "BaiduAI": {
+    "app_id": "",
+    "app_secret": ""
+  },
+  "TencentCloud": {
+    "secret_id": "",
+    "secret_key": ""
+  },
+  "TencentCloudTranslate": {
+    "secret_id": "",
+    "secret_key": ""
+  },
+  "HotKeys": {
+    "Ocr": {
+      "Modifiers": 0,
+      "Key": 115,
+      "Text": "F4"
+    },
+    "GetWordsTranslate": {
+      "Modifiers": 0,
+      "Key": 113,
+      "Text": "F2"
+    },
+    "ScreenshotTranslate": {
+      "Modifiers": 2,
+      "Key": 113,
+      "Text": "Ctrl+F2"
+    }
+  }
+}
