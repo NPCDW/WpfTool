@@ -13,43 +13,154 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="SettingWindow" Height="450" Width="800">
+        Title="SettingWindow" Height="500" Width="800">
     <Grid>
         <materialDesign:Card>
             <TabControl Width="Auto" materialDesign:ColorZoneAssist.Mode="PrimaryMid" Style="{StaticResource MaterialDesignFilledTabControl}">
                 <TabItem Header="常规">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <CheckBox Content="开机启动" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="0" Grid.Column="0" />
-                        <Label Grid.Row="3" Grid.Column="0" Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
-                        <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="200" Maximum="1000"
-                                Grid.Row="3" Grid.Column="1"
+                    <StackPanel Margin="20">
+                        <CheckBox Content="开机启动" Style="{StaticResource MaterialDesignCheckBox}" />
+                        <WrapPanel Margin="0,20,0,0">
+                            <Label Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
+                            <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="200" Maximum="1000"
+                                    MinWidth="200"
                                 Style="{StaticResource MaterialDesignDiscreteSlider}"
                                 TickFrequency="100"
                                 TickPlacement="BottomRight" />
-                        <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding ElementName=WordSelectionIntervalSlider, Path=Value, StringFormat={}{0}ms}" VerticalAlignment="Center" Margin="10,0,0,0" />
-                    </Grid>
+                            <TextBlock Text="{Binding ElementName=WordSelectionIntervalSlider, Path=Value, StringFormat={}{0}ms}" Margin="10,0,0,0" />
+                        </WrapPanel>
+                    </StackPanel>
                 </TabItem>
                 <TabItem Header="文字识别">
-                    <GroupBox Grid.Row="0" Grid.Column="0" Header="默认文本识别" Margin="16" />
+                    <StackPanel Margin="20">
+                        <GroupBox Header="默认文本识别">
+                            <WrapPanel>
+                                <ComboBox x:Name="defaultOcrProvideComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" >
+                                    <ComboBoxItem DataContext="BaiduCloud" Content="百度云"/>
+                                    <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+                                </ComboBox>
+                                <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="腾讯云" Margin="0,20,0,0">
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="SecretID" />
+                                    <TextBox Width="200" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="SecretKey" />
+                                    <PasswordBox Width="200" />
+                                    <CheckBox />
+                                </WrapPanel>
+                                <Label Content="领取免费OCR额度" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="百度云" Margin="0,20,0,0">
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="AppKey" />
+                                    <TextBox Width="200" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="SecretKey" />
+                                    <PasswordBox Width="200" />
+                                    <CheckBox />
+                                </WrapPanel>
+                                <Label Content="领取免费OCR额度" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
                 </TabItem>
                 <TabItem Header="机器翻译">
-                    <GroupBox Grid.Row="0" Grid.Column="0" Header="默认机器翻译" Margin="16" />
+                    <StackPanel Margin="20">
+                        <GroupBox Header="默认机器翻译">
+                            <WrapPanel>
+                                <ComboBox x:Name="defaultTranslateProvideComboBox" Width="120" Margin="5" SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
+                                    <ComboBoxItem DataContext="BaiduAI" Content="百度翻译开放平台"/>
+                                    <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+                                </ComboBox>
+                                <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5" SelectionChanged="sourceLanguageComboBox_SelectionChanged" />
+                                <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5" SelectionChanged="targetLanguageComboBox_SelectionChanged" />
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="腾讯云" Margin="0,20,0,0">
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="SecretID" />
+                                    <TextBox Width="200" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="SecretKey" />
+                                    <PasswordBox Width="200" />
+                                    <CheckBox />
+                                </WrapPanel>
+                                <Label Content="领取免费翻译额度" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="百度翻译开放平台" Margin="0,20,0,0">
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="AppID" />
+                                    <TextBox Width="200" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="SecretKey" />
+                                    <PasswordBox Width="200" />
+                                    <CheckBox />
+                                </WrapPanel>
+                                <Label Content="领取免费翻译额度" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
                 </TabItem>
                 <TabItem Header="全局热键">
-                    <TextBlock Margin="8" Text="全局热键" />
+                    <StackPanel Margin="20">
+                        <WrapPanel>
+                            <Label Content="文字识别" />
+                            <TextBox Width="200" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="划词翻译" />
+                            <TextBox Width="200" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="截图翻译" />
+                            <TextBox Width="200" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="注：无法使用 win 键作为快捷键" />
+                            <Button Content="恢复默认" />
+                        </WrapPanel>
+                    </StackPanel>
                 </TabItem>
                 <TabItem Header="关于">
-                    <TextBlock Margin="8" Text="关于" />
+                    <StackPanel Margin="20">
+                        <WrapPanel>
+                            <Label Content="版本" />
+                            <Label Content="1.0.0.0 (2022.05.11)" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="开源许可" />
+                            <Label Content="MIT License" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="版权所有" />
+                            <Label Content="© 2022 NPCDW" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="源码" />
+                            <Label Content="https://github.com/NPCDW/WpfTool" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="反馈" />
+                            <Label Content="chenyongli0520@gmail.com" Cursor="Hand" MouseDown="CopyLabel_MouseDown" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="友情链接" />
+                            <Label Content="https://www.0520.site" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+                        </WrapPanel>
+                    </StackPanel>
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
