@@ -278,15 +278,9 @@ namespace WpfTool
             GlobalConfig.Common.autoStart = false;
         }
 
-        HashSet<byte> hotkeysModifiers;
+        byte hotkeysModifiers;
         int hotkeysKey;
         String hotkeysText;
-
-        private void HotKeyTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            hotkeysModifiers = new HashSet<byte>();
-            hotkeysText = "";
-        }
 
         private void HotKeyTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -295,90 +289,44 @@ namespace WpfTool
 
         private void HotKeyTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            hotkeysModifiers = 0;
             hotkeysKey = 0;
-            if (e.Key == Key.LeftAlt || e.Key == Key.RightAlt)
+            e.Handled = true;
+            Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
+            if (key == Key.LeftShift || key == Key.RightShift
+                || key == Key.LeftCtrl || key == Key.RightCtrl
+                || key == Key.LeftAlt || key == Key.RightAlt
+                || key == Key.LWin || key == Key.RWin
+                || key <= Key.F1 || key >= Key.F12 )
             {
-                if (!hotkeysModifiers.Add(1))
-                {
-                    return;
-                }
-                hotkeysText += "Alt + ";
+                return;
             }
-            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+            StringBuilder shortcutText = new StringBuilder();
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
             {
-                if (!hotkeysModifiers.Add(2))
-                {
-                    return;
-                }
-                hotkeysText += "Ctrl + ";
+                hotkeysModifiers += 2;
+                shortcutText.Append("Ctrl + ");
             }
-            if (e.Key == Key.LeftShift || e.Key == Key.LeftShift)
+            if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
             {
-                if (!hotkeysModifiers.Add(4))
-                {
-                    return;
-                }
-                hotkeysText += "Shift + ";
+                hotkeysModifiers += 4;
+                shortcutText.Append("Shift + ");
             }
-            if (e.Key == Key.LWin || e.Key == Key.RWin)
+            if ((Keyboard.Modifiers & ModifierKeys.Alt) != 0)
             {
-                if (!hotkeysModifiers.Add(8))
-                {
-                    return;
-                }
-                hotkeysText += "Win + ";
+                hotkeysModifiers += 1;
+                shortcutText.Append("Alt + ");
             }
-            if ((e.Key >= Key.A && e.Key <= Key.Z) || (e.Key >= Key.F1 && e.Key <= Key.F12))
-            {
-                hotkeysKey = (int)e.Key;
-                if (hotkeysText.Contains("+"))
-                {
-                    hotkeysText = hotkeysText.Substring(0, hotkeysText.IndexOf("+")) + " " + e.Key.ToString();
-                }
-                else
-                {
-                    hotkeysText = e.Key.ToString();
-                }
-            }
-            else if ((e.Key >= Key.D0 && e.Key <= Key.D9))
-            {
-                hotkeysKey = (int)e.Key;
-                if (hotkeysText.Contains("+"))
-                {
-                    hotkeysText = hotkeysText.Substring(0, hotkeysText.IndexOf("+")) + " " + e.Key.ToString();
-                }
-                else
-                {
-                    hotkeysText = e.Key.ToString();
-                }
-            }
-            ((TextBox)sender).Text = hotkeysText.ToString();
-        }
-
-        private Boolean HotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            string str = textBox.Text.TrimEnd();
-            int len = str.Length;
-            if (len >= 1 && str.Substring(str.Length - 1) == "+")
-            {
-                textBox.Text = "";
-                return false;
-            }
-            if (!str.Contains("+") && !str.Contains("F"))
-            {
-                textBox.Text = "";
-                return false;
-            }
-            return true;
+            hotkeysKey = KeyInterop.VirtualKeyFromKey(key);
+            shortcutText.Append(key.ToString());
+            ((TextBox)sender).Text = hotkeysText = shortcutText.ToString();
         }
 
         private void OcrHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-            bool verify = HotKeyTextBox_KeyUp(sender, e);
-            if (verify)
+            if (hotkeysKey != 0)
             {
-                GlobalConfig.HotKeys.Ocr.Modifiers = (byte)hotkeysModifiers.Sum(t => t);
+                GlobalConfig.HotKeys.Ocr.Modifiers = hotkeysModifiers;
                 GlobalConfig.HotKeys.Ocr.Key = hotkeysKey;
                 GlobalConfig.HotKeys.Ocr.Text = hotkeysText.ToString();
             }
@@ -386,10 +334,9 @@ namespace WpfTool
 
         private void GetWordsTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-            bool verify = HotKeyTextBox_KeyUp(sender, e);
-            if (verify)
+            if (hotkeysKey != 0)
             {
-                GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = (byte)hotkeysModifiers.Sum(t => t);
+                GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = hotkeysModifiers;
                 GlobalConfig.HotKeys.GetWordsTranslate.Key = hotkeysKey;
                 GlobalConfig.HotKeys.GetWordsTranslate.Text = hotkeysText.ToString();
             }
@@ -397,10 +344,9 @@ namespace WpfTool
 
         private void ScreenshotTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-            bool verify = HotKeyTextBox_KeyUp(sender, e);
-            if (verify)
+            if (hotkeysKey != 0)
             {
-                GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = (byte)hotkeysModifiers.Sum(t => t);
+                GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = hotkeysModifiers;
                 GlobalConfig.HotKeys.ScreenshotTranslate.Key = hotkeysKey;
                 GlobalConfig.HotKeys.ScreenshotTranslate.Text = hotkeysText.ToString();
             }
