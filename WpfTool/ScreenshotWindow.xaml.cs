@@ -100,7 +100,10 @@ namespace WpfTool
             double dpi = NativeMethod.GetDpi();
             int width = (int)(Rectangle.Width * dpi);
             int height = (int)(Rectangle.Height * dpi);
-
+            if (width <= 0 || height <= 0)
+            {
+                return;
+            }
             Bitmap bmpOut = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             Graphics g = Graphics.FromImage(bmpOut);
             g.DrawImage(bitmap,

@@ -22,11 +22,11 @@
                         <CheckBox x:Name="autoStartButton" Content="开机启动" Style="{StaticResource MaterialDesignCheckBox}" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
                         <WrapPanel Margin="0,20,0,0">
                             <Label Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
-                            <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="200" Maximum="1000"
+                            <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="100" Maximum="1000"
                                     MinWidth="200"
                                 Style="{StaticResource MaterialDesignDiscreteSlider}"
                                 TickFrequency="100"
-                                TickPlacement="BottomRight" />
+                                TickPlacement="BottomRight" ValueChanged="WordSelectionIntervalSlider_ValueChanged" />
                             <TextBlock Text="{Binding ElementName=WordSelectionIntervalSlider, Path=Value, StringFormat={}{0}ms}" Margin="10,0,0,0" />
                         </WrapPanel>
                     </StackPanel>
@@ -52,7 +52,7 @@
                                     <Label Content="SecretKey" />
                                     <PasswordBox x:Name="TencentCloudOcr_SecretKeyInput" Width="200" Cursor="Arrow" PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
                                 </WrapPanel>
-                                <Label Content="领取免费OCR额度" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="CopyLabel_MouseDown" />
+                                <Label Content="领取免费OCR额度" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="LinkLabel_MouseDown" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="百度云" Margin="0,20,0,0">
@@ -65,7 +65,7 @@
                                     <Label Content="SecretKey" />
                                     <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200" PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
                                 </WrapPanel>
-                                <Label Content="领取免费OCR额度" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="CopyLabel_MouseDown" />
+                                <Label Content="领取免费OCR额度" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="LinkLabel_MouseDown" />
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
@@ -92,7 +92,7 @@
                                     <Label Content="SecretKey" />
                                     <PasswordBox x:Name="TencentCloudTranslate_SecretKeyInput" Width="200" PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged" />
                                 </WrapPanel>
-                                <Label Content="领取免费翻译额度" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/551/35017" MouseDown="CopyLabel_MouseDown" />
+                                <Label Content="领取免费翻译额度" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/551/35017" MouseDown="LinkLabel_MouseDown" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="百度翻译开放平台" Margin="0,20,0,0">
@@ -105,7 +105,7 @@
                                     <Label Content="SecretKey" />
                                     <PasswordBox x:Name="BaiduAI_SecretKeyInput" Width="200" PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged" />
                                 </WrapPanel>
-                                <Label Content="领取免费翻译额度" Cursor="Hand" DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="CopyLabel_MouseDown" />
+                                <Label Content="领取免费翻译额度" Cursor="Hand" DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="LinkLabel_MouseDown" />
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
@@ -115,17 +115,17 @@
                         <WrapPanel Margin="10">
                             <Label Content="文字识别" VerticalAlignment="Center" />
                             <TextBox x:Name="OcrHotKeyTextBox" Width="200" Cursor="Arrow" CaretBrush="Transparent"
-                                     LostFocus="HotKeyTextBox_LostFocus" KeyDown="HotKeyTextBox_KeyDown" KeyUp="OcrHotKeyTextBox_KeyUp" />
+                                     KeyDown="HotKeyTextBox_KeyDown" KeyUp="OcrHotKeyTextBox_KeyUp" />
                         </WrapPanel>
                         <WrapPanel Margin="10">
                             <Label Content="划词翻译" VerticalAlignment="Center" />
                             <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
-                                     LostFocus="HotKeyTextBox_LostFocus" KeyDown="HotKeyTextBox_KeyDown" KeyUp="GetWordsTranslateHotKeyTextBox_KeyUp" />
+                                     KeyDown="HotKeyTextBox_KeyDown" KeyUp="GetWordsTranslateHotKeyTextBox_KeyUp" />
                         </WrapPanel>
                         <WrapPanel Margin="10">
                             <Label Content="截图翻译" VerticalAlignment="Center" />
                             <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
-                                     LostFocus="HotKeyTextBox_LostFocus" KeyDown="HotKeyTextBox_KeyDown" KeyUp="ScreenshotTranslateHotKeyTextBox_KeyUp" />
+                                     KeyDown="HotKeyTextBox_KeyDown" KeyUp="ScreenshotTranslateHotKeyTextBox_KeyUp" />
                         </WrapPanel>
                         <WrapPanel Margin="10">
                             <Button Content="恢复默认" Click="Button_Click" />
@@ -152,7 +152,7 @@
                         </WrapPanel>
                         <WrapPanel>
                             <Label Content="反馈" />
-                            <Label Content="chenyongli0520@gmail.com" Cursor="Hand" MouseDown="CopyLabel_MouseDown" />
+                            <Label Content="chenyongli0520@gmail.com" Cursor="Hand" DataContext="chenyongli0520@gmail.com"  MouseDown="CopyLabel_MouseDown" />
                         </WrapPanel>
                         <WrapPanel>
                             <Label Content="友情链接" />
