@@ -112,21 +112,23 @@
                 </TabItem>
                 <TabItem Header="全局热键">
                     <StackPanel Margin="20">
-                        <WrapPanel>
-                            <Label Content="文字识别" />
-                            <TextBox x:Name="OcrHotKeyTextBox" Width="200" />
+                        <WrapPanel Margin="10">
+                            <Label Content="文字识别" VerticalAlignment="Center" />
+                            <TextBox x:Name="OcrHotKeyTextBox" Width="200" Cursor="Arrow" CaretBrush="Transparent"
+                                     LostFocus="HotKeyTextBox_LostFocus" GotFocus="HotKeyTextBox_GotFocus" KeyDown="HotKeyTextBox_KeyDown" KeyUp="OcrHotKeyTextBox_KeyUp" />
                         </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="划词翻译" />
-                            <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Width="200" />
+                        <WrapPanel Margin="10">
+                            <Label Content="划词翻译" VerticalAlignment="Center" />
+                            <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
+                                     LostFocus="HotKeyTextBox_LostFocus" GotFocus="HotKeyTextBox_GotFocus" KeyDown="HotKeyTextBox_KeyDown" KeyUp="GetWordsTranslateHotKeyTextBox_KeyUp" />
                         </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="截图翻译" />
-                            <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Width="200" />
+                        <WrapPanel Margin="10">
+                            <Label Content="截图翻译" VerticalAlignment="Center" />
+                            <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
+                                     LostFocus="HotKeyTextBox_LostFocus" GotFocus="HotKeyTextBox_GotFocus" KeyDown="HotKeyTextBox_KeyDown" KeyUp="ScreenshotTranslateHotKeyTextBox_KeyUp" />
                         </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="注：无法使用 win 键作为快捷键" />
-                            <Button Content="恢复默认" />
+                        <WrapPanel Margin="10">
+                            <Button Content="恢复默认" Click="Button_Click" />
                         </WrapPanel>
                     </StackPanel>
                 </TabItem>

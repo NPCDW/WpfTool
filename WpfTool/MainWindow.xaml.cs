@@ -24,10 +24,10 @@ namespace WpfTool
         private System.Windows.Forms.NotifyIcon notifyIcon = new System.Windows.Forms.NotifyIcon();
         public MainWindow()
         {
+            GlobalConfig.GetConfig();
+
             InitHwnd();
             InitialTray();
-
-            GlobalConfig.GetConfig();
         }
 
         public void InitHwnd()

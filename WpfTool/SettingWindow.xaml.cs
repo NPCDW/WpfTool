@@ -278,25 +278,138 @@ namespace WpfTool
             GlobalConfig.Common.autoStart = false;
         }
 
-        private void HotKeyTextBox_GotFocus(object sender, EventArgs e)
+        HashSet<byte> hotkeysModifiers;
+        int hotkeysKey;
+        String hotkeysText;
+
+        private void HotKeyTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            // 检测热键冲突
-            TextBox textBox = (TextBox)sender;
-            NativeMethod.HideCaret((textBox).Handle);
-            textBox.BackColor = Color.FromArgb(192, 255, 255);
+            hotkeysModifiers = new HashSet<byte>();
+            hotkeysText = "";
         }
 
-        private void HotKeyTextBox_LostFocus(object sender, EventArgs e)
+        private void HotKeyTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-            textBox.BackColor = Color.White;
             HotKeysUtil.ReRegisterHotKey();
         }
 
-        private void defaultHotKeysButton_Click(object sender, EventArgs e)
+        private void HotKeyTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            hotkeysKey = 0;
+            if (e.Key == Key.LeftAlt || e.Key == Key.RightAlt)
+            {
+                if (!hotkeysModifiers.Add(1))
+                {
+                    return;
+                }
+                hotkeysText += "Alt + ";
+            }
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+            {
+                if (!hotkeysModifiers.Add(2))
+                {
+                    return;
+                }
+                hotkeysText += "Ctrl + ";
+            }
+            if (e.Key == Key.LeftShift || e.Key == Key.LeftShift)
+            {
+                if (!hotkeysModifiers.Add(4))
+                {
+                    return;
+                }
+                hotkeysText += "Shift + ";
+            }
+            if (e.Key == Key.LWin || e.Key == Key.RWin)
+            {
+                if (!hotkeysModifiers.Add(8))
+                {
+                    return;
+                }
+                hotkeysText += "Win + ";
+            }
+            if ((e.Key >= Key.A && e.Key <= Key.Z) || (e.Key >= Key.F1 && e.Key <= Key.F12))
+            {
+                hotkeysKey = (int)e.Key;
+                if (hotkeysText.Contains("+"))
+                {
+                    hotkeysText = hotkeysText.Substring(0, hotkeysText.IndexOf("+")) + " " + e.Key.ToString();
+                }
+                else
+                {
+                    hotkeysText = e.Key.ToString();
+                }
+            }
+            else if ((e.Key >= Key.D0 && e.Key <= Key.D9))
+            {
+                hotkeysKey = (int)e.Key;
+                if (hotkeysText.Contains("+"))
+                {
+                    hotkeysText = hotkeysText.Substring(0, hotkeysText.IndexOf("+")) + " " + e.Key.ToString();
+                }
+                else
+                {
+                    hotkeysText = e.Key.ToString();
+                }
+            }
+            ((TextBox)sender).Text = hotkeysText.ToString();
+        }
+
+        private Boolean HotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string str = textBox.Text.TrimEnd();
+            int len = str.Length;
+            if (len >= 1 && str.Substring(str.Length - 1) == "+")
+            {
+                textBox.Text = "";
+                return false;
+            }
+            if (!str.Contains("+") && !str.Contains("F"))
+            {
+                textBox.Text = "";
+                return false;
+            }
+            return true;
+        }
+
+        private void OcrHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool verify = HotKeyTextBox_KeyUp(sender, e);
+            if (verify)
+            {
+                GlobalConfig.HotKeys.Ocr.Modifiers = (byte)hotkeysModifiers.Sum(t => t);
+                GlobalConfig.HotKeys.Ocr.Key = hotkeysKey;
+                GlobalConfig.HotKeys.Ocr.Text = hotkeysText.ToString();
+            }
+        }
+
+        private void GetWordsTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool verify = HotKeyTextBox_KeyUp(sender, e);
+            if (verify)
+            {
+                GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = (byte)hotkeysModifiers.Sum(t => t);
+                GlobalConfig.HotKeys.GetWordsTranslate.Key = hotkeysKey;
+                GlobalConfig.HotKeys.GetWordsTranslate.Text = hotkeysText.ToString();
+            }
+        }
+
+        private void ScreenshotTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool verify = HotKeyTextBox_KeyUp(sender, e);
+            if (verify)
+            {
+                GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = (byte)hotkeysModifiers.Sum(t => t);
+                GlobalConfig.HotKeys.ScreenshotTranslate.Key = hotkeysKey;
+                GlobalConfig.HotKeys.ScreenshotTranslate.Text = hotkeysText.ToString();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             GetWordsTranslateHotKeyTextBox.Text = "F2";
-            ocrHotKeyTextBox.Text = "F4";
+            OcrHotKeyTextBox.Text = "F4";
             ScreenshotTranslateHotKeyTextBox.Text = "Ctrl + F2";
 
             GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = 0;
@@ -309,47 +422,7 @@ namespace WpfTool
             GlobalConfig.HotKeys.ScreenshotTranslate.Key = 113;
             GlobalConfig.HotKeys.ScreenshotTranslate.Text = "Ctrl + F2";
 
-            MainForm.mainForm.translateButton.ShortcutKeyDisplayString = GetWordsTranslateHotKeyTextBox.Text.Replace(" ", "");
-            MainForm.mainForm.ocrButton.ShortcutKeyDisplayString = ocrHotKeyTextBox.Text.Replace(" ", "");
-            MainForm.mainForm.ScreenshotTranslationButton.ShortcutKeyDisplayString = ScreenshotTranslateHotKeyTextBox.Text.Replace(" ", "");
-
             HotKeysUtil.ReRegisterHotKey();
-        }
-
-        private void ocrHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            bool verify = HotKeyTextBox_KeyUp(sender, e);
-            if (verify)
-            {
-                GlobalConfig.HotKeys.Ocr.Modifiers = hotkeysModifiers;
-                GlobalConfig.HotKeys.Ocr.Key = hotkeysKey;
-                GlobalConfig.HotKeys.Ocr.Text = hotkeysText;
-                MainForm.mainForm.ocrButton.ShortcutKeyDisplayString = hotkeysText.Replace(" ", "");
-            }
-        }
-
-        private void GetWordsTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            bool verify = HotKeyTextBox_KeyUp(sender, e);
-            if (verify)
-            {
-                GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = hotkeysModifiers;
-                GlobalConfig.HotKeys.GetWordsTranslate.Key = hotkeysKey;
-                GlobalConfig.HotKeys.GetWordsTranslate.Text = hotkeysText;
-                MainForm.mainForm.translateButton.ShortcutKeyDisplayString = hotkeysText.Replace(" ", "");
-            }
-        }
-
-        private void ScreenshotTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            bool verify = HotKeyTextBox_KeyUp(sender, e);
-            if (verify)
-            {
-                GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = hotkeysModifiers;
-                GlobalConfig.HotKeys.ScreenshotTranslate.Key = hotkeysKey;
-                GlobalConfig.HotKeys.ScreenshotTranslate.Text = hotkeysText;
-                MainForm.mainForm.ScreenshotTranslationButton.ShortcutKeyDisplayString = hotkeysText.Replace(" ", "");
-            }
         }
 
     }
