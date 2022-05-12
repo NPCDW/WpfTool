@@ -311,7 +311,7 @@ namespace WpfTool
                 hotkeysModifiers += 1;
                 shortcutText.Append("Alt + ");
             }
-            if (hotkeysModifiers == 0 & (key <= Key.F1 || key >= Key.F12))
+            if (hotkeysModifiers == 0 && (key <= Key.F1 || key >= Key.F12))
             {
                 return;
             }
@@ -322,6 +322,14 @@ namespace WpfTool
 
         private void OcrHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
         {
+            Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
+            if (key == Key.LeftShift || key == Key.RightShift
+                || key == Key.LeftCtrl || key == Key.RightCtrl
+                || key == Key.LeftAlt || key == Key.RightAlt
+                || key == Key.LWin || key == Key.RWin)
+            {
+                return;
+            }
             if (hotkeysKey != 0)
             {
                 GlobalConfig.HotKeys.Ocr.Modifiers = hotkeysModifiers;
@@ -333,6 +341,14 @@ namespace WpfTool
 
         private void GetWordsTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
         {
+            Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
+            if (key == Key.LeftShift || key == Key.RightShift
+                || key == Key.LeftCtrl || key == Key.RightCtrl
+                || key == Key.LeftAlt || key == Key.RightAlt
+                || key == Key.LWin || key == Key.RWin)
+            {
+                return;
+            }
             if (hotkeysKey != 0)
             {
                 GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = hotkeysModifiers;
@@ -344,6 +360,14 @@ namespace WpfTool
 
         private void ScreenshotTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
         {
+            Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
+            if (key == Key.LeftShift || key == Key.RightShift
+                || key == Key.LeftCtrl || key == Key.RightCtrl
+                || key == Key.LeftAlt || key == Key.RightAlt
+                || key == Key.LWin || key == Key.RWin)
+            {
+                return;
+            }
             if (hotkeysKey != 0)
             {
                 GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = hotkeysModifiers;
