@@ -10,7 +10,7 @@
         Topmost="True" Cursor="Cross" KeyDown="Window_KeyDown" Background="Transparent" 
         WindowStyle="None" ResizeMode="NoResize" IsTabStop="False" 
         MouseRightButtonDown="Window_MouseRightButtonDown" MouseMove="Window_MouseMove" 
-        MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseLeftButtonUp="Window_MouseLeftButtonUp" Icon="/Resources/favicon-resource.ico">
+        MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseLeftButtonUp="Window_MouseLeftButtonUp">
     <Canvas>
         <Rectangle x:Name="LeftMask" Fill="#FF000000" Opacity="0.6" Canvas.Left="0" />
         <Rectangle x:Name="RightMask" Fill="#FF000000" Opacity="0.6" />
