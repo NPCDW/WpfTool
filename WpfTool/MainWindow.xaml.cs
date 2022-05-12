@@ -96,12 +96,14 @@ namespace WpfTool
         {
             ScreenshotWindow window = new ScreenshotWindow(ScreenshotGoalEnum.ocr);
             window.Show();
+            window.Activate();
         }
 
         private void ScreenshotTranslation_Click(object sender, EventArgs e)
         {
             ScreenshotWindow window = new ScreenshotWindow(ScreenshotGoalEnum.translate);
             window.Show();
+            window.Activate();
         }
 
         /// <summary>

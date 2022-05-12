@@ -93,7 +93,7 @@ namespace WpfTool
         private void LinkLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = ((Label)sender).Content.ToString();
+            proc.StartInfo.FileName = ((Label)sender).DataContext.ToString();
             proc.Start();
         }
 
@@ -282,11 +282,6 @@ namespace WpfTool
         int hotkeysKey;
         String hotkeysText;
 
-        private void HotKeyTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            HotKeysUtil.ReRegisterHotKey();
-        }
-
         private void HotKeyTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             hotkeysModifiers = 0;
@@ -296,8 +291,7 @@ namespace WpfTool
             if (key == Key.LeftShift || key == Key.RightShift
                 || key == Key.LeftCtrl || key == Key.RightCtrl
                 || key == Key.LeftAlt || key == Key.RightAlt
-                || key == Key.LWin || key == Key.RWin
-                || key <= Key.F1 || key >= Key.F12 )
+                || key == Key.LWin || key == Key.RWin)
             {
                 return;
             }
@@ -317,6 +311,10 @@ namespace WpfTool
                 hotkeysModifiers += 1;
                 shortcutText.Append("Alt + ");
             }
+            if (hotkeysModifiers == 0 & (key <= Key.F1 || key >= Key.F12))
+            {
+                return;
+            }
             hotkeysKey = KeyInterop.VirtualKeyFromKey(key);
             shortcutText.Append(key.ToString());
             ((TextBox)sender).Text = hotkeysText = shortcutText.ToString();
@@ -329,6 +327,7 @@ namespace WpfTool
                 GlobalConfig.HotKeys.Ocr.Modifiers = hotkeysModifiers;
                 GlobalConfig.HotKeys.Ocr.Key = hotkeysKey;
                 GlobalConfig.HotKeys.Ocr.Text = hotkeysText.ToString();
+                HotKeysUtil.ReRegisterHotKey();
             }
         }
 
@@ -339,6 +338,7 @@ namespace WpfTool
                 GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = hotkeysModifiers;
                 GlobalConfig.HotKeys.GetWordsTranslate.Key = hotkeysKey;
                 GlobalConfig.HotKeys.GetWordsTranslate.Text = hotkeysText.ToString();
+                HotKeysUtil.ReRegisterHotKey();
             }
         }
 
@@ -349,6 +349,7 @@ namespace WpfTool
                 GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = hotkeysModifiers;
                 GlobalConfig.HotKeys.ScreenshotTranslate.Key = hotkeysKey;
                 GlobalConfig.HotKeys.ScreenshotTranslate.Text = hotkeysText.ToString();
+                HotKeysUtil.ReRegisterHotKey();
             }
         }
 
@@ -371,5 +372,9 @@ namespace WpfTool
             HotKeysUtil.ReRegisterHotKey();
         }
 
+        private void WordSelectionIntervalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GlobalConfig.Common.wordSelectionInterval = (int)WordSelectionIntervalSlider.Value;
+        }
     }
 }
