@@ -13,13 +13,13 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="SettingWindow" Height="500" Width="800" Loaded="Window_Loaded">
+        Title="SettingWindow" Height="500" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <materialDesign:Card>
             <TabControl Width="Auto" materialDesign:ColorZoneAssist.Mode="PrimaryMid" Style="{StaticResource MaterialDesignFilledTabControl}">
                 <TabItem Header="常规">
                     <StackPanel Margin="20">
-                        <CheckBox x:Name="autoStartButton" Content="开机启动" Style="{StaticResource MaterialDesignCheckBox}" />
+                        <CheckBox x:Name="autoStartButton" Content="开机启动" Style="{StaticResource MaterialDesignCheckBox}" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
                         <WrapPanel Margin="0,20,0,0">
                             <Label Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
                             <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="200" Maximum="1000"
@@ -46,28 +46,26 @@
                             <StackPanel>
                                 <WrapPanel>
                                     <Label Content="SecretID" />
-                                    <TextBox x:Name="TencentCloudOcr_SecretIdInput" Width="200" />
+                                    <TextBox x:Name="TencentCloudOcr_SecretIdInput" Width="200" TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" />
                                 </WrapPanel>
                                 <WrapPanel>
                                     <Label Content="SecretKey" />
-                                    <PasswordBox x:Name="TencentCloudOcr_SecretKeyInput" Width="200" />
-                                    <CheckBox />
+                                    <PasswordBox x:Name="TencentCloudOcr_SecretKeyInput" Width="200" Cursor="Arrow" PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
                                 </WrapPanel>
-                                <Label Content="领取免费OCR额度" />
+                                <Label Content="领取免费OCR额度" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="CopyLabel_MouseDown" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="百度云" Margin="0,20,0,0">
                             <StackPanel>
                                 <WrapPanel>
                                     <Label Content="AppKey" />
-                                    <TextBox x:Name="BaiduCloud_AppKeyInput" Width="200" />
+                                    <TextBox x:Name="BaiduCloud_AppKeyInput" Width="200" TextChanged="BaiduCloud_AppKeyInput_TextChanged" />
                                 </WrapPanel>
                                 <WrapPanel>
                                     <Label Content="SecretKey" />
-                                    <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200" />
-                                    <CheckBox />
+                                    <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200" PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
                                 </WrapPanel>
-                                <Label Content="领取免费OCR额度" />
+                                <Label Content="领取免费OCR额度" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="CopyLabel_MouseDown" />
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
@@ -88,28 +86,26 @@
                             <StackPanel>
                                 <WrapPanel>
                                     <Label Content="SecretID" />
-                                    <TextBox x:Name="TencentCloudTranslate_SecretIdInput" Width="200" />
+                                    <TextBox x:Name="TencentCloudTranslate_SecretIdInput" Width="200" TextChanged="TencentCloudTranslate_SecretIdInput_TextChanged" />
                                 </WrapPanel>
                                 <WrapPanel>
                                     <Label Content="SecretKey" />
-                                    <PasswordBox x:Name="TencentCloudTranslate_SecretKeyInput" Width="200" />
-                                    <CheckBox />
+                                    <PasswordBox x:Name="TencentCloudTranslate_SecretKeyInput" Width="200" PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged" />
                                 </WrapPanel>
-                                <Label Content="领取免费翻译额度" />
+                                <Label Content="领取免费翻译额度" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/551/35017" MouseDown="CopyLabel_MouseDown" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="百度翻译开放平台" Margin="0,20,0,0">
                             <StackPanel>
                                 <WrapPanel>
                                     <Label Content="AppID" />
-                                    <TextBox x:Name="BaiduAI_AppIdInput" Width="200" />
+                                    <TextBox x:Name="BaiduAI_AppIdInput" Width="200" TextChanged="BaiduAI_AppIdInput_TextChanged" />
                                 </WrapPanel>
                                 <WrapPanel>
                                     <Label Content="SecretKey" />
-                                    <PasswordBox x:Name="BaiduAI_SecretKeyInput" Width="200" />
-                                    <CheckBox />
+                                    <PasswordBox x:Name="BaiduAI_SecretKeyInput" Width="200" PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged" />
                                 </WrapPanel>
-                                <Label Content="领取免费翻译额度" />
+                                <Label Content="领取免费翻译额度" Cursor="Hand" DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="CopyLabel_MouseDown" />
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
@@ -150,7 +146,7 @@
                         </WrapPanel>
                         <WrapPanel>
                             <Label Content="源码" />
-                            <Label Content="https://github.com/NPCDW/WpfTool" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="https://github.com/NPCDW/WpfTool" DataContext="https://github.com/NPCDW/WpfTool" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                         </WrapPanel>
                         <WrapPanel>
                             <Label Content="反馈" />
@@ -158,7 +154,7 @@
                         </WrapPanel>
                         <WrapPanel>
                             <Label Content="友情链接" />
-                            <Label Content="https://www.0520.site" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="https://www.0520.site" DataContext="https://www.0520.site" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                         </WrapPanel>
                     </StackPanel>
                 </TabItem>

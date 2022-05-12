@@ -97,9 +97,9 @@ namespace WpfTool
             proc.Start();
         }
 
-        private async void CopyLabel_MouseDown(object sender, MouseButtonEventArgs e)
+        private void CopyLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            NativeClipboard.SetText(((Label)sender).Content.ToString());
+            NativeClipboard.SetText(((Label)sender).DataContext.ToString());
             MessageBox.Show("已复制邮件地址");
         }
 
@@ -219,6 +219,137 @@ namespace WpfTool
             }
             targetLanguageComboBox.DataContext = ((ComboBoxItem)targetLanguageComboBox.SelectedItem).DataContext;
             GlobalConfig.Common.defaultTranslateTargetLanguage = targetLanguageComboBox.DataContext.ToString();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            GlobalConfig.SaveConfig();
+        }
+
+        private void TencentCloudOcr_SecretIdInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GlobalConfig.TencentCloud.secret_id = this.TencentCloudOcr_SecretIdInput.Text;
+        }
+
+        private void TencentCloudOcr_SecretKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            GlobalConfig.TencentCloud.secret_key = this.TencentCloudOcr_SecretKeyInput.Password;
+        }
+
+        private void BaiduCloud_AppKeyInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GlobalConfig.BaiduCloud.client_id = this.BaiduCloud_AppKeyInput.Text;
+        }
+
+        private void BaiduCloud_SecretKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            GlobalConfig.BaiduCloud.client_secret = this.BaiduCloud_SecretKeyInput.Password;
+        }
+
+        private void TencentCloudTranslate_SecretIdInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GlobalConfig.TencentCloudTranslate.secret_id = this.TencentCloudTranslate_SecretIdInput.Text;
+        }
+
+        private void TencentCloudTranslate_SecretKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            GlobalConfig.TencentCloudTranslate.secret_key = this.TencentCloudTranslate_SecretKeyInput.Password;
+        }
+
+        private void BaiduAI_AppIdInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GlobalConfig.BaiduAI.app_id = this.BaiduAI_AppIdInput.Text;
+        }
+
+        private void BaiduAI_SecretKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            GlobalConfig.BaiduAI.app_secret = this.BaiduAI_SecretKeyInput.Password;
+        }
+
+        private void autoStartButton_Checked(object sender, RoutedEventArgs e)
+        {
+            AutoStart.Enable();
+            GlobalConfig.Common.autoStart = true;
+        }
+
+        private void autoStartButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            AutoStart.Disable();
+            GlobalConfig.Common.autoStart = false;
+        }
+
+        private void HotKeyTextBox_GotFocus(object sender, EventArgs e)
+        {
+            // 检测热键冲突
+            TextBox textBox = (TextBox)sender;
+            NativeMethod.HideCaret((textBox).Handle);
+            textBox.BackColor = Color.FromArgb(192, 255, 255);
+        }
+
+        private void HotKeyTextBox_LostFocus(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            textBox.BackColor = Color.White;
+            HotKeysUtil.ReRegisterHotKey();
+        }
+
+        private void defaultHotKeysButton_Click(object sender, EventArgs e)
+        {
+            GetWordsTranslateHotKeyTextBox.Text = "F2";
+            ocrHotKeyTextBox.Text = "F4";
+            ScreenshotTranslateHotKeyTextBox.Text = "Ctrl + F2";
+
+            GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = 0;
+            GlobalConfig.HotKeys.GetWordsTranslate.Key = 113;
+            GlobalConfig.HotKeys.GetWordsTranslate.Text = "F2";
+            GlobalConfig.HotKeys.Ocr.Modifiers = 0;
+            GlobalConfig.HotKeys.Ocr.Key = 115;
+            GlobalConfig.HotKeys.Ocr.Text = "F4";
+            GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = 2;
+            GlobalConfig.HotKeys.ScreenshotTranslate.Key = 113;
+            GlobalConfig.HotKeys.ScreenshotTranslate.Text = "Ctrl + F2";
+
+            MainForm.mainForm.translateButton.ShortcutKeyDisplayString = GetWordsTranslateHotKeyTextBox.Text.Replace(" ", "");
+            MainForm.mainForm.ocrButton.ShortcutKeyDisplayString = ocrHotKeyTextBox.Text.Replace(" ", "");
+            MainForm.mainForm.ScreenshotTranslationButton.ShortcutKeyDisplayString = ScreenshotTranslateHotKeyTextBox.Text.Replace(" ", "");
+
+            HotKeysUtil.ReRegisterHotKey();
+        }
+
+        private void ocrHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool verify = HotKeyTextBox_KeyUp(sender, e);
+            if (verify)
+            {
+                GlobalConfig.HotKeys.Ocr.Modifiers = hotkeysModifiers;
+                GlobalConfig.HotKeys.Ocr.Key = hotkeysKey;
+                GlobalConfig.HotKeys.Ocr.Text = hotkeysText;
+                MainForm.mainForm.ocrButton.ShortcutKeyDisplayString = hotkeysText.Replace(" ", "");
+            }
+        }
+
+        private void GetWordsTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool verify = HotKeyTextBox_KeyUp(sender, e);
+            if (verify)
+            {
+                GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = hotkeysModifiers;
+                GlobalConfig.HotKeys.GetWordsTranslate.Key = hotkeysKey;
+                GlobalConfig.HotKeys.GetWordsTranslate.Text = hotkeysText;
+                MainForm.mainForm.translateButton.ShortcutKeyDisplayString = hotkeysText.Replace(" ", "");
+            }
+        }
+
+        private void ScreenshotTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool verify = HotKeyTextBox_KeyUp(sender, e);
+            if (verify)
+            {
+                GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = hotkeysModifiers;
+                GlobalConfig.HotKeys.ScreenshotTranslate.Key = hotkeysKey;
+                GlobalConfig.HotKeys.ScreenshotTranslate.Text = hotkeysText;
+                MainForm.mainForm.ScreenshotTranslationButton.ShortcutKeyDisplayString = hotkeysText.Replace(" ", "");
+            }
         }
 
     }
