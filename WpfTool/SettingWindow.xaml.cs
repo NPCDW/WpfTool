@@ -24,6 +24,72 @@ namespace WpfTool
             InitializeComponent();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            String defaultOcrType = GlobalConfig.Common.defaultOcrType;
+            String defaultTranslateSourceLanguage = GlobalConfig.Common.defaultTranslateSourceLanguage;
+            String defaultTranslateTargetLanguage = GlobalConfig.Common.defaultTranslateTargetLanguage;
+            this.autoStartButton.IsChecked = GlobalConfig.Common.autoStart;
+            this.WordSelectionIntervalSlider.Value = GlobalConfig.Common.wordSelectionInterval;
+
+            foreach (ComboBoxItem item in this.defaultOcrProvideComboBox.Items)
+            {
+                if (item.DataContext.Equals(GlobalConfig.Common.defaultOcrProvide.ToString()))
+                {
+                    defaultOcrProvideComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+            foreach (ComboBoxItem item in this.defaultOcrTypeComboBox.Items)
+            {
+                if (item.DataContext.ToString().Equals(defaultOcrType))
+                {
+                    defaultOcrTypeComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+
+            foreach (ComboBoxItem item in this.defaultTranslateProvideComboBox.Items)
+            {
+                if (item.DataContext.Equals(GlobalConfig.Common.defaultTranslateProvide.ToString()))
+                {
+                    defaultTranslateProvideComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+            foreach (ComboBoxItem item in this.sourceLanguageComboBox.Items)
+            {
+                if (item.DataContext.ToString().Equals(defaultTranslateSourceLanguage))
+                {
+                    sourceLanguageComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+            foreach (ComboBoxItem item in this.targetLanguageComboBox.Items)
+            {
+                if (item.DataContext.ToString().Equals(defaultTranslateTargetLanguage))
+                {
+                    targetLanguageComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+
+            this.BaiduCloud_AppKeyInput.Text = GlobalConfig.BaiduCloud.client_id;
+            this.BaiduCloud_SecretKeyInput.Password = GlobalConfig.BaiduCloud.client_secret;
+            this.BaiduAI_AppIdInput.Text = GlobalConfig.BaiduAI.app_id;
+            this.BaiduAI_SecretKeyInput.Password = GlobalConfig.BaiduAI.app_secret;
+
+            this.TencentCloudOcr_SecretIdInput.Text = GlobalConfig.TencentCloud.secret_id;
+            this.TencentCloudOcr_SecretKeyInput.Password = GlobalConfig.TencentCloud.secret_key;
+
+            this.TencentCloudTranslate_SecretIdInput.Text = GlobalConfig.TencentCloudTranslate.secret_id;
+            this.TencentCloudTranslate_SecretKeyInput.Password = GlobalConfig.TencentCloudTranslate.secret_key;
+
+            this.OcrHotKeyTextBox.Text = GlobalConfig.HotKeys.Ocr.Text;
+            this.GetWordsTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.GetWordsTranslate.Text;
+            this.ScreenshotTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.ScreenshotTranslate.Text;
+        }
+
         private void LinkLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             System.Diagnostics.Process proc = new System.Diagnostics.Process();
