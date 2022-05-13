@@ -88,6 +88,8 @@ namespace WpfTool
             this.OcrHotKeyTextBox.Text = GlobalConfig.HotKeys.Ocr.Text;
             this.GetWordsTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.GetWordsTranslate.Text;
             this.ScreenshotTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.ScreenshotTranslate.Text;
+
+            HotKeyConflictCheck();
         }
 
         private void LinkLabel_MouseDown(object sender, MouseButtonEventArgs e)
@@ -336,6 +338,7 @@ namespace WpfTool
                 GlobalConfig.HotKeys.Ocr.Key = hotkeysKey;
                 GlobalConfig.HotKeys.Ocr.Text = hotkeysText.ToString();
                 HotKeysUtil.ReRegisterHotKey();
+                HotKeyConflictCheck();
             }
         }
 
@@ -355,6 +358,7 @@ namespace WpfTool
                 GlobalConfig.HotKeys.GetWordsTranslate.Key = hotkeysKey;
                 GlobalConfig.HotKeys.GetWordsTranslate.Text = hotkeysText.ToString();
                 HotKeysUtil.ReRegisterHotKey();
+                HotKeyConflictCheck();
             }
         }
 
@@ -374,6 +378,7 @@ namespace WpfTool
                 GlobalConfig.HotKeys.ScreenshotTranslate.Key = hotkeysKey;
                 GlobalConfig.HotKeys.ScreenshotTranslate.Text = hotkeysText.ToString();
                 HotKeysUtil.ReRegisterHotKey();
+                HotKeyConflictCheck();
             }
         }
 
@@ -394,11 +399,20 @@ namespace WpfTool
             GlobalConfig.HotKeys.ScreenshotTranslate.Text = "Ctrl + F2";
 
             HotKeysUtil.ReRegisterHotKey();
+            HotKeyConflictCheck();
         }
 
         private void WordSelectionIntervalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             GlobalConfig.Common.wordSelectionInterval = (int)WordSelectionIntervalSlider.Value;
         }
+
+        private void HotKeyConflictCheck()
+        {
+            this.OcrHotKeyConflictLabel.Visibility = GlobalConfig.HotKeys.Ocr.Conflict ? Visibility.Visible : Visibility.Hidden;
+            this.GetWordsTranslateHotKeyConflictLabel.Visibility = GlobalConfig.HotKeys.GetWordsTranslate.Conflict ? Visibility.Visible : Visibility.Hidden;
+            this.ScreenshotTranslateHotKeyConflictLabel.Visibility = GlobalConfig.HotKeys.ScreenshotTranslate.Conflict ? Visibility.Visible : Visibility.Hidden;
+        }
+
     }
 }

@@ -71,18 +71,21 @@ namespace WpfTool
                 public static byte Modifiers = 0;
                 public static int Key = 113;
                 public static String Text = "F2";
+                public static bool Conflict = false;
             }
             public static class Ocr
             {
                 public static byte Modifiers = 0;
                 public static int Key = 115;
                 public static String Text = "F4";
+                public static bool Conflict = false;
             }
             public static class ScreenshotTranslate
             {
                 public static byte Modifiers = 2;
                 public static int Key = 113;
                 public static String Text = "Ctrl+F2";
+                public static bool Conflict = false;
             }
         }
 
