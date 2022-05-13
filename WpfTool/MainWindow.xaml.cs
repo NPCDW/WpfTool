@@ -72,7 +72,7 @@ namespace WpfTool
         {
             String getWordsResult = GetWords.Get();
             ResultWindow window = null;
-            foreach (Window item in System.Windows.Application.Current.Windows)
+            foreach (Window item in Application.Current.Windows)
             {
                 if (item is ResultWindow)
                 {
@@ -119,7 +119,7 @@ namespace WpfTool
         private void Setting_Click(object sender, EventArgs e)
         {
             SettingWindow window = null;
-            foreach (Window item in System.Windows.Application.Current.Windows)
+            foreach (Window item in Application.Current.Windows)
             {
                 if (item is SettingWindow)
                 {

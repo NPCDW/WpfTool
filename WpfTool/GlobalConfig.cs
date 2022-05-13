@@ -6,14 +6,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
 
 namespace WpfTool
 {
     public static class GlobalConfig
     {
-        private static String configPath = Application.StartupPath + "\\Resources\\Setting.json";
-        public static String crossCurPath = Application.StartupPath + "\\Resources\\Cross.cur";
+        private static String configPath = AppDomain.CurrentDomain.BaseDirectory + "\\Resources\\Setting.json";
 
         public static class Common
         {

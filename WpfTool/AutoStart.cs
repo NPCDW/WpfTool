@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
 
 namespace WpfTool
 {
@@ -17,14 +17,14 @@ namespace WpfTool
             {
                 RegistryKey R_local = Registry.CurrentUser;
                 RegistryKey R_run = R_local.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                object value = R_run.GetValue("WindowsFormsOCR");
+                object value = R_run.GetValue("WpfTool");
                 R_run.Close();
                 R_local.Close();
                 if (value == null)
                 {
                     return false;
                 }
-                return value.ToString().Equals(Application.ExecutablePath);
+                return value.ToString().Equals(AppDomain.CurrentDomain.BaseDirectory);
             }
             catch (Exception e)
             {
@@ -39,7 +39,7 @@ namespace WpfTool
             {
                 RegistryKey R_local = Registry.CurrentUser;
                 RegistryKey R_run = R_local.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                R_run.SetValue("WindowsFormsOCR", Application.ExecutablePath);
+                R_run.SetValue("WpfTool", AppDomain.CurrentDomain.BaseDirectory);
                 R_run.Close();
                 R_local.Close();
             }
@@ -55,7 +55,7 @@ namespace WpfTool
             {
                 RegistryKey R_local = Registry.CurrentUser;
                 RegistryKey R_run = R_local.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                R_run.DeleteValue("WindowsFormsOCR", false);
+                R_run.DeleteValue("WpfTool", false);
                 R_run.Close();
                 R_local.Close();
             }
