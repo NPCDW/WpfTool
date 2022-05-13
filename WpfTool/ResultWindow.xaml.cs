@@ -21,6 +21,7 @@ namespace WpfTool
     public partial class ResultWindow : Window
     {
         private Bitmap bmp = null;
+        private bool WindowLoaded = false;
 
         public ResultWindow()
         {
@@ -73,6 +74,8 @@ namespace WpfTool
                     break;
                 }
             }
+
+            this.WindowLoaded = true;
         }
 
         public void translate(String translateProvideStr = null, String sourceLanguage = null, String targetLanguage = null)
@@ -284,9 +287,12 @@ namespace WpfTool
             else
             {
                 defaultOcrSettingCheck.IsEnabled = false;
-                GlobalConfig.Common.defaultOcrProvide = (GlobalConfig.OcrProvideEnum)Enum.Parse(typeof(GlobalConfig.OcrProvideEnum), defaultOcrProvideComboBox.DataContext.ToString());
-                GlobalConfig.Common.defaultOcrType = defaultOcrTypeComboBox.DataContext.ToString();
-                GlobalConfig.SaveConfig();
+                if (this.WindowLoaded)
+                {
+                    GlobalConfig.Common.defaultOcrProvide = (GlobalConfig.OcrProvideEnum)Enum.Parse(typeof(GlobalConfig.OcrProvideEnum), defaultOcrProvideComboBox.DataContext.ToString());
+                    GlobalConfig.Common.defaultOcrType = defaultOcrTypeComboBox.DataContext.ToString();
+                    GlobalConfig.SaveConfig();
+                }
             }
         }
 
@@ -373,10 +379,13 @@ namespace WpfTool
             else
             {
                 defaultTranslateSettingCheck.IsEnabled = false;
-                GlobalConfig.Common.defaultTranslateProvide = (GlobalConfig.TranslateProvideEnum)Enum.Parse(typeof(GlobalConfig.TranslateProvideEnum), defaultTranslateProvideComboBox.DataContext.ToString());
-                GlobalConfig.Common.defaultTranslateSourceLanguage = sourceLanguageComboBox.DataContext.ToString();
-                GlobalConfig.Common.defaultTranslateTargetLanguage = targetLanguageComboBox.DataContext.ToString();
-                GlobalConfig.SaveConfig();
+                if (this.WindowLoaded)
+                {
+                    GlobalConfig.Common.defaultTranslateProvide = (GlobalConfig.TranslateProvideEnum)Enum.Parse(typeof(GlobalConfig.TranslateProvideEnum), defaultTranslateProvideComboBox.DataContext.ToString());
+                    GlobalConfig.Common.defaultTranslateSourceLanguage = sourceLanguageComboBox.DataContext.ToString();
+                    GlobalConfig.Common.defaultTranslateTargetLanguage = targetLanguageComboBox.DataContext.ToString();
+                    GlobalConfig.SaveConfig();
+                }
             }
         }
 
