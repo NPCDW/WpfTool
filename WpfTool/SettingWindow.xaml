@@ -116,16 +116,19 @@
                             <Label Content="文字识别" VerticalAlignment="Center" />
                             <TextBox x:Name="OcrHotKeyTextBox" Width="200" Cursor="Arrow" CaretBrush="Transparent"
                                      KeyDown="HotKeyTextBox_KeyDown" KeyUp="OcrHotKeyTextBox_KeyUp" />
+                            <Label x:Name="OcrHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                         </WrapPanel>
                         <WrapPanel Margin="10">
                             <Label Content="划词翻译" VerticalAlignment="Center" />
                             <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
                                      KeyDown="HotKeyTextBox_KeyDown" KeyUp="GetWordsTranslateHotKeyTextBox_KeyUp" />
+                            <Label x:Name="GetWordsTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                         </WrapPanel>
                         <WrapPanel Margin="10">
                             <Label Content="截图翻译" VerticalAlignment="Center" />
                             <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
                                      KeyDown="HotKeyTextBox_KeyDown" KeyUp="ScreenshotTranslateHotKeyTextBox_KeyUp" />
+                            <Label x:Name="ScreenshotTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                         </WrapPanel>
                         <WrapPanel Margin="10">
                             <Button Content="恢复默认" Click="Button_Click" />

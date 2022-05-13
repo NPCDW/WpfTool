@@ -28,6 +28,11 @@ namespace WpfTool
 
             InitHwnd();
             InitialTray();
+
+            if (GlobalConfig.HotKeys.Ocr.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict || GlobalConfig.HotKeys.ScreenshotTranslate.Conflict)
+            {
+                MessageBox.Show("全局快捷键有冲突，请您到设置中重新设置");
+            }
         }
 
         public void InitHwnd()
