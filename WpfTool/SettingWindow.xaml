@@ -139,7 +139,7 @@
                     <StackPanel Margin="20">
                         <WrapPanel>
                             <Label Content="版本" />
-                            <Label Content="1.0.0.0 (2022.05.11)" />
+                            <Label Content="1.0.0.0 (2022.05.13)" />
                         </WrapPanel>
                         <WrapPanel>
                             <Label Content="开源许可" />
