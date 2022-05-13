@@ -15,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="文本识别/机器翻译" Height="600" Width="800" ResizeMode="CanMinimize" Loaded="Window_Loaded">
-    <Grid>
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
