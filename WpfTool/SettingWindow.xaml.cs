@@ -19,6 +19,8 @@ namespace WpfTool
     /// </summary>
     public partial class SettingWindow : Window
     {
+        private bool WindowLoaded = false;
+
         public SettingWindow()
         {
             InitializeComponent();
@@ -90,6 +92,8 @@ namespace WpfTool
             this.ScreenshotTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.ScreenshotTranslate.Text;
 
             HotKeyConflictCheck();
+
+            this.WindowLoaded = true;
         }
 
         private void LinkLabel_MouseDown(object sender, MouseButtonEventArgs e)
@@ -108,7 +112,10 @@ namespace WpfTool
         private void defaultOcrProvideComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             defaultOcrProvideComboBox.DataContext = ((ComboBoxItem)defaultOcrProvideComboBox.SelectedItem).DataContext;
-            GlobalConfig.Common.defaultOcrProvide = (GlobalConfig.OcrProvideEnum)Enum.Parse(typeof(GlobalConfig.OcrProvideEnum), defaultOcrProvideComboBox.DataContext.ToString());
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.Common.defaultOcrProvide = (GlobalConfig.OcrProvideEnum)Enum.Parse(typeof(GlobalConfig.OcrProvideEnum), defaultOcrProvideComboBox.DataContext.ToString());
+            }
             if (defaultOcrProvideComboBox.DataContext.ToString() == GlobalConfig.OcrProvideEnum.BaiduCloud.ToString())
             {
                 defaultOcrTypeComboBox.Items.Clear();
@@ -154,13 +161,19 @@ namespace WpfTool
                 return;
             }
             defaultOcrTypeComboBox.DataContext = ((ComboBoxItem)defaultOcrTypeComboBox.SelectedItem).DataContext;
-            GlobalConfig.Common.defaultOcrType = defaultOcrTypeComboBox.DataContext.ToString();
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.Common.defaultOcrType = defaultOcrTypeComboBox.DataContext.ToString();
+            }
         }
 
         private void defaultTranslateProvideComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             defaultTranslateProvideComboBox.DataContext = ((ComboBoxItem)defaultTranslateProvideComboBox.SelectedItem).DataContext;
-            GlobalConfig.Common.defaultTranslateProvide = (GlobalConfig.TranslateProvideEnum)Enum.Parse(typeof(GlobalConfig.TranslateProvideEnum), defaultTranslateProvideComboBox.DataContext.ToString());
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.Common.defaultTranslateProvide = (GlobalConfig.TranslateProvideEnum)Enum.Parse(typeof(GlobalConfig.TranslateProvideEnum), defaultTranslateProvideComboBox.DataContext.ToString());
+            }
             string translateProvide = defaultTranslateProvideComboBox.DataContext.ToString();
             sourceLanguageComboBox.Items.Clear();
             targetLanguageComboBox.Items.Clear();
@@ -205,22 +218,28 @@ namespace WpfTool
 
         private void sourceLanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sourceLanguageComboBox.DataContext == null)
+            if (sourceLanguageComboBox.SelectedItem == null)
             {
                 return;
             }
             sourceLanguageComboBox.DataContext = ((ComboBoxItem)sourceLanguageComboBox.SelectedItem).DataContext;
-            GlobalConfig.Common.defaultTranslateSourceLanguage = sourceLanguageComboBox.DataContext.ToString();
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.Common.defaultTranslateSourceLanguage = sourceLanguageComboBox.DataContext.ToString();
+            }
         }
 
         private void targetLanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (targetLanguageComboBox.DataContext == null)
+            if (targetLanguageComboBox.SelectedItem == null)
             {
                 return;
             }
             targetLanguageComboBox.DataContext = ((ComboBoxItem)targetLanguageComboBox.SelectedItem).DataContext;
-            GlobalConfig.Common.defaultTranslateTargetLanguage = targetLanguageComboBox.DataContext.ToString();
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.Common.defaultTranslateTargetLanguage = targetLanguageComboBox.DataContext.ToString();
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -230,54 +249,84 @@ namespace WpfTool
 
         private void TencentCloudOcr_SecretIdInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            GlobalConfig.TencentCloud.secret_id = this.TencentCloudOcr_SecretIdInput.Text;
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.TencentCloud.secret_id = this.TencentCloudOcr_SecretIdInput.Text;
+            }
         }
 
         private void TencentCloudOcr_SecretKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            GlobalConfig.TencentCloud.secret_key = this.TencentCloudOcr_SecretKeyInput.Password;
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.TencentCloud.secret_key = this.TencentCloudOcr_SecretKeyInput.Password;
+            }
         }
 
         private void BaiduCloud_AppKeyInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            GlobalConfig.BaiduCloud.client_id = this.BaiduCloud_AppKeyInput.Text;
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.BaiduCloud.client_id = this.BaiduCloud_AppKeyInput.Text;
+            }
         }
 
         private void BaiduCloud_SecretKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            GlobalConfig.BaiduCloud.client_secret = this.BaiduCloud_SecretKeyInput.Password;
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.BaiduCloud.client_secret = this.BaiduCloud_SecretKeyInput.Password;
+            }
         }
 
         private void TencentCloudTranslate_SecretIdInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            GlobalConfig.TencentCloudTranslate.secret_id = this.TencentCloudTranslate_SecretIdInput.Text;
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.TencentCloudTranslate.secret_id = this.TencentCloudTranslate_SecretIdInput.Text;
+            }
         }
 
         private void TencentCloudTranslate_SecretKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            GlobalConfig.TencentCloudTranslate.secret_key = this.TencentCloudTranslate_SecretKeyInput.Password;
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.TencentCloudTranslate.secret_key = this.TencentCloudTranslate_SecretKeyInput.Password;
+            }
         }
 
         private void BaiduAI_AppIdInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            GlobalConfig.BaiduAI.app_id = this.BaiduAI_AppIdInput.Text;
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.BaiduAI.app_id = this.BaiduAI_AppIdInput.Text;
+            }
         }
 
         private void BaiduAI_SecretKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            GlobalConfig.BaiduAI.app_secret = this.BaiduAI_SecretKeyInput.Password;
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.BaiduAI.app_secret = this.BaiduAI_SecretKeyInput.Password;
+            }
         }
 
         private void autoStartButton_Checked(object sender, RoutedEventArgs e)
         {
-            AutoStart.Enable();
-            GlobalConfig.Common.autoStart = true;
+            if (this.WindowLoaded)
+            {
+                AutoStart.Enable();
+                GlobalConfig.Common.autoStart = true;
+            }
         }
 
         private void autoStartButton_Unchecked(object sender, RoutedEventArgs e)
         {
-            AutoStart.Disable();
-            GlobalConfig.Common.autoStart = false;
+            if (this.WindowLoaded)
+            {
+                AutoStart.Disable();
+                GlobalConfig.Common.autoStart = false;
+            }
         }
 
         byte hotkeysModifiers;
@@ -404,7 +453,10 @@ namespace WpfTool
 
         private void WordSelectionIntervalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalConfig.Common.wordSelectionInterval = (int)WordSelectionIntervalSlider.Value;
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.Common.wordSelectionInterval = (int)WordSelectionIntervalSlider.Value;
+            }
         }
 
         private void HotKeyConflictCheck()

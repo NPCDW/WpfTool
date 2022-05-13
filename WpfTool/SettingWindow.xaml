@@ -13,7 +13,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="SettingWindow" Height="500" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="SettingWindow" Height="520" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <materialDesign:Card>
             <TabControl Width="Auto" materialDesign:ColorZoneAssist.Mode="PrimaryMid" Style="{StaticResource MaterialDesignFilledTabControl}">
