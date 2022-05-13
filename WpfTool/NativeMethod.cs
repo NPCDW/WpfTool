@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WpfTool
 {
@@ -41,7 +40,7 @@ namespace WpfTool
         /// <param name="dwFlags">触发的方式，0按下，2抬起</param>
         /// <param name="dwExtraInfo"></param>
         [DllImport("user32.dll")]
-        public static extern void keybd_event(Keys vk, byte bScan, uint dwFlags, uint dwExtraInfo);
+        public static extern void keybd_event(System.Windows.Forms.Keys vk, byte bScan, uint dwFlags, uint dwExtraInfo);
 
         /// <summary>
         /// 注册全局热键

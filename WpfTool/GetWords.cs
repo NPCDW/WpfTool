@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
 
 namespace WpfTool
 {
@@ -24,10 +24,10 @@ namespace WpfTool
             //IntPtr hWnd = GetForegroundWindow();
             //SetForegroundWindow(hWnd);
             uint KEYEVENTF_KEYUP = 2;
-            NativeMethod.keybd_event(Keys.ControlKey, 0, 0, 0);
-            NativeMethod.keybd_event(Keys.C, 0, 0, 0);
-            NativeMethod.keybd_event(Keys.C, 0, KEYEVENTF_KEYUP, 0);
-            NativeMethod.keybd_event(Keys.ControlKey, 0, KEYEVENTF_KEYUP, 0);// 'Left Control Up
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, 0, 0);
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.C, 0, 0, 0);
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.C, 0, KEYEVENTF_KEYUP, 0);
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, KEYEVENTF_KEYUP, 0);// 'Left Control Up
         }
 
         private static String GetDataFromClipboard()

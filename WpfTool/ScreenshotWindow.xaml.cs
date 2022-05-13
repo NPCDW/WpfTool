@@ -114,7 +114,7 @@ namespace WpfTool
             this.Close();
 
             ResultWindow window = null;
-            foreach (Window item in System.Windows.Application.Current.Windows)
+            foreach (Window item in Application.Current.Windows)
             {
                 if (item is ResultWindow)
                 {
