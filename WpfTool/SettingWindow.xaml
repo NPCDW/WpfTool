@@ -13,6 +13,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
         Title="SettingWindow" Height="520" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <materialDesign:Card>
