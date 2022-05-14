@@ -23,6 +23,7 @@ namespace WpfTool
 
         public SettingWindow()
         {
+            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
         }
 

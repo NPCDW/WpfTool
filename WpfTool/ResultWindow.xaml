@@ -6,17 +6,8 @@
         xmlns:local="clr-namespace:WpfTool"
         x:Class="WpfTool.ResultWindow"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        materialDesign:ShadowAssist.CacheMode="{x:Null}"
         Title="文本识别/机器翻译" Height="600" Width="800" ResizeMode="CanMinimize" Loaded="Window_Loaded">
-    <Grid Margin="20">
+    <Grid Margin="20,10,20,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -40,16 +31,13 @@
         <CheckBox x:Name="defaultOcrSettingCheck" Grid.Row="0" Grid.Column="2" Margin="5" VerticalAlignment="Center" Content="设为默认" Checked="defaultOcrSettingCheck_Checked"/>
         <Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Content="重新识别" Cursor="Hand" Click="ocrButton_Click"/>
 
-        <TextBox
-                Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
+        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
                 x:Name="ocrTextBox"
                 Margin="5"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 VerticalAlignment="Stretch"
                 AcceptsReturn="True"
                 TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Auto"
-                materialDesign:HintAssist.Hint="文字识别" Cursor="Arrow" />
+                VerticalScrollBarVisibility="Auto" />
 
         <ComboBox x:Name="defaultTranslateProvideComboBox" Width="120" Margin="5" Grid.Row="2" Grid.Column="0" SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
             <ComboBoxItem DataContext="BaiduAI" Content="百度翻译开放平台"/>
@@ -60,15 +48,12 @@
         <CheckBox x:Name="defaultTranslateSettingCheck" Margin="5" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Content="设为默认" Checked="defaultTranslateSettingCheck_Checked"/>
         <Button x:Name="translateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right" Content="翻译" Click="translateButton_Click" Cursor="Hand"/>
 
-        <TextBox
-                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"
+        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"
                 x:Name="translateTextBox"
                 Margin="5"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 VerticalAlignment="Stretch"
                 AcceptsReturn="True"
                 TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Auto"
-                materialDesign:HintAssist.Hint="机器翻译" Cursor="Arrow" />
+                VerticalScrollBarVisibility="Auto" />
     </Grid>
 </Window>
