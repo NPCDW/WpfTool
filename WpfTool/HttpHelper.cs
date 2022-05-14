@@ -18,6 +18,7 @@ namespace WpfTool
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "POST";
+                request.Timeout = 5000;
                 request.ContentType = "application/json";
                 if (headers != null && headers.Count > 0)
                 {
@@ -70,6 +71,7 @@ namespace WpfTool
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.AllowAutoRedirect = true;
             request.Method = "POST";
+            request.Timeout = 5000;
 
             string boundary = DateTime.Now.Ticks.ToString("X"); // 随机分隔线
             request.ContentType = "multipart/form-data;charset=utf-8;boundary=" + boundary;
