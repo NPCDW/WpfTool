@@ -5,166 +5,154 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTool"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        materialDesign:ShadowAssist.CacheMode="{x:Null}"
-        Title="SettingWindow" Height="520" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="SettingWindow" Height="440" Width="600" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
-        <materialDesign:Card>
-            <TabControl Width="Auto" materialDesign:ColorZoneAssist.Mode="PrimaryMid" Style="{StaticResource MaterialDesignFilledTabControl}">
-                <TabItem Header="常规">
-                    <StackPanel Margin="20">
-                        <CheckBox x:Name="autoStartButton" Content="开机启动" Style="{StaticResource MaterialDesignCheckBox}" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
-                        <WrapPanel Margin="0,20,0,0">
-                            <Label Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
-                            <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="100" Maximum="1000"
+        <TabControl Width="Auto">
+            <TabItem Header="常规">
+                <StackPanel Margin="20">
+                    <CheckBox x:Name="autoStartButton" Content="开机启动" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
+                    <WrapPanel Margin="0,20,0,0">
+                        <Label Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
+                        <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="100" Maximum="1000"
                                     MinWidth="200"
-                                Style="{StaticResource MaterialDesignDiscreteSlider}"
                                 TickFrequency="100"
                                 TickPlacement="BottomRight" ValueChanged="WordSelectionIntervalSlider_ValueChanged" />
-                            <TextBlock Text="{Binding ElementName=WordSelectionIntervalSlider, Path=Value, StringFormat={}{0}ms}" Margin="10,0,0,0" />
+                        <TextBlock Text="{Binding ElementName=WordSelectionIntervalSlider, Path=Value, StringFormat={}{0}ms}" Margin="10,0,0,0" />
+                    </WrapPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="文字识别">
+                <StackPanel Margin="20">
+                    <GroupBox Header="默认文本识别">
+                        <WrapPanel>
+                            <ComboBox x:Name="defaultOcrProvideComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" >
+                                <ComboBoxItem DataContext="BaiduCloud" Content="百度云"/>
+                                <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+                            </ComboBox>
+                            <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
                         </WrapPanel>
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="文字识别">
-                    <StackPanel Margin="20">
-                        <GroupBox Header="默认文本识别">
-                            <WrapPanel>
-                                <ComboBox x:Name="defaultOcrProvideComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" >
-                                    <ComboBoxItem DataContext="BaiduCloud" Content="百度云"/>
-                                    <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
-                                </ComboBox>
-                                <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
+                    </GroupBox>
+                    <GroupBox Header="腾讯云" Margin="0,20,0,0">
+                        <StackPanel>
+                            <WrapPanel Margin="0,5,0,0">
+                                <Label Content="SecretID" />
+                                <TextBox x:Name="TencentCloudOcr_SecretIdInput" Width="200" TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" />
                             </WrapPanel>
-                        </GroupBox>
-                        <GroupBox Header="腾讯云" Margin="0,20,0,0">
-                            <StackPanel>
-                                <WrapPanel>
-                                    <Label Content="SecretID" />
-                                    <TextBox x:Name="TencentCloudOcr_SecretIdInput" Width="200" TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" />
-                                </WrapPanel>
-                                <WrapPanel>
-                                    <Label Content="SecretKey" />
-                                    <PasswordBox x:Name="TencentCloudOcr_SecretKeyInput" Width="200" Cursor="Arrow" PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
-                                </WrapPanel>
-                                <Label Content="领取免费OCR额度" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="LinkLabel_MouseDown" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="百度云" Margin="0,20,0,0">
-                            <StackPanel>
-                                <WrapPanel>
-                                    <Label Content="AppKey" />
-                                    <TextBox x:Name="BaiduCloud_AppKeyInput" Width="200" TextChanged="BaiduCloud_AppKeyInput_TextChanged" />
-                                </WrapPanel>
-                                <WrapPanel>
-                                    <Label Content="SecretKey" />
-                                    <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200" PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
-                                </WrapPanel>
-                                <Label Content="领取免费OCR额度" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="LinkLabel_MouseDown" />
-                            </StackPanel>
-                        </GroupBox>
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="机器翻译">
-                    <StackPanel Margin="20">
-                        <GroupBox Header="默认机器翻译">
-                            <WrapPanel>
-                                <ComboBox x:Name="defaultTranslateProvideComboBox" Width="120" Margin="5" SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
-                                    <ComboBoxItem DataContext="BaiduAI" Content="百度翻译开放平台"/>
-                                    <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
-                                </ComboBox>
-                                <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5" SelectionChanged="sourceLanguageComboBox_SelectionChanged" />
-                                <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5" SelectionChanged="targetLanguageComboBox_SelectionChanged" />
+                            <WrapPanel Margin="0,5,0,0">
+                                <Label Content="SecretKey" />
+                                <PasswordBox x:Name="TencentCloudOcr_SecretKeyInput" Width="200" Cursor="Arrow" PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
                             </WrapPanel>
-                        </GroupBox>
-                        <GroupBox Header="腾讯云" Margin="0,20,0,0">
-                            <StackPanel>
-                                <WrapPanel>
-                                    <Label Content="SecretID" />
-                                    <TextBox x:Name="TencentCloudTranslate_SecretIdInput" Width="200" TextChanged="TencentCloudTranslate_SecretIdInput_TextChanged" />
-                                </WrapPanel>
-                                <WrapPanel>
-                                    <Label Content="SecretKey" />
-                                    <PasswordBox x:Name="TencentCloudTranslate_SecretKeyInput" Width="200" PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged" />
-                                </WrapPanel>
-                                <Label Content="领取免费翻译额度" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/551/35017" MouseDown="LinkLabel_MouseDown" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="百度翻译开放平台" Margin="0,20,0,0">
-                            <StackPanel>
-                                <WrapPanel>
-                                    <Label Content="AppID" />
-                                    <TextBox x:Name="BaiduAI_AppIdInput" Width="200" TextChanged="BaiduAI_AppIdInput_TextChanged" />
-                                </WrapPanel>
-                                <WrapPanel>
-                                    <Label Content="SecretKey" />
-                                    <PasswordBox x:Name="BaiduAI_SecretKeyInput" Width="200" PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged" />
-                                </WrapPanel>
-                                <Label Content="领取免费翻译额度" Cursor="Hand" DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="LinkLabel_MouseDown" />
-                            </StackPanel>
-                        </GroupBox>
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="全局热键">
-                    <StackPanel Margin="20">
-                        <WrapPanel Margin="10">
-                            <Label Content="文字识别" VerticalAlignment="Center" />
-                            <TextBox x:Name="OcrHotKeyTextBox" Width="200" Cursor="Arrow" CaretBrush="Transparent"
+                            <Label Content="领取免费OCR额度" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="LinkLabel_MouseDown" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="百度云" Margin="0,20,0,0">
+                        <StackPanel>
+                            <WrapPanel Margin="0,5,0,0">
+                                <Label Content="AppKey" />
+                                <TextBox x:Name="BaiduCloud_AppKeyInput" Width="200" TextChanged="BaiduCloud_AppKeyInput_TextChanged" />
+                            </WrapPanel>
+                            <WrapPanel Margin="0,5,0,0">
+                                <Label Content="SecretKey" />
+                                <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200" PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
+                            </WrapPanel>
+                            <Label Content="领取免费OCR额度" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="LinkLabel_MouseDown" />
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="机器翻译">
+                <StackPanel Margin="20">
+                    <GroupBox Header="默认机器翻译">
+                        <WrapPanel>
+                            <ComboBox x:Name="defaultTranslateProvideComboBox" Width="120" Margin="5" SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
+                                <ComboBoxItem DataContext="BaiduAI" Content="百度翻译开放平台"/>
+                                <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+                            </ComboBox>
+                            <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5" SelectionChanged="sourceLanguageComboBox_SelectionChanged" />
+                            <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5" SelectionChanged="targetLanguageComboBox_SelectionChanged" />
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="腾讯云" Margin="0,20,0,0">
+                        <StackPanel>
+                            <WrapPanel Margin="0,5,0,0">
+                                <Label Content="SecretID" />
+                                <TextBox x:Name="TencentCloudTranslate_SecretIdInput" Width="200" TextChanged="TencentCloudTranslate_SecretIdInput_TextChanged" />
+                            </WrapPanel>
+                            <WrapPanel Margin="0,5,0,0">
+                                <Label Content="SecretKey" />
+                                <PasswordBox x:Name="TencentCloudTranslate_SecretKeyInput" Width="200" PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged" />
+                            </WrapPanel>
+                            <Label Content="领取免费翻译额度" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/551/35017" MouseDown="LinkLabel_MouseDown" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="百度翻译开放平台" Margin="0,20,0,0">
+                        <StackPanel>
+                            <WrapPanel Margin="0,5,0,0">
+                                <Label Content="AppID" />
+                                <TextBox x:Name="BaiduAI_AppIdInput" Width="200" TextChanged="BaiduAI_AppIdInput_TextChanged" />
+                            </WrapPanel>
+                            <WrapPanel Margin="0,5,0,0">
+                                <Label Content="SecretKey" />
+                                <PasswordBox x:Name="BaiduAI_SecretKeyInput" Width="200" PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged" />
+                            </WrapPanel>
+                            <Label Content="领取免费翻译额度" Margin="0,5,0,0" Cursor="Hand" DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="LinkLabel_MouseDown" />
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="全局热键">
+                <StackPanel Margin="20">
+                    <WrapPanel>
+                        <Label Content="文字识别" VerticalAlignment="Center" />
+                        <TextBox x:Name="OcrHotKeyTextBox" Width="200" Cursor="Arrow" CaretBrush="Transparent"
                                      KeyDown="HotKeyTextBox_KeyDown" KeyUp="OcrHotKeyTextBox_KeyUp" />
-                            <Label x:Name="OcrHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
-                        </WrapPanel>
-                        <WrapPanel Margin="10">
-                            <Label Content="划词翻译" VerticalAlignment="Center" />
-                            <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
+                        <Label x:Name="OcrHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+                    </WrapPanel>
+                    <WrapPanel Margin="0,10,0,0">
+                        <Label Content="划词翻译" VerticalAlignment="Center" />
+                        <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
                                      KeyDown="HotKeyTextBox_KeyDown" KeyUp="GetWordsTranslateHotKeyTextBox_KeyUp" />
-                            <Label x:Name="GetWordsTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
-                        </WrapPanel>
-                        <WrapPanel Margin="10">
-                            <Label Content="截图翻译" VerticalAlignment="Center" />
-                            <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
+                        <Label x:Name="GetWordsTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+                    </WrapPanel>
+                    <WrapPanel Margin="0,10,0,0">
+                        <Label Content="截图翻译" VerticalAlignment="Center" />
+                        <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
                                      KeyDown="HotKeyTextBox_KeyDown" KeyUp="ScreenshotTranslateHotKeyTextBox_KeyUp" />
-                            <Label x:Name="ScreenshotTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
-                        </WrapPanel>
-                        <WrapPanel Margin="10">
-                            <Button Content="恢复默认" Click="Button_Click" />
-                        </WrapPanel>
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="关于">
-                    <StackPanel Margin="20">
-                        <WrapPanel>
-                            <Label Content="版本" />
-                            <Label Content="1.0.1.0 (2022.05.13)" />
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="开源许可" />
-                            <Label Content="MIT License" />
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="版权所有" />
-                            <Label Content="© 2022 NPCDW" />
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="源码" />
-                            <Label Content="https://github.com/NPCDW/WpfTool" DataContext="https://github.com/NPCDW/WpfTool" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="反馈" />
-                            <Label Content="chenyongli0520@gmail.com" Cursor="Hand" DataContext="chenyongli0520@gmail.com"  MouseDown="CopyLabel_MouseDown" />
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="友情链接" />
-                            <Label Content="https://www.0520.site" DataContext="https://www.0520.site" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
-                        </WrapPanel>
-                    </StackPanel>
-                </TabItem>
-            </TabControl>
-        </materialDesign:Card>
+                        <Label x:Name="ScreenshotTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+                    </WrapPanel>
+                    <WrapPanel Margin="0,10,0,0">
+                        <Button Content="恢复默认" Click="Button_Click" />
+                    </WrapPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="关于">
+                <StackPanel Margin="20">
+                    <WrapPanel>
+                        <Label Content="版本" />
+                        <Label Content="1.0.1.0 (2022.05.13)" />
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="开源许可" />
+                        <Label Content="MIT License" />
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="版权所有" />
+                        <Label Content="© 2022 NPCDW" />
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="源码" />
+                        <Label Content="https://github.com/NPCDW/WpfTool" DataContext="https://github.com/NPCDW/WpfTool" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="反馈" />
+                        <Label Content="chenyongli0520@gmail.com" Cursor="Hand" DataContext="chenyongli0520@gmail.com"  MouseDown="CopyLabel_MouseDown" />
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="友情链接" />
+                        <Label Content="https://www.0520.site" DataContext="https://www.0520.site" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+                    </WrapPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
