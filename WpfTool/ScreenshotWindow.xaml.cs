@@ -48,14 +48,12 @@ namespace WpfTool
             if (e.KeyStates == Keyboard.GetKeyStates(Key.Escape))
             {
                 this.Close();
-                Utils.FlushMemory();
             }
         }
 
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
-            Utils.FlushMemory();
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)
@@ -138,6 +136,11 @@ namespace WpfTool
             {
                 window.ocr(bmpOut);
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Utils.FlushMemory();
         }
     }
 

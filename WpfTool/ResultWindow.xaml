@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfTool"
         x:Class="WpfTool.ResultWindow"
         mc:Ignorable="d"
-        Title="文本识别/机器翻译" Height="600" Width="800" ResizeMode="CanMinimize" Loaded="Window_Loaded">
+        Title="文本识别/机器翻译" Height="600" Width="800" ResizeMode="CanMinimize" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid Margin="20,10,20,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
