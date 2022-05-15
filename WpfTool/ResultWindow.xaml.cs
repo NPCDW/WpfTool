@@ -390,5 +390,9 @@ namespace WpfTool
             }
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Utils.FlushMemory();
+        }
     }
 }

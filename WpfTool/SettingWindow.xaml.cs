@@ -246,6 +246,7 @@ namespace WpfTool
         private void Window_Closed(object sender, EventArgs e)
         {
             GlobalConfig.SaveConfig();
+            Utils.FlushMemory();
         }
 
         private void TencentCloudOcr_SecretIdInput_TextChanged(object sender, TextChangedEventArgs e)
