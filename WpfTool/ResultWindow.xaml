@@ -29,7 +29,7 @@
         </ComboBox>
         <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Grid.Row="0" Grid.Column="1"  Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
         <CheckBox x:Name="defaultOcrSettingCheck" Grid.Row="0" Grid.Column="2" Margin="5" VerticalAlignment="Center" Content="设为默认" Checked="defaultOcrSettingCheck_Checked"/>
-        <Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Content="重新识别" Cursor="Hand" Click="ocrButton_Click"/>
+        <Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Content="重新识别" Cursor="Hand" Click="ocrButton_Click" Padding="5"/>
 
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
                 x:Name="ocrTextBox"
@@ -46,7 +46,7 @@
         <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5" Grid.Row="2" Grid.Column="1" SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
         <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5" Grid.Row="2" Grid.Column="2" SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
         <CheckBox x:Name="defaultTranslateSettingCheck" Margin="5" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Content="设为默认" Checked="defaultTranslateSettingCheck_Checked"/>
-        <Button x:Name="translateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right" Content="翻译" Click="translateButton_Click" Cursor="Hand"/>
+        <Button x:Name="translateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right" Content="翻译" Click="translateButton_Click" Cursor="Hand" MinWidth="60" Padding="5"/>
 
         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"
                 x:Name="translateTextBox"
