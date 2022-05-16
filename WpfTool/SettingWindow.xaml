@@ -36,7 +36,7 @@
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretID" />
-                                <TextBox x:Name="TencentCloudOcr_SecretIdInput" Width="200" TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" />
+                                <TextBox x:Name="TencentCloudOcr_SecretIdInput" Width="200" TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretKey" />
@@ -49,7 +49,7 @@
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="AppKey" />
-                                <TextBox x:Name="BaiduCloud_AppKeyInput" Width="200" TextChanged="BaiduCloud_AppKeyInput_TextChanged" />
+                                <TextBox x:Name="BaiduCloud_AppKeyInput" Width="200" TextChanged="BaiduCloud_AppKeyInput_TextChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretKey" />
@@ -76,7 +76,7 @@
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretID" />
-                                <TextBox x:Name="TencentCloudTranslate_SecretIdInput" Width="200" TextChanged="TencentCloudTranslate_SecretIdInput_TextChanged" />
+                                <TextBox x:Name="TencentCloudTranslate_SecretIdInput" Width="200" TextChanged="TencentCloudTranslate_SecretIdInput_TextChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretKey" />
@@ -89,7 +89,7 @@
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="AppID" />
-                                <TextBox x:Name="BaiduAI_AppIdInput" Width="200" TextChanged="BaiduAI_AppIdInput_TextChanged" />
+                                <TextBox x:Name="BaiduAI_AppIdInput" Width="200" TextChanged="BaiduAI_AppIdInput_TextChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretKey" />
@@ -104,24 +104,24 @@
                 <StackPanel Margin="20">
                     <WrapPanel>
                         <Label Content="文字识别" VerticalAlignment="Center" />
-                        <TextBox x:Name="OcrHotKeyTextBox" Width="200" Cursor="Arrow" CaretBrush="Transparent"
+                        <TextBox x:Name="OcrHotKeyTextBox" Width="200" Cursor="Arrow" CaretBrush="Transparent" VerticalContentAlignment="Center"
                                      KeyDown="HotKeyTextBox_KeyDown" KeyUp="OcrHotKeyTextBox_KeyUp" />
                         <Label x:Name="OcrHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                     </WrapPanel>
                     <WrapPanel Margin="0,10,0,0">
                         <Label Content="划词翻译" VerticalAlignment="Center" />
-                        <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
+                        <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent" VerticalContentAlignment="Center"
                                      KeyDown="HotKeyTextBox_KeyDown" KeyUp="GetWordsTranslateHotKeyTextBox_KeyUp" />
                         <Label x:Name="GetWordsTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                     </WrapPanel>
                     <WrapPanel Margin="0,10,0,0">
                         <Label Content="截图翻译" VerticalAlignment="Center" />
-                        <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent"
+                        <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent" VerticalContentAlignment="Center"
                                      KeyDown="HotKeyTextBox_KeyDown" KeyUp="ScreenshotTranslateHotKeyTextBox_KeyUp" />
                         <Label x:Name="ScreenshotTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                     </WrapPanel>
                     <WrapPanel Margin="0,10,0,0">
-                        <Button Content="恢复默认" Click="Button_Click" />
+                        <Button Content="恢复默认" Click="Button_Click" Padding="5" />
                     </WrapPanel>
                 </StackPanel>
             </TabItem>
