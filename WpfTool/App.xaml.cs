@@ -29,6 +29,8 @@ namespace WpfTool
             }
             base.OnStartup(e);
             new MainWindow();
+
+            Utils.FlushMemory();
         }
     }
 }
