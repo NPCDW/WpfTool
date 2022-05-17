@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTool"
         mc:Ignorable="d"
-        Title="SettingWindow" Height="440" Width="600" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="SettingWindow" Height="600" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <TabControl Width="Auto">
             <TabItem Header="常规">
@@ -25,7 +25,7 @@
                 <StackPanel Margin="20">
                     <GroupBox Header="默认文本识别">
                         <WrapPanel>
-                            <ComboBox x:Name="defaultOcrProvideComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" >
+                            <ComboBox x:Name="defaultOcrProvideComboBox" Width="140" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" >
                                 <ComboBoxItem DataContext="BaiduCloud" Content="百度云"/>
                                 <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
                             </ComboBox>
@@ -64,7 +64,7 @@
                 <StackPanel Margin="20">
                     <GroupBox Header="默认机器翻译">
                         <WrapPanel>
-                            <ComboBox x:Name="defaultTranslateProvideComboBox" Width="120" Margin="5" SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
+                            <ComboBox x:Name="defaultTranslateProvideComboBox" Width="140" Margin="5" SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
                                 <ComboBoxItem DataContext="BaiduAI" Content="百度翻译开放平台"/>
                                 <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
                             </ComboBox>
