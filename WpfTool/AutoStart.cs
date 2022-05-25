@@ -24,7 +24,7 @@ namespace WpfTool
                 {
                     return false;
                 }
-                return value.ToString().Equals(AppDomain.CurrentDomain.BaseDirectory);
+                return value.ToString().Equals(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
             }
             catch (Exception e)
             {
@@ -39,7 +39,7 @@ namespace WpfTool
             {
                 RegistryKey R_local = Registry.CurrentUser;
                 RegistryKey R_run = R_local.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                R_run.SetValue("WpfTool", AppDomain.CurrentDomain.BaseDirectory);
+                R_run.SetValue("WpfTool", System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
                 R_run.Close();
                 R_local.Close();
             }
