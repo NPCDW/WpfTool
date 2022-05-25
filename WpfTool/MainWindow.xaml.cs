@@ -45,7 +45,7 @@ namespace WpfTool
         {
             notifyIcon.BalloonTipText = "程序开始运行";
             notifyIcon.Text = "文字识别/机器翻译";
-            notifyIcon.Icon = new System.Drawing.Icon(AppDomain.CurrentDomain.BaseDirectory + "Resources\\favicon.ico");
+            notifyIcon.Icon = new System.Drawing.Icon(AppDomain.CurrentDomain.BaseDirectory + "\\Resources\\favicon.ico");
             notifyIcon.Visible = true;
             notifyIcon.ShowBalloonTip(1000);
 
