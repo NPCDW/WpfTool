@@ -108,7 +108,17 @@ namespace WpfTool
                 translateTextBox.Text = "翻译中，请稍等。。。";
                 DispatcherHelper.DoEvents();
 
-                translateTextBox.Text = TencentCloudHelper.translate(ocrTextBox.Text, sourceLanguage, targetLanguage);
+                String ocrText = ocrTextBox.Text;
+                Task.Factory.StartNew(() =>
+                {
+                    return TencentCloudHelper.translate(ocrText, sourceLanguage, targetLanguage);
+                }).ContinueWith(result =>
+                {
+                    translateTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        translateTextBox.Text = result.Result;
+                    }));
+                });
             }
             else if (translateProvide == GlobalConfig.TranslateProvideEnum.BaiduAI)
             {
@@ -120,7 +130,17 @@ namespace WpfTool
                 translateTextBox.Text = "翻译中，请稍等。。。";
                 DispatcherHelper.DoEvents();
 
-                translateTextBox.Text = BaiduAIHelper.translate(ocrTextBox.Text, sourceLanguage, targetLanguage);
+                String ocrText = ocrTextBox.Text;
+                Task.Factory.StartNew(() =>
+                {
+                    return BaiduAIHelper.translate(ocrText, sourceLanguage, targetLanguage);
+                }).ContinueWith(result =>
+                {
+                    translateTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        translateTextBox.Text = result.Result;
+                    }));
+                });
             }
         }
 
@@ -150,7 +170,16 @@ namespace WpfTool
                 ocrTextBox.Text = "识别中，请稍等。。。";
                 DispatcherHelper.DoEvents();
 
-                ocrTextBox.Text = TencentCloudHelper.ocr(bmp, ocrType);
+                Task.Factory.StartNew(() =>
+                {
+                    return TencentCloudHelper.ocr(bmp, ocrType);
+                }).ContinueWith(result =>
+                {
+                    ocrTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        ocrTextBox.Text = result.Result;
+                    }));
+                });
             }
             else if (ocrProvide == GlobalConfig.OcrProvideEnum.BaiduCloud)
             {
@@ -162,7 +191,16 @@ namespace WpfTool
                 ocrTextBox.Text = "识别中，请稍等。。。";
                 DispatcherHelper.DoEvents();
 
-                ocrTextBox.Text = BaiduCloudHelper.ocr(bmp, ocrType);
+                Task.Factory.StartNew(() =>
+                {
+                    return BaiduCloudHelper.ocr(bmp, ocrType);
+                }).ContinueWith(result =>
+                {
+                    ocrTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        ocrTextBox.Text = result.Result;
+                    }));
+                });
             }
         }
 
@@ -180,9 +218,21 @@ namespace WpfTool
                 translateTextBox.Text = "翻译中，请稍等。。。";
                 DispatcherHelper.DoEvents();
 
-                Dictionary<String, String> keyValues = TencentCloudHelper.screenshotTranslate(bmp);
-                ocrTextBox.Text = keyValues["ocrText"];
-                translateTextBox.Text = keyValues["translateText"];
+                Task.Factory.StartNew(() =>
+                {
+                    return TencentCloudHelper.screenshotTranslate(bmp);
+                }).ContinueWith(result =>
+                {
+                    Dictionary<String, String> keyValues = result.Result;
+                    ocrTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        ocrTextBox.Text = keyValues["ocrText"];
+                    }));
+                    translateTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        translateTextBox.Text = keyValues["translateText"];
+                    }));
+                });
             }
             else if (GlobalConfig.Common.defaultTranslateProvide == GlobalConfig.TranslateProvideEnum.BaiduAI)
             {
@@ -195,9 +245,21 @@ namespace WpfTool
                 translateTextBox.Text = "翻译中，请稍等。。。";
                 DispatcherHelper.DoEvents();
 
-                Dictionary<String, String> keyValues = BaiduAIHelper.screenshotTranslate(bmp);
-                ocrTextBox.Text = keyValues["ocrText"];
-                translateTextBox.Text = keyValues["translateText"];
+                Task.Factory.StartNew(() =>
+                {
+                    return BaiduAIHelper.screenshotTranslate(bmp);
+                }).ContinueWith(result =>
+                {
+                    Dictionary<String, String> keyValues = result.Result;
+                    ocrTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        ocrTextBox.Text = keyValues["ocrText"];
+                    }));
+                    translateTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        translateTextBox.Text = keyValues["translateText"];
+                    }));
+                });
             }
         }
 
