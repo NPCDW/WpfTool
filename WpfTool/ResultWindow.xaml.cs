@@ -169,7 +169,7 @@ namespace WpfTool
         public void screenshotTranslate(Bitmap bmp)
         {
             this.bmp = bmp;
-            if (GlobalConfig.Common.defaultTranslateProvide == GlobalConfig.TranslateProvideEnum.BaiduAI)
+            if (GlobalConfig.Common.defaultTranslateProvide == GlobalConfig.TranslateProvideEnum.TencentCloud)
             {
                 if (string.IsNullOrEmpty(GlobalConfig.TencentCloudTranslate.secret_id) || string.IsNullOrEmpty(GlobalConfig.TencentCloudTranslate.secret_key))
                 {
@@ -184,7 +184,7 @@ namespace WpfTool
                 ocrTextBox.Text = keyValues["ocrText"];
                 translateTextBox.Text = keyValues["translateText"];
             }
-            else if (GlobalConfig.Common.defaultTranslateProvide == GlobalConfig.TranslateProvideEnum.TencentCloud)
+            else if (GlobalConfig.Common.defaultTranslateProvide == GlobalConfig.TranslateProvideEnum.BaiduAI)
             {
                 if (string.IsNullOrEmpty(GlobalConfig.BaiduAI.app_id) || string.IsNullOrEmpty(GlobalConfig.BaiduAI.app_secret))
                 {
