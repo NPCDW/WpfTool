@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTool"
         mc:Ignorable="d"
-        Title="SettingWindow" Height="600" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="设置" Height="600" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <TabControl Width="Auto">
             <TabItem Header="常规">
@@ -129,15 +129,15 @@
                 <StackPanel Margin="20">
                     <WrapPanel>
                         <Label Content="版本" />
-                        <Label Content="1.3.0.0 (2022.05.26)" />
+                        <Label Content="1.3.0.0 (2022.05.26)" DataContext="https://github.com/NPCDW/WpfTool/releases" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
                         <Label Content="开源许可" />
-                        <Label Content="MIT License" />
+                        <Label Content="MIT License" DataContext="https://en.wikipedia.org/wiki/MIT_License" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
                         <Label Content="版权所有" />
-                        <Label Content="© 2022 NPCDW" />
+                        <Label Content="© 2022 NPCDW" DataContext="https://github.com/NPCDW" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
                         <Label Content="源码" />
