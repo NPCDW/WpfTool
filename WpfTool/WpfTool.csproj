@@ -115,6 +115,7 @@
     <Compile Include="ResultWindow.xaml.cs">
       <DependentUpon>ResultWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TopMost.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NativeClipboard.cs" />

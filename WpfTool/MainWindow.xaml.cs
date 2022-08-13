@@ -29,7 +29,7 @@ namespace WpfTool
             InitHwnd();
             InitialTray();
 
-            if (GlobalConfig.HotKeys.Ocr.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict || GlobalConfig.HotKeys.ScreenshotTranslate.Conflict)
+            if (GlobalConfig.HotKeys.Ocr.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict || GlobalConfig.HotKeys.ScreenshotTranslate.Conflict || GlobalConfig.HotKeys.TopMost.Conflict)
             {
                 MessageBox.Show("全局快捷键有冲突，请您到设置中重新设置");
             }
@@ -57,6 +57,9 @@ namespace WpfTool
 
             System.Windows.Forms.MenuItem ocrButton = new System.Windows.Forms.MenuItem("文字识别");
             ocrButton.Click += new EventHandler(OcrButton_Click);
+
+            System.Windows.Forms.MenuItem topMostButton = new System.Windows.Forms.MenuItem("置顶/取消置顶");
+            topMostButton.Click += new EventHandler(TopMost_Click);
 
             System.Windows.Forms.MenuItem settingButton = new System.Windows.Forms.MenuItem("设置");
             settingButton.Click += new EventHandler(Setting_Click);
@@ -109,6 +112,16 @@ namespace WpfTool
             ScreenshotWindow window = new ScreenshotWindow(ScreenshotGoalEnum.translate);
             window.Show();
             window.Activate();
+        }
+
+        /// <summary>
+        /// 置顶/取消置顶
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TopMost_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("请将鼠标移动到您想要置顶的窗口的标题栏（窗口最上方），按F6或您自己设置的快捷键，即可置顶或取消置顶");
         }
 
         /// <summary>
@@ -180,6 +193,10 @@ namespace WpfTool
                     else if (wParam.ToString().Equals(HotKeysUtil.ScreenshotTranslateId + ""))
                     {
                         this.ScreenshotTranslation_Click(null, null);
+                    }
+                    else if (wParam.ToString().Equals(HotKeysUtil.TopMostId + ""))
+                    {
+                        TopMost.exec();
                     }
                     break;
             }

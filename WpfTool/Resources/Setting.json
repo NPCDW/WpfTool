@@ -40,6 +40,11 @@
       "Modifiers": 2,
       "Key": 113,
       "Text": "Ctrl+F2"
+    },
+    "TopMost": {
+      "Modifiers": 0,
+      "Key": 117,
+      "Text": "F6"
     }
   }
 }

@@ -182,6 +182,34 @@ namespace WpfTool
         }
 
         /// <summary>
+        /// 获取窗口标题
+        /// </summary>
+        /// <returns></returns>
+        [DllImport("user32", SetLastError = true)]
+        public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        /// <summary>
+        /// 获取类的名字
+        /// </summary>
+        /// <returns></returns>
+        [DllImport("user32.dll")]
+        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        /// <summary>
+        /// 根据坐标获取窗口句柄
+        /// </summary>
+        /// <returns></returns>
+        [DllImport("user32")]
+        public static extern IntPtr WindowFromPoint(System.Drawing.Point Point);
+
+        /// <summary>
+        /// 窗口置顶与取消置顶
+        /// </summary>
+        /// <returns></returns>
+        [DllImport("user32.dll")]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hPos, int x, int y, int cx, int cy, uint nflags);
+
+        /// <summary>
         /// 定义了辅助键的名称（将数字转变为字符以便于记忆，也可去除此枚举而直接使用数值）
         /// </summary>
         [Flags()]
