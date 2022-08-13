@@ -86,6 +86,13 @@ namespace WpfTool
                 public static String Text = "Ctrl+F2";
                 public static bool Conflict = false;
             }
+            public static class TopMost
+            {
+                public static byte Modifiers = 0;
+                public static int Key = 117;
+                public static String Text = "F6";
+                public static bool Conflict = false;
+            }
         }
 
         public enum OcrProvideEnum
@@ -142,12 +149,16 @@ namespace WpfTool
                 HotKeys.ScreenshotTranslate.Modifiers = byte.Parse(jsonObj["HotKeys"]["ScreenshotTranslate"]["Modifiers"].ToString());
                 HotKeys.ScreenshotTranslate.Key = int.Parse(jsonObj["HotKeys"]["ScreenshotTranslate"]["Key"].ToString());
                 HotKeys.ScreenshotTranslate.Text = jsonObj["HotKeys"]["ScreenshotTranslate"]["Text"].ToString();
+                HotKeys.TopMost.Modifiers = byte.Parse(jsonObj["HotKeys"]["TopMost"]["Modifiers"].ToString());
+                HotKeys.TopMost.Key = int.Parse(jsonObj["HotKeys"]["TopMost"]["Key"].ToString());
+                HotKeys.TopMost.Text = jsonObj["HotKeys"]["TopMost"]["Text"].ToString();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
+
         public static void SaveConfig()
         {
             JObject jsonObj = new JObject();
@@ -191,6 +202,10 @@ namespace WpfTool
             jsonObj["HotKeys"]["ScreenshotTranslate"]["Modifiers"] = HotKeys.ScreenshotTranslate.Modifiers;
             jsonObj["HotKeys"]["ScreenshotTranslate"]["Key"] = HotKeys.ScreenshotTranslate.Key;
             jsonObj["HotKeys"]["ScreenshotTranslate"]["Text"] = HotKeys.ScreenshotTranslate.Text;
+            jsonObj["HotKeys"]["TopMost"] = new JObject();
+            jsonObj["HotKeys"]["TopMost"]["Modifiers"] = HotKeys.TopMost.Modifiers;
+            jsonObj["HotKeys"]["TopMost"]["Key"] = HotKeys.TopMost.Key;
+            jsonObj["HotKeys"]["TopMost"]["Text"] = HotKeys.TopMost.Text;
 
             String jsonStr = jsonObj.ToString();
             using (StreamWriter sw = new StreamWriter(configPath))
