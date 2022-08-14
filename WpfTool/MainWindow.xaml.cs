@@ -67,7 +67,7 @@ namespace WpfTool
             System.Windows.Forms.MenuItem exitButton = new System.Windows.Forms.MenuItem("退出");
             exitButton.Click += new EventHandler(Exit_Click);
 
-            System.Windows.Forms.MenuItem[] childen = new System.Windows.Forms.MenuItem[] { getWordsTranslationButton, screenshotTranslationButton, ocrButton, settingButton, exitButton };
+            System.Windows.Forms.MenuItem[] childen = new System.Windows.Forms.MenuItem[] { getWordsTranslationButton, screenshotTranslationButton, ocrButton, topMostButton, settingButton, exitButton };
             notifyIcon.ContextMenu = new System.Windows.Forms.ContextMenu(childen);
         }
 
