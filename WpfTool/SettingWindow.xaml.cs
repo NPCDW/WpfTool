@@ -336,12 +336,12 @@ namespace WpfTool
         int hotkeysKey;
         string hotkeysText = "";
 
-        private void HotKeyTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void HotKeyTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            e.Handled = true;
             hotkeysModifiers = 0;
             hotkeysKey = 0;
             hotkeysText = "";
-            e.Handled = true;
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (key == Key.LeftShift || key == Key.RightShift
                 || key == Key.LeftCtrl || key == Key.RightCtrl
