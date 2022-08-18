@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTool"
         mc:Ignorable="d"
-        Title="设置" Height="600" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="设置" Height="600" Width="485" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <TabControl Width="Auto">
             <TabItem Header="常规">
