@@ -61,13 +61,24 @@ namespace WpfTool
             System.Windows.Forms.MenuItem topMostButton = new System.Windows.Forms.MenuItem("置顶/取消置顶");
             topMostButton.Click += new EventHandler(TopMost_Click);
 
+            System.Windows.Forms.MenuItem wordFileExtractButton = new System.Windows.Forms.MenuItem("Word图片附件提取");
+            wordFileExtractButton.Click += new EventHandler(WordFileExtract_Click);
+
             System.Windows.Forms.MenuItem settingButton = new System.Windows.Forms.MenuItem("设置");
             settingButton.Click += new EventHandler(Setting_Click);
 
             System.Windows.Forms.MenuItem exitButton = new System.Windows.Forms.MenuItem("退出");
             exitButton.Click += new EventHandler(Exit_Click);
 
-            System.Windows.Forms.MenuItem[] childen = new System.Windows.Forms.MenuItem[] { getWordsTranslationButton, screenshotTranslationButton, ocrButton, topMostButton, settingButton, exitButton };
+            System.Windows.Forms.MenuItem[] childen = new System.Windows.Forms.MenuItem[] {
+                getWordsTranslationButton,
+                screenshotTranslationButton,
+                ocrButton,
+                topMostButton,
+                wordFileExtractButton,
+                settingButton,
+                exitButton
+            };
             notifyIcon.ContextMenu = new System.Windows.Forms.ContextMenu(childen);
         }
 
@@ -102,16 +113,44 @@ namespace WpfTool
 
         private void OcrButton_Click(object sender, EventArgs e)
         {
-            ScreenshotWindow window = new ScreenshotWindow(ScreenshotGoalEnum.ocr);
-            window.Show();
-            window.Activate();
+            ScreenshotWindow window = null;
+            foreach (Window item in Application.Current.Windows)
+            {
+                if (item is ScreenshotWindow)
+                {
+                    window = (ScreenshotWindow)item;
+                    window.WindowState = WindowState.Normal;
+                    window.Activate();
+                    break;
+                }
+            }
+            if (window == null)
+            {
+                window = new ScreenshotWindow(ScreenshotGoalEnum.ocr);
+                window.Show();
+                window.Activate();
+            }
         }
 
         private void ScreenshotTranslation_Click(object sender, EventArgs e)
         {
-            ScreenshotWindow window = new ScreenshotWindow(ScreenshotGoalEnum.translate);
-            window.Show();
-            window.Activate();
+            ScreenshotWindow window = null;
+            foreach (Window item in Application.Current.Windows)
+            {
+                if (item is ScreenshotWindow)
+                {
+                    window = (ScreenshotWindow)item;
+                    window.WindowState = WindowState.Normal;
+                    window.Activate();
+                    break;
+                }
+            }
+            if (window == null)
+            {
+                window = new ScreenshotWindow(ScreenshotGoalEnum.translate);
+                window.Show();
+                window.Activate();
+            }
         }
 
         /// <summary>
@@ -121,7 +160,33 @@ namespace WpfTool
         /// <param name="e"></param>
         private void TopMost_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("请将鼠标移动到您想要置顶的窗口的标题栏（窗口最上方），按F6或您自己设置的快捷键，即可置顶或取消置顶");
+            MessageBox.Show("请将鼠标移动到您想要置顶的窗口的标题栏（窗口最上方），按F6或您自己设置的快捷键，即可置顶或取消置顶，只支持Win32应用，不支持UWP应用");
+        }
+
+        /// <summary>
+        /// Word图片附件提取
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WordFileExtract_Click(object sender, EventArgs e)
+        {
+            WordFileExtractWindow window = null;
+            foreach (Window item in Application.Current.Windows)
+            {
+                if (item is WordFileExtractWindow)
+                {
+                    window = (WordFileExtractWindow)item;
+                    window.WindowState = WindowState.Normal;
+                    window.Activate();
+                    break;
+                }
+            }
+            if (window == null)
+            {
+                window = new WordFileExtractWindow();
+                window.Show();
+                window.Activate();
+            }
         }
 
         /// <summary>
