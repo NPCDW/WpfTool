@@ -33,8 +33,8 @@ namespace WpfTool
             this.goal = goal;
 
             System.Windows.Forms.Screen pScreen = System.Windows.Forms.Screen.PrimaryScreen;
-
-            System.Drawing.Rectangle rc = System.Windows.Forms.SystemInformation.VirtualScreen;
+            // 多屏幕截屏尚未实现，需考虑的问题：如何截取鼠标所在屏？多块屏幕分辨率不一致，如何获取每块屏幕的分辨率？以及如何将截屏窗口展示到鼠标所在屏幕？
+            // System.Drawing.Rectangle rc = System.Windows.Forms.SystemInformation.VirtualScreen;
             bitmap = new Bitmap(pScreen.Bounds.Width, pScreen.Bounds.Height);
             using (Graphics g = Graphics.FromImage(bitmap))
             {

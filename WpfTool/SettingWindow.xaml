@@ -135,7 +135,7 @@
                 <StackPanel Margin="20">
                     <WrapPanel>
                         <Label Content="版本" />
-                        <Label Content="1.6.0.0 (2022.08.26)" DataContext="https://github.com/NPCDW/WpfTool/releases" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+                        <Label Content="1.6.1.0 (2022.08.26)" DataContext="https://github.com/NPCDW/WpfTool/releases" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
                         <Label Content="开源许可" />
