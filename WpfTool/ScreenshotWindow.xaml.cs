@@ -32,11 +32,13 @@ namespace WpfTool
 
             this.goal = goal;
 
+            System.Windows.Forms.Screen pScreen = System.Windows.Forms.Screen.PrimaryScreen;
+
             System.Drawing.Rectangle rc = System.Windows.Forms.SystemInformation.VirtualScreen;
-            bitmap = new Bitmap(rc.Width, rc.Height);
+            bitmap = new Bitmap(pScreen.Bounds.Width, pScreen.Bounds.Height);
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                g.CopyFromScreen(rc.X, rc.Y, 0, 0, rc.Size, CopyPixelOperation.SourceCopy);
+                g.CopyFromScreen(pScreen.Bounds.X, pScreen.Bounds.Y, pScreen.Bounds.X, pScreen.Bounds.Y, pScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
             }
             this.Background = Utils.BitmapToImageBrush(bitmap);
             LeftMask.Width = bitmap.Width;
