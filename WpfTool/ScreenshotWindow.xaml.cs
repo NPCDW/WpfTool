@@ -28,19 +28,39 @@ namespace WpfTool
 
         public ScreenshotWindow(ScreenshotGoalEnum goal)
         {
-            InitializeComponent();
-
             this.goal = goal;
 
-            System.Windows.Forms.Screen pScreen = System.Windows.Forms.Screen.PrimaryScreen;
-            // 多屏幕截屏尚未实现，需考虑的问题：如何截取鼠标所在屏？多块屏幕分辨率不一致，如何获取每块屏幕的分辨率？以及如何将截屏窗口展示到鼠标所在屏幕？
-            // System.Drawing.Rectangle rc = System.Windows.Forms.SystemInformation.VirtualScreen;
-            bitmap = new Bitmap(pScreen.Bounds.Width, pScreen.Bounds.Height);
+            // 获取鼠标所在屏幕
+            System.Drawing.Point ms = System.Windows.Forms.Control.MousePosition;
+            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
+            foreach (System.Windows.Forms.Screen item in System.Windows.Forms.Screen.AllScreens)
+            {
+                if (item.Bounds.X < ms.X && ms.X < item.Bounds.X + item.Bounds.Width && item.Bounds.Y < ms.Y && ms.Y < item.Bounds.Y + item.Bounds.Height)
+                {
+                    screen = item;
+                    break;
+                }
+            }
+
+            InitializeComponent();
+
+            // 设置窗体位置、大小
+            this.Top = screen.Bounds.X;
+            this.Left = screen.Bounds.Y;
+            this.Width = screen.Bounds.Width;
+            this.Height = screen.Bounds.Height;
+
+            // 设置窗体背景
+            bitmap = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                g.CopyFromScreen(pScreen.Bounds.X, pScreen.Bounds.Y, pScreen.Bounds.X, pScreen.Bounds.Y, pScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+                g.CopyFromScreen(screen.Bounds.X, screen.Bounds.Y, 0, 0, screen.Bounds.Size, CopyPixelOperation.SourceCopy);
             }
             this.Background = Utils.BitmapToImageBrush(bitmap);
+
+            // 设置遮罩
+            Canvas.SetLeft(this, screen.Bounds.X);
+            Canvas.SetTop(this, screen.Bounds.Y);
             LeftMask.Width = bitmap.Width;
             LeftMask.Height = bitmap.Height;
         }

@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:WpfTool"
         mc:Ignorable="d"
         Title="ScreenshotWindow" Height="1" Width="1" ShowInTaskbar="False" 
-        WindowState="Maximized" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+        ScrollViewer.VerticalScrollBarVisibility="Disabled" 
         Topmost="True" Cursor="Cross" KeyDown="Window_KeyDown" Background="Transparent" 
         WindowStyle="None" ResizeMode="NoResize" IsTabStop="False" 
         MouseRightButtonDown="Window_MouseRightButtonDown" MouseMove="Window_MouseMove" 
         MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseLeftButtonUp="Window_MouseLeftButtonUp" Closed="Window_Closed">
-    <Canvas>
-        <Rectangle x:Name="LeftMask" Fill="#FF000000" Opacity="0.6" Canvas.Left="0" />
+    <Canvas x:Name="ScreenCanvas">
+        <Rectangle x:Name="LeftMask" Fill="#FF000000" Opacity="0.6" />
         <Rectangle x:Name="RightMask" Fill="#FF000000" Opacity="0.6" />
         <Rectangle x:Name="UpMask" Fill="#FF000000" Opacity="0.6" />
         <Rectangle x:Name="DownMask" Fill="#FF000000" Opacity="0.6" />
