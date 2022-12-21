@@ -32,37 +32,45 @@ namespace WpfTool
 
             // 获取鼠标所在屏幕
             System.Drawing.Point ms = System.Windows.Forms.Control.MousePosition;
-            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
-            foreach (System.Windows.Forms.Screen item in System.Windows.Forms.Screen.AllScreens)
+            Rect bounds = new Rect();
+            foreach (WpfScreenHelper.Screen item in WpfScreenHelper.Screen.AllScreens)
             {
-                if (item.Bounds.X < ms.X && ms.X < item.Bounds.X + item.Bounds.Width && item.Bounds.Y < ms.Y && ms.Y < item.Bounds.Y + item.Bounds.Height)
+                bounds = item.WpfBounds;
+                if (bounds.X < ms.X && ms.X < bounds.X + bounds.Width && bounds.Y < ms.Y && ms.Y < bounds.Y + bounds.Height)
                 {
-                    screen = item;
                     break;
                 }
             }
 
             InitializeComponent();
 
+            // 测试
+            foreach (var item in WpfScreenHelper.Screen.AllScreens)
+            {
+                Console.WriteLine(item.WpfBounds);
+                Console.WriteLine(item.Bounds);
+                Console.WriteLine(item.ScaleFactor);
+            }
+
             // 设置窗体位置、大小
-            this.Top = screen.Bounds.X;
-            this.Left = screen.Bounds.Y;
-            this.Width = screen.Bounds.Width;
-            this.Height = screen.Bounds.Height;
+            this.Top = bounds.X;
+            this.Left = bounds.Y;
+            this.Width = bounds.Width;
+            this.Height = bounds.Height;
 
             // 设置窗体背景
-            bitmap = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
+            bitmap = new Bitmap((int)bounds.Width, (int)bounds.Height);
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                g.CopyFromScreen(screen.Bounds.X, screen.Bounds.Y, 0, 0, screen.Bounds.Size, CopyPixelOperation.SourceCopy);
+                g.CopyFromScreen((int)bounds.X, (int)bounds.Y, 0, 0, new System.Drawing.Size((int)bounds.Width, (int)bounds.Height), CopyPixelOperation.SourceCopy);
             }
             this.Background = Utils.BitmapToImageBrush(bitmap);
 
             // 设置遮罩
-            Canvas.SetLeft(this, screen.Bounds.X);
-            Canvas.SetTop(this, screen.Bounds.Y);
-            LeftMask.Width = bitmap.Width;
-            LeftMask.Height = bitmap.Height;
+            Canvas.SetLeft(this, bounds.X);
+            Canvas.SetTop(this, bounds.Y);
+            LeftMask.Width = bounds.Width;
+            LeftMask.Height = bounds.Height;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

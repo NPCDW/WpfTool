@@ -23,7 +23,6 @@ namespace WpfTool
             NativeMethod.GetWindowText(formHandle, title, title.Capacity);//得到窗口的标题
             StringBuilder className = new StringBuilder(256);
             NativeMethod.GetClassName(formHandle, className, className.Capacity);//得到窗口的类名
-            Console.WriteLine("窗口句柄:" + formHandle.ToString() + Environment.NewLine + "窗口标题:" + title + Environment.NewLine + "类名:" + className);
             if (topMostDict.ContainsKey(formHandle) && topMostDict[formHandle])
             {
                 topMostDict[formHandle] = false;
