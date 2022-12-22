@@ -43,6 +43,16 @@ namespace WpfTool
         public static extern void keybd_event(System.Windows.Forms.Keys vk, byte bScan, uint dwFlags, uint dwExtraInfo);
 
         /// <summary>
+        /// 模拟触发键盘的按键
+        /// </summary>
+        /// <param name="vk">按下的键</param>
+        /// <param name="bScan"></param>
+        /// <param name="dwFlags">触发的方式，0按下，2抬起</param>
+        /// <param name="dwExtraInfo"></param>
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(int vk, byte bScan, uint dwFlags, uint dwExtraInfo);
+
+        /// <summary>
         /// 注册全局热键
         /// </summary>
         /// <param name="hWnd">要定义热键的窗口的句柄</param>
@@ -167,12 +177,11 @@ namespace WpfTool
         /// <returns></returns>
         public static double GetDpi()
         {
-            double dDpi = 1;
             IntPtr desktopDc = GetDC(IntPtr.Zero);
             float horizontalDPI = GetDeviceCaps(desktopDc, LOGPIXELSX);
             float verticalDPI = GetDeviceCaps(desktopDc, LOGPIXELSY);
             int dpi = (int)(horizontalDPI + verticalDPI) / 2;
-            dDpi = 1 + ((dpi - 96) / 24) * 0.25;
+            double dDpi = 1 + ((dpi - 96) / 24) * 0.25;
             if (dDpi < 1)
             {
                 dDpi = 1;

@@ -203,11 +203,11 @@ namespace WpfTool
                     if (!string.IsNullOrWhiteSpace(item.getTencentCloudCode()))
                     {
                         ComboBoxItem comboBoxItem = new ComboBoxItem();
-                        comboBoxItem.DataContext = item.getBaiduAiCode();
+                        comboBoxItem.DataContext = item.getTencentCloudCode();
                         comboBoxItem.Content = item.getName();
                         sourceLanguageComboBox.Items.Add(comboBoxItem);
                         ComboBoxItem comboBoxItem2 = new ComboBoxItem();
-                        comboBoxItem2.DataContext = item.getBaiduAiCode();
+                        comboBoxItem2.DataContext = item.getTencentCloudCode();
                         comboBoxItem2.Content = item.getName();
                         targetLanguageComboBox.Items.Add(comboBoxItem2);
                     }

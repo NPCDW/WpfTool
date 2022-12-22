@@ -246,7 +246,6 @@ namespace WpfTool
             switch (msg)
             {
                 case 0x0312: //这个是window消息定义的 注册的热键消息
-                    Console.WriteLine(wParam.ToString());
                     if (wParam.ToString().Equals(HotKeysUtil.GetWordsTranslateId + ""))
                     {
                         this.Translate_Click(null, null);

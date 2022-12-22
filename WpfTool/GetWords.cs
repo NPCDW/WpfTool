@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace WpfTool
 {
@@ -24,31 +25,18 @@ namespace WpfTool
             //IntPtr hWnd = GetForegroundWindow();
             //SetForegroundWindow(hWnd);
             uint KEYEVENTF_KEYUP = 2;
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, KEYEVENTF_KEYUP, 0);
+            NativeMethod.keybd_event(KeyInterop.VirtualKeyFromKey(Key.LeftAlt), 0, KEYEVENTF_KEYUP, 0);
+            NativeMethod.keybd_event(KeyInterop.VirtualKeyFromKey(Key.RightAlt), 0, KEYEVENTF_KEYUP, 0);
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.LWin, 0, KEYEVENTF_KEYUP, 0);
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.RWin, 0, KEYEVENTF_KEYUP, 0);
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.ShiftKey, 0, KEYEVENTF_KEYUP, 0);
+
             NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, 0, 0);
             NativeMethod.keybd_event(System.Windows.Forms.Keys.C, 0, 0, 0);
+
             NativeMethod.keybd_event(System.Windows.Forms.Keys.C, 0, KEYEVENTF_KEYUP, 0);
             NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, KEYEVENTF_KEYUP, 0);// 'Left Control Up
-        }
-
-        private static String GetDataFromClipboard()
-        {
-            try
-            {
-                if (Clipboard.ContainsText()) //检查是否存在文本
-                {
-                    string res = Clipboard.GetText();
-                    if (!string.IsNullOrWhiteSpace(res))
-                    {
-                        return res;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return null;
-            }
-            return null;
         }
 
     }
