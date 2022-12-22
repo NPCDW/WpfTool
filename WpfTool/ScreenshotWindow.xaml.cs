@@ -25,7 +25,7 @@ namespace WpfTool
         private new bool MouseDown = false;         //鼠标是否被按下
         private Bitmap bitmap;  // 截屏图片
         private ScreenshotGoalEnum goal;
-        private double DpiScale = 1;
+        private double dpiScale = 1;
 
         public ScreenshotWindow(ScreenshotGoalEnum goal)
         {
@@ -39,20 +39,12 @@ namespace WpfTool
                 bounds = screen.WpfBounds;
                 if (bounds.X < ms.X && ms.X < bounds.X + bounds.Width && bounds.Y < ms.Y && ms.Y < bounds.Y + bounds.Height)
                 {
-                    DpiScale = screen.ScaleFactor;
+                    dpiScale = screen.ScaleFactor;
                     break;
                 }
             }
 
             InitializeComponent();
-
-            // 测试
-            foreach (var item in WpfScreenHelper.Screen.AllScreens)
-            {
-                Console.WriteLine(item.WpfBounds);
-                Console.WriteLine(item.Bounds);
-                Console.WriteLine(item.ScaleFactor);
-            }
 
             // 设置窗体位置、大小（实际宽高，单位unit）
             this.Top = bounds.X;
@@ -60,22 +52,23 @@ namespace WpfTool
             this.Width = bounds.Width;
             this.Height = bounds.Height;
 
-            // 设置窗体背景（像素宽高，单位px）
-            int width = (int)(bounds.Width * DpiScale);
-            int height = (int)(bounds.Height * DpiScale);
-            bitmap = new Bitmap(width, height);
-            using (Graphics g = Graphics.FromImage(bitmap))
-            {
-                g.CopyFromScreen((int)bounds.X, (int)bounds.Y, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
-            }
-            bitmap.Save("E:/Temp/1.png");
-            this.Background = Utils.BitmapToImageBrush(bitmap);
-
             // 设置遮罩
             Canvas.SetLeft(this, bounds.X);
             Canvas.SetTop(this, bounds.Y);
             LeftMask.Width = bounds.Width;
             LeftMask.Height = bounds.Height;
+
+            // 设置窗体背景（像素宽高，单位px）
+            int x = (int)(bounds.X * dpiScale);
+            int y = (int)(bounds.Y * dpiScale);
+            int width = (int)(bounds.Width * dpiScale);
+            int height = (int)(bounds.Height * dpiScale);
+            bitmap = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                g.CopyFromScreen(x, y, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
+            }
+            this.Background = Utils.BitmapToImageBrush(bitmap);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -130,8 +123,10 @@ namespace WpfTool
         {
             MouseDown = false;
 
-            int width = (int)(Rectangle.Width * DpiScale);
-            int height = (int)(Rectangle.Height * DpiScale);
+            int x = (int)(Rectangle.X * dpiScale);
+            int y = (int)(Rectangle.Y * dpiScale);
+            int width = (int)(Rectangle.Width * dpiScale);
+            int height = (int)(Rectangle.Height * dpiScale);
             if (width <= 0 || height <= 0)
             {
                 return;
@@ -140,7 +135,7 @@ namespace WpfTool
             Graphics g = Graphics.FromImage(bmpOut);
             g.DrawImage(bitmap,
                 new System.Drawing.Rectangle(0, 0, width, height),
-                new System.Drawing.Rectangle((int)(Rectangle.X * DpiScale), (int)(Rectangle.Y * DpiScale), width, height),
+                new System.Drawing.Rectangle(x, y, width, height),
                 GraphicsUnit.Pixel);
 
             this.Close();
