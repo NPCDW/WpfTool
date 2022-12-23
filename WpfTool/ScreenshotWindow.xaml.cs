@@ -43,7 +43,7 @@ namespace WpfTool
                 y = (int)(bounds.Y * dpiScale);
                 width = (int)(bounds.Width * dpiScale);
                 height = (int)(bounds.Height * dpiScale);
-                if (x < ms.X && ms.X < x + width && y < ms.Y && ms.Y < y + height)
+                if (x <= ms.X && ms.X < x + width && y <= ms.Y && ms.Y < y + height)
                 {
                     break;
                 }
