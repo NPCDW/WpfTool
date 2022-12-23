@@ -34,12 +34,17 @@ namespace WpfTool
             // 获取鼠标所在屏幕
             System.Drawing.Point ms = System.Windows.Forms.Control.MousePosition;
             Rect bounds = new Rect();
+            int x = 0, y = 0, width = 0, height = 0;
             foreach (WpfScreenHelper.Screen screen in WpfScreenHelper.Screen.AllScreens)
             {
                 bounds = screen.WpfBounds;
-                if (bounds.X < ms.X && ms.X < bounds.X + bounds.Width && bounds.Y < ms.Y && ms.Y < bounds.Y + bounds.Height)
+                dpiScale = screen.ScaleFactor;
+                x = (int)(bounds.X * dpiScale);
+                y = (int)(bounds.Y * dpiScale);
+                width = (int)(bounds.Width * dpiScale);
+                height = (int)(bounds.Height * dpiScale);
+                if (x < ms.X && ms.X < x + width && y < ms.Y && ms.Y < y + height)
                 {
-                    dpiScale = screen.ScaleFactor;
                     break;
                 }
             }
@@ -59,10 +64,6 @@ namespace WpfTool
             LeftMask.Height = bounds.Height;
 
             // 设置窗体背景（像素宽高，单位px）
-            int x = (int)(bounds.X * dpiScale);
-            int y = (int)(bounds.Y * dpiScale);
-            int width = (int)(bounds.Width * dpiScale);
-            int height = (int)(bounds.Height * dpiScale);
             bitmap = new Bitmap(width, height);
             using (Graphics g = Graphics.FromImage(bitmap))
             {
