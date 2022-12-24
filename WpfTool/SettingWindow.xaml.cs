@@ -35,6 +35,15 @@ namespace WpfTool
             this.autoStartButton.IsChecked = GlobalConfig.Common.autoStart;
             this.WordSelectionIntervalSlider.Value = GlobalConfig.Common.wordSelectionInterval;
 
+            if (GlobalConfig.USER_DIR_CONFIG_PATH.Equals(GlobalConfig.Common.configPath))
+            {
+                this.UserConfigRadioButton.IsChecked = true;
+            }
+            else
+            {
+                this.AppConfigRadioButton.IsChecked = true;
+            }
+
             foreach (ComboBoxItem item in this.defaultOcrProvideComboBox.Items)
             {
                 if (item.DataContext.Equals(GlobalConfig.Common.defaultOcrProvide.ToString()))
@@ -486,5 +495,26 @@ namespace WpfTool
             this.TopMostHotKeyConflictLabel.Visibility = GlobalConfig.HotKeys.TopMost.Conflict ? Visibility.Visible : Visibility.Hidden;
         }
 
+        private void ConfigButton_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(GlobalConfig.Common.configPath);
+            System.Diagnostics.Process.Start("Explorer.exe", "/select," + GlobalConfig.Common.configPath);
+        }
+
+        private void UserConfigRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.Common.configPath = GlobalConfig.USER_DIR_CONFIG_PATH;
+            }
+        }
+
+        private void AppConfigRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.Common.configPath = GlobalConfig.APP_DIR_CONFIG_PATH;
+            }
+        }
     }
 }

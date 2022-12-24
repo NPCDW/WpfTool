@@ -12,7 +12,11 @@ namespace WpfTool
 {
     public static class GlobalConfig
     {
-        private static String configPath = AppDomain.CurrentDomain.BaseDirectory + "\\Resources\\Setting.json";
+        private static String REGEDIT_CONFIG_PATH_DIR = @"SOFTWARE\NPCDW\WpfTool";
+        private static String REGEDIT_CONFIG_PATH_KEY = "config_path";
+
+        public static String APP_DIR_CONFIG_PATH = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Config\Setting.json");
+        public static String USER_DIR_CONFIG_PATH = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"NPCDW\WpfTool\Config\Setting.json");
 
         public static class Common
         {
@@ -23,6 +27,7 @@ namespace WpfTool
             public static String defaultTranslateTargetLanguage;
             public static int wordSelectionInterval;
             public static bool autoStart = false;
+            public static String configPath = "";
         }
         public static class Local
         {
@@ -112,6 +117,18 @@ namespace WpfTool
             string jsonStr;
             try
             {
+                String configPath = RegeditUtil.GetValue(REGEDIT_CONFIG_PATH_DIR, REGEDIT_CONFIG_PATH_KEY);
+                if (configPath == null)
+                {
+                    configPath = USER_DIR_CONFIG_PATH;
+                    RegeditUtil.SetValue(REGEDIT_CONFIG_PATH_DIR, REGEDIT_CONFIG_PATH_KEY, configPath);
+                }
+                if (!File.Exists(configPath))
+                {
+                    Directory.GetParent(configPath).Create();
+                    File.Copy(APP_DIR_CONFIG_PATH, configPath);
+                }
+
                 using (StreamReader sr = new StreamReader(configPath, false))
                 {
                     jsonStr = sr.ReadToEnd().ToString();
@@ -125,6 +142,7 @@ namespace WpfTool
                 Common.defaultTranslateTargetLanguage = jsonObj["Common"]["defaultTranslateTargetLanguage"].ToString();
                 Common.wordSelectionInterval = int.Parse(jsonObj["Common"]["WordSelectionInterval"].ToString());
                 Common.autoStart = AutoStart.GetStatus();
+                Common.configPath = configPath;
 
                 BaiduCloud.access_token = jsonObj["BaiduCloud"]["access_token"].ToString();
                 BaiduCloud.access_token_expires_time = DateTime.Parse(jsonObj["BaiduCloud"]["access_token_expires_time"].ToString());
@@ -208,10 +226,11 @@ namespace WpfTool
             jsonObj["HotKeys"]["TopMost"]["Text"] = HotKeys.TopMost.Text;
 
             String jsonStr = jsonObj.ToString();
-            using (StreamWriter sw = new StreamWriter(configPath))
+            using (StreamWriter sw = new StreamWriter(Common.configPath))
             {
                 sw.WriteLine(jsonStr);
             }
+            RegeditUtil.SetValue(REGEDIT_CONFIG_PATH_DIR, REGEDIT_CONFIG_PATH_KEY, Common.configPath);
         }
 
     }

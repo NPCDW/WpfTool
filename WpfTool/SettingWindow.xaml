@@ -10,9 +10,15 @@
         <TabControl Width="Auto">
             <TabItem Header="常规">
                 <StackPanel Margin="20">
-                    <CheckBox x:Name="autoStartButton" Content="开机启动" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
+                    <CheckBox x:Name="autoStartButton" Content="开机启动" FontWeight="Bold" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
                     <WrapPanel Margin="0,20,0,0">
-                        <Label Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
+                        <Label FontWeight="Bold">配置文件存储位置</Label>
+                        <RadioButton x:Name="UserConfigRadioButton" GroupName="config" VerticalAlignment="Center" Checked="UserConfigRadioButton_Checked">用户目录</RadioButton>
+                        <RadioButton x:Name="AppConfigRadioButton" GroupName="config" VerticalAlignment="Center" Margin="5,0,0,0" Checked="AppConfigRadioButton_Checked">程序目录</RadioButton>
+                        <Button x:Name="ConfigButton" Margin="10,0,0,0" Padding="15,0,15,0" Click="ConfigButton_Click">打开</Button>
+                    </WrapPanel>
+                    <WrapPanel Margin="0,20,0,0">
+                        <Label FontWeight="Bold" Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
                         <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="100" Maximum="1000"
                                     MinWidth="200"
                                 TickFrequency="100"

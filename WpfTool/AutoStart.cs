@@ -10,40 +10,27 @@ namespace WpfTool
 {
     internal class AutoStart
     {
+        private static String REGEDIT_AUTO_START_DIR = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+        private static String REGEDIT_AUTO_START_KEY = "WpfTool";
 
         public static bool GetStatus()
         {
-            try
+            String value = RegeditUtil.GetValue(REGEDIT_AUTO_START_DIR, REGEDIT_AUTO_START_KEY);
+            if (value == null)
             {
-                RegistryKey R_local = Registry.CurrentUser;
-                RegistryKey R_run = R_local.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                object value = R_run.GetValue("WpfTool");
-                R_run.Close();
-                R_local.Close();
-                if (value == null)
-                {
-                    return false;
-                }
-                return value.ToString().Equals(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
                 return false;
             }
+            if (!value.Equals(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName))
+            {
+                RegeditUtil.SetValue(REGEDIT_AUTO_START_DIR, REGEDIT_AUTO_START_KEY, System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            }
+            return true;
         }
 
         public static void Enable()
         {
-            try
-            {
-                RegistryKey R_local = Registry.CurrentUser;
-                RegistryKey R_run = R_local.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                R_run.SetValue("WpfTool", System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
-                R_run.Close();
-                R_local.Close();
-            }
-            catch (Exception)
+            bool result = RegeditUtil.SetValue(REGEDIT_AUTO_START_DIR, REGEDIT_AUTO_START_KEY, System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            if (!result)
             {
                 MessageBox.Show("设置失败，可能需要您使用管理员权限启动应用后再修改");
             }
@@ -51,15 +38,8 @@ namespace WpfTool
 
         public static void Disable()
         {
-            try
-            {
-                RegistryKey R_local = Registry.CurrentUser;
-                RegistryKey R_run = R_local.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                R_run.DeleteValue("WpfTool", false);
-                R_run.Close();
-                R_local.Close();
-            }
-            catch (Exception)
+            bool result = RegeditUtil.DeleteValue(REGEDIT_AUTO_START_DIR, REGEDIT_AUTO_START_KEY);
+            if (!result)
             {
                 MessageBox.Show("设置失败，可能需要您使用管理员权限启动应用后再修改");
             }
