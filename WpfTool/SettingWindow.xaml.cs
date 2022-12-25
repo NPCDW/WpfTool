@@ -32,6 +32,15 @@ namespace WpfTool
             this.autoStartButton.IsChecked = GlobalConfig.Common.autoStart;
             this.WordSelectionIntervalSlider.Value = GlobalConfig.Common.wordSelectionInterval;
 
+            foreach (ComboBoxItem item in this.languageComboBox.Items)
+            {
+                if (item.DataContext.Equals(GlobalConfig.Common.language.ToString()))
+                {
+                    languageComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+
             if (GlobalConfig.USER_DIR_CONFIG_PATH.Equals(GlobalConfig.Common.configPath))
             {
                 this.UserConfigRadioButton.IsChecked = true;
@@ -520,15 +529,12 @@ namespace WpfTool
 
         private void languageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<ResourceDictionary> dictionaryList = new List<ResourceDictionary>();
-            foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)
+            if (this.WindowLoaded)
             {
-                dictionaryList.Add(dictionary);
+                string lang = ((ComboBoxItem)((ComboBox)sender).SelectedItem).DataContext.ToString();
+                LanguageUtil.switchLanguage(lang);
+                GlobalConfig.Common.language = lang;
             }
-            string eelectedLang = @"Lang\" + ((ComboBoxItem)((ComboBox)sender).SelectedItem).DataContext + ".xaml";
-            ResourceDictionary resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(eelectedLang));
-            Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
-            Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
         }
     }
 }

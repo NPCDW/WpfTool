@@ -25,6 +25,7 @@ namespace WpfTool
         public MainWindow()
         {
             GlobalConfig.GetConfig();
+            LanguageUtil.switchLanguage(GlobalConfig.Common.language);
 
             InitHwnd();
             InitialTray();

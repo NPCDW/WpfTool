@@ -23,6 +23,7 @@ namespace WpfTool
             public static int wordSelectionInterval;
             public static bool autoStart = false;
             public static String configPath = "";
+            public static String language = "en_US";
         }
         public static class Ocr
         {
@@ -141,6 +142,7 @@ namespace WpfTool
                 Common.wordSelectionInterval = int.Parse(jsonObj["Common"]["WordSelectionInterval"].ToString());
                 Common.autoStart = AutoStart.GetStatus();
                 Common.configPath = configPath;
+                Common.language = jsonObj["Common"]["language"] == null ? "en_US" : jsonObj["Common"]["language"].ToString();
 
                 Ocr.defaultOcrProvide = (Ocr.OcrProvideEnum)Enum.Parse(typeof(Ocr.OcrProvideEnum), jsonObj["Ocr"]["defaultOcrProvide"].ToString());
                 Ocr.defaultOcrType = jsonObj["Ocr"]["defaultOcrType"].ToString();
@@ -184,6 +186,7 @@ namespace WpfTool
 
             jsonObj["Common"] = new JObject();
             jsonObj["Common"]["WordSelectionInterval"] = Common.wordSelectionInterval;
+            jsonObj["Common"]["language"] = Common.language;
 
             jsonObj["Ocr"] = new JObject();
             jsonObj["Ocr"]["defaultOcrProvide"] = Ocr.defaultOcrProvide.ToString();
