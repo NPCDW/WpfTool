@@ -20,53 +20,67 @@ namespace WpfTool
 
         public static class Common
         {
-            public static OcrProvideEnum defaultOcrProvide;
-            public static String defaultOcrType = "";
-            public static TranslateProvideEnum defaultTranslateProvide;
-            public static String defaultTranslateSourceLanguage;
-            public static String defaultTranslateTargetLanguage;
             public static int wordSelectionInterval;
             public static bool autoStart = false;
             public static String configPath = "";
         }
-        public static class Local
+        public static class Ocr
         {
-        }
-        public static class BaiduCloud
-        {
-            public static String access_token = "";
-            public static DateTime access_token_expires_time;
-            public static String client_id = "";
-            public static String client_secret = "";
-            public enum OcrTypeEnum
+            public static OcrProvideEnum defaultOcrProvide;
+            public static String defaultOcrType = "";
+            public static class BaiduCloud
             {
-                general_basic,
-                accurate_basic,
-                handwriting
+                public static String access_token = "";
+                public static DateTime access_token_expires_time;
+                public static String client_id = "";
+                public static String client_secret = "";
+                public enum OcrTypeEnum
+                {
+                    general_basic,
+                    accurate_basic,
+                    handwriting
+                }
+
+            }
+            public static class TencentCloud
+            {
+                public static String secret_id = "";
+                public static String secret_key = "";
+                public enum OcrTypeEnum
+                {
+                    GeneralBasicOCR,
+                    GeneralAccurateOCR,
+                    GeneralHandwritingOCR
+                }
+
+            }
+            public enum OcrProvideEnum
+            {
+                BaiduCloud,
+                TencentCloud
+            }
+        }
+        public static class Translate
+        {
+            public static TranslateProvideEnum defaultTranslateProvide;
+            public static String defaultTranslateSourceLanguage;
+            public static String defaultTranslateTargetLanguage;
+            public static class BaiduAI
+            {
+                public static String app_id = "";
+                public static String app_secret = "";
+            }
+            public static class TencentCloud
+            {
+                public static String secret_id = "";
+                public static String secret_key = "";
+            }
+            public enum TranslateProvideEnum
+            {
+                BaiduAI,
+                TencentCloud
             }
 
-        }
-        public static class BaiduAI
-        {
-            public static String app_id = "";
-            public static String app_secret = "";
-        }
-        public static class TencentCloud
-        {
-            public static String secret_id = "";
-            public static String secret_key = "";
-            public enum OcrTypeEnum
-            {
-                GeneralBasicOCR,
-                GeneralAccurateOCR,
-                GeneralHandwritingOCR
-            }
-
-        }
-        public static class TencentCloudTranslate
-        {
-            public static String secret_id = "";
-            public static String secret_key = "";
         }
         public static class HotKeys
         {
@@ -100,17 +114,6 @@ namespace WpfTool
             }
         }
 
-        public enum OcrProvideEnum
-        {
-            BaiduCloud,
-            TencentCloud
-        }
-
-        public enum TranslateProvideEnum
-        {
-            BaiduAI,
-            TencentCloud
-        }
 
         public static void GetConfig()
         {
@@ -135,28 +138,26 @@ namespace WpfTool
                 }
                 JObject jsonObj = JObject.Parse(jsonStr);
                 
-                Common.defaultOcrProvide = (OcrProvideEnum)Enum.Parse(typeof(OcrProvideEnum), jsonObj["Common"]["defaultOcrProvide"].ToString());
-                Common.defaultOcrType = jsonObj["Common"]["defaultOcrType"].ToString();
-                Common.defaultTranslateProvide = (TranslateProvideEnum)Enum.Parse(typeof(TranslateProvideEnum), jsonObj["Common"]["defaultTranslateProvide"].ToString());
-                Common.defaultTranslateSourceLanguage = jsonObj["Common"]["defaultTranslateSourceLanguage"].ToString();
-                Common.defaultTranslateTargetLanguage = jsonObj["Common"]["defaultTranslateTargetLanguage"].ToString();
                 Common.wordSelectionInterval = int.Parse(jsonObj["Common"]["WordSelectionInterval"].ToString());
                 Common.autoStart = AutoStart.GetStatus();
                 Common.configPath = configPath;
 
-                BaiduCloud.access_token = jsonObj["BaiduCloud"]["access_token"].ToString();
-                BaiduCloud.access_token_expires_time = DateTime.Parse(jsonObj["BaiduCloud"]["access_token_expires_time"].ToString());
-                BaiduCloud.client_id = jsonObj["BaiduCloud"]["client_id"].ToString();
-                BaiduCloud.client_secret = jsonObj["BaiduCloud"]["client_secret"].ToString();
+                Ocr.defaultOcrProvide = (Ocr.OcrProvideEnum)Enum.Parse(typeof(Ocr.OcrProvideEnum), jsonObj["Ocr"]["defaultOcrProvide"].ToString());
+                Ocr.defaultOcrType = jsonObj["Ocr"]["defaultOcrType"].ToString();
+                Ocr.BaiduCloud.access_token = jsonObj["Ocr"]["BaiduCloud"]["access_token"].ToString();
+                Ocr.BaiduCloud.access_token_expires_time = DateTime.Parse(jsonObj["Ocr"]["BaiduCloud"]["access_token_expires_time"].ToString());
+                Ocr.BaiduCloud.client_id = jsonObj["Ocr"]["BaiduCloud"]["client_id"].ToString();
+                Ocr.BaiduCloud.client_secret = jsonObj["Ocr"]["BaiduCloud"]["client_secret"].ToString();
+                Ocr.TencentCloud.secret_id = jsonObj["Ocr"]["TencentCloud"]["secret_id"].ToString();
+                Ocr.TencentCloud.secret_key = jsonObj["Ocr"]["TencentCloud"]["secret_key"].ToString();
 
-                BaiduAI.app_id = jsonObj["BaiduAI"]["app_id"].ToString();
-                BaiduAI.app_secret = jsonObj["BaiduAI"]["app_secret"].ToString();
-
-                TencentCloud.secret_id = jsonObj["TencentCloud"]["secret_id"].ToString();
-                TencentCloud.secret_key = jsonObj["TencentCloud"]["secret_key"].ToString();
-
-                TencentCloudTranslate.secret_id = jsonObj["TencentCloudTranslate"]["secret_id"].ToString();
-                TencentCloudTranslate.secret_key = jsonObj["TencentCloudTranslate"]["secret_key"].ToString();
+                Translate.defaultTranslateProvide = (Translate.TranslateProvideEnum)Enum.Parse(typeof(Translate.TranslateProvideEnum), jsonObj["Translate"]["defaultTranslateProvide"].ToString());
+                Translate.defaultTranslateSourceLanguage = jsonObj["Translate"]["defaultTranslateSourceLanguage"].ToString();
+                Translate.defaultTranslateTargetLanguage = jsonObj["Translate"]["defaultTranslateTargetLanguage"].ToString();
+                Translate.BaiduAI.app_id = jsonObj["Translate"]["BaiduAI"]["app_id"].ToString();
+                Translate.BaiduAI.app_secret = jsonObj["Translate"]["BaiduAI"]["app_secret"].ToString();
+                Translate.TencentCloud.secret_id = jsonObj["Translate"]["TencentCloud"]["secret_id"].ToString();
+                Translate.TencentCloud.secret_key = jsonObj["Translate"]["TencentCloud"]["secret_key"].ToString();
 
                 HotKeys.Ocr.Modifiers = byte.Parse(jsonObj["HotKeys"]["Ocr"]["Modifiers"].ToString());
                 HotKeys.Ocr.Key = int.Parse(jsonObj["HotKeys"]["Ocr"]["Key"].ToString());
@@ -182,30 +183,30 @@ namespace WpfTool
             JObject jsonObj = new JObject();
 
             jsonObj["Common"] = new JObject();
-            jsonObj["Common"]["defaultOcrProvide"] = Common.defaultOcrProvide.ToString();
-            jsonObj["Common"]["defaultOcrType"] = Common.defaultOcrType;
-            jsonObj["Common"]["defaultTranslateProvide"] = Common.defaultTranslateProvide.ToString();
-            jsonObj["Common"]["defaultTranslateSourceLanguage"] = Common.defaultTranslateSourceLanguage;
-            jsonObj["Common"]["defaultTranslateTargetLanguage"] = Common.defaultTranslateTargetLanguage;
             jsonObj["Common"]["WordSelectionInterval"] = Common.wordSelectionInterval;
 
-            jsonObj["BaiduCloud"] = new JObject();
-            jsonObj["BaiduCloud"]["access_token"] = BaiduCloud.access_token;
-            jsonObj["BaiduCloud"]["access_token_expires_time"] = BaiduCloud.access_token_expires_time.ToString();
-            jsonObj["BaiduCloud"]["client_id"] = BaiduCloud.client_id;
-            jsonObj["BaiduCloud"]["client_secret"] = BaiduCloud.client_secret;
+            jsonObj["Ocr"] = new JObject();
+            jsonObj["Ocr"]["defaultOcrProvide"] = Ocr.defaultOcrProvide.ToString();
+            jsonObj["Ocr"]["defaultOcrType"] = Ocr.defaultOcrType;
+            jsonObj["Ocr"]["BaiduCloud"] = new JObject();
+            jsonObj["Ocr"]["BaiduCloud"]["access_token"] = Ocr.BaiduCloud.access_token;
+            jsonObj["Ocr"]["BaiduCloud"]["access_token_expires_time"] = Ocr.BaiduCloud.access_token_expires_time.ToString();
+            jsonObj["Ocr"]["BaiduCloud"]["client_id"] = Ocr.BaiduCloud.client_id;
+            jsonObj["Ocr"]["BaiduCloud"]["client_secret"] = Ocr.BaiduCloud.client_secret;
+            jsonObj["Ocr"]["TencentCloud"] = new JObject();
+            jsonObj["Ocr"]["TencentCloud"]["secret_id"] = Ocr.TencentCloud.secret_id;
+            jsonObj["Ocr"]["TencentCloud"]["secret_key"] = Ocr.TencentCloud.secret_key;
 
-            jsonObj["BaiduAI"] = new JObject();
-            jsonObj["BaiduAI"]["app_id"] = BaiduAI.app_id;
-            jsonObj["BaiduAI"]["app_secret"] = BaiduAI.app_secret;
-
-            jsonObj["TencentCloud"] = new JObject();
-            jsonObj["TencentCloud"]["secret_id"] = TencentCloud.secret_id;
-            jsonObj["TencentCloud"]["secret_key"] = TencentCloud.secret_key;
-
-            jsonObj["TencentCloudTranslate"] = new JObject();
-            jsonObj["TencentCloudTranslate"]["secret_id"] = TencentCloudTranslate.secret_id;
-            jsonObj["TencentCloudTranslate"]["secret_key"] = TencentCloudTranslate.secret_key;
+            jsonObj["Translate"] = new JObject();
+            jsonObj["Translate"]["defaultTranslateProvide"] = Translate.defaultTranslateProvide.ToString();
+            jsonObj["Translate"]["defaultTranslateSourceLanguage"] = Translate.defaultTranslateSourceLanguage;
+            jsonObj["Translate"]["defaultTranslateTargetLanguage"] = Translate.defaultTranslateTargetLanguage;
+            jsonObj["Translate"]["BaiduAI"] = new JObject();
+            jsonObj["Translate"]["BaiduAI"]["app_id"] = Translate.BaiduAI.app_id;
+            jsonObj["Translate"]["BaiduAI"]["app_secret"] = Translate.BaiduAI.app_secret;
+            jsonObj["Translate"]["TencentCloud"] = new JObject();
+            jsonObj["Translate"]["TencentCloud"]["secret_id"] = Translate.TencentCloud.secret_id;
+            jsonObj["Translate"]["TencentCloud"]["secret_key"] = Translate.TencentCloud.secret_key;
 
             jsonObj["HotKeys"] = new JObject();
             jsonObj["HotKeys"]["Ocr"] = new JObject();

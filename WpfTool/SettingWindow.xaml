@@ -21,8 +21,8 @@
                         <Label FontWeight="Bold" Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
                         <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="100" Maximum="1000"
                                     MinWidth="200"
-                                TickFrequency="100"
-                                TickPlacement="BottomRight" ValueChanged="WordSelectionIntervalSlider_ValueChanged" />
+                                TickFrequency="100" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
+                                ValueChanged="WordSelectionIntervalSlider_ValueChanged" />
                         <TextBlock Text="{Binding ElementName=WordSelectionIntervalSlider, Path=Value, StringFormat={}{0}ms}" Margin="10,0,0,0" />
                     </WrapPanel>
                 </StackPanel>

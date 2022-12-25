@@ -1,29 +1,33 @@
 {
   "Common": {
+    "WordSelectionInterval": 400
+  },
+  "Ocr": {
     "defaultOcrProvide": "TencentCloud",
     "defaultOcrType": "GeneralBasicOCR",
+    "BaiduCloud": {
+      "access_token": "",
+      "access_token_expires_time": "2000/1/1 0:00:00",
+      "client_id": "",
+      "client_secret": ""
+    },
+    "TencentCloud": {
+      "secret_id": "",
+      "secret_key": ""
+    }
+  },
+  "Translate": {
     "defaultTranslateProvide": "TencentCloud",
     "defaultTranslateSourceLanguage": "auto",
     "defaultTranslateTargetLanguage": "zh",
-    "WordSelectionInterval": 200
-  },
-  "BaiduCloud": {
-    "access_token": "",
-    "access_token_expires_time": "2000/1/1 0:00:00",
-    "client_id": "",
-    "client_secret": ""
-  },
-  "BaiduAI": {
-    "app_id": "",
-    "app_secret": ""
-  },
-  "TencentCloud": {
-    "secret_id": "",
-    "secret_key": ""
-  },
-  "TencentCloudTranslate": {
-    "secret_id": "",
-    "secret_key": ""
+    "BaiduAI": {
+      "app_id": "",
+      "app_secret": ""
+    },
+    "TencentCloud": {
+      "secret_id": "",
+      "secret_key": ""
+    }
   },
   "HotKeys": {
     "Ocr": {

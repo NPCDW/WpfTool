@@ -17,7 +17,7 @@ namespace WpfTool
         {
             if (string.IsNullOrWhiteSpace(ocrType))
             {
-                ocrType = GlobalConfig.Common.defaultOcrType;
+                ocrType = GlobalConfig.Ocr.defaultOcrType;
             }
             try
             {
@@ -50,14 +50,14 @@ namespace WpfTool
 
         private static String GetAccessToken()
         {
-            if (DateTime.Now.AddDays(1) < GlobalConfig.BaiduCloud.access_token_expires_time)
+            if (DateTime.Now.AddDays(1) < GlobalConfig.Ocr.BaiduCloud.access_token_expires_time)
             {
-                return GlobalConfig.BaiduCloud.access_token;
+                return GlobalConfig.Ocr.BaiduCloud.access_token;
             }
 
             String url = baseUrl + "/oauth/2.0/token";
-            String body = "grant_type=client_credentials&client_id=" + GlobalConfig.BaiduCloud.client_id
-                + "&client_secret=" + GlobalConfig.BaiduCloud.client_secret;
+            String body = "grant_type=client_credentials&client_id=" + GlobalConfig.Ocr.BaiduCloud.client_id
+                + "&client_secret=" + GlobalConfig.Ocr.BaiduCloud.client_secret;
             Dictionary<String, String> headers = new Dictionary<String, String>();
             headers.Add("Content-Type", "application/x-www-form-urlencoded");
             
@@ -67,8 +67,8 @@ namespace WpfTool
             String access_token = jsonObj["access_token"].ToString();
             String expires_in = jsonObj["expires_in"].ToString();
 
-            GlobalConfig.BaiduCloud.access_token = access_token;
-            GlobalConfig.BaiduCloud.access_token_expires_time = DateTime.Now.AddSeconds(Convert.ToInt32(expires_in));
+            GlobalConfig.Ocr.BaiduCloud.access_token = access_token;
+            GlobalConfig.Ocr.BaiduCloud.access_token_expires_time = DateTime.Now.AddSeconds(Convert.ToInt32(expires_in));
             GlobalConfig.SaveConfig();
 
             return access_token;

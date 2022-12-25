@@ -19,13 +19,13 @@ namespace WpfTool
             try
             {
                 String salt = Guid.NewGuid().ToString("N");
-                String signStr = GlobalConfig.BaiduAI.app_id + text + salt + GlobalConfig.BaiduAI.app_secret;
+                String signStr = GlobalConfig.Translate.BaiduAI.app_id + text + salt + GlobalConfig.Translate.BaiduAI.app_secret;
                 String sign = Utils.Md5(signStr);
 
                 String body = "q=" + HttpUtility.UrlEncode(text, Encoding.UTF8)
                     + "&from=" + sourceLanguage
                     + "&to=" + targetLanguage
-                    + "&appid=" + GlobalConfig.BaiduAI.app_id
+                    + "&appid=" + GlobalConfig.Translate.BaiduAI.app_id
                     + "&salt=" + salt
                     + "&sign=" + sign;
                 Dictionary<String, String> headers = new Dictionary<String, String>();
@@ -61,13 +61,13 @@ namespace WpfTool
                 String cuid = "APICUID";
                 String mac = "mac";
                 byte[] fileByteArray = Utils.BitmapToByteArray(bmp);
-                String signStr = GlobalConfig.BaiduAI.app_id + Utils.Md5(fileByteArray) + salt + cuid + mac + GlobalConfig.BaiduAI.app_secret;
+                String signStr = GlobalConfig.Translate.BaiduAI.app_id + Utils.Md5(fileByteArray) + salt + cuid + mac + GlobalConfig.Translate.BaiduAI.app_secret;
                 String sign = Utils.Md5(signStr);
 
                 String url = imageTranslateUrl
-                    + "?from=" + GlobalConfig.Common.defaultTranslateSourceLanguage
-                    + "&to=" + GlobalConfig.Common.defaultTranslateTargetLanguage
-                    + "&appid=" + GlobalConfig.BaiduAI.app_id
+                    + "?from=" + GlobalConfig.Translate.defaultTranslateSourceLanguage
+                    + "&to=" + GlobalConfig.Translate.defaultTranslateTargetLanguage
+                    + "&appid=" + GlobalConfig.Translate.BaiduAI.app_id
                     + "&salt=" + salt
                     + "&cuid=" + cuid
                     + "&mac=" + mac

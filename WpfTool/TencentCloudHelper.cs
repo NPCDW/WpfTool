@@ -22,8 +22,8 @@ namespace WpfTool
             {
                 Credential cred = new Credential
                 {
-                    SecretId = GlobalConfig.TencentCloudTranslate.secret_id,
-                    SecretKey = GlobalConfig.TencentCloudTranslate.secret_key
+                    SecretId = GlobalConfig.Translate.TencentCloud.secret_id,
+                    SecretKey = GlobalConfig.Translate.TencentCloud.secret_key
                 };
 
                 ClientProfile clientProfile = new ClientProfile();
@@ -53,20 +53,20 @@ namespace WpfTool
         {
             try
             {
-                GlobalConfig.TencentCloud.OcrTypeEnum ocrType;
+                GlobalConfig.Ocr.TencentCloud.OcrTypeEnum ocrType;
                 if (string.IsNullOrWhiteSpace(ocrTypeStr))
                 {
-                    ocrType = (GlobalConfig.TencentCloud.OcrTypeEnum)Enum.Parse(typeof(GlobalConfig.TencentCloud.OcrTypeEnum), GlobalConfig.Common.defaultOcrType);
+                    ocrType = (GlobalConfig.Ocr.TencentCloud.OcrTypeEnum)Enum.Parse(typeof(GlobalConfig.Ocr.TencentCloud.OcrTypeEnum), GlobalConfig.Ocr.defaultOcrType);
                 }
                 else
                 {
-                    ocrType = (GlobalConfig.TencentCloud.OcrTypeEnum)Enum.Parse(typeof(GlobalConfig.TencentCloud.OcrTypeEnum), ocrTypeStr);
+                    ocrType = (GlobalConfig.Ocr.TencentCloud.OcrTypeEnum)Enum.Parse(typeof(GlobalConfig.Ocr.TencentCloud.OcrTypeEnum), ocrTypeStr);
                 }
 
                 Credential cred = new Credential
                 {
-                    SecretId = GlobalConfig.TencentCloud.secret_id,
-                    SecretKey = GlobalConfig.TencentCloud.secret_key
+                    SecretId = GlobalConfig.Ocr.TencentCloud.secret_id,
+                    SecretKey = GlobalConfig.Ocr.TencentCloud.secret_key
                 };
 
                 ClientProfile clientProfile = new ClientProfile();
@@ -77,21 +77,21 @@ namespace WpfTool
                 OcrClient client = new OcrClient(cred, "ap-beijing", clientProfile);
                 String jsonStr = "{}";
                 String base64 = Utils.BitmapToBase64String(bmp);
-                if (ocrType == GlobalConfig.TencentCloud.OcrTypeEnum.GeneralBasicOCR)
+                if (ocrType == GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralBasicOCR)
                 {
                     GeneralBasicOCRRequest req = new GeneralBasicOCRRequest();
                     req.ImageBase64 = base64;
                     GeneralBasicOCRResponse resp = client.GeneralBasicOCRSync(req);
                     jsonStr = AbstractModel.ToJsonString(resp);
                 }
-                else if (ocrType == GlobalConfig.TencentCloud.OcrTypeEnum.GeneralAccurateOCR)
+                else if (ocrType == GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralAccurateOCR)
                 {
                     GeneralAccurateOCRRequest req = new GeneralAccurateOCRRequest();
                     req.ImageBase64 = base64;
                     GeneralAccurateOCRResponse resp = client.GeneralAccurateOCRSync(req);
                     jsonStr = AbstractModel.ToJsonString(resp);
                 }
-                else if (ocrType == GlobalConfig.TencentCloud.OcrTypeEnum.GeneralHandwritingOCR)
+                else if (ocrType == GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralHandwritingOCR)
                 {
                     GeneralHandwritingOCRRequest req = new GeneralHandwritingOCRRequest();
                     req.ImageBase64 = base64;
@@ -119,8 +119,8 @@ namespace WpfTool
             {
                 Credential cred = new Credential
                 {
-                    SecretId = GlobalConfig.TencentCloudTranslate.secret_id,
-                    SecretKey = GlobalConfig.TencentCloudTranslate.secret_key
+                    SecretId = GlobalConfig.Translate.TencentCloud.secret_id,
+                    SecretKey = GlobalConfig.Translate.TencentCloud.secret_key
                 };
 
                 ClientProfile clientProfile = new ClientProfile();
@@ -133,8 +133,8 @@ namespace WpfTool
                 req.Data = Utils.BitmapToBase64String(bmp);
                 req.SessionUuid = System.Guid.NewGuid().ToString();
                 req.Scene = "doc";
-                req.Source = GlobalConfig.Common.defaultTranslateSourceLanguage;
-                req.Target = GlobalConfig.Common.defaultTranslateTargetLanguage;
+                req.Source = GlobalConfig.Translate.defaultTranslateSourceLanguage;
+                req.Target = GlobalConfig.Translate.defaultTranslateTargetLanguage;
                 req.ProjectId = 0;
                 ImageTranslateResponse resp = client.ImageTranslateSync(req);
                 String jsonStr = AbstractModel.ToJsonString(resp);
