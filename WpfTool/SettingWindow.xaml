@@ -8,17 +8,24 @@
         Title="设置" Height="600" Width="485" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <TabControl Width="Auto">
-            <TabItem Header="常规">
+            <TabItem Header="{DynamicResource Setting_Common}">
                 <StackPanel Margin="20">
-                    <CheckBox x:Name="autoStartButton" Content="开机启动" FontWeight="Bold" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
+                    <CheckBox x:Name="autoStartButton" Content="{DynamicResource Setting_AutoStart}" FontWeight="Bold" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
                     <WrapPanel Margin="0,20,0,0">
-                        <Label FontWeight="Bold">配置文件存储位置</Label>
-                        <RadioButton x:Name="UserConfigRadioButton" GroupName="config" VerticalAlignment="Center" Checked="UserConfigRadioButton_Checked">用户目录</RadioButton>
-                        <RadioButton x:Name="AppConfigRadioButton" GroupName="config" VerticalAlignment="Center" Margin="5,0,0,0" Checked="AppConfigRadioButton_Checked">程序目录</RadioButton>
-                        <Button x:Name="ConfigButton" Margin="10,0,0,0" Padding="15,0,15,0" Click="ConfigButton_Click">打开</Button>
+                        <Label FontWeight="Bold" Content="{DynamicResource Setting_language}" />
+                        <ComboBox x:Name="languageComboBox" Width="140" Margin="5" SelectionChanged="languageComboBox_SelectionChanged" >
+                            <ComboBoxItem DataContext="en_US" Content="English" />
+                            <ComboBoxItem DataContext="zh_CN" Content="简体中文"/>
+                        </ComboBox>
                     </WrapPanel>
                     <WrapPanel Margin="0,20,0,0">
-                        <Label FontWeight="Bold" Content="取词间隔" ToolTip="划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器" />
+                        <Label FontWeight="Bold" Content="{DynamicResource Setting_ConfigurationFileStorageLocation}" />
+                        <RadioButton x:Name="UserConfigRadioButton" GroupName="config" VerticalAlignment="Center" Checked="UserConfigRadioButton_Checked" Content="{DynamicResource Setting_UserDirectory}" />
+                        <RadioButton x:Name="AppConfigRadioButton" GroupName="config" VerticalAlignment="Center" Margin="5,0,0,0" Checked="AppConfigRadioButton_Checked" Content="{DynamicResource Setting_AppDirectory}" />
+                        <Button x:Name="ConfigButton" Margin="10,0,0,0" Padding="15,0,15,0" Click="ConfigButton_Click" Content="{DynamicResource Setting_Open}" />
+                    </WrapPanel>
+                    <WrapPanel Margin="0,20,0,0">
+                        <Label FontWeight="Bold" Content="{DynamicResource Setting_WordSelectionInterval}" ToolTip="{DynamicResource Setting_WordSelectionIntervalToolTip}" />
                         <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="100" Maximum="1000"
                                     MinWidth="200"
                                 TickFrequency="100" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
@@ -27,18 +34,18 @@
                     </WrapPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="文字识别">
+            <TabItem Header="{DynamicResource Setting_OCR}">
                 <StackPanel Margin="20">
-                    <GroupBox Header="默认文本识别">
+                    <GroupBox Header="{DynamicResource Setting_DefaultOCR}">
                         <WrapPanel>
                             <ComboBox x:Name="defaultOcrProvideComboBox" Width="140" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" >
-                                <ComboBoxItem DataContext="BaiduCloud" Content="百度云"/>
-                                <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+                                <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource Setting_BaiduCloud}"/>
+                                <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource Setting_TencentCloud}"/>
                             </ComboBox>
                             <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
                         </WrapPanel>
                     </GroupBox>
-                    <GroupBox Header="腾讯云" Margin="0,20,0,0">
+                    <GroupBox Header="{DynamicResource Setting_TencentCloud}" Margin="0,20,0,0">
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretID" />
@@ -48,10 +55,10 @@
                                 <Label Content="SecretKey" />
                                 <PasswordBox x:Name="TencentCloudOcr_SecretKeyInput" Width="200" Cursor="Arrow" PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
                             </WrapPanel>
-                            <Label Content="领取免费OCR额度" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="LinkLabel_MouseDown" />
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Header="百度云" Margin="0,20,0,0">
+                    <GroupBox Header="{DynamicResource Setting_BaiduCloud}" Margin="0,20,0,0">
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="AppKey" />
@@ -61,7 +68,7 @@
                                 <Label Content="SecretKey" />
                                 <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200" PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
                             </WrapPanel>
-                            <Label Content="领取免费OCR额度" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="LinkLabel_MouseDown" />
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>

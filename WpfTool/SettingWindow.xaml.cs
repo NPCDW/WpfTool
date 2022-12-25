@@ -517,5 +517,18 @@ namespace WpfTool
                 GlobalConfig.Common.configPath = GlobalConfig.APP_DIR_CONFIG_PATH;
             }
         }
+
+        private void languageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            List<ResourceDictionary> dictionaryList = new List<ResourceDictionary>();
+            foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)
+            {
+                dictionaryList.Add(dictionary);
+            }
+            string eelectedLang = @"Lang\" + ((ComboBoxItem)((ComboBox)sender).SelectedItem).DataContext + ".xaml";
+            ResourceDictionary resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(eelectedLang));
+            Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
+            Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+        }
     }
 }

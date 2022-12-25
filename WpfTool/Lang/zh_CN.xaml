@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Setting_language">简体中文</sys:String>
+    <sys:String x:Key="Setting_AutoStart">开机启动</sys:String>
+    <sys:String x:Key="Setting_Common">常规</sys:String>
+    <sys:String x:Key="Setting_ConfigurationFileStorageLocation">配置文件存储位置</sys:String>
+    <sys:String x:Key="Setting_UserDirectory">用户目录</sys:String>
+    <sys:String x:Key="Setting_AppDirectory">应用目录</sys:String>
+    <sys:String x:Key="Setting_Open">打开</sys:String>
+    <sys:String x:Key="Setting_WordSelectionInterval">取词间隔</sys:String>
+    <sys:String x:Key="Setting_WordSelectionIntervalToolTip">划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器</sys:String>
+    <sys:String x:Key="Setting_OCR">文字识别</sys:String>
+    <sys:String x:Key="Setting_DefaultOCR">默认文字识别</sys:String>
+    <sys:String x:Key="Setting_BaiduCloud">百度云</sys:String>
+    <sys:String x:Key="Setting_TencentCloud">腾讯云</sys:String>
+    <sys:String x:Key="Setting_GetFreeOCRQuota">领取免费OCR额度</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Setting_language">English</sys:String>
+    <sys:String x:Key="Setting_AutoStart">Auto Start</sys:String>
+    <sys:String x:Key="Setting_Common">Common</sys:String>
+    <sys:String x:Key="Setting_ConfigurationFileStorageLocation">Configuration file storage location</sys:String>
+    <sys:String x:Key="Setting_UserDirectory">User directory</sys:String>
+    <sys:String x:Key="Setting_AppDirectory">App directory</sys:String>
+    <sys:String x:Key="Setting_Open">Open</sys:String>
+    <sys:String x:Key="Setting_WordSelectionInterval">Get Word Interval</sys:String>
+    <sys:String x:Key="Setting_WordSelectionIntervalToolTip">The realization principle of word-drawing translation is: the user uses the mouse to draw a word and then simulates Ctrl+C. After a certain period of time, the program fetches words from the clipboard. If the computer responds slowly, there may be a problem that words cannot be obtained. It can be adapted to some old machines</sys:String>
+    <sys:String x:Key="Setting_OCR">OCR</sys:String>
+    <sys:String x:Key="Setting_DefaultOCR">Default OCR</sys:String>
+    <sys:String x:Key="Setting_BaiduCloud">Baidu Cloud</sys:String>
+    <sys:String x:Key="Setting_TencentCloud">Tencent Cloud</sys:String>
+    <sys:String x:Key="Setting_GetFreeOCRQuota">Get Free OCR Quota</sys:String>
+</ResourceDictionary>
