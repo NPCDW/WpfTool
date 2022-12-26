@@ -102,10 +102,10 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_id) || string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_key))
                 {
-                    MessageBox.Show("请先设置云服务商提供的秘钥信息，可以到设置中点击链接免费领取");
+                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
-                translateTextBox.Text = "翻译中，请稍等。。。";
+                translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
                 DispatcherHelper.DoEvents();
 
                 String ocrText = ocrTextBox.Text;
@@ -124,10 +124,10 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_id) || string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_secret))
                 {
-                    MessageBox.Show("请先设置云服务商提供的秘钥信息，可以到设置中点击链接免费领取");
+                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
-                translateTextBox.Text = "翻译中，请稍等。。。";
+                translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
                 DispatcherHelper.DoEvents();
 
                 String ocrText = ocrTextBox.Text;
@@ -164,10 +164,10 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Ocr.TencentCloud.secret_id) || string.IsNullOrEmpty(GlobalConfig.Ocr.TencentCloud.secret_key))
                 {
-                    MessageBox.Show("请先设置云服务商提供的秘钥信息，可以到设置中点击链接免费领取");
+                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
-                ocrTextBox.Text = "识别中，请稍等。。。";
+                ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
                 DispatcherHelper.DoEvents();
 
                 Task.Factory.StartNew(() =>
@@ -185,10 +185,10 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Ocr.BaiduCloud.client_id) || string.IsNullOrEmpty(GlobalConfig.Ocr.BaiduCloud.client_secret))
                 {
-                    MessageBox.Show("请先设置云服务商提供的秘钥信息，可以到设置中点击链接免费领取");
+                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
-                ocrTextBox.Text = "识别中，请稍等。。。";
+                ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
                 DispatcherHelper.DoEvents();
 
                 Task.Factory.StartNew(() =>
@@ -211,11 +211,11 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_id) || string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_key))
                 {
-                    MessageBox.Show("请先设置云服务商提供的秘钥信息，可以到设置中点击链接免费领取");
+                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
-                ocrTextBox.Text = "识别中，请稍等。。。";
-                translateTextBox.Text = "翻译中，请稍等。。。";
+                ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
+                translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
                 DispatcherHelper.DoEvents();
 
                 Task.Factory.StartNew(() =>
@@ -238,11 +238,11 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_id) || string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_secret))
                 {
-                    MessageBox.Show("请先设置云服务商提供的秘钥信息，可以到设置中点击链接免费领取");
+                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
-                ocrTextBox.Text = "识别中，请稍等。。。";
-                translateTextBox.Text = "翻译中，请稍等。。。";
+                ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
+                translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
                 DispatcherHelper.DoEvents();
 
                 Task.Factory.StartNew(() =>
@@ -267,7 +267,7 @@ namespace WpfTool
         {
             if (this.bmp == null)
             {
-                MessageBox.Show("未发现截图");
+                MessageBox.Show(this.FindResource("ResultWindows_NotFoundImage") as String);
                 return;
             }
             this.ocr(this.bmp, defaultOcrProvideComboBox.DataContext.ToString(), defaultOcrTypeComboBox.DataContext.ToString());
@@ -287,15 +287,15 @@ namespace WpfTool
                 defaultOcrTypeComboBox.Items.Clear();
                 ComboBoxItem item = new ComboBoxItem();
                 item.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.general_basic.ToString();
-                item.Content = "通用";
+                item.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_GeneralBasic");
                 defaultOcrTypeComboBox.Items.Add(item);
                 ComboBoxItem item2 = new ComboBoxItem();
                 item2.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.accurate_basic.ToString();
-                item2.Content = "高精度";
+                item2.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_AccurateBasic");
                 defaultOcrTypeComboBox.Items.Add(item2);
                 ComboBoxItem item3 = new ComboBoxItem();
                 item3.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.handwriting.ToString();
-                item3.Content = "手写体";
+                item3.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Handwriting");
                 defaultOcrTypeComboBox.Items.Add(item3);
 
                 defaultOcrTypeComboBox.SelectedItem = item;
@@ -305,15 +305,15 @@ namespace WpfTool
                 defaultOcrTypeComboBox.Items.Clear();
                 ComboBoxItem item = new ComboBoxItem();
                 item.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralBasicOCR.ToString();
-                item.Content = "通用";
+                item.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_GeneralBasic");
                 defaultOcrTypeComboBox.Items.Add(item);
                 ComboBoxItem item2 = new ComboBoxItem();
                 item2.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralAccurateOCR.ToString();
-                item2.Content = "高精度";
+                item2.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_AccurateBasic");
                 defaultOcrTypeComboBox.Items.Add(item2);
                 ComboBoxItem item3 = new ComboBoxItem();
                 item3.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralHandwritingOCR.ToString();
-                item3.Content = "手写体";
+                item3.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Handwriting");
                 defaultOcrTypeComboBox.Items.Add(item3);
 
                 defaultOcrTypeComboBox.SelectedItem = item;
@@ -373,11 +373,11 @@ namespace WpfTool
                     {
                         ComboBoxItem comboBoxItem = new ComboBoxItem();
                         comboBoxItem.DataContext = item.getBaiduAiCode();
-                        comboBoxItem.Content = item.getName();
+                        comboBoxItem.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
                         sourceLanguageComboBox.Items.Add(comboBoxItem);
                         ComboBoxItem comboBoxItem2 = new ComboBoxItem();
                         comboBoxItem2.DataContext = item.getBaiduAiCode();
-                        comboBoxItem2.Content = item.getName();
+                        comboBoxItem2.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
                         targetLanguageComboBox.Items.Add(comboBoxItem2);
                     }
                 }
@@ -390,11 +390,11 @@ namespace WpfTool
                     {
                         ComboBoxItem comboBoxItem = new ComboBoxItem();
                         comboBoxItem.DataContext = item.getTencentCloudCode();
-                        comboBoxItem.Content = item.getName();
+                        comboBoxItem.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
                         sourceLanguageComboBox.Items.Add(comboBoxItem);
                         ComboBoxItem comboBoxItem2 = new ComboBoxItem();
                         comboBoxItem2.DataContext = item.getTencentCloudCode();
-                        comboBoxItem2.Content = item.getName();
+                        comboBoxItem2.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
                         targetLanguageComboBox.Items.Add(comboBoxItem2);
                     }
                 }

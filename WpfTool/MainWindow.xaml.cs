@@ -39,36 +39,36 @@ namespace WpfTool
             }
         }
 
-        public void InitHwnd()
+        private void InitHwnd()
         {
             var helper = new WindowInteropHelper(this);
             helper.EnsureHandle();
         }
 
-        private void InitialTray()
+        public void InitialTray()
         {
-            notifyIcon.BalloonTipText = "程序开始运行";
-            notifyIcon.Text = "文字识别/机器翻译";
-            notifyIcon.Icon = new System.Drawing.Icon(AppDomain.CurrentDomain.BaseDirectory + "\\Resources\\favicon.ico");
+            notifyIcon.BalloonTipText = this.FindResource("MainWindows_Running") as String;
+            notifyIcon.Text = this.FindResource("MainWindows_Title") as String;
+            notifyIcon.Icon = new System.Drawing.Icon(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\favicon.ico"));
             notifyIcon.Visible = true;
             notifyIcon.ShowBalloonTip(1000);
 
-            System.Windows.Forms.MenuItem getWordsTranslationButton = new System.Windows.Forms.MenuItem("划词翻译");
+            System.Windows.Forms.MenuItem getWordsTranslationButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_WordTranslation") as String);
             getWordsTranslationButton.Click += new EventHandler(Translate_Click);
 
-            System.Windows.Forms.MenuItem screenshotTranslationButton = new System.Windows.Forms.MenuItem("截图翻译");
+            System.Windows.Forms.MenuItem screenshotTranslationButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_ScreenshotTranslation") as String);
             screenshotTranslationButton.Click += new EventHandler(ScreenshotTranslation_Click);
 
-            System.Windows.Forms.MenuItem ocrButton = new System.Windows.Forms.MenuItem("文字识别");
+            System.Windows.Forms.MenuItem ocrButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_OCR") as String);
             ocrButton.Click += new EventHandler(OcrButton_Click);
 
-            System.Windows.Forms.MenuItem topMostButton = new System.Windows.Forms.MenuItem("置顶/取消置顶");
+            System.Windows.Forms.MenuItem topMostButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_TopMostToggle") as String);
             topMostButton.Click += new EventHandler(TopMost_Click);
 
-            System.Windows.Forms.MenuItem wordFileExtractButton = new System.Windows.Forms.MenuItem("Word图片附件提取");
+            System.Windows.Forms.MenuItem wordFileExtractButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_WordFileExtract") as String);
             wordFileExtractButton.Click += new EventHandler(WordFileExtract_Click);
 
-            System.Windows.Forms.MenuItem settingButton = new System.Windows.Forms.MenuItem("设置");
+            System.Windows.Forms.MenuItem settingButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_Setting") as String);
             settingButton.Click += new EventHandler(Setting_Click);
 
             System.Windows.Forms.MenuItem exitButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_Exit") as String);

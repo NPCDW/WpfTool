@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="Setting_language">English</sys:String>
-    <sys:String x:Key="Setting">Setting</sys:String>
+    <sys:String x:Key="Setting_Title">Setting</sys:String>
     <sys:String x:Key="Setting_AutoStart">Auto Start</sys:String>
     <sys:String x:Key="Setting_Common">Common</sys:String>
     <sys:String x:Key="Setting_ConfigurationFileStorageLocation">Configuration file storage location</sys:String>
@@ -35,6 +35,36 @@
     <sys:String x:Key="MainWindows_HotkeyConflictMessage">There is a conflict with the global shortcut keys, please go to the settings to reset</sys:String>
     <sys:String x:Key="MainWindows_TopMostMessage">Please move the mouse to the title bar of the window you want to stick to the top (the top of the window), press F6 or the shortcut key you set yourself, you can stick it to the top or cancel it. Only Win32 applications are supported, UWP applications are not supported</sys:String>
     <sys:String x:Key="MainWindows_Exit">Exit</sys:String>
+    <sys:String x:Key="MainWindows_Running">App starts running</sys:String>
+    <sys:String x:Key="MainWindows_Title">Text Recognition / Machine Translation</sys:String>
+    <sys:String x:Key="MainWindows_WordTranslation">Get Word Translation</sys:String>
+    <sys:String x:Key="MainWindows_ScreenshotTranslation">Screenshot Translation</sys:String>
+    <sys:String x:Key="MainWindows_OCR">Text Recognition</sys:String>
+    <sys:String x:Key="MainWindows_TopMostToggle">TopMost Toggle</sys:String>
+    <sys:String x:Key="MainWindows_Setting">Setting</sys:String>
+    <sys:String x:Key="MainWindows_WordFileExtract">Word File Extract</sys:String>
+
+    <sys:String x:Key="ResultWindows_Title">Text Recognition / Machine Translation</sys:String>
+    <sys:String x:Key="ResultWindows_Translate">Translate</sys:String>
+    <sys:String x:Key="ResultWindows_SetAsDefault">Set As Default</sys:String>
+    <sys:String x:Key="ResultWindows_ReOCR">ReOCR</sys:String>
+    <sys:String x:Key="ResultWindows_translating">Translating......</sys:String>
+    <sys:String x:Key="ResultWindows_EmptyKeyMessage">Please set the secret key information provided by the cloud service provider first, and you can click the link in the settings to get it for free</sys:String>
+    <sys:String x:Key="ResultWindows_ocring">Text recognition......</sys:String>
+    <sys:String x:Key="ResultWindows_NotFoundImage">Image Not Found</sys:String>
+
+    <sys:String x:Key="WordFileExtractWindow_Title">Word File Extract</sys:String>
+    <sys:String x:Key="WordFileExtractWindow_WordFilePath">Word Filepath</sys:String>
+    <sys:String x:Key="WordFileExtractWindow_SelectedFile">Select the file</sys:String>
+    <sys:String x:Key="WordFileExtractWindow_Extract">Extract</sys:String>
+    <sys:String x:Key="WordFileExtractWindow_WordNotFoundMessage">Please select a Word file first</sys:String>
+    <sys:String x:Key="WordFileExtractWindow_WordFileSelectedOutput">Word file selection：</sys:String>
+    <sys:String x:Key="WordFileExtractWindow_MkdirOutput">The folder with the same name as the Word file does not exist, create a folder with the same name</sys:String>
+    <sys:String x:Key="WordFileExtractWindow_ExtractImageOutput">Extract Image: </sys:String>
+    <sys:String x:Key="WordFileExtractWindow_ExtractFileOutput">Extract File:</sys:String>
+    <sys:String x:Key="WordFileExtractWindow_ExtractFinishOutput">The extraction is complete, the extraction location is </sys:String>
+    <sys:String x:Key="WordFileExtractWindow_SelectFileDoc">Word document</sys:String>
+    <sys:String x:Key="WordFileExtractWindow_SelectFileAll">All files</sys:String>
 
     <sys:String x:Key="App_Run">App is already running</sys:String>
 

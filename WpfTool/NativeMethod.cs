@@ -10,29 +10,6 @@ namespace WpfTool
     internal class NativeMethod
     {
         /// <summary>
-        /// 获取进程句柄
-        /// </summary>
-        /// <param name="lpModuleName"></param>
-        /// <returns></returns>
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        public static extern IntPtr GetModuleHandle(string lpModuleName);
-
-        /// <summary>
-        /// 设置窗口在最前端
-        /// </summary>
-        /// <param name="hWnd">窗口句柄</param>
-        /// <returns></returns>
-        [DllImport("User32.dll")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
-
-        /// <summary>
-        /// 获取最前端的窗口
-        /// </summary>
-        /// <returns>窗口句柄</returns>
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr GetForegroundWindow();
-
-        /// <summary>
         /// 模拟触发键盘的按键
         /// </summary>
         /// <param name="vk">按下的键</param>
@@ -71,38 +48,6 @@ namespace WpfTool
         /// <returns></returns>
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
-        /// <summary>
-        /// 加载鼠标样式从文件中
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll")]
-        public static extern IntPtr LoadCursorFromFile(string fileName);
-
-        /// <summary>
-        /// 设置鼠标样式
-        /// </summary>
-        /// <param name="cursorHandle"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll")]
-        public static extern IntPtr SetCursor(IntPtr cursorHandle);
-
-        /// <summary>
-        /// 销毁鼠标样式
-        /// </summary>
-        /// <param name="cursorHandle"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll")]
-        public static extern uint DestroyCursor(IntPtr cursorHandle);
-
-        /// <summary>
-        /// 隐藏焦点，隐藏光标闪烁
-        /// </summary>
-        /// <param name="hWnd"></param>
-        /// <returns></returns>
-        [DllImport("user32", EntryPoint = "HideCaret")]
-        public static extern bool HideCaret(IntPtr hWnd);
 
         [DllImport("kernel32.dll")]
         public static extern bool SetProcessWorkingSetSize(IntPtr process, int minSize, int maxSize);
@@ -170,25 +115,6 @@ namespace WpfTool
         );
         [DllImport("user32.dll", EntryPoint = "ReleaseDC")]
         static extern IntPtr ReleaseDC(IntPtr hWnd, IntPtr hDc);
-
-        /// <summary>
-        /// 获取系统dpi
-        /// </summary>
-        /// <returns></returns>
-        public static double GetDpi()
-        {
-            IntPtr desktopDc = GetDC(IntPtr.Zero);
-            float horizontalDPI = GetDeviceCaps(desktopDc, LOGPIXELSX);
-            float verticalDPI = GetDeviceCaps(desktopDc, LOGPIXELSY);
-            int dpi = (int)(horizontalDPI + verticalDPI) / 2;
-            double dDpi = 1 + ((dpi - 96) / 24) * 0.25;
-            if (dDpi < 1)
-            {
-                dDpi = 1;
-            }
-            ReleaseDC(IntPtr.Zero, desktopDc);
-            return dDpi;
-        }
 
         /// <summary>
         /// 获取窗口标题

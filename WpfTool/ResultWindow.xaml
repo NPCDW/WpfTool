@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfTool"
         x:Class="WpfTool.ResultWindow"
         mc:Ignorable="d"
-        Title="文本识别/机器翻译" Height="600" Width="800" ResizeMode="CanMinimize" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="{DynamicResource ResultWindows_Title}" Height="600" Width="800" ResizeMode="CanMinimize" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid Margin="20,10,20,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -24,12 +24,12 @@
         </Grid.RowDefinitions>
 
         <ComboBox x:Name="defaultOcrProvideComboBox" Width="140" Grid.Row="0" Grid.Column="0" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" VerticalContentAlignment="Center" >
-            <ComboBoxItem DataContext="BaiduCloud" Content="百度云"/>
-            <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+            <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource CloudService_BaiduCloud}"/>
+            <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}"/>
         </ComboBox>
         <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Grid.Row="0" Grid.Column="1"  Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" VerticalContentAlignment="Center" />
-        <CheckBox x:Name="defaultOcrSettingCheck" Grid.Row="0" Grid.Column="2" Margin="5" VerticalAlignment="Center" Content="设为默认" Checked="defaultOcrSettingCheck_Checked"/>
-        <Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Content="重新识别" Cursor="Hand" Click="ocrButton_Click" Padding="5"/>
+        <CheckBox x:Name="defaultOcrSettingCheck" Grid.Row="0" Grid.Column="2" Margin="5" VerticalAlignment="Center" Content="{DynamicResource ResultWindows_SetAsDefault}" Checked="defaultOcrSettingCheck_Checked"/>
+        <Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Content="{DynamicResource ResultWindows_ReOCR}" Cursor="Hand" Click="ocrButton_Click" Padding="5"/>
 
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
                 x:Name="ocrTextBox"
@@ -41,13 +41,13 @@
                 VerticalScrollBarVisibility="Auto" />
 
         <ComboBox x:Name="defaultTranslateProvideComboBox" Width="140" Margin="5" Grid.Row="2" Grid.Column="0" SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged" VerticalContentAlignment="Center">
-            <ComboBoxItem DataContext="BaiduAI" Content="百度翻译开放平台"/>
-            <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+            <ComboBoxItem DataContext="BaiduAI" Content="{DynamicResource CloudService_BaiduAI}"/>
+            <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}"/>
         </ComboBox>
         <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5" Grid.Row="2" Grid.Column="1" SelectionChanged="TranslateLanguageComboBox_SelectionChanged" VerticalContentAlignment="Center" />
         <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5" Grid.Row="2" Grid.Column="2" SelectionChanged="TranslateLanguageComboBox_SelectionChanged" VerticalContentAlignment="Center" />
-        <CheckBox x:Name="defaultTranslateSettingCheck" Margin="5" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Content="设为默认" Checked="defaultTranslateSettingCheck_Checked"/>
-        <Button x:Name="translateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right" Content="翻译" Click="translateButton_Click" Cursor="Hand" MinWidth="60" Padding="5"/>
+        <CheckBox x:Name="defaultTranslateSettingCheck" Margin="5" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Content="{DynamicResource ResultWindows_SetAsDefault}" Checked="defaultTranslateSettingCheck_Checked"/>
+        <Button x:Name="translateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right" Content="{DynamicResource ResultWindows_Translate}" Click="translateButton_Click" Cursor="Hand" MinWidth="60" Padding="5"/>
 
         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"
                 x:Name="translateTextBox"

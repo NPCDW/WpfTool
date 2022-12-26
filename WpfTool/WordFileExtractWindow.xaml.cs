@@ -43,17 +43,17 @@ namespace WpfTool
             String filename = FilepathInput.Text;
             if (filename == string.Empty)
             {
-                MessageBox.Show("请先选择Word文件");
+                MessageBox.Show(this.FindResource("WordFileExtractWindow_WordNotFoundMessage") as String);
                 return;
             }
 
             Task.Factory.StartNew(() =>
             {
-                ConsoleOutput("Word文件选择：" + filename);
+                ConsoleOutput(this.FindResource("WordFileExtractWindow_WordFileSelectedOutput") + filename);
                 String dir = Path.GetDirectoryName(filename) + "\\" + Path.GetFileNameWithoutExtension(filename);
                 if (!Directory.Exists(dir))
                 {
-                    ConsoleOutput("Word文件同名文件夹不存在，创建同名文件夹");
+                    ConsoleOutput(this.FindResource("WordFileExtractWindow_MkdirOutput") as String);
                     Directory.CreateDirectory(dir);
                 }
 
@@ -71,7 +71,7 @@ namespace WpfTool
                             {
                                 DocPicture picture = docObject as DocPicture;
                                 String imageName = String.Format(@"Image-{0}.png", imageIndex);
-                                ConsoleOutput("提取图片：" + imageName);
+                                ConsoleOutput(this.FindResource("WordFileExtractWindow_ExtractImageOutput") + imageName);
                                 picture.Image.Save(dir + "\\" + imageName, System.Drawing.Imaging.ImageFormat.Png);
                                 imageIndex++;
                             }
@@ -99,14 +99,14 @@ namespace WpfTool
                                 {
                                     oleName = @"File-" + fileIndex + "." + s;
                                 }
-                                ConsoleOutput("提取附件：" + oleName);
+                                ConsoleOutput(this.FindResource("WordFileExtractWindow_ExtractFileOutput") + oleName);
                                 File.WriteAllBytes(dir + "\\" + oleName, Ole.NativeData);
                                 fileIndex++;
                             }
                         }
                     }
                 }
-                ConsoleOutput("提取完成，提取位置：" + dir);
+                ConsoleOutput(this.FindResource("WordFileExtractWindow_ExtractFinishOutput") + dir);
             }).ContinueWith(result =>
             {
                 ExtractButton.Dispatcher.Invoke(new Action(delegate
@@ -131,7 +131,7 @@ namespace WpfTool
         {
             var openFileDialog = new Microsoft.Win32.OpenFileDialog()
             {
-                Filter = "Word文档 (*.doc;*.docx)|*.doc;*.docx|所有文件 (*.*)|*.*",
+                Filter = this.FindResource("WordFileExtractWindow_SelectFileDoc") + " (*.doc;*.docx)|*.doc;*.docx|" + this.FindResource("WordFileExtractWindow_SelectFileAll") + " (*.*)|*.*",
                 Multiselect = false
             };
             var result = openFileDialog.ShowDialog();

@@ -534,6 +534,7 @@ namespace WpfTool
                 string lang = ((ComboBoxItem)((ComboBox)sender).SelectedItem).DataContext.ToString();
                 LanguageUtil.switchLanguage(lang);
                 GlobalConfig.Common.language = lang;
+                MainWindow.mainWindow.InitialTray();
             }
         }
     }
