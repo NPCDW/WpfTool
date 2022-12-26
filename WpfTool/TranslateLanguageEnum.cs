@@ -9,71 +9,71 @@ namespace WpfTool
 {
     internal enum TranslateLanguageEnum
     {
-        [TranslateLanguage("自动检测", "auto", "auto")]
+        [TranslateLanguage("Language_auto", "auto", "auto")]
         auto,
-        [TranslateLanguage("简体中文", "zh", "zh")]
+        [TranslateLanguage("Language_zh", "zh", "zh")]
         zh,
-        [TranslateLanguage("繁体中文", "cht", "zh-TW")]
+        [TranslateLanguage("Language_cht", "cht", "zh-TW")]
         cht,
-        [TranslateLanguage("英语", "en", "en")]
+        [TranslateLanguage("Language_en", "en", "en")]
         en,
-        [TranslateLanguage("日语", "jp", "ja")]
+        [TranslateLanguage("Language_jp", "jp", "ja")]
         jp,
-        [TranslateLanguage("韩语", "kor", "ko")]
+        [TranslateLanguage("Language_kor", "kor", "ko")]
         kor,
-        [TranslateLanguage("法语", "fra", "fr")]
+        [TranslateLanguage("Language_fra", "fra", "fr")]
         fra,
-        [TranslateLanguage("西班牙语", "spa", "es")]
+        [TranslateLanguage("Language_spa", "spa", "es")]
         spa,
-        [TranslateLanguage("泰语", "th", "th")]
+        [TranslateLanguage("Language_th", "th", "th")]
         th,
-        [TranslateLanguage("阿拉伯语", "ara", "ar")]
+        [TranslateLanguage("Language_ara", "ara", "ar")]
         ara,
-        [TranslateLanguage("俄语", "ru", "ru")]
+        [TranslateLanguage("Language_ru", "ru", "ru")]
         ru,
-        [TranslateLanguage("葡萄牙语", "pt", "pt")]
+        [TranslateLanguage("Language_pt", "pt", "pt")]
         pt,
-        [TranslateLanguage("德语", "de", "de")]
+        [TranslateLanguage("Language_de", "de", "de")]
         de,
-        [TranslateLanguage("意大利语", "it", "it")]
+        [TranslateLanguage("Language_it", "it", "it")]
         it,
-        [TranslateLanguage("越南语", "vie", "vi")]
+        [TranslateLanguage("Language_vie", "vie", "vi")]
         vie,
-        [TranslateLanguage("希腊语", "el", "")]
+        [TranslateLanguage("Language_el", "el", "")]
         el,
-        [TranslateLanguage("荷兰语", "nl", "")]
+        [TranslateLanguage("Language_nl", "nl", "")]
         nl,
-        [TranslateLanguage("波兰语", "pl", "")]
+        [TranslateLanguage("Language_pl", "pl", "")]
         pl,
-        [TranslateLanguage("保加利亚语", "bul", "")]
+        [TranslateLanguage("Language_bul", "bul", "")]
         bul,
-        [TranslateLanguage("爱沙尼亚语", "est", "")]
+        [TranslateLanguage("Language_est", "est", "")]
         est,
-        [TranslateLanguage("丹麦语", "dan", "")]
+        [TranslateLanguage("Language_dan", "dan", "")]
         dan,
-        [TranslateLanguage("芬兰语", "fin", "")]
+        [TranslateLanguage("Language_fin", "fin", "")]
         fin,
-        [TranslateLanguage("捷克语", "cs", "")]
+        [TranslateLanguage("Language_cs", "cs", "")]
         cs,
-        [TranslateLanguage("罗马尼亚语", "rom", "")]
+        [TranslateLanguage("Language_rom", "rom", "")]
         rom,
-        [TranslateLanguage("斯洛文尼亚语", "slo", "")]
+        [TranslateLanguage("Language_slo", "slo", "")]
         slo,
-        [TranslateLanguage("瑞典语", "swe", "")]
+        [TranslateLanguage("Language_swe", "swe", "")]
         swe,
-        [TranslateLanguage("匈牙利语", "hu", "")]
+        [TranslateLanguage("Language_hu", "hu", "")]
         hu,
-        [TranslateLanguage("土耳其语", "", "tr")]
+        [TranslateLanguage("Language_tr", "", "tr")]
         tr,
-        [TranslateLanguage("印尼语", "", "id")]
+        [TranslateLanguage("Language_id", "", "id")]
         id,
-        [TranslateLanguage("马来西亚语", "", "ms")]
+        [TranslateLanguage("Language_ms", "", "ms")]
         ms,
-        [TranslateLanguage("印地语", "", "hi")]
+        [TranslateLanguage("Language_hi", "", "hi")]
         hi,
-        [TranslateLanguage("粤语", "yue", "")]
+        [TranslateLanguage("Language_yue", "yue", "")]
         yue,
-        [TranslateLanguage("文言文", "wyw", "")]
+        [TranslateLanguage("Language_wyw", "wyw", "")]
         wyw,
     }
 

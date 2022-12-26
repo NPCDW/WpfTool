@@ -21,9 +21,12 @@ namespace WpfTool
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow mainWindow = null;
         private System.Windows.Forms.NotifyIcon notifyIcon = new System.Windows.Forms.NotifyIcon();
         public MainWindow()
         {
+            mainWindow = this;
+
             GlobalConfig.GetConfig();
             LanguageUtil.switchLanguage(GlobalConfig.Common.language);
 
@@ -32,7 +35,7 @@ namespace WpfTool
 
             if (GlobalConfig.HotKeys.Ocr.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict || GlobalConfig.HotKeys.ScreenshotTranslate.Conflict || GlobalConfig.HotKeys.TopMost.Conflict)
             {
-                MessageBox.Show("全局快捷键有冲突，请您到设置中重新设置");
+                MessageBox.Show(this.FindResource("MainWindows_HotkeyConflictMessage") as String);
             }
         }
 
@@ -68,7 +71,7 @@ namespace WpfTool
             System.Windows.Forms.MenuItem settingButton = new System.Windows.Forms.MenuItem("设置");
             settingButton.Click += new EventHandler(Setting_Click);
 
-            System.Windows.Forms.MenuItem exitButton = new System.Windows.Forms.MenuItem("退出");
+            System.Windows.Forms.MenuItem exitButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_Exit") as String);
             exitButton.Click += new EventHandler(Exit_Click);
 
             System.Windows.Forms.MenuItem[] childen = new System.Windows.Forms.MenuItem[] {
@@ -161,7 +164,7 @@ namespace WpfTool
         /// <param name="e"></param>
         private void TopMost_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("请将鼠标移动到您想要置顶的窗口的标题栏（窗口最上方），按F6或您自己设置的快捷键，即可置顶或取消置顶，只支持Win32应用，不支持UWP应用");
+            MessageBox.Show(this.FindResource("MainWindows_TopMostMessage") as String);
         }
 
         /// <summary>

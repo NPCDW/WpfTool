@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTool"
         mc:Ignorable="d"
-        Title="设置" Height="600" Width="485" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="{DynamicResource Setting}" Height="600" Width="485" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <TabControl Width="Auto">
             <TabItem Header="{DynamicResource Setting_Common}">
@@ -39,13 +39,13 @@
                     <GroupBox Header="{DynamicResource Setting_DefaultOCR}">
                         <WrapPanel>
                             <ComboBox x:Name="defaultOcrProvideComboBox" Width="140" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" >
-                                <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource Setting_BaiduCloud}"/>
-                                <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource Setting_TencentCloud}"/>
+                                <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource CloudService_BaiduCloud}"/>
+                                <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}"/>
                             </ComboBox>
                             <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
                         </WrapPanel>
                     </GroupBox>
-                    <GroupBox Header="{DynamicResource Setting_TencentCloud}" Margin="0,20,0,0">
+                    <GroupBox Header="{DynamicResource CloudService_TencentCloud}" Margin="0,20,0,0">
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretID" />
@@ -58,7 +58,7 @@
                             <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="LinkLabel_MouseDown" />
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Header="{DynamicResource Setting_BaiduCloud}" Margin="0,20,0,0">
+                    <GroupBox Header="{DynamicResource CloudService_BaiduCloud}" Margin="0,20,0,0">
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="AppKey" />
@@ -73,19 +73,19 @@
                     </GroupBox>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="机器翻译">
+            <TabItem Header="{DynamicResource Setting_MachineTranslate}">
                 <StackPanel Margin="20">
-                    <GroupBox Header="默认机器翻译">
+                    <GroupBox Header="{DynamicResource Setting_defaultMachineTranslate}">
                         <WrapPanel>
                             <ComboBox x:Name="defaultTranslateProvideComboBox" Width="140" Margin="5" SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
-                                <ComboBoxItem DataContext="BaiduAI" Content="百度翻译开放平台"/>
-                                <ComboBoxItem DataContext="TencentCloud" Content="腾讯云"/>
+                                <ComboBoxItem DataContext="BaiduAI" Content="{DynamicResource CloudService_BaiduAI}"/>
+                                <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}"/>
                             </ComboBox>
                             <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5" SelectionChanged="sourceLanguageComboBox_SelectionChanged" />
                             <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5" SelectionChanged="targetLanguageComboBox_SelectionChanged" />
                         </WrapPanel>
                     </GroupBox>
-                    <GroupBox Header="腾讯云" Margin="0,20,0,0">
+                    <GroupBox Header="{DynamicResource CloudService_TencentCloud}" Margin="0,20,0,0">
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretID" />
@@ -95,10 +95,10 @@
                                 <Label Content="SecretKey" />
                                 <PasswordBox x:Name="TencentCloudTranslate_SecretKeyInput" Width="200" PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged" />
                             </WrapPanel>
-                            <Label Content="领取免费翻译额度" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/551/35017" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="{DynamicResource Setting_GetFreeTranslateQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/551/35017" MouseDown="LinkLabel_MouseDown" />
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Header="百度翻译开放平台" Margin="0,20,0,0">
+                    <GroupBox Header="{DynamicResource CloudService_BaiduAI}" Margin="0,20,0,0">
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="AppID" />
@@ -108,66 +108,66 @@
                                 <Label Content="SecretKey" />
                                 <PasswordBox x:Name="BaiduAI_SecretKeyInput" Width="200" PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged" />
                             </WrapPanel>
-                            <Label Content="领取免费翻译额度" Margin="0,5,0,0" Cursor="Hand" DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="{DynamicResource Setting_GetFreeTranslateQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="LinkLabel_MouseDown" />
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="全局热键">
+            <TabItem Header="{DynamicResource Setting_GlobalHotkey}">
                 <StackPanel Margin="20">
                     <WrapPanel>
-                        <Label Content="文字识别" VerticalAlignment="Center" />
+                        <Label Content="{DynamicResource Setting_OCR}" VerticalAlignment="Center" />
                         <TextBox x:Name="OcrHotKeyTextBox" Width="200" Cursor="Arrow" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
                                  PreviewKeyDown="HotKeyTextBox_PreviewKeyDown" KeyUp="OcrHotKeyTextBox_KeyUp" />
-                        <Label x:Name="OcrHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+                        <Label x:Name="OcrHotKeyConflictLabel" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                     </WrapPanel>
                     <WrapPanel Margin="0,10,0,0">
-                        <Label Content="划词翻译" VerticalAlignment="Center" />
+                        <Label Content="{DynamicResource Setting_WordTranslation}" VerticalAlignment="Center" />
                         <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
                                      PreviewKeyDown="HotKeyTextBox_PreviewKeyDown" KeyUp="GetWordsTranslateHotKeyTextBox_KeyUp" />
-                        <Label x:Name="GetWordsTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+                        <Label x:Name="GetWordsTranslateHotKeyConflictLabel" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                     </WrapPanel>
                     <WrapPanel Margin="0,10,0,0">
-                        <Label Content="截图翻译" VerticalAlignment="Center" />
+                        <Label Content="{DynamicResource Setting_ScreenshotTranslation}" VerticalAlignment="Center" />
                         <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
                                      PreviewKeyDown="HotKeyTextBox_PreviewKeyDown" KeyUp="ScreenshotTranslateHotKeyTextBox_KeyUp" />
-                        <Label x:Name="ScreenshotTranslateHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+                        <Label x:Name="ScreenshotTranslateHotKeyConflictLabel" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                     </WrapPanel>
                     <WrapPanel Margin="0,10,0,0">
-                        <Label Content="置顶/取消置顶" VerticalAlignment="Center" />
+                        <Label Content="{DynamicResource Setting_TopMostToggle}" VerticalAlignment="Center" />
                         <TextBox x:Name="TopMostHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
                                      PreviewKeyDown="HotKeyTextBox_PreviewKeyDown" KeyUp="TopMostHotKeyTextBox_KeyUp" />
-                        <Label x:Name="TopMostHotKeyConflictLabel" Content="热键冲突" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+                        <Label x:Name="TopMostHotKeyConflictLabel" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
                     </WrapPanel>
                     <WrapPanel Margin="0,10,0,0">
-                        <Button Content="恢复默认" Click="Button_Click" Padding="5" />
+                        <Button Content="{DynamicResource Setting_Reset}" Click="Button_Click" Padding="5" />
                     </WrapPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="关于">
+            <TabItem Header="{DynamicResource Setting_about}">
                 <StackPanel Margin="20">
                     <WrapPanel>
-                        <Label Content="版本" />
+                        <Label Content="{DynamicResource Setting_Version}" />
                         <Label Content="1.8.0.0 (2022.12.25)" DataContext="https://github.com/NPCDW/WpfTool/releases" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
-                        <Label Content="开源许可" />
+                        <Label Content="{DynamicResource Setting_license}" />
                         <Label Content="MIT License" DataContext="https://en.wikipedia.org/wiki/MIT_License" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
-                        <Label Content="版权所有" />
+                        <Label Content="{DynamicResource Setting_AllRightsReserved}" />
                         <Label Content="© 2022 NPCDW" DataContext="https://github.com/NPCDW" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
-                        <Label Content="源码" />
+                        <Label Content="{DynamicResource Setting_SourceCode}" />
                         <Label Content="https://github.com/NPCDW/WpfTool" DataContext="https://github.com/NPCDW/WpfTool" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
-                        <Label Content="反馈" />
+                        <Label Content="{DynamicResource Setting_feedback}" />
                         <Label Content="chenyongli0520@gmail.com" Cursor="Hand" DataContext="chenyongli0520@gmail.com"  MouseDown="CopyLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
-                        <Label Content="友情链接" />
+                        <Label Content="{DynamicResource Setting_Links}" />
                         <Label Content="https://www.0520.site" DataContext="https://www.0520.site" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                 </StackPanel>

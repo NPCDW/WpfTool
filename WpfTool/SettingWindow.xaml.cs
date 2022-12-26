@@ -127,7 +127,7 @@ namespace WpfTool
         private void CopyLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             NativeClipboard.SetText(((Label)sender).DataContext.ToString());
-            MessageBox.Show("已复制邮件地址");
+            MessageBox.Show(this.FindResource("Setting_CopyEmailMessage") as String);
         }
 
         private void defaultOcrProvideComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -142,15 +142,15 @@ namespace WpfTool
                 defaultOcrTypeComboBox.Items.Clear();
                 ComboBoxItem item = new ComboBoxItem();
                 item.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.general_basic.ToString();
-                item.Content = "通用";
+                item.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_GeneralBasic");
                 defaultOcrTypeComboBox.Items.Add(item);
                 ComboBoxItem item2 = new ComboBoxItem();
                 item2.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.accurate_basic.ToString();
-                item2.Content = "高精度";
+                item2.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_AccurateBasic");
                 defaultOcrTypeComboBox.Items.Add(item2);
                 ComboBoxItem item3 = new ComboBoxItem();
                 item3.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.handwriting.ToString();
-                item3.Content = "手写体";
+                item3.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Handwriting");
                 defaultOcrTypeComboBox.Items.Add(item3);
 
                 defaultOcrTypeComboBox.SelectedItem = item;
@@ -160,15 +160,15 @@ namespace WpfTool
                 defaultOcrTypeComboBox.Items.Clear();
                 ComboBoxItem item = new ComboBoxItem();
                 item.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralBasicOCR.ToString();
-                item.Content = "通用";
+                item.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_GeneralBasic");
                 defaultOcrTypeComboBox.Items.Add(item);
                 ComboBoxItem item2 = new ComboBoxItem();
                 item2.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralAccurateOCR.ToString();
-                item2.Content = "高精度";
+                item2.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_AccurateBasic");
                 defaultOcrTypeComboBox.Items.Add(item2);
                 ComboBoxItem item3 = new ComboBoxItem();
                 item3.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralHandwritingOCR.ToString();
-                item3.Content = "手写体";
+                item3.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Handwriting");
                 defaultOcrTypeComboBox.Items.Add(item3);
 
                 defaultOcrTypeComboBox.SelectedItem = item;
@@ -206,11 +206,11 @@ namespace WpfTool
                     {
                         ComboBoxItem comboBoxItem = new ComboBoxItem();
                         comboBoxItem.DataContext = item.getBaiduAiCode();
-                        comboBoxItem.Content = item.getName();
+                        comboBoxItem.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
                         sourceLanguageComboBox.Items.Add(comboBoxItem);
                         ComboBoxItem comboBoxItem2 = new ComboBoxItem();
                         comboBoxItem2.DataContext = item.getBaiduAiCode();
-                        comboBoxItem2.Content = item.getName();
+                        comboBoxItem2.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
                         targetLanguageComboBox.Items.Add(comboBoxItem2);
                     }
                 }
@@ -223,11 +223,11 @@ namespace WpfTool
                     {
                         ComboBoxItem comboBoxItem = new ComboBoxItem();
                         comboBoxItem.DataContext = item.getTencentCloudCode();
-                        comboBoxItem.Content = item.getName();
+                        comboBoxItem.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
                         sourceLanguageComboBox.Items.Add(comboBoxItem);
                         ComboBoxItem comboBoxItem2 = new ComboBoxItem();
                         comboBoxItem2.DataContext = item.getTencentCloudCode();
-                        comboBoxItem2.Content = item.getName();
+                        comboBoxItem2.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
                         targetLanguageComboBox.Items.Add(comboBoxItem2);
                     }
                 }

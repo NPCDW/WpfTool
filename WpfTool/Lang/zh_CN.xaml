@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="Setting_language">简体中文</sys:String>
+    <sys:String x:Key="Setting">设置</sys:String>
     <sys:String x:Key="Setting_AutoStart">开机启动</sys:String>
     <sys:String x:Key="Setting_Common">常规</sys:String>
     <sys:String x:Key="Setting_ConfigurationFileStorageLocation">配置文件存储位置</sys:String>
@@ -12,7 +13,72 @@
     <sys:String x:Key="Setting_WordSelectionIntervalToolTip">划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器</sys:String>
     <sys:String x:Key="Setting_OCR">文字识别</sys:String>
     <sys:String x:Key="Setting_DefaultOCR">默认文字识别</sys:String>
-    <sys:String x:Key="Setting_BaiduCloud">百度云</sys:String>
-    <sys:String x:Key="Setting_TencentCloud">腾讯云</sys:String>
     <sys:String x:Key="Setting_GetFreeOCRQuota">领取免费OCR额度</sys:String>
+    <sys:String x:Key="Setting_CopyEmailMessage">邮件地址已复制</sys:String>
+    <sys:String x:Key="Setting_MachineTranslate">机器翻译</sys:String>
+    <sys:String x:Key="Setting_defaultMachineTranslate">默认机器翻译</sys:String>
+    <sys:String x:Key="Setting_GetFreeTranslateQuota">领取免费翻译额度</sys:String>
+    <sys:String x:Key="Setting_GlobalHotkey">全局热键</sys:String>
+    <sys:String x:Key="Setting_HotkeyConflict">热键冲突</sys:String>
+    <sys:String x:Key="Setting_WordTranslation">划词翻译</sys:String>
+    <sys:String x:Key="Setting_ScreenshotTranslation">截图翻译</sys:String>
+    <sys:String x:Key="Setting_TopMostToggle">置顶/取消置顶</sys:String>
+    <sys:String x:Key="Setting_Reset">恢复默认</sys:String>
+    <sys:String x:Key="Setting_about">关于</sys:String>
+    <sys:String x:Key="Setting_Version">版本</sys:String>
+    <sys:String x:Key="Setting_license">开源许可</sys:String>
+    <sys:String x:Key="Setting_AllRightsReserved">版权所有</sys:String>
+    <sys:String x:Key="Setting_SourceCode">源码</sys:String>
+    <sys:String x:Key="Setting_feedback">反馈</sys:String>
+    <sys:String x:Key="Setting_Links">友情链接</sys:String>
+
+    <sys:String x:Key="MainWindows_HotkeyConflictMessage">全局快捷键有冲突，请您到设置中重新设置</sys:String>
+    <sys:String x:Key="MainWindows_TopMostMessage">请将鼠标移动到您想要置顶的窗口的标题栏（窗口最上方），按F6或您自己设置的快捷键，即可置顶或取消置顶，只支持Win32应用，不支持UWP应用</sys:String>
+    <sys:String x:Key="MainWindows_Exit">退出</sys:String>
+
+    <sys:String x:Key="App_Run">程序已经在运行了</sys:String>
+
+    <sys:String x:Key="AutoStart_SetFail">开机自启动设置失败</sys:String>
+
+    <sys:String x:Key="CloudService_BaiduCloud">百度云</sys:String>
+    <sys:String x:Key="CloudService_TencentCloud">腾讯云</sys:String>
+    <sys:String x:Key="CloudService_BaiduAI">百度翻译开放平台</sys:String>
+
+    <sys:String x:Key="OcrType_GeneralBasic">通用</sys:String>
+    <sys:String x:Key="OcrType_AccurateBasic">高精度</sys:String>
+    <sys:String x:Key="OcrType_Handwriting">手写体</sys:String>
+
+    <sys:String x:Key="Language_auto">自动检测</sys:String>
+    <sys:String x:Key="Language_zh">简体中文</sys:String>
+    <sys:String x:Key="Language_cht">繁体中文</sys:String>
+    <sys:String x:Key="Language_en">英语</sys:String>
+    <sys:String x:Key="Language_jp">日语</sys:String>
+    <sys:String x:Key="Language_kor">韩语</sys:String>
+    <sys:String x:Key="Language_fra">法语</sys:String>
+    <sys:String x:Key="Language_spa">西班牙语</sys:String>
+    <sys:String x:Key="Language_th">泰语</sys:String>
+    <sys:String x:Key="Language_ara">阿拉伯语</sys:String>
+    <sys:String x:Key="Language_ru">俄语</sys:String>
+    <sys:String x:Key="Language_pt">葡萄牙语</sys:String>
+    <sys:String x:Key="Language_de">德语</sys:String>
+    <sys:String x:Key="Language_it">意大利语</sys:String>
+    <sys:String x:Key="Language_vie">越南语</sys:String>
+    <sys:String x:Key="Language_el">希腊语</sys:String>
+    <sys:String x:Key="Language_nl">荷兰语</sys:String>
+    <sys:String x:Key="Language_pl">波兰语</sys:String>
+    <sys:String x:Key="Language_bul">保加利亚语</sys:String>
+    <sys:String x:Key="Language_est">爱沙尼亚语</sys:String>
+    <sys:String x:Key="Language_dan">丹麦语</sys:String>
+    <sys:String x:Key="Language_fin">芬兰语</sys:String>
+    <sys:String x:Key="Language_cs">捷克语</sys:String>
+    <sys:String x:Key="Language_rom">罗马尼亚语</sys:String>
+    <sys:String x:Key="Language_slo">斯洛文尼亚语</sys:String>
+    <sys:String x:Key="Language_swe">瑞典语</sys:String>
+    <sys:String x:Key="Language_hu">匈牙利语</sys:String>
+    <sys:String x:Key="Language_tr">土耳其语</sys:String>
+    <sys:String x:Key="Language_id">印尼语</sys:String>
+    <sys:String x:Key="Language_ms">马来西亚语</sys:String>
+    <sys:String x:Key="Language_hi">印地语</sys:String>
+    <sys:String x:Key="Language_yue">粤语</sys:String>
+    <sys:String x:Key="Language_wyw">文言文</sys:String>
 </ResourceDictionary>

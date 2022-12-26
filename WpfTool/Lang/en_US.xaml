@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="Setting_language">English</sys:String>
+    <sys:String x:Key="Setting">Setting</sys:String>
     <sys:String x:Key="Setting_AutoStart">Auto Start</sys:String>
     <sys:String x:Key="Setting_Common">Common</sys:String>
     <sys:String x:Key="Setting_ConfigurationFileStorageLocation">Configuration file storage location</sys:String>
@@ -12,7 +13,72 @@
     <sys:String x:Key="Setting_WordSelectionIntervalToolTip">The realization principle of word-drawing translation is: the user uses the mouse to draw a word and then simulates Ctrl+C. After a certain period of time, the program fetches words from the clipboard. If the computer responds slowly, there may be a problem that words cannot be obtained. It can be adapted to some old machines</sys:String>
     <sys:String x:Key="Setting_OCR">OCR</sys:String>
     <sys:String x:Key="Setting_DefaultOCR">Default OCR</sys:String>
-    <sys:String x:Key="Setting_BaiduCloud">Baidu Cloud</sys:String>
-    <sys:String x:Key="Setting_TencentCloud">Tencent Cloud</sys:String>
     <sys:String x:Key="Setting_GetFreeOCRQuota">Get Free OCR Quota</sys:String>
+    <sys:String x:Key="Setting_CopyEmailMessage">Email address copied</sys:String>
+    <sys:String x:Key="Setting_MachineTranslate">Machine Translation</sys:String>
+    <sys:String x:Key="Setting_defaultMachineTranslate">Default Machine Translation</sys:String>
+    <sys:String x:Key="Setting_GetFreeTranslateQuota">Get Free Machine Translate Quota</sys:String>
+    <sys:String x:Key="Setting_GlobalHotkey">Global Hotkey</sys:String>
+    <sys:String x:Key="Setting_HotkeyConflict">Hotkey Conflict</sys:String>
+    <sys:String x:Key="Setting_WordTranslation">Get Word Translation</sys:String>
+    <sys:String x:Key="Setting_ScreenshotTranslation">Screenshot Translation</sys:String>
+    <sys:String x:Key="Setting_TopMostToggle">TopMost Toggle</sys:String>
+    <sys:String x:Key="Setting_Reset">Reset</sys:String>
+    <sys:String x:Key="Setting_about">About</sys:String>
+    <sys:String x:Key="Setting_Version">Version</sys:String>
+    <sys:String x:Key="Setting_license">LICENSE</sys:String>
+    <sys:String x:Key="Setting_AllRightsReserved">AllRightsReserved</sys:String>
+    <sys:String x:Key="Setting_SourceCode">SourceCode</sys:String>
+    <sys:String x:Key="Setting_feedback">Feedback</sys:String>
+    <sys:String x:Key="Setting_Links">Links</sys:String>
+
+    <sys:String x:Key="MainWindows_HotkeyConflictMessage">There is a conflict with the global shortcut keys, please go to the settings to reset</sys:String>
+    <sys:String x:Key="MainWindows_TopMostMessage">Please move the mouse to the title bar of the window you want to stick to the top (the top of the window), press F6 or the shortcut key you set yourself, you can stick it to the top or cancel it. Only Win32 applications are supported, UWP applications are not supported</sys:String>
+    <sys:String x:Key="MainWindows_Exit">Exit</sys:String>
+
+    <sys:String x:Key="App_Run">App is already running</sys:String>
+
+    <sys:String x:Key="AutoStart_SetFail">Failed to start automatically after booting</sys:String>
+
+    <sys:String x:Key="CloudService_BaiduCloud">Baidu Cloud</sys:String>
+    <sys:String x:Key="CloudService_TencentCloud">Tencent Cloud</sys:String>
+    <sys:String x:Key="CloudService_BaiduAI">BaiduAI</sys:String>
+
+    <sys:String x:Key="OcrType_GeneralBasic">General Basic</sys:String>
+    <sys:String x:Key="OcrType_AccurateBasic">Accurate Basic</sys:String>
+    <sys:String x:Key="OcrType_Handwriting">Handwriting</sys:String>
+    
+    <sys:String x:Key="Language_auto">Auto</sys:String>
+    <sys:String x:Key="Language_zh">Simplified Chinese</sys:String>
+    <sys:String x:Key="Language_cht">Traditional Chinese</sys:String>
+    <sys:String x:Key="Language_en">English</sys:String>
+    <sys:String x:Key="Language_jp">Japanese</sys:String>
+    <sys:String x:Key="Language_kor">Korean</sys:String>
+    <sys:String x:Key="Language_fra">French</sys:String>
+    <sys:String x:Key="Language_spa">Apanish</sys:String>
+    <sys:String x:Key="Language_th">Thai</sys:String>
+    <sys:String x:Key="Language_ara">Arabic</sys:String>
+    <sys:String x:Key="Language_ru">Russian</sys:String>
+    <sys:String x:Key="Language_pt">Portuguese</sys:String>
+    <sys:String x:Key="Language_de">German</sys:String>
+    <sys:String x:Key="Language_it">Italian</sys:String>
+    <sys:String x:Key="Language_vie">Vietnamese</sys:String>
+    <sys:String x:Key="Language_el">Greek</sys:String>
+    <sys:String x:Key="Language_nl">Dutch</sys:String>
+    <sys:String x:Key="Language_pl">Polish</sys:String>
+    <sys:String x:Key="Language_bul">Bulgarian</sys:String>
+    <sys:String x:Key="Language_est">Estonian</sys:String>
+    <sys:String x:Key="Language_dan">Danish</sys:String>
+    <sys:String x:Key="Language_fin">Finnish</sys:String>
+    <sys:String x:Key="Language_cs">Czech</sys:String>
+    <sys:String x:Key="Language_rom">Romanian</sys:String>
+    <sys:String x:Key="Language_slo">Slovenian</sys:String>
+    <sys:String x:Key="Language_swe">Swedish</sys:String>
+    <sys:String x:Key="Language_hu">Hungarian</sys:String>
+    <sys:String x:Key="Language_tr">Turkish</sys:String>
+    <sys:String x:Key="Language_id">Indonesian</sys:String>
+    <sys:String x:Key="Language_ms">Malaysian</sys:String>
+    <sys:String x:Key="Language_hi">Hindi</sys:String>
+    <sys:String x:Key="Language_yue">Cantonese</sys:String>
+    <sys:String x:Key="Language_wyw">Classical Chinese</sys:String>
 </ResourceDictionary>

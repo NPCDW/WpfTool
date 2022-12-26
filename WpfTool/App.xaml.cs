@@ -24,7 +24,7 @@ namespace WpfTool
 
             if (!createNew)
             {
-                MessageBox.Show("程序已经在运行了");
+                MessageBox.Show(this.FindResource("App_Run") as String);
                 Environment.Exit(0);
             }
             base.OnStartup(e);
