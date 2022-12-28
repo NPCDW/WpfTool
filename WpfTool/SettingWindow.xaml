@@ -163,7 +163,7 @@
                 <StackPanel Margin="20">
                     <WrapPanel>
                         <Label Content="{DynamicResource Setting_Version}" />
-                        <Label Content="1.9.0.0 (2022.12.26)" DataContext="https://github.com/NPCDW/WpfTool/releases" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+                        <Label Content="1.10.0.0 (2022.12.28)" DataContext="https://github.com/NPCDW/WpfTool/releases" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
                         <Label Content="{DynamicResource Setting_license}" />
