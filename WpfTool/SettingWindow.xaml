@@ -10,28 +10,35 @@
         <TabControl Width="Auto">
             <TabItem Header="{DynamicResource Setting_Common}">
                 <StackPanel Margin="20">
-                    <CheckBox x:Name="autoStartButton" Content="{DynamicResource Setting_AutoStart}" FontWeight="Bold" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
-                    <WrapPanel Margin="0,20,0,0">
-                        <Label FontWeight="Bold" Content="{DynamicResource Setting_language}" />
-                        <ComboBox x:Name="languageComboBox" Width="140" Margin="5" SelectionChanged="languageComboBox_SelectionChanged" >
-                            <ComboBoxItem DataContext="en_US" Content="English" />
-                            <ComboBoxItem DataContext="zh_CN" Content="简体中文"/>
-                        </ComboBox>
-                    </WrapPanel>
-                    <WrapPanel Margin="0,20,0,0">
-                        <Label FontWeight="Bold" Content="{DynamicResource Setting_ConfigurationFileStorageLocation}" />
-                        <RadioButton x:Name="UserConfigRadioButton" GroupName="config" VerticalAlignment="Center" Checked="UserConfigRadioButton_Checked" Content="{DynamicResource Setting_UserDirectory}" />
-                        <RadioButton x:Name="AppConfigRadioButton" GroupName="config" VerticalAlignment="Center" Margin="5,0,0,0" Checked="AppConfigRadioButton_Checked" Content="{DynamicResource Setting_AppDirectory}" />
-                        <Button x:Name="ConfigButton" Margin="10,0,0,0" Padding="15,0,15,0" Click="ConfigButton_Click" Content="{DynamicResource Setting_Open}" />
-                    </WrapPanel>
-                    <WrapPanel Margin="0,20,0,0">
-                        <Label FontWeight="Bold" Content="{DynamicResource Setting_WordSelectionInterval}" ToolTip="{DynamicResource Setting_WordSelectionIntervalToolTip}" />
-                        <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="100" Maximum="1000"
+                    <GroupBox Header="{DynamicResource Setting_AutoStart}">
+                        <WrapPanel Margin="0,5,0,5">
+                            <CheckBox x:Name="autoStartButton" Content="{DynamicResource Setting_AutoStart}" FontWeight="Bold" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="{DynamicResource Setting_language}">
+                        <WrapPanel Margin="0,5,0,5">
+                            <ComboBox x:Name="languageComboBox" Width="140" Margin="5" SelectionChanged="languageComboBox_SelectionChanged" >
+                                <ComboBoxItem DataContext="en_US" Content="English" />
+                                <ComboBoxItem DataContext="zh_CN" Content="简体中文"/>
+                            </ComboBox>
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="{DynamicResource Setting_ConfigurationFileStorageLocation}">
+                        <WrapPanel Margin="0,5,0,5">
+                            <RadioButton x:Name="UserConfigRadioButton" GroupName="config" VerticalAlignment="Center" Checked="UserConfigRadioButton_Checked" Content="{DynamicResource Setting_UserDirectory}" />
+                            <RadioButton x:Name="AppConfigRadioButton" GroupName="config" VerticalAlignment="Center" Margin="5,0,0,0" Checked="AppConfigRadioButton_Checked" Content="{DynamicResource Setting_AppDirectory}" />
+                            <Button x:Name="ConfigButton" Margin="10,0,0,0" Padding="15,0,15,0" Click="ConfigButton_Click" Content="{DynamicResource Setting_Open}" />
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="{DynamicResource Setting_WordSelectionInterval}" ToolTip="{DynamicResource Setting_WordSelectionIntervalToolTip}">
+                        <WrapPanel Margin="0,5,0,5">
+                            <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="100" Maximum="1000"
                                     MinWidth="200"
-                                TickFrequency="100" TickPlacement="BottomRight" IsSnapToTickEnabled="True"
+                                TickFrequency="100" TickPlacement="None" IsSnapToTickEnabled="True"
                                 ValueChanged="WordSelectionIntervalSlider_ValueChanged" />
-                        <TextBlock Text="{Binding ElementName=WordSelectionIntervalSlider, Path=Value, StringFormat={}{0}ms}" Margin="10,0,0,0" />
-                    </WrapPanel>
+                            <TextBlock Text="{Binding ElementName=WordSelectionIntervalSlider, Path=Value, StringFormat={}{0}ms}" Margin="10,0,0,0" />
+                        </WrapPanel>
+                    </GroupBox>
                 </StackPanel>
             </TabItem>
             <TabItem Header="{DynamicResource Setting_OCR}">
@@ -53,9 +60,9 @@
                             </WrapPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretKey" />
-                                <PasswordBox x:Name="TencentCloudOcr_SecretKeyInput" Width="200" Cursor="Arrow" PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
+                                <PasswordBox x:Name="TencentCloudOcr_SecretKeyInput" Width="200" Cursor="Arrow" PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
-                            <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/866/35945" MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="{DynamicResource CloudService_BaiduCloud}" Margin="0,20,0,0">
@@ -66,9 +73,9 @@
                             </WrapPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretKey" />
-                                <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200" PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
+                                <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200" PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
-                            <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
@@ -93,9 +100,9 @@
                             </WrapPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretKey" />
-                                <PasswordBox x:Name="TencentCloudTranslate_SecretKeyInput" Width="200" PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged" />
+                                <PasswordBox x:Name="TencentCloudTranslate_SecretKeyInput" Width="200" PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
-                            <Label Content="{DynamicResource Setting_GetFreeTranslateQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/551/35017" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="{DynamicResource Setting_GetFreeTranslateQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.tencent.com/document/product/551/35017" MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="{DynamicResource CloudService_BaiduAI}" Margin="0,20,0,0">
@@ -106,49 +113,56 @@
                             </WrapPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="SecretKey" />
-                                <PasswordBox x:Name="BaiduAI_SecretKeyInput" Width="200" PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged" />
+                                <PasswordBox x:Name="BaiduAI_SecretKeyInput" Width="200" PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
-                            <Label Content="{DynamicResource Setting_GetFreeTranslateQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="LinkLabel_MouseDown" />
+                            <Label Content="{DynamicResource Setting_GetFreeTranslateQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
             </TabItem>
             <TabItem Header="{DynamicResource Setting_GlobalHotkey}">
-                <StackPanel Margin="20">
-                    <WrapPanel>
-                        <Label Content="{DynamicResource Setting_OCR}" VerticalAlignment="Center" />
-                        <TextBox x:Name="OcrHotKeyTextBox" Width="200" Cursor="Arrow" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
+                <Grid Margin="20,10,20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="100*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="{DynamicResource Setting_OCR}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="0,5,0,0" />
+                    <TextBox x:Name="OcrHotKeyTextBox" Width="200" Grid.Row="0" Grid.Column="1" Margin="0,5,0,0" Cursor="Arrow" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
                                  PreviewKeyDown="HotKeyTextBox_PreviewKeyDown" KeyUp="OcrHotKeyTextBox_KeyUp" />
-                        <Label x:Name="OcrHotKeyConflictLabel" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
-                    </WrapPanel>
-                    <WrapPanel Margin="0,10,0,0">
-                        <Label Content="{DynamicResource Setting_WordTranslation}" VerticalAlignment="Center" />
-                        <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
+                    <Label x:Name="OcrHotKeyConflictLabel" Grid.Row="0" Grid.Column="2" Margin="0,5,0,0" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+
+                    <Label Content="{DynamicResource Setting_WordTranslation}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="0,5,0,0" />
+                    <TextBox x:Name="GetWordsTranslateHotKeyTextBox" Cursor="Arrow" Width="200" Grid.Row="1" Grid.Column="1" Margin="0,5,0,0" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
                                      PreviewKeyDown="HotKeyTextBox_PreviewKeyDown" KeyUp="GetWordsTranslateHotKeyTextBox_KeyUp" />
-                        <Label x:Name="GetWordsTranslateHotKeyConflictLabel" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
-                    </WrapPanel>
-                    <WrapPanel Margin="0,10,0,0">
-                        <Label Content="{DynamicResource Setting_ScreenshotTranslation}" VerticalAlignment="Center" />
-                        <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
+                    <Label x:Name="GetWordsTranslateHotKeyConflictLabel" Grid.Row="1" Grid.Column="2" Margin="0,5,0,0" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+
+                    <Label Content="{DynamicResource Setting_ScreenshotTranslation}" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0,5,0,0" />
+                    <TextBox x:Name="ScreenshotTranslateHotKeyTextBox" Cursor="Arrow" Width="200" Grid.Row="2" Grid.Column="1" Margin="0,5,0,0" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
                                      PreviewKeyDown="HotKeyTextBox_PreviewKeyDown" KeyUp="ScreenshotTranslateHotKeyTextBox_KeyUp" />
-                        <Label x:Name="ScreenshotTranslateHotKeyConflictLabel" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
-                    </WrapPanel>
-                    <WrapPanel Margin="0,10,0,0">
-                        <Label Content="{DynamicResource Setting_TopMostToggle}" VerticalAlignment="Center" />
-                        <TextBox x:Name="TopMostHotKeyTextBox" Cursor="Arrow" Width="200" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
+                    <Label x:Name="ScreenshotTranslateHotKeyConflictLabel" Grid.Row="2" Grid.Column="2" Margin="0,5,0,0" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+
+                    <Label Content="{DynamicResource Setting_TopMostToggle}" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="0,5,0,0" />
+                    <TextBox x:Name="TopMostHotKeyTextBox" Cursor="Arrow" Width="200" Grid.Row="3" Grid.Column="1" Margin="0,5,0,0" CaretBrush="Transparent" VerticalContentAlignment="Center" InputMethod.IsInputMethodEnabled="False"
                                      PreviewKeyDown="HotKeyTextBox_PreviewKeyDown" KeyUp="TopMostHotKeyTextBox_KeyUp" />
-                        <Label x:Name="TopMostHotKeyConflictLabel" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
-                    </WrapPanel>
-                    <WrapPanel Margin="0,10,0,0">
-                        <Button Content="{DynamicResource Setting_Reset}" Click="Button_Click" Padding="5" />
-                    </WrapPanel>
-                </StackPanel>
+                    <Label x:Name="TopMostHotKeyConflictLabel" Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" Content="{DynamicResource Setting_HotkeyConflict}" VerticalAlignment="Center" Visibility="Hidden" Foreground="Red" />
+
+                    <Button Content="{DynamicResource Setting_Reset}" Width="100" Grid.Row="4" Grid.Column="1" Click="Button_Click" Margin="5" />
+                </Grid>
             </TabItem>
             <TabItem Header="{DynamicResource Setting_about}">
                 <StackPanel Margin="20">
                     <WrapPanel>
                         <Label Content="{DynamicResource Setting_Version}" />
-                        <Label Content="1.8.0.0 (2022.12.25)" DataContext="https://github.com/NPCDW/WpfTool/releases" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+                        <Label Content="1.9.0.0 (2022.12.26)" DataContext="https://github.com/NPCDW/WpfTool/releases" Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
                     </WrapPanel>
                     <WrapPanel>
                         <Label Content="{DynamicResource Setting_license}" />
