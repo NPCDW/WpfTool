@@ -79,7 +79,8 @@ namespace WpfTool
             public enum TranslateProvideEnum
             {
                 BaiduAI,
-                TencentCloud
+                TencentCloud,
+                GoogleCloud
             }
 
         }

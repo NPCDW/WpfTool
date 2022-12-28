@@ -104,6 +104,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CloudService\GoogleCloudHelper.cs" />
     <Compile Include="Util\DispatcherHelper .cs" />
     <Compile Include="Util\LanguageUtil.cs" />
     <Compile Include="MainWindow.xaml.cs">

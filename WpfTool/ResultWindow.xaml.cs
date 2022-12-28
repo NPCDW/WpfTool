@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfTool.CloudService;
 
 namespace WpfTool
 {
@@ -142,6 +143,23 @@ namespace WpfTool
                     }));
                 });
             }
+            else if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud)
+            {
+                translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
+                DispatcherHelper.DoEvents();
+
+                String ocrText = ocrTextBox.Text;
+                Task.Factory.StartNew(() =>
+                {
+                    return GoogleCloudHelper.translate(ocrText, sourceLanguage, targetLanguage);
+                }).ContinueWith(result =>
+                {
+                    translateTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        translateTextBox.Text = result.Result;
+                    }));
+                });
+            }
         }
 
         public void ocr(Bitmap bmp, String ocrProvideStr = null, String ocrType = null)
@@ -258,6 +276,24 @@ namespace WpfTool
                     translateTextBox.Dispatcher.Invoke(new Action(delegate
                     {
                         translateTextBox.Text = keyValues["translateText"];
+                    }));
+                });
+            }
+            else if (GlobalConfig.Translate.defaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud)
+            {
+                this.ocr(bmp);
+
+                translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
+                DispatcherHelper.DoEvents();
+
+                Task.Factory.StartNew(() =>
+                {
+                    return GoogleCloudHelper.translate(ocrTextBox.Text, GlobalConfig.Translate.defaultTranslateSourceLanguage, GlobalConfig.Translate.defaultTranslateTargetLanguage);
+                }).ContinueWith(result =>
+                {
+                    translateTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        translateTextBox.Text = result.Result;
                     }));
                 });
             }
@@ -394,6 +430,23 @@ namespace WpfTool
                         sourceLanguageComboBox.Items.Add(comboBoxItem);
                         ComboBoxItem comboBoxItem2 = new ComboBoxItem();
                         comboBoxItem2.DataContext = item.getTencentCloudCode();
+                        comboBoxItem2.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
+                        targetLanguageComboBox.Items.Add(comboBoxItem2);
+                    }
+                }
+            }
+            else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud.ToString()))
+            {
+                foreach (TranslateLanguageAttribute item in TranslateLanguageExtension.TranslateLanguageAttributeList)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.getGoogleCloudCode()))
+                    {
+                        ComboBoxItem comboBoxItem = new ComboBoxItem();
+                        comboBoxItem.DataContext = item.getGoogleCloudCode();
+                        comboBoxItem.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
+                        sourceLanguageComboBox.Items.Add(comboBoxItem);
+                        ComboBoxItem comboBoxItem2 = new ComboBoxItem();
+                        comboBoxItem2.DataContext = item.getGoogleCloudCode();
                         comboBoxItem2.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
                         targetLanguageComboBox.Items.Add(comboBoxItem2);
                     }

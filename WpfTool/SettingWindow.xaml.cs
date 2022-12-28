@@ -232,6 +232,23 @@ namespace WpfTool
                     }
                 }
             }
+            else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud.ToString()))
+            {
+                foreach (TranslateLanguageAttribute item in TranslateLanguageExtension.TranslateLanguageAttributeList)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.getGoogleCloudCode()))
+                    {
+                        ComboBoxItem comboBoxItem = new ComboBoxItem();
+                        comboBoxItem.DataContext = item.getGoogleCloudCode();
+                        comboBoxItem.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
+                        sourceLanguageComboBox.Items.Add(comboBoxItem);
+                        ComboBoxItem comboBoxItem2 = new ComboBoxItem();
+                        comboBoxItem2.DataContext = item.getGoogleCloudCode();
+                        comboBoxItem2.SetResourceReference(ComboBoxItem.ContentProperty, item.getName());
+                        targetLanguageComboBox.Items.Add(comboBoxItem2);
+                    }
+                }
+            }
             targetLanguageComboBox.Items.RemoveAt(0);
             sourceLanguageComboBox.SelectedItem = sourceLanguageComboBox.Items[0];
             targetLanguageComboBox.SelectedItem = targetLanguageComboBox.Items[0];

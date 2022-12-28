@@ -12,6 +12,51 @@ namespace WpfTool
 {
     public class HttpHelper
     {
+        public static string Get(string url, Dictionary<String, String> headers = null)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Date = DateTime.Now;
+                request.Method = "GET";
+                request.Timeout = 5000;
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54";
+                if (headers != null && headers.Count > 0)
+                {
+                    foreach (KeyValuePair<string, string> header in headers)
+                    {
+                        request.Headers.Set(header.Key, header.Value);
+                    }
+                }
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+            catch (WebException ex)
+            {
+
+                HttpWebResponse response = (HttpWebResponse)ex.Response;
+                if (response != null)
+                {
+                    Console.WriteLine("Error code: {0}", response.StatusCode);
+
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.Default))
+                    {
+                        string text = reader.ReadToEnd();
+
+                        throw new Exception(text);
+                    }
+                }
+                else
+                {
+                    throw new Exception("XX" + ex.Message);
+                }
+            }
+        }
+
         public static string Post(string url, string body, Dictionary<String, String> headers = null)
         {
             try
