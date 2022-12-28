@@ -11,6 +11,7 @@
 - 翻译
     - 腾讯云 [https://cloud.tencent.com/document/product/551/35017](https://cloud.tencent.com/document/product/551/35017)
     - 百度AI [https://fanyi-api.baidu.com/product/113](https://fanyi-api.baidu.com/product/113)
+    - 谷歌翻译（免费不限量）
 
 # 功能
 
