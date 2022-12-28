@@ -104,40 +104,40 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DispatcherHelper .cs" />
-    <Compile Include="LanguageUtil.cs" />
+    <Compile Include="Util\DispatcherHelper .cs" />
+    <Compile Include="Util\LanguageUtil.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RegeditUtil.cs" />
+    <Compile Include="Util\RegeditUtil.cs" />
     <Compile Include="ScreenshotWindow.xaml.cs">
       <DependentUpon>ScreenshotWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingWindow.xaml.cs">
       <DependentUpon>SettingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TencentCloudHelper.cs" />
-    <Compile Include="TranslateLanguageEnum.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="AutoStart.cs" />
-    <Compile Include="BaiduAIHelper.cs" />
-    <Compile Include="BaiduCloudHelper.cs" />
-    <Compile Include="GetWords.cs" />
-    <Compile Include="GlobalConfig.cs" />
-    <Compile Include="HotKeysUtil.cs" />
-    <Compile Include="HttpHelper.cs" />
+    <Compile Include="CloudService\TencentCloudHelper.cs" />
+    <Compile Include="Entity\TranslateLanguageEnum.cs" />
+    <Compile Include="Util\Utils.cs" />
+    <Compile Include="Util\AutoStart.cs" />
+    <Compile Include="CloudService\BaiduAIHelper.cs" />
+    <Compile Include="CloudService\BaiduCloudHelper.cs" />
+    <Compile Include="Util\GetWords.cs" />
+    <Compile Include="Entity\GlobalConfig.cs" />
+    <Compile Include="Util\HotKeysUtil.cs" />
+    <Compile Include="Util\HttpHelper.cs" />
     <Compile Include="ResultWindow.xaml.cs">
       <DependentUpon>ResultWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TopMost.cs" />
+    <Compile Include="Util\TopMost.cs" />
     <Compile Include="WordFileExtractWindow.xaml.cs">
       <DependentUpon>WordFileExtractWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NativeClipboard.cs" />
-    <Compile Include="NativeMethod.cs" />
+    <Compile Include="Util\NativeClipboard.cs" />
+    <Compile Include="Util\NativeMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
