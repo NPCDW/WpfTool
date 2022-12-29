@@ -110,7 +110,7 @@ namespace WpfTool
             this.TencentCloudOcr_SecretIdInput.Text = GlobalConfig.Ocr.TencentCloud.secret_id;
             this.TencentCloudOcr_SecretKeyInput.Password = GlobalConfig.Ocr.TencentCloud.secret_key;
 
-            this.SpaceOCR_ApiKeyInput.Text = GlobalConfig.Ocr.SpaceOCR.apiKey;
+            this.SpaceOCR_ApiKeyInput.Password = GlobalConfig.Ocr.SpaceOCR.apiKey;
 
             this.BaiduAI_AppIdInput.Text = GlobalConfig.Translate.BaiduAI.app_id;
             this.BaiduAI_SecretKeyInput.Password = GlobalConfig.Translate.BaiduAI.app_secret;
@@ -617,14 +617,6 @@ namespace WpfTool
             }
         }
 
-        private void SpaceOCR_ApiKeyInput_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (this.WindowLoaded)
-            {
-                GlobalConfig.Ocr.SpaceOCR.apiKey = this.SpaceOCR_ApiKeyInput.Text;
-            }
-        }
-
         private void defaultOcrLanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (defaultOcrLanguageComboBox.SelectedItem == null)
@@ -635,6 +627,14 @@ namespace WpfTool
             if (this.WindowLoaded)
             {
                 GlobalConfig.Ocr.defaultOcrLanguage = defaultOcrLanguageComboBox.DataContext.ToString();
+            }
+        }
+
+        private void SpaceOCR_ApiKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowLoaded)
+            {
+                GlobalConfig.Ocr.SpaceOCR.apiKey = this.SpaceOCR_ApiKeyInput.Password;
             }
         }
     }

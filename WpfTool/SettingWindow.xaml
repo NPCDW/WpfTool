@@ -84,7 +84,7 @@
                         <StackPanel>
                             <WrapPanel Margin="0,5,0,0">
                                 <Label Content="ApiKey" />
-                                <TextBox x:Name="SpaceOCR_ApiKeyInput" Width="200" TextChanged="SpaceOCR_ApiKeyInput_TextChanged" VerticalContentAlignment="Center" />
+                                <PasswordBox x:Name="SpaceOCR_ApiKeyInput" Width="200" PasswordChanged="SpaceOCR_ApiKeyInput_PasswordChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
                             <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://ocr.space/OCRAPI" MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
                         </StackPanel>
