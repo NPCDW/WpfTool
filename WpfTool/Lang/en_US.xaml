@@ -74,11 +74,16 @@
     <sys:String x:Key="CloudService_TencentCloud">Tencent Cloud</sys:String>
     <sys:String x:Key="CloudService_BaiduAI">BaiduAI</sys:String>
     <sys:String x:Key="CloudService_GoogleCloud">GoogleCloud</sys:String>
+    <sys:String x:Key="CloudService_SpaceOCR">SpaceOCR</sys:String>
 
     <sys:String x:Key="OcrType_GeneralBasic">General Basic</sys:String>
     <sys:String x:Key="OcrType_AccurateBasic">Accurate Basic</sys:String>
     <sys:String x:Key="OcrType_Handwriting">Handwriting</sys:String>
-    
+    <sys:String x:Key="OcrType_Engine1">Engine1</sys:String>
+    <sys:String x:Key="OcrType_Engine2">Engine2</sys:String>
+    <sys:String x:Key="OcrType_Engine3">Engine3</sys:String>
+    <sys:String x:Key="OcrType_Engine5">Engine5</sys:String>
+
     <sys:String x:Key="Language_auto">Auto</sys:String>
     <sys:String x:Key="Language_zh">Simplified Chinese</sys:String>
     <sys:String x:Key="Language_cht">Traditional Chinese</sys:String>

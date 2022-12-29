@@ -105,6 +105,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CloudService\GoogleCloudHelper.cs" />
+    <Compile Include="CloudService\SpaceOCRHelper.cs" />
+    <Compile Include="Entity\OcrLanguageEnum.cs" />
     <Compile Include="Util\DispatcherHelper .cs" />
     <Compile Include="Util\LanguageUtil.cs" />
     <Compile Include="MainWindow.xaml.cs">

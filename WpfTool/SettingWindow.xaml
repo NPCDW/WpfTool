@@ -48,8 +48,10 @@
                             <ComboBox x:Name="defaultOcrProvideComboBox" Width="140" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" >
                                 <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource CloudService_BaiduCloud}"/>
                                 <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}"/>
+                                <ComboBoxItem DataContext="SpaceOCR" Content="{DynamicResource CloudService_SpaceOCR}"/>
                             </ComboBox>
                             <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
+                            <ComboBox x:Name="defaultOcrLanguageComboBox" Width="120" Margin="5" SelectionChanged="defaultOcrLanguageComboBox_SelectionChanged" />
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="{DynamicResource CloudService_TencentCloud}" Margin="0,20,0,0">
@@ -76,6 +78,15 @@
                                 <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200" PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" VerticalContentAlignment="Center" />
                             </WrapPanel>
                             <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="{DynamicResource CloudService_SpaceOCR}" Margin="0,20,0,0">
+                        <StackPanel>
+                            <WrapPanel Margin="0,5,0,0">
+                                <Label Content="ApiKey" />
+                                <TextBox x:Name="SpaceOCR_ApiKeyInput" Width="200" TextChanged="SpaceOCR_ApiKeyInput_TextChanged" VerticalContentAlignment="Center" />
+                            </WrapPanel>
+                            <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand" DataContext="https://ocr.space/OCRAPI" MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>

@@ -12,6 +12,8 @@ namespace WpfTool
 {
     public class HttpHelper
     {
+        private static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54";
+
         public static string Get(string url, Dictionary<String, String> headers = null)
         {
             try
@@ -20,7 +22,7 @@ namespace WpfTool
                 request.Date = DateTime.Now;
                 request.Method = "GET";
                 request.Timeout = 5000;
-                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54";
+                request.UserAgent = USER_AGENT;
                 if (headers != null && headers.Count > 0)
                 {
                     foreach (KeyValuePair<string, string> header in headers)
@@ -37,7 +39,6 @@ namespace WpfTool
             }
             catch (WebException ex)
             {
-
                 HttpWebResponse response = (HttpWebResponse)ex.Response;
                 if (response != null)
                 {
@@ -52,7 +53,7 @@ namespace WpfTool
                 }
                 else
                 {
-                    throw new Exception("XX" + ex.Message);
+                    throw ex;
                 }
             }
         }
@@ -65,6 +66,7 @@ namespace WpfTool
                 request.Method = "POST";
                 request.Timeout = 5000;
                 request.ContentType = "application/json";
+                request.UserAgent = USER_AGENT;
                 if (headers != null && headers.Count > 0)
                 {
                     if (headers.ContainsKey("Content-Type"))
@@ -89,7 +91,6 @@ namespace WpfTool
             }
             catch (WebException ex)
             {
-
                 HttpWebResponse response = (HttpWebResponse)ex.Response;
                 if (response != null)
                 {
@@ -99,14 +100,12 @@ namespace WpfTool
                     {
                         string text = reader.ReadToEnd();
 
-                        int start = text.IndexOf("System.Exception:");
-                        string s = text.Substring(start, 2000);
-                        throw new Exception("XX" + s);
+                        throw new Exception(text);
                     }
                 }
                 else
                 {
-                    throw new Exception("XX" + ex.Message);
+                    throw ex;
                 }
             }
         }

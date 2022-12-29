@@ -29,6 +29,7 @@ namespace WpfTool
         {
             public static OcrProvideEnum defaultOcrProvide;
             public static String defaultOcrType = "";
+            public static String defaultOcrLanguage = "";
             public static class BaiduCloud
             {
                 public static String access_token = "";
@@ -55,10 +56,22 @@ namespace WpfTool
                 }
 
             }
+            public static class SpaceOCR
+            {
+                public static String apiKey = "";
+                public enum OcrTypeEnum
+                {
+                    Engine1,
+                    Engine2,
+                    Engine3,
+                    Engine5,
+                }
+            }
             public enum OcrProvideEnum
             {
                 BaiduCloud,
-                TencentCloud
+                TencentCloud,
+                SpaceOCR,
             }
         }
         public static class Translate
@@ -147,12 +160,18 @@ namespace WpfTool
 
                 Ocr.defaultOcrProvide = (Ocr.OcrProvideEnum)Enum.Parse(typeof(Ocr.OcrProvideEnum), jsonObj["Ocr"]["defaultOcrProvide"].ToString());
                 Ocr.defaultOcrType = jsonObj["Ocr"]["defaultOcrType"].ToString();
+                Ocr.defaultOcrLanguage = jsonObj["Ocr"]["defaultOcrLanguage"] == null ? "auto" : jsonObj["Ocr"]["defaultOcrLanguage"].ToString();
                 Ocr.BaiduCloud.access_token = jsonObj["Ocr"]["BaiduCloud"]["access_token"].ToString();
                 Ocr.BaiduCloud.access_token_expires_time = DateTime.Parse(jsonObj["Ocr"]["BaiduCloud"]["access_token_expires_time"].ToString());
                 Ocr.BaiduCloud.client_id = jsonObj["Ocr"]["BaiduCloud"]["client_id"].ToString();
                 Ocr.BaiduCloud.client_secret = jsonObj["Ocr"]["BaiduCloud"]["client_secret"].ToString();
                 Ocr.TencentCloud.secret_id = jsonObj["Ocr"]["TencentCloud"]["secret_id"].ToString();
                 Ocr.TencentCloud.secret_key = jsonObj["Ocr"]["TencentCloud"]["secret_key"].ToString();
+                if (jsonObj["Ocr"]["SpaceOCR"] == null) 
+                {
+                    jsonObj["Ocr"]["SpaceOCR"] = new JObject();
+                }
+                Ocr.SpaceOCR.apiKey = jsonObj["Ocr"]["SpaceOCR"]["apiKey"] == null ? "" : jsonObj["Ocr"]["SpaceOCR"]["apiKey"].ToString();
 
                 Translate.defaultTranslateProvide = (Translate.TranslateProvideEnum)Enum.Parse(typeof(Translate.TranslateProvideEnum), jsonObj["Translate"]["defaultTranslateProvide"].ToString());
                 Translate.defaultTranslateSourceLanguage = jsonObj["Translate"]["defaultTranslateSourceLanguage"].ToString();
@@ -192,6 +211,7 @@ namespace WpfTool
             jsonObj["Ocr"] = new JObject();
             jsonObj["Ocr"]["defaultOcrProvide"] = Ocr.defaultOcrProvide.ToString();
             jsonObj["Ocr"]["defaultOcrType"] = Ocr.defaultOcrType;
+            jsonObj["Ocr"]["defaultOcrLanguage"] = Ocr.defaultOcrLanguage;
             jsonObj["Ocr"]["BaiduCloud"] = new JObject();
             jsonObj["Ocr"]["BaiduCloud"]["access_token"] = Ocr.BaiduCloud.access_token;
             jsonObj["Ocr"]["BaiduCloud"]["access_token_expires_time"] = Ocr.BaiduCloud.access_token_expires_time.ToString();
@@ -200,6 +220,8 @@ namespace WpfTool
             jsonObj["Ocr"]["TencentCloud"] = new JObject();
             jsonObj["Ocr"]["TencentCloud"]["secret_id"] = Ocr.TencentCloud.secret_id;
             jsonObj["Ocr"]["TencentCloud"]["secret_key"] = Ocr.TencentCloud.secret_key;
+            jsonObj["Ocr"]["SpaceOCR"] = new JObject();
+            jsonObj["Ocr"]["SpaceOCR"]["apiKey"] = Ocr.SpaceOCR.apiKey;
 
             jsonObj["Translate"] = new JObject();
             jsonObj["Translate"]["defaultTranslateProvide"] = Translate.defaultTranslateProvide.ToString();

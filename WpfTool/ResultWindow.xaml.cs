@@ -50,6 +50,15 @@ namespace WpfTool
                 }
             }
 
+            foreach (ComboBoxItem item in this.defaultOcrLanguageComboBox.Items)
+            {
+                if (item.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrLanguage))
+                {
+                    defaultOcrLanguageComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+
             foreach (ComboBoxItem item in this.defaultTranslateProvideComboBox.Items)
             {
                 if (item.DataContext.ToString().Equals(GlobalConfig.Translate.defaultTranslateProvide.ToString()))
@@ -162,7 +171,7 @@ namespace WpfTool
             }
         }
 
-        public void ocr(Bitmap bmp, String ocrProvideStr = null, String ocrType = null)
+        public void ocr(Bitmap bmp, String ocrProvideStr = null, String ocrType = null, String ocrLanguage = null)
         {
             this.bmp = bmp;
             GlobalConfig.Ocr.OcrProvideEnum ocrProvide;
@@ -177,6 +186,10 @@ namespace WpfTool
             if (string.IsNullOrWhiteSpace(ocrType))
             {
                 ocrType = GlobalConfig.Ocr.defaultOcrType;
+            }
+            if (string.IsNullOrWhiteSpace(ocrLanguage))
+            {
+                ocrLanguage = GlobalConfig.Ocr.defaultOcrLanguage;
             }
             if (ocrProvide == GlobalConfig.Ocr.OcrProvideEnum.TencentCloud)
             {
@@ -212,6 +225,27 @@ namespace WpfTool
                 Task.Factory.StartNew(() =>
                 {
                     return BaiduCloudHelper.ocr(bmp, ocrType);
+                }).ContinueWith(result =>
+                {
+                    ocrTextBox.Dispatcher.Invoke(new Action(delegate
+                    {
+                        ocrTextBox.Text = result.Result;
+                    }));
+                });
+            }
+            else if (ocrProvide == GlobalConfig.Ocr.OcrProvideEnum.SpaceOCR)
+            {
+                if (string.IsNullOrEmpty(GlobalConfig.Ocr.SpaceOCR.apiKey))
+                {
+                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
+                    return;
+                }
+                ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
+                DispatcherHelper.DoEvents();
+
+                Task.Factory.StartNew(() =>
+                {
+                    return SpaceOCRHelper.ocr(bmp, ocrType, ocrLanguage);
                 }).ContinueWith(result =>
                 {
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
@@ -306,7 +340,7 @@ namespace WpfTool
                 MessageBox.Show(this.FindResource("ResultWindows_NotFoundImage") as String);
                 return;
             }
-            this.ocr(this.bmp, defaultOcrProvideComboBox.DataContext.ToString(), defaultOcrTypeComboBox.DataContext.ToString());
+            this.ocr(this.bmp, defaultOcrProvideComboBox.DataContext.ToString(), defaultOcrTypeComboBox.DataContext.ToString(), defaultOcrLanguageComboBox.DataContext.ToString());
         }
 
         private void translateButton_Click(object sender, RoutedEventArgs e)
@@ -335,6 +369,14 @@ namespace WpfTool
                 defaultOcrTypeComboBox.Items.Add(item3);
 
                 defaultOcrTypeComboBox.SelectedItem = item;
+
+                defaultOcrLanguageComboBox.Items.Clear();
+                ComboBoxItem item4 = new ComboBoxItem();
+                item4.DataContext = "auto";
+                item4.SetResourceReference(ComboBoxItem.ContentProperty, "Language_auto");
+                defaultOcrLanguageComboBox.Items.Add(item4);
+
+                defaultOcrLanguageComboBox.SelectedItem = item4;
             }
             else if (defaultOcrProvideComboBox.DataContext.ToString() == GlobalConfig.Ocr.OcrProvideEnum.TencentCloud.ToString())
             {
@@ -353,18 +395,69 @@ namespace WpfTool
                 defaultOcrTypeComboBox.Items.Add(item3);
 
                 defaultOcrTypeComboBox.SelectedItem = item;
+
+                defaultOcrLanguageComboBox.Items.Clear();
+                ComboBoxItem item4 = new ComboBoxItem();
+                item4.DataContext = "auto";
+                item4.SetResourceReference(ComboBoxItem.ContentProperty, "Language_auto");
+                defaultOcrLanguageComboBox.Items.Add(item4);
+
+                defaultOcrLanguageComboBox.SelectedItem = item4;
+            }
+            else if (defaultOcrProvideComboBox.DataContext.ToString() == GlobalConfig.Ocr.OcrProvideEnum.SpaceOCR.ToString())
+            {
+                defaultOcrTypeComboBox.Items.Clear();
+                ComboBoxItem item = new ComboBoxItem();
+                item.DataContext = GlobalConfig.Ocr.SpaceOCR.OcrTypeEnum.Engine1.ToString();
+                item.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Engine1");
+                defaultOcrTypeComboBox.Items.Add(item);
+                ComboBoxItem item2 = new ComboBoxItem();
+                item2.DataContext = GlobalConfig.Ocr.SpaceOCR.OcrTypeEnum.Engine2.ToString();
+                item2.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Engine2");
+                defaultOcrTypeComboBox.Items.Add(item2);
+                ComboBoxItem item3 = new ComboBoxItem();
+                item3.DataContext = GlobalConfig.Ocr.SpaceOCR.OcrTypeEnum.Engine3.ToString();
+                item3.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Engine3");
+                defaultOcrTypeComboBox.Items.Add(item3);
+                ComboBoxItem item5 = new ComboBoxItem();
+                item5.DataContext = GlobalConfig.Ocr.SpaceOCR.OcrTypeEnum.Engine5.ToString();
+                item5.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Engine5");
+                defaultOcrTypeComboBox.Items.Add(item5);
+
+                defaultOcrTypeComboBox.SelectedItem = item;
+
+                defaultOcrLanguageComboBox.Items.Clear();
+                foreach (OcrLanguageAttribute item4 in OcrLanguageExtension.TranslateLanguageAttributeList)
+                {
+                    if (!string.IsNullOrWhiteSpace(item4.getSpaceOcrCode()))
+                    {
+                        ComboBoxItem comboBoxItem = new ComboBoxItem();
+                        comboBoxItem.DataContext = item4.getSpaceOcrCode();
+                        comboBoxItem.SetResourceReference(ComboBoxItem.ContentProperty, item4.getName());
+                        defaultOcrLanguageComboBox.Items.Add(comboBoxItem);
+                    }
+                }
+                defaultOcrLanguageComboBox.SelectedItem = defaultOcrLanguageComboBox.Items[0];
             }
         }
 
-        private void defaultOcrTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OcrTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (defaultOcrTypeComboBox.SelectedItem == null)
+            if (defaultOcrTypeComboBox.SelectedItem != null)
+            {
+                defaultOcrTypeComboBox.DataContext = ((ComboBoxItem)defaultOcrTypeComboBox.SelectedItem).DataContext;
+            }
+            if (defaultOcrLanguageComboBox.SelectedItem != null)
+            {
+                defaultOcrLanguageComboBox.DataContext = ((ComboBoxItem)defaultOcrLanguageComboBox.SelectedItem).DataContext;
+            }
+            if (defaultOcrLanguageComboBox.SelectedItem == null || defaultOcrTypeComboBox.SelectedItem == null)
             {
                 return;
             }
-            defaultOcrTypeComboBox.DataContext = ((ComboBoxItem)defaultOcrTypeComboBox.SelectedItem).DataContext;
             if (defaultOcrProvideComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrProvide.ToString())
-                && defaultOcrTypeComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrType))
+                && defaultOcrTypeComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrType)
+                && defaultOcrLanguageComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrLanguage))
             {
                 defaultOcrSettingCheck.IsChecked = true;
                 defaultOcrSettingCheck.IsEnabled = false;
@@ -390,6 +483,7 @@ namespace WpfTool
                 {
                     GlobalConfig.Ocr.defaultOcrProvide = (GlobalConfig.Ocr.OcrProvideEnum)Enum.Parse(typeof(GlobalConfig.Ocr.OcrProvideEnum), defaultOcrProvideComboBox.DataContext.ToString());
                     GlobalConfig.Ocr.defaultOcrType = defaultOcrTypeComboBox.DataContext.ToString();
+                    GlobalConfig.Ocr.defaultOcrLanguage = defaultOcrLanguageComboBox.DataContext.ToString();
                     GlobalConfig.SaveConfig();
                 }
             }

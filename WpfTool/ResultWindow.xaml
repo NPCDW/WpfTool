@@ -26,9 +26,11 @@
         <ComboBox x:Name="defaultOcrProvideComboBox" Width="140" Grid.Row="0" Grid.Column="0" Margin="5" SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" VerticalContentAlignment="Center" >
             <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource CloudService_BaiduCloud}"/>
             <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}"/>
+            <ComboBoxItem DataContext="SpaceOCR" Content="{DynamicResource CloudService_SpaceOCR}"/>
         </ComboBox>
-        <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Grid.Row="0" Grid.Column="1"  Margin="5" SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" VerticalContentAlignment="Center" />
-        <CheckBox x:Name="defaultOcrSettingCheck" Grid.Row="0" Grid.Column="2" Margin="5" VerticalAlignment="Center" Content="{DynamicResource ResultWindows_SetAsDefault}" Checked="defaultOcrSettingCheck_Checked"/>
+        <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Grid.Row="0" Grid.Column="1"  Margin="5" SelectionChanged="OcrTypeComboBox_SelectionChanged" VerticalContentAlignment="Center" />
+        <ComboBox x:Name="defaultOcrLanguageComboBox" Width="120" Grid.Row="0" Grid.Column="2"  Margin="5" SelectionChanged="OcrTypeComboBox_SelectionChanged" VerticalContentAlignment="Center" />
+        <CheckBox x:Name="defaultOcrSettingCheck" Grid.Row="0" Grid.Column="3" Margin="5" VerticalAlignment="Center" Content="{DynamicResource ResultWindows_SetAsDefault}" Checked="defaultOcrSettingCheck_Checked"/>
         <Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Content="{DynamicResource ResultWindows_ReOCR}" Cursor="Hand" Click="ocrButton_Click" Padding="5"/>
 
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
