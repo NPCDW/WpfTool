@@ -10,10 +10,11 @@ Free Quota:
 - OCR
     - Tencent Cloud [https://cloud.tencent.com/document/product/866/35945](https://cloud.tencent.com/document/product/866/35945)
     - Baidu Cloud [https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h](https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h)
+    - SpaceOCR [https://ocr.space/OCRAPI](https://ocr.space/OCRAPI)
 - Translate
     - Tencent Cloud [https://cloud.tencent.com/document/product/551/35017](https://cloud.tencent.com/document/product/551/35017)
     - Baidu AI [https://fanyi-api.baidu.com/product/113](https://fanyi-api.baidu.com/product/113)
-    - Google Translate (free unlimited)
+    - Google Translate (free and unlimited, but unofficial endpoint)
 
 # Features
 
