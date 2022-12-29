@@ -24,7 +24,12 @@ namespace WpfTool.CloudService
                 String response = HttpHelper.Get(TRANSLATE_URL + param);
 
                 JArray jsonArray = JArray.Parse(response);
-                return jsonArray[0][0][0].ToString();
+                String target = "";
+                foreach (JArray arr in jsonArray[0])
+                {
+                    target += arr[0].ToString();
+                }
+                return target;
             }
             catch (Exception e)
             {
