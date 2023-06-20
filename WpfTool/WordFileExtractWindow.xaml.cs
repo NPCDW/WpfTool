@@ -20,7 +20,6 @@ using Section = Spire.Doc.Section;
 using Paragraph = Spire.Doc.Documents.Paragraph;
 using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
-using TencentCloud.Cwp.V20180228.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace WpfTool

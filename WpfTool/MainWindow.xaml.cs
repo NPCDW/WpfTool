@@ -53,37 +53,16 @@ namespace WpfTool
             notifyIcon.Visible = true;
             notifyIcon.ShowBalloonTip(1000);
 
-            System.Windows.Forms.MenuItem getWordsTranslationButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_WordTranslation") as String);
-            getWordsTranslationButton.Click += new EventHandler(Translate_Click);
+            System.Windows.Forms.ContextMenuStrip childen = new System.Windows.Forms.ContextMenuStrip();
+            childen.Items.Add(this.FindResource("MainWindows_WordTranslation") as String, null, new EventHandler(Translate_Click));
+            childen.Items.Add(this.FindResource("MainWindows_ScreenshotTranslation") as String, null, new EventHandler(ScreenshotTranslation_Click));
+            childen.Items.Add(this.FindResource("MainWindows_OCR") as String, null, new EventHandler(OcrButton_Click));
+            childen.Items.Add(this.FindResource("MainWindows_TopMostToggle") as String, null, new EventHandler(TopMost_Click));
+            childen.Items.Add(this.FindResource("MainWindows_WordFileExtract") as String, null, new EventHandler(WordFileExtract_Click));
+            childen.Items.Add(this.FindResource("MainWindows_Setting") as String, null, new EventHandler(Setting_Click));
+            childen.Items.Add(this.FindResource("MainWindows_Exit") as String, null, Exit_Click);
 
-            System.Windows.Forms.MenuItem screenshotTranslationButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_ScreenshotTranslation") as String);
-            screenshotTranslationButton.Click += new EventHandler(ScreenshotTranslation_Click);
-
-            System.Windows.Forms.MenuItem ocrButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_OCR") as String);
-            ocrButton.Click += new EventHandler(OcrButton_Click);
-
-            System.Windows.Forms.MenuItem topMostButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_TopMostToggle") as String);
-            topMostButton.Click += new EventHandler(TopMost_Click);
-
-            System.Windows.Forms.MenuItem wordFileExtractButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_WordFileExtract") as String);
-            wordFileExtractButton.Click += new EventHandler(WordFileExtract_Click);
-
-            System.Windows.Forms.MenuItem settingButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_Setting") as String);
-            settingButton.Click += new EventHandler(Setting_Click);
-
-            System.Windows.Forms.MenuItem exitButton = new System.Windows.Forms.MenuItem(this.FindResource("MainWindows_Exit") as String);
-            exitButton.Click += new EventHandler(Exit_Click);
-
-            System.Windows.Forms.MenuItem[] childen = new System.Windows.Forms.MenuItem[] {
-                getWordsTranslationButton,
-                screenshotTranslationButton,
-                ocrButton,
-                topMostButton,
-                wordFileExtractButton,
-                settingButton,
-                exitButton
-            };
-            notifyIcon.ContextMenu = new System.Windows.Forms.ContextMenu(childen);
+            notifyIcon.ContextMenuStrip = childen;
         }
 
         private void Translate_Click(object sender, EventArgs e)
@@ -224,7 +203,7 @@ namespace WpfTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Exit_Click(object sender, EventArgs e)
+        private void Exit_Click(object? sender, EventArgs e)
         {
             notifyIcon.Dispose();
             Environment.Exit(0);
