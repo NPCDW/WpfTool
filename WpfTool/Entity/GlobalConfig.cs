@@ -1,12 +1,6 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace WpfTool
 {
@@ -152,7 +146,7 @@ namespace WpfTool
                     jsonStr = sr.ReadToEnd().ToString();
                 }
                 JObject jsonObj = JObject.Parse(jsonStr);
-                
+
                 Common.wordSelectionInterval = int.Parse(jsonObj["Common"]["WordSelectionInterval"].ToString());
                 Common.autoStart = AutoStart.GetStatus();
                 Common.configPath = configPath;
@@ -167,7 +161,7 @@ namespace WpfTool
                 Ocr.BaiduCloud.client_secret = jsonObj["Ocr"]["BaiduCloud"]["client_secret"].ToString();
                 Ocr.TencentCloud.secret_id = jsonObj["Ocr"]["TencentCloud"]["secret_id"].ToString();
                 Ocr.TencentCloud.secret_key = jsonObj["Ocr"]["TencentCloud"]["secret_key"].ToString();
-                if (jsonObj["Ocr"]["SpaceOCR"] == null) 
+                if (jsonObj["Ocr"]["SpaceOCR"] == null)
                 {
                     jsonObj["Ocr"]["SpaceOCR"] = new JObject();
                 }

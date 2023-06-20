@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WpfTool
 {
@@ -11,7 +7,7 @@ namespace WpfTool
     {
         internal static void SetText(string text)
         {
-            if (!NativeMethod.OpenClipboard(IntPtr.Zero)) 
+            if (!NativeMethod.OpenClipboard(IntPtr.Zero))
             {
                 SetText(text);
                 return;

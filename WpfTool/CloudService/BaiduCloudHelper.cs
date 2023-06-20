@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace WpfTool
@@ -30,7 +29,7 @@ namespace WpfTool
                 String response = HttpHelper.Post(url, body, headers);
 
                 JObject jsonObj = JObject.Parse(response);
-                if (jsonObj.ContainsKey("error")) 
+                if (jsonObj.ContainsKey("error"))
                 {
                     return jsonObj["error"].ToString() + " " + jsonObj["error_description"].ToString();
                 }
@@ -60,7 +59,7 @@ namespace WpfTool
                 + "&client_secret=" + GlobalConfig.Ocr.BaiduCloud.client_secret;
             Dictionary<String, String> headers = new Dictionary<String, String>();
             headers.Add("Content-Type", "application/x-www-form-urlencoded");
-            
+
             String response = HttpHelper.Post(url, body, headers);
 
             JObject jsonObj = JObject.Parse(response);

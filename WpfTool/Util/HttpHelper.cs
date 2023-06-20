@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace WpfTool
 {
@@ -123,7 +119,7 @@ namespace WpfTool
             byte[] endBoundaryBytes = Encoding.UTF8.GetBytes(System.Environment.NewLine + "--" + boundary + "--" + System.Environment.NewLine);
 
             byte[] fileHeaderBytes = Encoding.UTF8.GetBytes(
-                "Content-Disposition:form-data;name=\"" + fileFieldName + "\";filename=\""+ filename + "\"" + System.Environment.NewLine
+                "Content-Disposition:form-data;name=\"" + fileFieldName + "\";filename=\"" + filename + "\"" + System.Environment.NewLine
                 + "Content-Type:application/octet-stream" + System.Environment.NewLine
                 + System.Environment.NewLine
             );
