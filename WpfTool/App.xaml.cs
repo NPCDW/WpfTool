@@ -15,7 +15,7 @@ namespace WpfTool
     /// </summary>
     public partial class App : Application
     {
-        public EventWaitHandle ProgramStarted { get; set; }
+        public EventWaitHandle? ProgramStarted { get; set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {

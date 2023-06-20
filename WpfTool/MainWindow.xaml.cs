@@ -21,7 +21,7 @@ namespace WpfTool
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static MainWindow mainWindow = null;
+        public static MainWindow? mainWindow = null;
         private System.Windows.Forms.NotifyIcon notifyIcon = new System.Windows.Forms.NotifyIcon();
         public MainWindow()
         {
@@ -54,21 +54,21 @@ namespace WpfTool
             notifyIcon.ShowBalloonTip(1000);
 
             System.Windows.Forms.ContextMenuStrip childen = new System.Windows.Forms.ContextMenuStrip();
-            childen.Items.Add(this.FindResource("MainWindows_WordTranslation") as String, null, new EventHandler(Translate_Click));
-            childen.Items.Add(this.FindResource("MainWindows_ScreenshotTranslation") as String, null, new EventHandler(ScreenshotTranslation_Click));
-            childen.Items.Add(this.FindResource("MainWindows_OCR") as String, null, new EventHandler(OcrButton_Click));
-            childen.Items.Add(this.FindResource("MainWindows_TopMostToggle") as String, null, new EventHandler(TopMost_Click));
-            childen.Items.Add(this.FindResource("MainWindows_WordFileExtract") as String, null, new EventHandler(WordFileExtract_Click));
-            childen.Items.Add(this.FindResource("MainWindows_Setting") as String, null, new EventHandler(Setting_Click));
+            childen.Items.Add(this.FindResource("MainWindows_WordTranslation") as String, null, Translate_Click);
+            childen.Items.Add(this.FindResource("MainWindows_ScreenshotTranslation") as String, null, ScreenshotTranslation_Click);
+            childen.Items.Add(this.FindResource("MainWindows_OCR") as String, null, OcrButton_Click);
+            childen.Items.Add(this.FindResource("MainWindows_TopMostToggle") as String, null, TopMost_Click);
+            childen.Items.Add(this.FindResource("MainWindows_WordFileExtract") as String, null, WordFileExtract_Click);
+            childen.Items.Add(this.FindResource("MainWindows_Setting") as String, null, Setting_Click);
             childen.Items.Add(this.FindResource("MainWindows_Exit") as String, null, Exit_Click);
 
             notifyIcon.ContextMenuStrip = childen;
         }
 
-        private void Translate_Click(object sender, EventArgs e)
+        private void Translate_Click(object? sender, EventArgs? e)
         {
             String getWordsResult = GetWords.Get();
-            ResultWindow window = null;
+            ResultWindow? window = null;
             foreach (Window item in Application.Current.Windows)
             {
                 if (item is ResultWindow)
@@ -94,9 +94,9 @@ namespace WpfTool
             window.translate();
         }
 
-        private void OcrButton_Click(object sender, EventArgs e)
+        private void OcrButton_Click(object? sender, EventArgs? e)
         {
-            ScreenshotWindow window = null;
+            ScreenshotWindow? window = null;
             foreach (Window item in Application.Current.Windows)
             {
                 if (item is ScreenshotWindow)
@@ -115,9 +115,9 @@ namespace WpfTool
             }
         }
 
-        private void ScreenshotTranslation_Click(object sender, EventArgs e)
+        private void ScreenshotTranslation_Click(object? sender, EventArgs? e)
         {
-            ScreenshotWindow window = null;
+            ScreenshotWindow? window = null;
             foreach (Window item in Application.Current.Windows)
             {
                 if (item is ScreenshotWindow)
@@ -141,7 +141,7 @@ namespace WpfTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TopMost_Click(object sender, EventArgs e)
+        private void TopMost_Click(object? sender, EventArgs? e)
         {
             MessageBox.Show(this.FindResource("MainWindows_TopMostMessage") as String);
         }
@@ -151,9 +151,9 @@ namespace WpfTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void WordFileExtract_Click(object sender, EventArgs e)
+        private void WordFileExtract_Click(object? sender, EventArgs? e)
         {
-            WordFileExtractWindow window = null;
+            WordFileExtractWindow? window = null;
             foreach (Window item in Application.Current.Windows)
             {
                 if (item is WordFileExtractWindow)
@@ -177,9 +177,9 @@ namespace WpfTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Setting_Click(object sender, EventArgs e)
+        private void Setting_Click(object? sender, EventArgs? e)
         {
-            SettingWindow window = null;
+            SettingWindow? window = null;
             foreach (Window item in Application.Current.Windows)
             {
                 if (item is SettingWindow)

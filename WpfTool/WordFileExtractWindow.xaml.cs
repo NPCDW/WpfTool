@@ -52,7 +52,7 @@ namespace WpfTool
                 String dir = Path.GetDirectoryName(filename) + "\\" + Path.GetFileNameWithoutExtension(filename);
                 if (!Directory.Exists(dir))
                 {
-                    ConsoleOutput(this.FindResource("WordFileExtractWindow_MkdirOutput") as String);
+                    ConsoleOutput(this.FindResource("WordFileExtractWindow_MkdirOutput") as string);
                     Directory.CreateDirectory(dir);
                 }
 
@@ -68,16 +68,16 @@ namespace WpfTool
                         {
                             if (docObject.DocumentObjectType == DocumentObjectType.Picture)
                             {
-                                DocPicture picture = docObject as DocPicture;
+                                DocPicture? picture = docObject as DocPicture;
                                 String imageName = String.Format(@"Image-{0}.png", imageIndex);
                                 ConsoleOutput(this.FindResource("WordFileExtractWindow_ExtractImageOutput") + imageName);
-                                picture.Image.Save(dir + "\\" + imageName, System.Drawing.Imaging.ImageFormat.Png);
+                                picture!.Image.Save(dir + "\\" + imageName, System.Drawing.Imaging.ImageFormat.Png);
                                 imageIndex++;
                             }
                             else if (docObject.DocumentObjectType == DocumentObjectType.OleObject)
                             {
-                                DocOleObject Ole = docObject as DocOleObject;
-                                string s = Ole.ObjectType;
+                                DocOleObject? Ole = docObject as DocOleObject;
+                                string s = Ole!.ObjectType;
                                 string oleName;
                                 //"AcroExch.Document.11"是指PDF对象对应的ProgID
                                 if (s == "AcroExch.Document.11")
@@ -116,7 +116,7 @@ namespace WpfTool
 
         }
 
-        private void ConsoleOutput(string text)
+        private void ConsoleOutput(string? text)
         {
             ConsoleOutputTextBox.Dispatcher.Invoke(new Action(delegate
             {

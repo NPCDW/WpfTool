@@ -18,7 +18,7 @@ namespace WpfTool
             try { Dispatcher.PushFrame(frame); }
             catch (InvalidOperationException) { }
         }
-        private static object ExitFrames(object frame)
+        private static object? ExitFrames(object frame)
         {
             ((DispatcherFrame)frame).Continue = false;
             return null;

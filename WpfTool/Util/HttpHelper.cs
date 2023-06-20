@@ -14,7 +14,7 @@ namespace WpfTool
     {
         private static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54";
 
-        public static string Get(string url, Dictionary<String, String> headers = null)
+        public static string Get(string url, Dictionary<String, String>? headers = null)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace WpfTool
             }
         }
 
-        public static string Post(string url, string body, Dictionary<String, String> headers = null)
+        public static string Post(string url, string body, Dictionary<String, String>? headers = null)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace WpfTool
             }
         }
 
-        public static string Upload(String url, String fileFieldName, byte[] fileContentBytes, String filename, Dictionary<String, String> param = null, Dictionary<String, String> headers = null)
+        public static string Upload(String url, String fileFieldName, byte[] fileContentBytes, String filename, Dictionary<String, String>? param = null, Dictionary<String, String>? headers = null)
         {
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.AllowAutoRedirect = true;
