@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace WpfTool.CloudService
@@ -9,7 +10,7 @@ namespace WpfTool.CloudService
     {
         private static String TRANSLATE_URL = "https://translate.googleapis.com/translate_a/single";
 
-        public static String translate(String text, String sourceLanguage, String targetLanguage)
+        public static async Task<string> translate(String text, String sourceLanguage, String targetLanguage)
         {
             try
             {
@@ -18,7 +19,7 @@ namespace WpfTool.CloudService
                     + "&tl=" + targetLanguage
                     + "&q=" + HttpUtility.UrlEncode(text, Encoding.UTF8);
 
-                String response = HttpHelper.Get(TRANSLATE_URL + param);
+                String response = await HttpHelper.GetAsync(TRANSLATE_URL + param);
 
                 JArray jsonArray = JArray.Parse(response);
                 String target = "";

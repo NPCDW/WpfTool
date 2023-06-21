@@ -52,6 +52,7 @@
     <sys:String x:Key="ResultWindows_EmptyKeyMessage">Please set the secret key information provided by the cloud service provider first, and you can click the link in the settings to get it for free</sys:String>
     <sys:String x:Key="ResultWindows_ocring">Text recognition......</sys:String>
     <sys:String x:Key="ResultWindows_NotFoundImage">Image Not Found</sys:String>
+    <sys:String x:Key="ResultWindows_LimitOcrAndTranslate">Only supports Baidu AI and Tencent cloud screenshot and recognition</sys:String>
 
     <sys:String x:Key="WordFileExtractWindow_Title">Word File Extract</sys:String>
     <sys:String x:Key="WordFileExtractWindow_WordFilePath">Word Filepath</sys:String>

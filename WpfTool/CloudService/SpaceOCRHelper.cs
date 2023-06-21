@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Web;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace WpfTool.CloudService
 {
@@ -12,7 +12,7 @@ namespace WpfTool.CloudService
     {
         private static String INVOKE_URL = "https://api.ocr.space/parse/image";
 
-        public static String ocr(Bitmap bmp, String ocrType = null, String ocrLanguage = null)
+        public static async Task<string> ocr(Bitmap bmp, String ocrType = null, String ocrLanguage = null)
         {
             if (string.IsNullOrWhiteSpace(ocrType))
             {
@@ -25,14 +25,16 @@ namespace WpfTool.CloudService
             try
             {
                 String base64 = Utils.BitmapToBase64String(bmp);
-                String body = "base64image=data:image/jpeg;base64," + HttpUtility.UrlEncode(base64, Encoding.UTF8)
-                    + "&apikey=" + GlobalConfig.Ocr.SpaceOCR.apiKey
-                    + "&language=" + ocrLanguage
-                    + "&OCREngine=" + ocrType.Replace("Engine", "");
-                Dictionary<String, String> headers = new Dictionary<String, String>();
-                headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
-                String response = HttpHelper.Post(INVOKE_URL, body, headers);
+                Dictionary<String, String> dict = new Dictionary<String, String>();
+                dict.Add("base64image", "data:image/jpeg;base64," + base64);
+                dict.Add("apikey", GlobalConfig.Ocr.SpaceOCR.apiKey);
+                dict.Add("language", ocrLanguage);
+                dict.Add("OCREngine", ocrType.Replace("Engine", ""));
+
+                HttpContent content = new FormUrlEncodedContent(dict);
+
+                String response = await HttpHelper.PostAsync(INVOKE_URL, content);
 
                 JObject jsonObj = JObject.Parse(response);
                 if (jsonObj.ContainsKey("ErrorMessage"))

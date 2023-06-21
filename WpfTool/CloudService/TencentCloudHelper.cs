@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using TencentCloud.Common;
 using TencentCloud.Common.Profile;
 using TencentCloud.Ocr.V20181119;
@@ -14,7 +15,7 @@ namespace WpfTool
 {
     public class TencentCloudHelper
     {
-        public static String translate(String text, String sourceLanguage, String targetLanguage)
+        public static async Task<string> translate(String text, String sourceLanguage, String targetLanguage)
         {
             try
             {
@@ -36,7 +37,7 @@ namespace WpfTool
                 req.Target = targetLanguage;
                 req.ProjectId = 0;
 
-                TextTranslateResponse resp = client.TextTranslateSync(req);
+                TextTranslateResponse resp = await client.TextTranslate(req);
                 String jsonStr = AbstractModel.ToJsonString(resp);
                 JObject jsonObj = JObject.Parse(jsonStr);
                 return jsonObj["TargetText"].ToString();
@@ -47,7 +48,7 @@ namespace WpfTool
             }
         }
 
-        public static String ocr(Bitmap bmp, String ocrTypeStr = null)
+        public static async Task<string> ocr(Bitmap bmp, String ocrTypeStr = null)
         {
             try
             {
@@ -79,21 +80,21 @@ namespace WpfTool
                 {
                     GeneralBasicOCRRequest req = new GeneralBasicOCRRequest();
                     req.ImageBase64 = base64;
-                    GeneralBasicOCRResponse resp = client.GeneralBasicOCRSync(req);
+                    GeneralBasicOCRResponse resp = await client.GeneralBasicOCR(req);
                     jsonStr = AbstractModel.ToJsonString(resp);
                 }
                 else if (ocrType == GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralAccurateOCR)
                 {
                     GeneralAccurateOCRRequest req = new GeneralAccurateOCRRequest();
                     req.ImageBase64 = base64;
-                    GeneralAccurateOCRResponse resp = client.GeneralAccurateOCRSync(req);
+                    GeneralAccurateOCRResponse resp = await client.GeneralAccurateOCR(req);
                     jsonStr = AbstractModel.ToJsonString(resp);
                 }
                 else if (ocrType == GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralHandwritingOCR)
                 {
                     GeneralHandwritingOCRRequest req = new GeneralHandwritingOCRRequest();
                     req.ImageBase64 = base64;
-                    GeneralHandwritingOCRResponse resp = client.GeneralHandwritingOCRSync(req);
+                    GeneralHandwritingOCRResponse resp = await client.GeneralHandwritingOCR(req);
                     jsonStr = AbstractModel.ToJsonString(resp);
                 }
                 JObject jsonObj = JObject.Parse(jsonStr);
@@ -111,7 +112,7 @@ namespace WpfTool
             }
         }
 
-        public static Dictionary<String, String> screenshotTranslate(Bitmap bmp)
+        public static async Task<Dictionary<String, String>> screenshotTranslate(Bitmap bmp)
         {
             try
             {
@@ -134,7 +135,7 @@ namespace WpfTool
                 req.Source = GlobalConfig.Translate.defaultTranslateSourceLanguage;
                 req.Target = GlobalConfig.Translate.defaultTranslateTargetLanguage;
                 req.ProjectId = 0;
-                ImageTranslateResponse resp = client.ImageTranslateSync(req);
+                ImageTranslateResponse resp = await client.ImageTranslate(req);
                 String jsonStr = AbstractModel.ToJsonString(resp);
                 JObject jsonObj = JObject.Parse(jsonStr);
                 JToken[] jArray = jsonObj["ImageRecord"]["Value"].ToArray();
