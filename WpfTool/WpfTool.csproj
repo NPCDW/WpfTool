@@ -17,6 +17,7 @@
     <PackageReference Include="Spire.Doc" Version="11.6.1" />
     <PackageReference Include="TencentCloudSDK.Ocr" Version="3.0.784" />
     <PackageReference Include="TencentCloudSDK.Tmt" Version="3.0.784" />
+    <PackageReference Include="WPF-UI" Version="2.0.3" />
     <PackageReference Include="WpfScreenHelper" Version="2.1.0" />
   </ItemGroup>
 

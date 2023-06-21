@@ -19,7 +19,7 @@ namespace WpfTool
     /// <summary>
     /// Window1.xaml 的交互逻辑
     /// </summary>
-    public partial class ResultWindow : Window
+    public partial class ResultWindow : Wpf.Ui.Controls.UiWindow
     {
         private Bitmap bmp = null;
         private bool WindowLoaded = false;
@@ -28,6 +28,8 @@ namespace WpfTool
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
+
+            Wpf.Ui.Appearance.Watcher.Watch(this);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

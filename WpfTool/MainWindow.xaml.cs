@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wpf.Ui.Controls;
 
 namespace WpfTool
 {
@@ -22,10 +23,11 @@ namespace WpfTool
     public partial class MainWindow : Window
     {
         public static MainWindow? mainWindow = null;
-        private System.Windows.Forms.NotifyIcon notifyIcon = new System.Windows.Forms.NotifyIcon();
+        private NotifyIcon notifyIcon = new NotifyIcon();
         public MainWindow()
         {
             mainWindow = this;
+            Wpf.Ui.Appearance.Watcher.Watch(this);
 
             GlobalConfig.GetConfig();
             LanguageUtil.switchLanguage(GlobalConfig.Common.language);
@@ -35,7 +37,7 @@ namespace WpfTool
 
             if (GlobalConfig.HotKeys.Ocr.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict || GlobalConfig.HotKeys.ScreenshotTranslate.Conflict || GlobalConfig.HotKeys.TopMost.Conflict)
             {
-                MessageBox.Show(this.FindResource("MainWindows_HotkeyConflictMessage") as String);
+                System.Windows.MessageBox.Show(this.FindResource("MainWindows_HotkeyConflictMessage") as String);
             }
         }
 
@@ -47,22 +49,50 @@ namespace WpfTool
 
         public void InitialTray()
         {
-            notifyIcon.BalloonTipText = this.FindResource("MainWindows_Running") as String;
-            notifyIcon.Text = this.FindResource("MainWindows_Title") as String;
-            notifyIcon.Icon = new System.Drawing.Icon(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\favicon.ico"));
-            notifyIcon.Visible = true;
-            notifyIcon.ShowBalloonTip(1000);
+            System.Windows.Controls.MenuItem TranslateMenuItem = new System.Windows.Controls.MenuItem();
+            TranslateMenuItem.Header = this.FindResource("MainWindows_WordTranslation") as String;
+            TranslateMenuItem.Click += Translate_Click;
 
-            System.Windows.Forms.ContextMenuStrip childen = new System.Windows.Forms.ContextMenuStrip();
-            childen.Items.Add(this.FindResource("MainWindows_WordTranslation") as String, null, Translate_Click);
-            childen.Items.Add(this.FindResource("MainWindows_ScreenshotTranslation") as String, null, ScreenshotTranslation_Click);
-            childen.Items.Add(this.FindResource("MainWindows_OCR") as String, null, OcrButton_Click);
-            childen.Items.Add(this.FindResource("MainWindows_TopMostToggle") as String, null, TopMost_Click);
-            childen.Items.Add(this.FindResource("MainWindows_WordFileExtract") as String, null, WordFileExtract_Click);
-            childen.Items.Add(this.FindResource("MainWindows_Setting") as String, null, Setting_Click);
-            childen.Items.Add(this.FindResource("MainWindows_Exit") as String, null, Exit_Click);
+            System.Windows.Controls.MenuItem ScreenshotTranslationMenuItem = new System.Windows.Controls.MenuItem();
+            ScreenshotTranslationMenuItem.Header = this.FindResource("MainWindows_ScreenshotTranslation") as String;
+            ScreenshotTranslationMenuItem.Click += ScreenshotTranslation_Click;
 
-            notifyIcon.ContextMenuStrip = childen;
+            System.Windows.Controls.MenuItem OcrButtoMenuItem = new System.Windows.Controls.MenuItem();
+            OcrButtoMenuItem.Header = this.FindResource("MainWindows_OCR") as String;
+            OcrButtoMenuItem.Click += OcrButton_Click;
+
+            System.Windows.Controls.MenuItem TopMostMenuItem = new System.Windows.Controls.MenuItem();
+            TopMostMenuItem.Header = this.FindResource("MainWindows_TopMostToggle") as String;
+            TopMostMenuItem.Click += TopMost_Click;
+
+            System.Windows.Controls.MenuItem WordFileExtractMenuItem = new System.Windows.Controls.MenuItem();
+            WordFileExtractMenuItem.Header = this.FindResource("MainWindows_WordFileExtract") as String;
+            WordFileExtractMenuItem.Click += WordFileExtract_Click;
+
+            System.Windows.Controls.MenuItem SettingMenuItem = new System.Windows.Controls.MenuItem();
+            SettingMenuItem.Header = this.FindResource("MainWindows_Setting") as String;
+            SettingMenuItem.Click += Setting_Click;
+
+            System.Windows.Controls.MenuItem ExitMenuItem = new System.Windows.Controls.MenuItem();
+            ExitMenuItem.Header = this.FindResource("MainWindows_Exit") as String;
+            ExitMenuItem.Click += Exit_Click;
+
+            System.Windows.Controls.ContextMenu contextMenu = new System.Windows.Controls.ContextMenu();
+            contextMenu.Items.Add(TranslateMenuItem);
+            contextMenu.Items.Add(ScreenshotTranslationMenuItem);
+            contextMenu.Items.Add(OcrButtoMenuItem);
+            contextMenu.Items.Add(TopMostMenuItem);
+            contextMenu.Items.Add(WordFileExtractMenuItem);
+            contextMenu.Items.Add(SettingMenuItem);
+            contextMenu.Items.Add(ExitMenuItem);
+
+            notifyIcon.TooltipText = this.FindResource("MainWindows_Title") as String;
+            notifyIcon.Icon = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\favicon.ico"), UriKind.Absolute));
+            //notifyIcon.MenuOnRightClick = true;
+            //notifyIcon.Menu = contextMenu;
+            notifyIcon.Visibility = Visibility.Visible;
+            notifyIcon.Register();
+            Console.WriteLine(notifyIcon.IsVisible);
         }
 
         private void Translate_Click(object? sender, EventArgs? e)
@@ -143,7 +173,7 @@ namespace WpfTool
         /// <param name="e"></param>
         private void TopMost_Click(object? sender, EventArgs? e)
         {
-            MessageBox.Show(this.FindResource("MainWindows_TopMostMessage") as String);
+            System.Windows.MessageBox.Show(this.FindResource("MainWindows_TopMostMessage") as String);
         }
 
         /// <summary>

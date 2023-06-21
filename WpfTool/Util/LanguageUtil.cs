@@ -17,7 +17,7 @@ namespace WpfTool
                 dictionaryList.Add(dictionary);
             }
 
-            ResourceDictionary resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(@"Lang\" + lang + ".xaml"));
+            ResourceDictionary? resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source != null && d.Source.OriginalString.Equals(@"Lang\" + lang + ".xaml"));
             Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
         }
