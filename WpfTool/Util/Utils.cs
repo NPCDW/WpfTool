@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -73,15 +69,16 @@ namespace WpfTool
 
         public static string Md5(byte[] byteArray)
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            byte[] bytHash = md5.ComputeHash(byteArray);
-            md5.Clear();
-            string sign = "";
-            for (int i = 0; i < bytHash.Length; i++)
+            using (var md5 = MD5.Create())
             {
-                sign += bytHash[i].ToString("X").PadLeft(2, '0');
+                var hash = md5.ComputeHash(byteArray);
+                string sign = "";
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    sign += hash[i].ToString("X").PadLeft(2, '0');
+                }
+                return sign.ToLower();
             }
-            return sign.ToLower();
         }
 
     }

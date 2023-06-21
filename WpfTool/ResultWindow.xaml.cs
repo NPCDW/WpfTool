@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WpfTool.CloudService;
 
 namespace WpfTool
@@ -121,10 +113,7 @@ namespace WpfTool
                 DispatcherHelper.DoEvents();
 
                 String ocrText = ocrTextBox.Text;
-                Task.Factory.StartNew(() =>
-                {
-                    return TencentCloudHelper.translate(ocrText, sourceLanguage, targetLanguage);
-                }).ContinueWith(result =>
+                TencentCloudHelper.translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
                 {
                     translateTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -143,10 +132,7 @@ namespace WpfTool
                 DispatcherHelper.DoEvents();
 
                 String ocrText = ocrTextBox.Text;
-                Task.Factory.StartNew(() =>
-                {
-                    return BaiduAIHelper.translate(ocrText, sourceLanguage, targetLanguage);
-                }).ContinueWith(result =>
+                BaiduAIHelper.translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
                 {
                     translateTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -160,10 +146,7 @@ namespace WpfTool
                 DispatcherHelper.DoEvents();
 
                 String ocrText = ocrTextBox.Text;
-                Task.Factory.StartNew(() =>
-                {
-                    return GoogleCloudHelper.translate(ocrText, sourceLanguage, targetLanguage);
-                }).ContinueWith(result =>
+                GoogleCloudHelper.translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
                 {
                     translateTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -203,10 +186,7 @@ namespace WpfTool
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
                 DispatcherHelper.DoEvents();
 
-                Task.Factory.StartNew(() =>
-                {
-                    return TencentCloudHelper.ocr(bmp, ocrType);
-                }).ContinueWith(result =>
+                TencentCloudHelper.ocr(bmp, ocrType).ContinueWith(result =>
                 {
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -224,10 +204,7 @@ namespace WpfTool
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
                 DispatcherHelper.DoEvents();
 
-                Task.Factory.StartNew(() =>
-                {
-                    return BaiduCloudHelper.ocr(bmp, ocrType);
-                }).ContinueWith(result =>
+                BaiduCloudHelper.ocr(bmp, ocrType).ContinueWith(result =>
                 {
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -245,10 +222,7 @@ namespace WpfTool
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
                 DispatcherHelper.DoEvents();
 
-                Task.Factory.StartNew(() =>
-                {
-                    return SpaceOCRHelper.ocr(bmp, ocrType, ocrLanguage);
-                }).ContinueWith(result =>
+                SpaceOCRHelper.ocr(bmp, ocrType, ocrLanguage).ContinueWith(result =>
                 {
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -272,10 +246,7 @@ namespace WpfTool
                 translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
                 DispatcherHelper.DoEvents();
 
-                Task.Factory.StartNew(() =>
-                {
-                    return TencentCloudHelper.screenshotTranslate(bmp);
-                }).ContinueWith(result =>
+                TencentCloudHelper.screenshotTranslate(bmp).ContinueWith(result =>
                 {
                     Dictionary<String, String> keyValues = result.Result;
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
@@ -299,10 +270,7 @@ namespace WpfTool
                 translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
                 DispatcherHelper.DoEvents();
 
-                Task.Factory.StartNew(() =>
-                {
-                    return BaiduAIHelper.screenshotTranslate(bmp);
-                }).ContinueWith(result =>
+                BaiduAIHelper.screenshotTranslate(bmp).ContinueWith(result =>
                 {
                     Dictionary<String, String> keyValues = result.Result;
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
@@ -317,21 +285,7 @@ namespace WpfTool
             }
             else if (GlobalConfig.Translate.defaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud)
             {
-                this.ocr(bmp);
-
-                translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
-                DispatcherHelper.DoEvents();
-
-                Task.Factory.StartNew(() =>
-                {
-                    return GoogleCloudHelper.translate(ocrTextBox.Text, GlobalConfig.Translate.defaultTranslateSourceLanguage, GlobalConfig.Translate.defaultTranslateTargetLanguage);
-                }).ContinueWith(result =>
-                {
-                    translateTextBox.Dispatcher.Invoke(new Action(delegate
-                    {
-                        translateTextBox.Text = result.Result;
-                    }));
-                });
+                MessageBox.Show(this.FindResource("ResultWindows_LimitOcrAndTranslate") as String);
             }
         }
 

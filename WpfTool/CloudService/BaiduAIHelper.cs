@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace WpfTool
 {
@@ -14,7 +13,7 @@ namespace WpfTool
         private static String translateUrl = "https://fanyi-api.baidu.com/api/trans/vip/translate";
         private static String imageTranslateUrl = "https://fanyi-api.baidu.com/api/trans/sdk/picture";
 
-        public static String translate(String text, String sourceLanguage, String targetLanguage)
+        public static async Task<string> translate(String text, String sourceLanguage, String targetLanguage)
         {
             try
             {
@@ -22,16 +21,17 @@ namespace WpfTool
                 String signStr = GlobalConfig.Translate.BaiduAI.app_id + text + salt + GlobalConfig.Translate.BaiduAI.app_secret;
                 String sign = Utils.Md5(signStr);
 
-                String body = "q=" + HttpUtility.UrlEncode(text, Encoding.UTF8)
-                    + "&from=" + sourceLanguage
-                    + "&to=" + targetLanguage
-                    + "&appid=" + GlobalConfig.Translate.BaiduAI.app_id
-                    + "&salt=" + salt
-                    + "&sign=" + sign;
-                Dictionary<String, String> headers = new Dictionary<String, String>();
-                headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                Dictionary<String, String> dict = new Dictionary<String, String>();
+                dict.Add("q", text);
+                dict.Add("from", sourceLanguage);
+                dict.Add("to", targetLanguage);
+                dict.Add("appid", GlobalConfig.Translate.BaiduAI.app_id);
+                dict.Add("salt", salt);
+                dict.Add("sign", sign);
 
-                String response = HttpHelper.Post(translateUrl, body, headers);
+                HttpContent content = new FormUrlEncodedContent(dict);
+
+                String response = await HttpHelper.PostAsync(translateUrl, content);
 
                 JObject jsonObj = JObject.Parse(response);
                 if (jsonObj.ContainsKey("error_code"))
@@ -52,7 +52,7 @@ namespace WpfTool
             }
         }
 
-        public static Dictionary<String, String> screenshotTranslate(Bitmap bmp)
+        public static async Task<Dictionary<String, String>> screenshotTranslate(Bitmap bmp)
         {
             Dictionary<String, String> keyValues = new Dictionary<String, String>();
             try
@@ -64,17 +64,18 @@ namespace WpfTool
                 String signStr = GlobalConfig.Translate.BaiduAI.app_id + Utils.Md5(fileByteArray) + salt + cuid + mac + GlobalConfig.Translate.BaiduAI.app_secret;
                 String sign = Utils.Md5(signStr);
 
-                String url = imageTranslateUrl
-                    + "?from=" + GlobalConfig.Translate.defaultTranslateSourceLanguage
-                    + "&to=" + GlobalConfig.Translate.defaultTranslateTargetLanguage
-                    + "&appid=" + GlobalConfig.Translate.BaiduAI.app_id
-                    + "&salt=" + salt
-                    + "&cuid=" + cuid
-                    + "&mac=" + mac
-                    + "&version=3"
-                    + "&sign=" + sign;
+                MultipartFormDataContent content = new MultipartFormDataContent();
+                content.Add(new ByteArrayContent(fileByteArray), "image", salt + ".jpg");
+                content.Add(new StringContent(GlobalConfig.Translate.defaultTranslateSourceLanguage), "from");
+                content.Add(new StringContent(GlobalConfig.Translate.defaultTranslateTargetLanguage), "to");
+                content.Add(new StringContent(GlobalConfig.Translate.BaiduAI.app_id), "appid");
+                content.Add(new StringContent(salt + ""), "salt");
+                content.Add(new StringContent(cuid), "cuid");
+                content.Add(new StringContent(mac), "mac");
+                content.Add(new StringContent("3"), "version");
+                content.Add(new StringContent(sign), "sign");
 
-                String response = HttpHelper.Upload(url, "image", fileByteArray, salt + ".jpg");
+                String response = await HttpHelper.PostAsync(imageTranslateUrl, content);
 
                 JObject jsonObj = JObject.Parse(response);
                 if (jsonObj.ContainsKey("error_code") && !jsonObj["error_code"].ToString().Equals("0"))

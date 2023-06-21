@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace WpfTool
 {
@@ -13,7 +12,7 @@ namespace WpfTool
     {
         private static String baseUrl = "https://aip.baidubce.com";
 
-        public static String ocr(Bitmap bmp, String ocrType = null)
+        public static async Task<string> ocr(Bitmap bmp, String ocrType = null)
         {
             if (string.IsNullOrWhiteSpace(ocrType))
             {
@@ -21,16 +20,19 @@ namespace WpfTool
             }
             try
             {
-                String url = baseUrl + "/rest/2.0/ocr/v1/" + ocrType + "?access_token=" + GetAccessToken();
+                string access_token = await GetAccessToken();
+                String url = baseUrl + "/rest/2.0/ocr/v1/" + ocrType + "?access_token=" + access_token;
                 String base64 = Utils.BitmapToBase64String(bmp);
-                String body = "image=" + HttpUtility.UrlEncode(base64, Encoding.UTF8);
-                Dictionary<String, String> headers = new Dictionary<String, String>();
-                headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
-                String response = HttpHelper.Post(url, body, headers);
+                Dictionary<String, String> dict = new Dictionary<String, String>();
+                dict.Add("image", base64);
+
+                HttpContent content = new FormUrlEncodedContent(dict);
+
+                String response = await HttpHelper.PostAsync(url, content);
 
                 JObject jsonObj = JObject.Parse(response);
-                if (jsonObj.ContainsKey("error")) 
+                if (jsonObj.ContainsKey("error"))
                 {
                     return jsonObj["error"].ToString() + " " + jsonObj["error_description"].ToString();
                 }
@@ -48,7 +50,7 @@ namespace WpfTool
             }
         }
 
-        private static String GetAccessToken()
+        private static async Task<string> GetAccessToken()
         {
             if (DateTime.Now.AddDays(1) < GlobalConfig.Ocr.BaiduCloud.access_token_expires_time)
             {
@@ -56,12 +58,15 @@ namespace WpfTool
             }
 
             String url = baseUrl + "/oauth/2.0/token";
-            String body = "grant_type=client_credentials&client_id=" + GlobalConfig.Ocr.BaiduCloud.client_id
-                + "&client_secret=" + GlobalConfig.Ocr.BaiduCloud.client_secret;
-            Dictionary<String, String> headers = new Dictionary<String, String>();
-            headers.Add("Content-Type", "application/x-www-form-urlencoded");
-            
-            String response = HttpHelper.Post(url, body, headers);
+
+            Dictionary<String, String> dict = new Dictionary<String, String>();
+            dict.Add("grant_type", "client_credentials");
+            dict.Add("client_id", GlobalConfig.Ocr.BaiduCloud.client_id);
+            dict.Add("client_secret", GlobalConfig.Ocr.BaiduCloud.client_secret);
+
+            HttpContent content = new FormUrlEncodedContent(dict);
+
+            String response = await HttpHelper.PostAsync(url, content);
 
             JObject jsonObj = JObject.Parse(response);
             String access_token = jsonObj["access_token"].ToString();
