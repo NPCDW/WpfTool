@@ -78,13 +78,25 @@ namespace WpfTool
             contextMenu.Items.Add(SettingMenuItem);
             contextMenu.Items.Add(ExitMenuItem);
 
+            notifyIcon.BeginInit();
             notifyIcon.TooltipText = this.FindResource("MainWindows_Title") as String;
             notifyIcon.Icon = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\favicon.ico"), UriKind.Absolute));
             //notifyIcon.MenuOnRightClick = true;
             //notifyIcon.Menu = contextMenu;
             notifyIcon.Visibility = Visibility.Visible;
             notifyIcon.Register();
+            notifyIcon.EndInit();
+
+            Wpf.Ui.Mvvm.Services.NotifyIconService service = new Wpf.Ui.Mvvm.Services.NotifyIconService();
+            service.Icon = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\favicon.ico"), UriKind.Absolute));
+
+            notifyIcon.Focus();
             Console.WriteLine(notifyIcon.IsVisible);
+            Console.WriteLine(notifyIcon.IsLoaded);
+            Console.WriteLine(notifyIcon.IsEnabled);
+            Console.WriteLine(notifyIcon.IsInitialized);
+            Console.WriteLine(notifyIcon.IsRegistered);
+            Console.WriteLine(notifyIcon.Uid);
         }
 
         private void Translate_Click(object? sender, EventArgs? e)

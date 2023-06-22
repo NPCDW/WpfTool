@@ -15,10 +15,11 @@
             Icon="pack://application:,,,/Resources/favicon.ico">
             <ui:TitleBar.Tray>
                 <ui:NotifyIcon
+                    Name="notifyIcon"
                     FocusOnLeftClick="True"
                     Icon="pack://application:,,,/Resources/favicon.ico"
                     MenuOnRightClick="True"
-                    TooltipText="WPF UI - MVVM Demo">
+                    TooltipText="WPF UI - MVVM Demo" Visibility="Visible">
                 </ui:NotifyIcon>
             </ui:TitleBar.Tray>
         </ui:TitleBar>

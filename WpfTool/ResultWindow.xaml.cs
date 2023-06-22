@@ -81,6 +81,15 @@ namespace WpfTool
             }
 
             this.WindowLoaded = true;
+
+            notifyIcon.Register();
+            notifyIcon.Visibility = Visibility.Visible;
+            Console.WriteLine(notifyIcon.IsVisible);
+            Console.WriteLine(notifyIcon.IsLoaded);
+            Console.WriteLine(notifyIcon.IsEnabled);
+            Console.WriteLine(notifyIcon.IsInitialized);
+            Console.WriteLine(notifyIcon.IsRegistered);
+            Console.WriteLine(notifyIcon.Uid);
         }
 
         public void translate(String translateProvideStr = null, String sourceLanguage = null, String targetLanguage = null)
