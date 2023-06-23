@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using WpfTool.Util.HappyEyeballsHttp;
 
 namespace WpfTool
 {
     public class HttpHelper
     {
-        private static HttpClient httpClient = new HttpClient()
+        private static SocketsHttpHandler handler = new SocketsHttpHandler
+        {
+            AutomaticDecompression = DecompressionMethods.All,
+            ConnectCallback = new HappyEyeballsCallback().ConnectCallback,
+        };
+        private static HttpClient httpClient = new HttpClient(handler)
         {
             Timeout = TimeSpan.FromSeconds(5),
         };
