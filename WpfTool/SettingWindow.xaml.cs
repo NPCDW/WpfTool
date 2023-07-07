@@ -9,7 +9,7 @@ namespace WpfTool
     /// <summary>
     /// SettingWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingWindow : Window
+    public partial class SettingWindow : Wpf.Ui.Controls.UiWindow
     {
         private bool WindowLoaded = false;
 
