@@ -1,0 +1,41 @@
+﻿<Page x:Class="WpfTool.Page.Setting.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:WpfTool.Page.Setting"
+      mc:Ignorable="d"
+      Title="About" Height="450" Width="800">
+    <StackPanel Margin="20">
+        <WrapPanel>
+            <Label Content="{DynamicResource Setting_Version}" />
+            <Label Content="1.13.0.0 (2023.07.07)" DataContext="https://github.com/NPCDW/WpfTool/releases"
+                   Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{DynamicResource Setting_license}" />
+            <Label Content="MIT License" DataContext="https://en.wikipedia.org/wiki/MIT_License" Cursor="Hand"
+                   MouseDown="LinkLabel_MouseDown" />
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{DynamicResource Setting_AllRightsReserved}" />
+            <Label Content="© 2022 NPCDW" DataContext="https://github.com/NPCDW" Cursor="Hand"
+                   MouseDown="LinkLabel_MouseDown" />
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{DynamicResource Setting_SourceCode}" />
+            <Label Content="https://github.com/NPCDW/WpfTool" DataContext="https://github.com/NPCDW/WpfTool"
+                   Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{DynamicResource Setting_feedback}" />
+            <Label Content="chenyongli0520@gmail.com" Cursor="Hand" DataContext="chenyongli0520@gmail.com"
+                   MouseDown="CopyLabel_MouseDown" />
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{DynamicResource Setting_Links}" />
+            <Label Content="https://www.0520.site" DataContext="https://www.0520.site" Cursor="Hand"
+                   MouseDown="LinkLabel_MouseDown" />
+        </WrapPanel>
+    </StackPanel>
+</Page>

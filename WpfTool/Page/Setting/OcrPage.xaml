@@ -1,0 +1,73 @@
+﻿<Page x:Class="WpfTool.Page.Setting.OcrPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:WpfTool.Page.Setting"
+      mc:Ignorable="d"
+      Title="Ocr" Height="450" Width="800" Loaded="Ocr_OnLoaded">
+    <StackPanel Margin="20">
+        <GroupBox Header="{DynamicResource Setting_DefaultOCR}">
+            <WrapPanel>
+                <ComboBox x:Name="defaultOcrProvideComboBox" Width="140" Margin="5"
+                          SelectionChanged="defaultOcrProvideComboBox_SelectionChanged">
+                    <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource CloudService_BaiduCloud}" />
+                    <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
+                    <ComboBoxItem DataContext="SpaceOCR" Content="{DynamicResource CloudService_SpaceOCR}" />
+                </ComboBox>
+                <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Margin="5"
+                          SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
+                <ComboBox x:Name="defaultOcrLanguageComboBox" Width="120" Margin="5"
+                          SelectionChanged="defaultOcrLanguageComboBox_SelectionChanged" />
+            </WrapPanel>
+        </GroupBox>
+        <GroupBox Header="{DynamicResource CloudService_TencentCloud}" Margin="0,20,0,0">
+            <StackPanel>
+                <WrapPanel Margin="0,5,0,0">
+                    <Label Content="SecretID" />
+                    <TextBox x:Name="TencentCloudOcr_SecretIdInput" Width="200"
+                             TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" VerticalContentAlignment="Center" />
+                </WrapPanel>
+                <WrapPanel Margin="0,5,0,0">
+                    <Label Content="SecretKey" />
+                    <PasswordBox x:Name="TencentCloudOcr_SecretKeyInput" Width="200" Cursor="Arrow"
+                                 PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged"
+                                 VerticalContentAlignment="Center" />
+                </WrapPanel>
+                <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand"
+                       DataContext="https://cloud.tencent.com/document/product/866/35945"
+                       MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="{DynamicResource CloudService_BaiduCloud}" Margin="0,20,0,0">
+            <StackPanel>
+                <WrapPanel Margin="0,5,0,0">
+                    <Label Content="AppKey" />
+                    <TextBox x:Name="BaiduCloud_AppKeyInput" Width="200"
+                             TextChanged="BaiduCloud_AppKeyInput_TextChanged" VerticalContentAlignment="Center" />
+                </WrapPanel>
+                <WrapPanel Margin="0,5,0,0">
+                    <Label Content="SecretKey" />
+                    <PasswordBox x:Name="BaiduCloud_SecretKeyInput" Width="200"
+                                 PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged"
+                                 VerticalContentAlignment="Center" />
+                </WrapPanel>
+                <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand"
+                       DataContext="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" MouseDown="LinkLabel_MouseDown"
+                       Foreground="Magenta" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="{DynamicResource CloudService_SpaceOCR}" Margin="0,20,0,0">
+            <StackPanel>
+                <WrapPanel Margin="0,5,0,0">
+                    <Label Content="ApiKey" />
+                    <PasswordBox x:Name="SpaceOCR_ApiKeyInput" Width="200"
+                                 PasswordChanged="SpaceOCR_ApiKeyInput_PasswordChanged"
+                                 VerticalContentAlignment="Center" />
+                </WrapPanel>
+                <Label Content="{DynamicResource Setting_GetFreeOCRQuota}" Margin="0,5,0,0" Cursor="Hand"
+                       DataContext="https://ocr.space/OCRAPI" MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</Page>
