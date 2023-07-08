@@ -4,45 +4,33 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:WpfTool.Page.Setting"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d"
-      Title="Common" Height="450" Width="800" Loaded="Common_OnLoaded">
+      d:DesignHeight="600"
+      d:DesignWidth="800"
+      Title="Common" Loaded="Common_OnLoaded">
     <StackPanel Margin="20">
-        <GroupBox Header="{DynamicResource Setting_AutoStart}">
-            <WrapPanel Margin="0,5,0,5">
-                <CheckBox x:Name="autoStartButton" Content="{DynamicResource Setting_AutoStart}" FontWeight="Bold"
-                          Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
-            </WrapPanel>
-        </GroupBox>
-        <GroupBox Header="{DynamicResource Setting_language}">
-            <WrapPanel Margin="0,5,0,5">
-                <ComboBox x:Name="languageComboBox" Width="140" Margin="5"
-                          SelectionChanged="languageComboBox_SelectionChanged">
-                    <ComboBoxItem DataContext="en_US" Content="English" />
-                    <ComboBoxItem DataContext="zh_CN" Content="简体中文" />
-                </ComboBox>
-            </WrapPanel>
-        </GroupBox>
-        <GroupBox Header="{DynamicResource Setting_ConfigurationFileStorageLocation}">
-            <WrapPanel Margin="0,5,0,5">
+        <ui:CardControl Header="{DynamicResource Setting_AutoStart}">
+            <ui:ToggleSwitch x:Name="autoStartButton" Checked="autoStartButton_Checked" Unchecked="autoStartButton_Unchecked" />
+        </ui:CardControl>
+        <ui:CardControl Header="{DynamicResource Setting_language}" Margin="0,5,0,0">
+            <ComboBox x:Name="languageComboBox" SelectionChanged="languageComboBox_SelectionChanged">
+                <ComboBoxItem DataContext="en_US" Content="English" />
+                <ComboBoxItem DataContext="zh_CN" Content="简体中文" />
+            </ComboBox>
+        </ui:CardControl>
+        <ui:CardControl Header="{DynamicResource Setting_ConfigurationFileStorageLocation}" Margin="0,5,0,0">
+            <WrapPanel>
                 <RadioButton x:Name="UserConfigRadioButton" GroupName="config" VerticalAlignment="Center"
                              Checked="UserConfigRadioButton_Checked" Content="{DynamicResource Setting_UserDirectory}" />
-                <RadioButton x:Name="AppConfigRadioButton" GroupName="config" VerticalAlignment="Center"
-                             Margin="5,0,0,0" Checked="AppConfigRadioButton_Checked"
+                <RadioButton x:Name="AppConfigRadioButton" GroupName="config" VerticalAlignment="Center" Checked="AppConfigRadioButton_Checked"
                              Content="{DynamicResource Setting_AppDirectory}" />
-                <Button x:Name="ConfigButton" Margin="10,0,0,0" Padding="15,0,15,0" Click="ConfigButton_Click"
+                <Button x:Name="ConfigButton" Click="ConfigButton_Click" VerticalAlignment="Center"
                         Content="{DynamicResource Setting_Open}" />
             </WrapPanel>
-        </GroupBox>
-        <GroupBox Header="{DynamicResource Setting_WordSelectionInterval}"
-                  ToolTip="{DynamicResource Setting_WordSelectionIntervalToolTip}">
-            <WrapPanel Margin="0,5,0,5">
-                <Slider x:Name="WordSelectionIntervalSlider" Value="200" Minimum="100" Maximum="1000"
-                        MinWidth="200"
-                        TickFrequency="100" TickPlacement="None" IsSnapToTickEnabled="True"
-                        ValueChanged="WordSelectionIntervalSlider_ValueChanged" />
-                <TextBlock Text="{Binding ElementName=WordSelectionIntervalSlider, Path=Value, StringFormat={}{0}ms}"
-                           Margin="10,0,0,0" />
-            </WrapPanel>
-        </GroupBox>
+        </ui:CardControl>
+        <ui:CardControl Header="{DynamicResource Setting_WordSelectionInterval}" ToolTip="{DynamicResource Setting_WordSelectionIntervalToolTip}" Margin="0,5,0,0">
+            <ui:NumberBox x:Name="WordSelectionIntervalNumberBox" Value="400" Min="100" Max="1000" Step="100" DecimalPlaces="0" IntegersOnly="True" IsReadOnly="True" ClearButtonEnabled="False" TextChanged="WordSelectionIntervalNumberBox_OnTextChanged" />
+        </ui:CardControl>
     </StackPanel>
 </Page>

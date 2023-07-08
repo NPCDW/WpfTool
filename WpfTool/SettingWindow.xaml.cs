@@ -14,21 +14,18 @@ namespace WpfTool
     {
         public SettingWindow()
         {
-            DataContext = this;
-
-            Wpf.Ui.Appearance.Watcher.Watch(this);
-
-            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level =
-                System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
-            
-            Loaded += (_, _) => RootNavigation.Navigate(typeof(AboutPage));
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             GlobalConfig.SaveConfig();
             Utils.FlushMemory();
+        }
+
+        private void RootNavigation_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            RootNavigation.Navigate(0);
         }
     }
 }

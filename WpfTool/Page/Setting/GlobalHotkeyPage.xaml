@@ -5,7 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:WpfTool.Page.Setting"
       mc:Ignorable="d"
-      Title="GlobalHotkey" Height="450" Width="800" Loaded="GlobalHotkey_OnLoaded">
+      d:DesignHeight="600"
+      d:DesignWidth="800"
+      Title="GlobalHotkey" Loaded="GlobalHotkey_OnLoaded">
     <Grid Margin="20,10,20,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

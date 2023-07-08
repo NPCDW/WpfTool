@@ -8,53 +8,57 @@
         xmlns:pages="clr-namespace:WpfTool.Page.Setting"
         mc:Ignorable="d"
         Title="{DynamicResource Setting_Title}" Height="600" Width="800" Closed="Window_Closed"
+        WindowStartupLocation="CenterScreen"
         ExtendsContentIntoTitleBar="True">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-        <ui:TitleBar Grid.Row="0" Title="{DynamicResource Setting_Title}" Icon="/Resources/favicon.ico"/>
-        <ui:NavigationFluent Grid.Row="1"
+        <ui:TitleBar Grid.Row="0" Grid.ColumnSpan="2" Title="{DynamicResource Setting_Title}" Icon="/Resources/favicon.ico"/>
+        <ui:NavigationFluent Grid.Row="1" Grid.Column="0"
                              x:Name="RootNavigation"
+                             Loaded="RootNavigation_OnLoaded"
                              Frame="{Binding ElementName=RootFrame}">
             <ui:NavigationFluent.Items>
                 <ui:NavigationItem
                     Content="{DynamicResource Setting_Common}"
                     Icon="Home24"
-                    PageSource="Page/Setting/CommonPage.xaml"
-                    PageTag="dashboard1" />
+                    PageType="{x:Type pages:CommonPage}"
+                    PageTag="common" />
                 <ui:NavigationItem
                     Content="{DynamicResource Setting_OCR}"
                     Icon="Home24"
-                    PageSource="Page/Setting/OcrPage.xaml"
-                    PageTag="dashboard2" />
+                    PageType="{x:Type pages:OcrPage}"
+                    PageTag="ocr" />
                 <ui:NavigationItem
                     Content="{DynamicResource Setting_MachineTranslate}"
                     Icon="Home24"
-                    PageSource="Page/Setting/MachineTranslatePage.xaml"
-                    PageTag="dashboard3" />
+                    PageType="{x:Type pages:MachineTranslatePage}"
+                    PageTag="MachineTranslate" />
                 <ui:NavigationItem
                     Content="{DynamicResource Setting_GlobalHotkey}"
                     Icon="Home24"
-                    PageSource="Page/Setting/GlobalHotkeyPage.xaml"
-                    PageTag="dashboard4" />
-                <ui:NavigationItem
-                    Content="{DynamicResource Setting_about}"
-                    Icon="Home24"
-                    PageType="{x:Type pages:OcrPage}"
-                    PageTag="dashboard5" />
+                    PageType="{x:Type pages:GlobalHotkeyPage}"
+                    PageTag="GlobalHotkey" />
             </ui:NavigationFluent.Items>
             <ui:NavigationFluent.Footer>
                 <ui:NavigationItem
-                    Content="Settings"
-                    Icon="Diversity24" />
+                    Content="{DynamicResource Setting_about}"
+                    Icon="Home24"
+                    PageType="{x:Type pages:AboutPage}"
+                    PageTag="about" />
                 <!--  A navigation element that does not point to the page can be used as a button.  -->
                 <ui:NavigationItem
                     Content="Theme"
                     Icon="DarkTheme24" />
             </ui:NavigationFluent.Footer>
         </ui:NavigationFluent>
+        <Frame x:Name="RootFrame" Grid.Row="1" Grid.Column="1" />
     </Grid>
 </ui:UiWindow>

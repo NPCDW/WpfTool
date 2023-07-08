@@ -15,7 +15,7 @@ public partial class CommonPage : System.Windows.Controls.Page
     private void Common_OnLoaded(object sender, RoutedEventArgs e)
     {
         this.autoStartButton.IsChecked = GlobalConfig.Common.autoStart;
-        this.WordSelectionIntervalSlider.Value = GlobalConfig.Common.wordSelectionInterval;
+        this.WordSelectionIntervalNumberBox.Value = GlobalConfig.Common.wordSelectionInterval;
 
         foreach (ComboBoxItem item in this.languageComboBox.Items)
         {
@@ -88,11 +88,11 @@ public partial class CommonPage : System.Windows.Controls.Page
         }
     }
 
-    private void WordSelectionIntervalSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    private void WordSelectionIntervalNumberBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         if (this.PageLoaded)
         {
-            GlobalConfig.Common.wordSelectionInterval = (int)WordSelectionIntervalSlider.Value;
+            GlobalConfig.Common.wordSelectionInterval = (int)WordSelectionIntervalNumberBox.Value;
         }
     }
 }
