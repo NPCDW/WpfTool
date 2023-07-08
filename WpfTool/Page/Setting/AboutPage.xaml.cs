@@ -12,16 +12,15 @@ public partial class AboutPage : System.Windows.Controls.Page
         InitializeComponent();
     }
 
-    private void LinkLabel_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-        System.Diagnostics.Process proc = new System.Diagnostics.Process();
-        proc.StartInfo.FileName = ((Label)sender).DataContext.ToString();
-        proc.Start();
-    }
-
     private void CopyLabel_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        NativeClipboard.SetText(((Label)sender).DataContext.ToString());
-        MessageBox.Show(this.FindResource("Setting_CopyEmailMessage") as String);
+        var text = ((Label)sender).DataContext.ToString();
+        NativeClipboard.SetText(text);
+        
+        var window = (SettingWindow)Window.GetWindow(this);
+        Wpf.Ui.Controls.Snackbar snackbar = window.RootSnackbar;
+        snackbar.Title = this.FindResource("Setting_CopyEmailMessage") as String;
+        snackbar.Message = text;
+        snackbar.Show();
     }
 }

@@ -4,40 +4,30 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:WpfTool.Page.Setting"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d"
       d:DesignHeight="600"
       d:DesignWidth="800"
       Title="About">
     <StackPanel Margin="20">
-        <WrapPanel>
-            <Label Content="{DynamicResource Setting_Version}" />
-            <Label Content="1.13.0.0 (2023.07.07)" DataContext="https://github.com/NPCDW/WpfTool/releases"
-                   Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
-        </WrapPanel>
-        <WrapPanel>
-            <Label Content="{DynamicResource Setting_license}" />
-            <Label Content="MIT License" DataContext="https://en.wikipedia.org/wiki/MIT_License" Cursor="Hand"
-                   MouseDown="LinkLabel_MouseDown" />
-        </WrapPanel>
-        <WrapPanel>
-            <Label Content="{DynamicResource Setting_AllRightsReserved}" />
-            <Label Content="© 2022 NPCDW" DataContext="https://github.com/NPCDW" Cursor="Hand"
-                   MouseDown="LinkLabel_MouseDown" />
-        </WrapPanel>
-        <WrapPanel>
-            <Label Content="{DynamicResource Setting_SourceCode}" />
-            <Label Content="https://github.com/NPCDW/WpfTool" DataContext="https://github.com/NPCDW/WpfTool"
-                   Cursor="Hand" MouseDown="LinkLabel_MouseDown" />
-        </WrapPanel>
-        <WrapPanel>
-            <Label Content="{DynamicResource Setting_feedback}" />
+        <ui:CardControl Header="{DynamicResource Setting_Version}">
+            <ui:Hyperlink NavigateUri="https://github.com/NPCDW/WpfTool/releases" Icon="Link48" Content="1.13.0.0 (2023.07.07)" />
+        </ui:CardControl>
+        <ui:CardControl Header="{DynamicResource Setting_license}">
+            <ui:Hyperlink NavigateUri="https://en.wikipedia.org/wiki/MIT_License" Icon="Link48" Content="MIT License" />
+        </ui:CardControl>
+        <ui:CardControl Header="{DynamicResource Setting_AllRightsReserved}">
+            <ui:Hyperlink NavigateUri="https://github.com/NPCDW" Icon="Link48" Content="© NPCDW 2023" />
+        </ui:CardControl>
+        <ui:CardControl Header="{DynamicResource Setting_SourceCode}">
+            <ui:Hyperlink NavigateUri="https://github.com/NPCDW/WpfTool" Icon="Link48" Content="https://github.com/NPCDW/WpfTool" />
+        </ui:CardControl>
+        <ui:CardControl Header="{DynamicResource Setting_feedback}">
             <Label Content="chenyongli0520@gmail.com" Cursor="Hand" DataContext="chenyongli0520@gmail.com"
                    MouseDown="CopyLabel_MouseDown" />
-        </WrapPanel>
-        <WrapPanel>
-            <Label Content="{DynamicResource Setting_Links}" />
-            <Label Content="https://www.0520.site" DataContext="https://www.0520.site" Cursor="Hand"
-                   MouseDown="LinkLabel_MouseDown" />
-        </WrapPanel>
+        </ui:CardControl>
+        <ui:CardControl Header="{DynamicResource Setting_Links}">
+            <ui:Hyperlink NavigateUri="https://www.0520.site" Icon="Link48" Content="https://www.0520.site" />
+        </ui:CardControl>
     </StackPanel>
 </Page>

@@ -25,7 +25,7 @@ namespace WpfTool
 
         private void RootNavigation_OnLoaded(object sender, RoutedEventArgs e)
         {
-            RootNavigation.Navigate(0);
+            RootNavigation.Navigate(1);
         }
     }
 }

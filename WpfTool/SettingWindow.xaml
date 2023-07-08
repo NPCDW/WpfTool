@@ -28,29 +28,29 @@
             <ui:NavigationFluent.Items>
                 <ui:NavigationItem
                     Content="{DynamicResource Setting_Common}"
-                    Icon="Home24"
+                    Icon="Apps24"
                     PageType="{x:Type pages:CommonPage}"
                     PageTag="common" />
                 <ui:NavigationItem
                     Content="{DynamicResource Setting_OCR}"
-                    Icon="Home24"
+                    Icon="Text16"
                     PageType="{x:Type pages:OcrPage}"
                     PageTag="ocr" />
                 <ui:NavigationItem
                     Content="{DynamicResource Setting_MachineTranslate}"
-                    Icon="Home24"
+                    Icon="Translate24"
                     PageType="{x:Type pages:MachineTranslatePage}"
                     PageTag="MachineTranslate" />
                 <ui:NavigationItem
                     Content="{DynamicResource Setting_GlobalHotkey}"
-                    Icon="Home24"
+                    Icon="Keyboard12324"
                     PageType="{x:Type pages:GlobalHotkeyPage}"
                     PageTag="GlobalHotkey" />
             </ui:NavigationFluent.Items>
             <ui:NavigationFluent.Footer>
                 <ui:NavigationItem
                     Content="{DynamicResource Setting_about}"
-                    Icon="Home24"
+                    Icon="Certificate24"
                     PageType="{x:Type pages:AboutPage}"
                     PageTag="about" />
                 <!--  A navigation element that does not point to the page can be used as a button.  -->
@@ -60,5 +60,15 @@
             </ui:NavigationFluent.Footer>
         </ui:NavigationFluent>
         <Frame x:Name="RootFrame" Grid.Row="1" Grid.Column="1" />
+        
+        <ui:Snackbar
+            x:Name="RootSnackbar"
+            Title="Hello World!"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Icon="Info24"
+            Message="Remember that the Heat Death of Universe is coming someday, no time to explain - let's go!"
+            Timeout="2000" />
     </Grid>
 </ui:UiWindow>
