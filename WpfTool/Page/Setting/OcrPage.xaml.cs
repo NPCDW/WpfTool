@@ -224,11 +224,4 @@ public partial class OcrPage : System.Windows.Controls.Page
             GlobalConfig.Ocr.SpaceOCR.apiKey = this.SpaceOCR_ApiKeyInput.Password;
         }
     }
-
-    private void LinkLabel_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-        System.Diagnostics.Process proc = new System.Diagnostics.Process();
-        proc.StartInfo.FileName = ((Label)sender).DataContext.ToString();
-        proc.Start();
-    }
 }
