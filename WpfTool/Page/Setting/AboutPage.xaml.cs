@@ -16,7 +16,7 @@ public partial class AboutPage : System.Windows.Controls.Page
     {
         var text = ((Label)sender).DataContext.ToString();
         NativeClipboard.SetText(text);
-        
+
         var window = (SettingWindow)Window.GetWindow(this);
         Wpf.Ui.Controls.Snackbar snackbar = window.RootSnackbar;
         snackbar.Title = this.FindResource("Setting_CopyEmailMessage") as String;

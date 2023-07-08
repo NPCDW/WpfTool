@@ -11,7 +11,8 @@
       Title="About">
     <StackPanel>
         <ui:CardControl Header="{DynamicResource Setting_Version}">
-            <ui:Hyperlink NavigateUri="https://github.com/NPCDW/WpfTool/releases" Icon="Link48" Content="1.13.0.0 (2023.07.07)" />
+            <ui:Hyperlink NavigateUri="https://github.com/NPCDW/WpfTool/releases" Icon="Link48"
+                          Content="1.13.0.0 (2023.07.07)" />
         </ui:CardControl>
         <ui:CardControl Header="{DynamicResource Setting_license}">
             <ui:Hyperlink NavigateUri="https://en.wikipedia.org/wiki/MIT_License" Icon="Link48" Content="MIT License" />
@@ -20,7 +21,8 @@
             <ui:Hyperlink NavigateUri="https://github.com/NPCDW" Icon="Link48" Content="© NPCDW 2023" />
         </ui:CardControl>
         <ui:CardControl Header="{DynamicResource Setting_SourceCode}">
-            <ui:Hyperlink NavigateUri="https://github.com/NPCDW/WpfTool" Icon="Link48" Content="https://github.com/NPCDW/WpfTool" />
+            <ui:Hyperlink NavigateUri="https://github.com/NPCDW/WpfTool" Icon="Link48"
+                          Content="https://github.com/NPCDW/WpfTool" />
         </ui:CardControl>
         <ui:CardControl Header="{DynamicResource Setting_feedback}">
             <Label Content="chenyongli0520@gmail.com" Cursor="Hand" DataContext="chenyongli0520@gmail.com"

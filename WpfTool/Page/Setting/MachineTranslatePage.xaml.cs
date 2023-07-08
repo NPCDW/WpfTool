@@ -184,11 +184,4 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
             GlobalConfig.Translate.BaiduAI.app_secret = this.BaiduAI_SecretKeyInput.Password;
         }
     }
-
-    private void LinkLabel_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-        System.Diagnostics.Process proc = new System.Diagnostics.Process();
-        proc.StartInfo.FileName = ((Label)sender).DataContext.ToString();
-        proc.Start();
-    }
 }

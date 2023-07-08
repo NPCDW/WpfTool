@@ -9,57 +9,98 @@
       d:DesignHeight="600"
       d:DesignWidth="800"
       Title="MachineTranslate" Loaded="MachineTranslate_OnLoaded">
-        <StackPanel>
-            <GroupBox Header="{DynamicResource Setting_defaultMachineTranslate}">
-                <WrapPanel>
-                    <ComboBox x:Name="defaultTranslateProvideComboBox" Width="140" Margin="5"
-                              SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
-                        <ComboBoxItem DataContext="BaiduAI" Content="{DynamicResource CloudService_BaiduAI}" />
-                        <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
-                        <ComboBoxItem DataContext="GoogleCloud" Content="{DynamicResource CloudService_GoogleCloud}" />
-                    </ComboBox>
-                    <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5"
-                              SelectionChanged="sourceLanguageComboBox_SelectionChanged" />
-                    <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5"
-                              SelectionChanged="targetLanguageComboBox_SelectionChanged" />
-                </WrapPanel>
-            </GroupBox>
-            <GroupBox Header="{DynamicResource CloudService_TencentCloud}" Margin="0,20,0,0">
-                <StackPanel>
-                    <WrapPanel Margin="0,5,0,0">
-                        <Label Content="SecretID" />
-                        <TextBox x:Name="TencentCloudTranslate_SecretIdInput" Width="200"
-                                 TextChanged="TencentCloudTranslate_SecretIdInput_TextChanged"
-                                 VerticalContentAlignment="Center" />
-                    </WrapPanel>
-                    <WrapPanel Margin="0,5,0,0">
-                        <Label Content="SecretKey" />
-                        <PasswordBox x:Name="TencentCloudTranslate_SecretKeyInput" Width="200"
-                                     PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged"
-                                     VerticalContentAlignment="Center" />
-                    </WrapPanel>
-                    <Label Content="{DynamicResource Setting_GetFreeTranslateQuota}" Margin="0,5,0,0" Cursor="Hand"
-                           DataContext="https://cloud.tencent.com/document/product/551/35017"
-                           MouseDown="LinkLabel_MouseDown" Foreground="Magenta" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="{DynamicResource CloudService_BaiduAI}" Margin="0,20,0,0">
-                <StackPanel>
-                    <WrapPanel Margin="0,5,0,0">
-                        <Label Content="AppID" />
-                        <TextBox x:Name="BaiduAI_AppIdInput" Width="200" TextChanged="BaiduAI_AppIdInput_TextChanged"
-                                 VerticalContentAlignment="Center" />
-                    </WrapPanel>
-                    <WrapPanel Margin="0,5,0,0">
-                        <Label Content="SecretKey" />
-                        <PasswordBox x:Name="BaiduAI_SecretKeyInput" Width="200"
-                                     PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged"
-                                     VerticalContentAlignment="Center" />
-                    </WrapPanel>
-                    <Label Content="{DynamicResource Setting_GetFreeTranslateQuota}" Margin="0,5,0,0" Cursor="Hand"
-                           DataContext="https://fanyi-api.baidu.com/product/113" MouseDown="LinkLabel_MouseDown"
-                           Foreground="Magenta" />
-                </StackPanel>
-            </GroupBox>
-        </StackPanel>
+    <StackPanel>
+        <ui:Card Footer="{DynamicResource Setting_defaultMachineTranslate}">
+            <WrapPanel>
+                <ComboBox x:Name="defaultTranslateProvideComboBox" Width="140"
+                          SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
+                    <ComboBoxItem DataContext="BaiduAI" Content="{DynamicResource CloudService_BaiduAI}" />
+                    <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
+                    <ComboBoxItem DataContext="GoogleCloud" Content="{DynamicResource CloudService_GoogleCloud}" />
+                </ComboBox>
+                <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5,0,0,0"
+                          SelectionChanged="sourceLanguageComboBox_SelectionChanged" />
+                <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5,0,0,0"
+                          SelectionChanged="targetLanguageComboBox_SelectionChanged" />
+            </WrapPanel>
+        </ui:Card>
+        <ui:Card Margin="0,5,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="SecretID" VerticalAlignment="Center"
+                       HorizontalAlignment="Right" />
+                <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="TencentCloudTranslate_SecretIdInput" Margin="5,0,0,0"
+                            TextChanged="TencentCloudTranslate_SecretIdInput_TextChanged" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" Margin="0,5,0,0" VerticalAlignment="Center"
+                       HorizontalAlignment="Right" />
+                <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudTranslate_SecretKeyInput"
+                                Margin="5,5,0,0"
+                                PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged" />
+            </Grid>
+            <ui:Card.Footer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_TencentCloud}"
+                           VerticalAlignment="Center" />
+                    <ui:Hyperlink Grid.Row="0" Grid.Column="1"
+                                  NavigateUri="https://cloud.tencent.com/document/product/551/35017"
+                                  Icon="Link48" Content="{DynamicResource Setting_GetFreeTranslateQuota}" />
+                </Grid>
+            </ui:Card.Footer>
+        </ui:Card>
+        <ui:Card Margin="0,5,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="SecretID" VerticalAlignment="Center"
+                       HorizontalAlignment="Right" />
+                <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="BaiduAI_AppIdInput" Margin="5,0,0,0"
+                            TextChanged="BaiduAI_AppIdInput_TextChanged" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" Margin="0,5,0,0" VerticalAlignment="Center"
+                       HorizontalAlignment="Right" />
+                <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="BaiduAI_SecretKeyInput" Margin="5,5,0,0"
+                                PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged" />
+            </Grid>
+            <ui:Card.Footer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource Setting_GetFreeTranslateQuota}"
+                           VerticalAlignment="Center" />
+                    <ui:Hyperlink Grid.Row="0" Grid.Column="1" NavigateUri="https://fanyi-api.baidu.com/product/113"
+                                  Icon="Link48" Content="{DynamicResource Setting_GetFreeTranslateQuota}" />
+                </Grid>
+            </ui:Card.Footer>
+        </ui:Card>
+    </StackPanel>
 </Page>

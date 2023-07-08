@@ -36,13 +36,16 @@
                         <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Content="SecretID" VerticalAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="SecretID" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
                     <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="TencentCloudOcr_SecretIdInput" Margin="5,0,0,0"
-                             TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" />
+                                TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" />
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" Margin="0,5,0,0" VerticalAlignment="Center" />
-                    <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudOcr_SecretKeyInput" Margin="5,5,0,0"
-                                 PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" Margin="0,5,0,0" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
+                    <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudOcr_SecretKeyInput"
+                                    Margin="5,5,0,0"
+                                    PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
                 </Grid>
                 <ui:Card.Footer>
                     <Grid>
@@ -54,8 +57,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_TencentCloud}" VerticalAlignment="Center" />
-                        <ui:Hyperlink Grid.Row="0" Grid.Column="1" NavigateUri="https://cloud.tencent.com/document/product/866/35945"
+                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_TencentCloud}"
+                               VerticalAlignment="Center" />
+                        <ui:Hyperlink Grid.Row="0" Grid.Column="1"
+                                      NavigateUri="https://cloud.tencent.com/document/product/866/35945"
                                       Icon="Link48" Content="{DynamicResource Setting_GetFreeOCRQuota}" />
                     </Grid>
                 </ui:Card.Footer>
@@ -71,13 +76,15 @@
                         <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Content="AppKey" VerticalAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="AppKey" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
                     <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="BaiduCloud_AppKeyInput"
-                             TextChanged="BaiduCloud_AppKeyInput_TextChanged" Margin="5,0,0,0" />
+                                TextChanged="BaiduCloud_AppKeyInput_TextChanged" Margin="5,0,0,0" />
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" VerticalAlignment="Center" Margin="0,5,0,0" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" Margin="0,5,0,0" />
                     <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="BaiduCloud_SecretKeyInput" Margin="5,5,0,0"
-                                 PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
+                                    PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
                 </Grid>
                 <ui:Card.Footer>
                     <Grid>
@@ -89,8 +96,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_BaiduCloud}" VerticalAlignment="Center" />
-                        <ui:Hyperlink Grid.Row="0" Grid.Column="1" NavigateUri="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h"
+                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_BaiduCloud}"
+                               VerticalAlignment="Center" />
+                        <ui:Hyperlink Grid.Row="0" Grid.Column="1"
+                                      NavigateUri="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h"
                                       Icon="Link48" Content="{DynamicResource Setting_GetFreeOCRQuota}" />
                     </Grid>
                 </ui:Card.Footer>
@@ -105,9 +114,10 @@
                         <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Content="SecretKey" VerticalAlignment="Center" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="SecretKey" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
                     <ui:PasswordBox Grid.Row="0" Grid.Column="1" x:Name="SpaceOCR_ApiKeyInput" Margin="5,0,0,0"
-                                 PasswordChanged="SpaceOCR_ApiKeyInput_PasswordChanged" />
+                                    PasswordChanged="SpaceOCR_ApiKeyInput_PasswordChanged" />
                 </Grid>
                 <ui:Card.Footer>
                     <Grid>
@@ -119,7 +129,8 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_SpaceOCR}" VerticalAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_SpaceOCR}"
+                               VerticalAlignment="Center" />
                         <ui:Hyperlink Grid.Row="0" Grid.Column="1" NavigateUri="https://ocr.space/OCRAPI"
                                       Icon="Link48" Content="{DynamicResource Setting_GetFreeOCRQuota}" />
                     </Grid>
