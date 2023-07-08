@@ -10,7 +10,7 @@ namespace WpfTool
     /// <summary>
     /// Window1.xaml 的交互逻辑
     /// </summary>
-    public partial class ResultWindow : Window
+    public partial class ResultWindow : Wpf.Ui.Controls.UiWindow
     {
         private Bitmap bmp = null;
         private bool WindowLoaded = false;
@@ -103,7 +103,7 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_id) || string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_key))
                 {
-                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
+                    RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
                 translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
@@ -122,7 +122,7 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_id) || string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_secret))
                 {
-                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
+                    RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
                 translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
@@ -177,7 +177,7 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Ocr.TencentCloud.secret_id) || string.IsNullOrEmpty(GlobalConfig.Ocr.TencentCloud.secret_key))
                 {
-                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
+                    RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
@@ -195,7 +195,7 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Ocr.BaiduCloud.client_id) || string.IsNullOrEmpty(GlobalConfig.Ocr.BaiduCloud.client_secret))
                 {
-                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
+                    RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
@@ -213,7 +213,7 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Ocr.SpaceOCR.apiKey))
                 {
-                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
+                    RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
@@ -236,7 +236,7 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_id) || string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_key))
                 {
-                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
+                    RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
@@ -260,7 +260,7 @@ namespace WpfTool
             {
                 if (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_id) || string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_secret))
                 {
-                    MessageBox.Show(this.FindResource("ResultWindows_EmptyKeyMessage") as String);
+                    RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
                 }
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
@@ -282,7 +282,7 @@ namespace WpfTool
             }
             else if (GlobalConfig.Translate.defaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud)
             {
-                MessageBox.Show(this.FindResource("ResultWindows_LimitOcrAndTranslate") as String);
+                RootDialog.Show("", this.FindResource("ResultWindows_LimitOcrAndTranslate") as String);
             }
         }
 
@@ -290,7 +290,7 @@ namespace WpfTool
         {
             if (this.bmp == null)
             {
-                MessageBox.Show(this.FindResource("ResultWindows_NotFoundImage") as String);
+                RootDialog.Show("", this.FindResource("ResultWindows_NotFoundImage") as String);
                 return;
             }
             this.ocr(this.bmp, defaultOcrProvideComboBox.DataContext.ToString(), defaultOcrTypeComboBox.DataContext.ToString(), defaultOcrLanguageComboBox.DataContext.ToString());
@@ -555,6 +555,11 @@ namespace WpfTool
         private void Window_Closed(object sender, EventArgs e)
         {
             Utils.FlushMemory();
+        }
+
+        private void RootDialog_OnButtonRightClick(object sender, RoutedEventArgs e)
+        {
+            RootDialog.Hide();
         }
     }
 }

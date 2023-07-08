@@ -45,6 +45,7 @@
     <sys:String x:Key="MainWindows_WordFileExtract">Word File Extract</sys:String>
 
     <sys:String x:Key="ResultWindows_Title">Text Recognition / Machine Translation</sys:String>
+    <sys:String x:Key="ResultWindows_DialogClose">Close</sys:String>
     <sys:String x:Key="ResultWindows_Translate">Translate</sys:String>
     <sys:String x:Key="ResultWindows_SetAsDefault">Set As Default</sys:String>
     <sys:String x:Key="ResultWindows_ReOCR">ReOCR</sys:String>

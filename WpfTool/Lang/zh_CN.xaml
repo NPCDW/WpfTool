@@ -45,6 +45,7 @@
     <sys:String x:Key="MainWindows_WordFileExtract">Word图片附件提取</sys:String>
 
     <sys:String x:Key="ResultWindows_Title">文字识别/机器翻译</sys:String>
+    <sys:String x:Key="ResultWindows_DialogClose">关闭</sys:String>
     <sys:String x:Key="ResultWindows_Translate">翻译</sys:String>
     <sys:String x:Key="ResultWindows_SetAsDefault">设为默认</sys:String>
     <sys:String x:Key="ResultWindows_ReOCR">重新识别</sys:String>
