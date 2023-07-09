@@ -2,11 +2,11 @@
 using System.Security.Permissions;
 using System.Windows.Threading;
 
-namespace WpfTool
+namespace WpfTool.Util
 {
     internal class DispatcherHelper
     {
-        [SecurityPermissionAttribute(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         public static void DoEvents()
         {
             DispatcherFrame frame = new DispatcherFrame();

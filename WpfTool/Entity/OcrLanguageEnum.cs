@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace WpfTool
+namespace WpfTool.Entity
 {
     internal enum OcrLanguageEnum
     {

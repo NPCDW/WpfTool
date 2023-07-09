@@ -3,7 +3,9 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WpfTool.Entity;
 using WpfTool.Page.Setting;
+using WpfTool.Util;
 
 namespace WpfTool
 {

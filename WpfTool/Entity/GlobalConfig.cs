@@ -1,258 +1,287 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.IO;
+using Newtonsoft.Json.Linq;
+using WpfTool.Util;
 
-namespace WpfTool
+namespace WpfTool.Entity;
+
+public static class GlobalConfig
 {
-    public static class GlobalConfig
+    private const string RegeditConfigPathDir = @"SOFTWARE\NPCDW\WpfTool";
+    private const string RegeditConfigPathKey = "config_path";
+
+    public static readonly string AppDirConfigPath =
+        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Config\Setting.json");
+
+    public static readonly string UserDirConfigPath =
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            @"NPCDW\WpfTool\Config\Setting.json");
+
+
+    public static void GetConfig()
     {
-        private static String REGEDIT_CONFIG_PATH_DIR = @"SOFTWARE\NPCDW\WpfTool";
-        private static String REGEDIT_CONFIG_PATH_KEY = "config_path";
-
-        public static String APP_DIR_CONFIG_PATH = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Config\Setting.json");
-        public static String USER_DIR_CONFIG_PATH = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"NPCDW\WpfTool\Config\Setting.json");
-
-        public static class Common
+        try
         {
-            public static int wordSelectionInterval;
-            public static bool autoStart = false;
-            public static String configPath = "";
-            public static String language = "en_US";
-        }
-        public static class Ocr
-        {
-            public static OcrProvideEnum defaultOcrProvide;
-            public static String defaultOcrType = "";
-            public static String defaultOcrLanguage = "";
-            public static class BaiduCloud
+            var configPath = RegeditUtil.GetValue(RegeditConfigPathDir, RegeditConfigPathKey);
+            if (configPath == null)
             {
-                public static String access_token = "";
-                public static DateTime access_token_expires_time;
-                public static String client_id = "";
-                public static String client_secret = "";
-                public enum OcrTypeEnum
-                {
-                    general_basic,
-                    accurate_basic,
-                    handwriting
-                }
-
-            }
-            public static class TencentCloud
-            {
-                public static String secret_id = "";
-                public static String secret_key = "";
-                public enum OcrTypeEnum
-                {
-                    GeneralBasicOCR,
-                    GeneralAccurateOCR,
-                    GeneralHandwritingOCR
-                }
-
-            }
-            public static class SpaceOCR
-            {
-                public static String apiKey = "";
-                public enum OcrTypeEnum
-                {
-                    Engine1,
-                    Engine2,
-                    Engine3,
-                    Engine5,
-                }
-            }
-            public enum OcrProvideEnum
-            {
-                BaiduCloud,
-                TencentCloud,
-                SpaceOCR,
-            }
-        }
-        public static class Translate
-        {
-            public static TranslateProvideEnum defaultTranslateProvide;
-            public static String defaultTranslateSourceLanguage;
-            public static String defaultTranslateTargetLanguage;
-            public static class BaiduAI
-            {
-                public static String app_id = "";
-                public static String app_secret = "";
-            }
-            public static class TencentCloud
-            {
-                public static String secret_id = "";
-                public static String secret_key = "";
-            }
-            public enum TranslateProvideEnum
-            {
-                BaiduAI,
-                TencentCloud,
-                GoogleCloud
+                configPath = UserDirConfigPath;
+                RegeditUtil.SetValue(RegeditConfigPathDir, RegeditConfigPathKey, configPath);
             }
 
-        }
-        public static class HotKeys
-        {
-            public static class GetWordsTranslate
+            if (!File.Exists(configPath))
             {
-                public static byte Modifiers = 0;
-                public static int Key = 113;
-                public static String Text = "F2";
-                public static bool Conflict = false;
+                Directory.GetParent(configPath)!.Create();
+                File.Copy(AppDirConfigPath, configPath);
             }
-            public static class Ocr
-            {
-                public static byte Modifiers = 0;
-                public static int Key = 115;
-                public static String Text = "F4";
-                public static bool Conflict = false;
-            }
-            public static class ScreenshotTranslate
-            {
-                public static byte Modifiers = 2;
-                public static int Key = 113;
-                public static String Text = "Ctrl+F2";
-                public static bool Conflict = false;
-            }
-            public static class TopMost
-            {
-                public static byte Modifiers = 0;
-                public static int Key = 117;
-                public static String Text = "F6";
-                public static bool Conflict = false;
-            }
-        }
-
-
-        public static void GetConfig()
-        {
+            
             string jsonStr;
-            try
+            using (var sr = new StreamReader(configPath, false))
             {
-                String configPath = RegeditUtil.GetValue(REGEDIT_CONFIG_PATH_DIR, REGEDIT_CONFIG_PATH_KEY);
-                if (configPath == null)
-                {
-                    configPath = USER_DIR_CONFIG_PATH;
-                    RegeditUtil.SetValue(REGEDIT_CONFIG_PATH_DIR, REGEDIT_CONFIG_PATH_KEY, configPath);
-                }
-                if (!File.Exists(configPath))
-                {
-                    Directory.GetParent(configPath).Create();
-                    File.Copy(APP_DIR_CONFIG_PATH, configPath);
-                }
-
-                using (StreamReader sr = new StreamReader(configPath, false))
-                {
-                    jsonStr = sr.ReadToEnd().ToString();
-                }
-                JObject jsonObj = JObject.Parse(jsonStr);
-
-                Common.wordSelectionInterval = int.Parse(jsonObj["Common"]["WordSelectionInterval"].ToString());
-                Common.autoStart = AutoStart.GetStatus();
-                Common.configPath = configPath;
-                Common.language = jsonObj["Common"]["language"] == null ? "en_US" : jsonObj["Common"]["language"].ToString();
-
-                Ocr.defaultOcrProvide = (Ocr.OcrProvideEnum)Enum.Parse(typeof(Ocr.OcrProvideEnum), jsonObj["Ocr"]["defaultOcrProvide"].ToString());
-                Ocr.defaultOcrType = jsonObj["Ocr"]["defaultOcrType"].ToString();
-                Ocr.defaultOcrLanguage = jsonObj["Ocr"]["defaultOcrLanguage"] == null ? "auto" : jsonObj["Ocr"]["defaultOcrLanguage"].ToString();
-                Ocr.BaiduCloud.access_token = jsonObj["Ocr"]["BaiduCloud"]["access_token"].ToString();
-                Ocr.BaiduCloud.access_token_expires_time = DateTime.Parse(jsonObj["Ocr"]["BaiduCloud"]["access_token_expires_time"].ToString());
-                Ocr.BaiduCloud.client_id = jsonObj["Ocr"]["BaiduCloud"]["client_id"].ToString();
-                Ocr.BaiduCloud.client_secret = jsonObj["Ocr"]["BaiduCloud"]["client_secret"].ToString();
-                Ocr.TencentCloud.secret_id = jsonObj["Ocr"]["TencentCloud"]["secret_id"].ToString();
-                Ocr.TencentCloud.secret_key = jsonObj["Ocr"]["TencentCloud"]["secret_key"].ToString();
-                if (jsonObj["Ocr"]["SpaceOCR"] == null)
-                {
-                    jsonObj["Ocr"]["SpaceOCR"] = new JObject();
-                }
-                Ocr.SpaceOCR.apiKey = jsonObj["Ocr"]["SpaceOCR"]["apiKey"] == null ? "" : jsonObj["Ocr"]["SpaceOCR"]["apiKey"].ToString();
-
-                Translate.defaultTranslateProvide = (Translate.TranslateProvideEnum)Enum.Parse(typeof(Translate.TranslateProvideEnum), jsonObj["Translate"]["defaultTranslateProvide"].ToString());
-                Translate.defaultTranslateSourceLanguage = jsonObj["Translate"]["defaultTranslateSourceLanguage"].ToString();
-                Translate.defaultTranslateTargetLanguage = jsonObj["Translate"]["defaultTranslateTargetLanguage"].ToString();
-                Translate.BaiduAI.app_id = jsonObj["Translate"]["BaiduAI"]["app_id"].ToString();
-                Translate.BaiduAI.app_secret = jsonObj["Translate"]["BaiduAI"]["app_secret"].ToString();
-                Translate.TencentCloud.secret_id = jsonObj["Translate"]["TencentCloud"]["secret_id"].ToString();
-                Translate.TencentCloud.secret_key = jsonObj["Translate"]["TencentCloud"]["secret_key"].ToString();
-
-                HotKeys.Ocr.Modifiers = byte.Parse(jsonObj["HotKeys"]["Ocr"]["Modifiers"].ToString());
-                HotKeys.Ocr.Key = int.Parse(jsonObj["HotKeys"]["Ocr"]["Key"].ToString());
-                HotKeys.Ocr.Text = jsonObj["HotKeys"]["Ocr"]["Text"].ToString();
-                HotKeys.GetWordsTranslate.Modifiers = byte.Parse(jsonObj["HotKeys"]["GetWordsTranslate"]["Modifiers"].ToString());
-                HotKeys.GetWordsTranslate.Key = int.Parse(jsonObj["HotKeys"]["GetWordsTranslate"]["Key"].ToString());
-                HotKeys.GetWordsTranslate.Text = jsonObj["HotKeys"]["GetWordsTranslate"]["Text"].ToString();
-                HotKeys.ScreenshotTranslate.Modifiers = byte.Parse(jsonObj["HotKeys"]["ScreenshotTranslate"]["Modifiers"].ToString());
-                HotKeys.ScreenshotTranslate.Key = int.Parse(jsonObj["HotKeys"]["ScreenshotTranslate"]["Key"].ToString());
-                HotKeys.ScreenshotTranslate.Text = jsonObj["HotKeys"]["ScreenshotTranslate"]["Text"].ToString();
-                HotKeys.TopMost.Modifiers = byte.Parse(jsonObj["HotKeys"]["TopMost"]["Modifiers"].ToString());
-                HotKeys.TopMost.Key = int.Parse(jsonObj["HotKeys"]["TopMost"]["Key"].ToString());
-                HotKeys.TopMost.Text = jsonObj["HotKeys"]["TopMost"]["Text"].ToString();
+                jsonStr = sr.ReadToEnd();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
+            var jsonObj = JObject.Parse(jsonStr);
+
+            Common.WordSelectionInterval = int.Parse(jsonObj["Common"]!["WordSelectionInterval"]!.ToString());
+            Common.AutoStart = AutoStart.GetStatus();
+            Common.ConfigPath = configPath;
+            Common.Language = jsonObj["Common"]!["language"] == null
+                ? "en_US"
+                : jsonObj["Common"]!["language"]!.ToString();
+
+            Ocr.DefaultOcrProvide = (Ocr.OcrProvideEnum)Enum.Parse(typeof(Ocr.OcrProvideEnum),
+                jsonObj["Ocr"]!["defaultOcrProvide"]!.ToString());
+            Ocr.DefaultOcrType = jsonObj["Ocr"]!["defaultOcrType"]!.ToString();
+            Ocr.DefaultOcrLanguage = jsonObj["Ocr"]!["defaultOcrLanguage"] == null
+                ? "auto"
+                : jsonObj["Ocr"]!["defaultOcrLanguage"]!.ToString();
+            Ocr.BaiduCloud.AccessToken = jsonObj["Ocr"]!["BaiduCloud"]!["access_token"]!.ToString();
+            Ocr.BaiduCloud.AccessTokenExpiresTime =
+                DateTime.Parse(jsonObj["Ocr"]!["BaiduCloud"]!["access_token_expires_time"]!.ToString());
+            Ocr.BaiduCloud.ClientId = jsonObj["Ocr"]!["BaiduCloud"]!["client_id"]!.ToString();
+            Ocr.BaiduCloud.ClientSecret = jsonObj["Ocr"]!["BaiduCloud"]!["client_secret"]!.ToString();
+            Ocr.TencentCloud.SecretId = jsonObj["Ocr"]!["TencentCloud"]!["secret_id"]!.ToString();
+            Ocr.TencentCloud.SecretKey = jsonObj["Ocr"]!["TencentCloud"]!["secret_key"]!.ToString();
+            if (jsonObj["Ocr"]!["SpaceOCR"] == null) jsonObj["Ocr"]!["SpaceOCR"] = new JObject();
+            Ocr.SpaceOcr.ApiKey = jsonObj["Ocr"]!["SpaceOCR"]!["apiKey"] == null
+                ? ""
+                : jsonObj["Ocr"]!["SpaceOCR"]!["apiKey"]!.ToString();
+
+            Translate.DefaultTranslateProvide = (Translate.TranslateProvideEnum)Enum.Parse(
+                typeof(Translate.TranslateProvideEnum), jsonObj["Translate"]!["defaultTranslateProvide"]!.ToString());
+            Translate.DefaultTranslateSourceLanguage =
+                jsonObj["Translate"]!["defaultTranslateSourceLanguage"]!.ToString();
+            Translate.DefaultTranslateTargetLanguage =
+                jsonObj["Translate"]!["defaultTranslateTargetLanguage"]!.ToString();
+            Translate.BaiduAi.AppId = jsonObj["Translate"]!["BaiduAI"]!["app_id"]!.ToString();
+            Translate.BaiduAi.AppSecret = jsonObj["Translate"]!["BaiduAI"]!["app_secret"]!.ToString();
+            Translate.TencentCloud.SecretId = jsonObj["Translate"]!["TencentCloud"]!["secret_id"]!.ToString();
+            Translate.TencentCloud.SecretKey = jsonObj["Translate"]!["TencentCloud"]!["secret_key"]!.ToString();
+
+            HotKeys.OcrHotKey.Modifiers = byte.Parse(jsonObj["HotKeys"]!["Ocr"]!["Modifiers"]!.ToString());
+            HotKeys.OcrHotKey.Key = int.Parse(jsonObj["HotKeys"]!["Ocr"]!["Key"]!.ToString());
+            HotKeys.OcrHotKey.Text = jsonObj["HotKeys"]!["Ocr"]!["Text"]!.ToString();
+            HotKeys.GetWordsTranslate.Modifiers =
+                byte.Parse(jsonObj["HotKeys"]!["GetWordsTranslate"]!["Modifiers"]!.ToString());
+            HotKeys.GetWordsTranslate.Key = int.Parse(jsonObj["HotKeys"]!["GetWordsTranslate"]!["Key"]!.ToString());
+            HotKeys.GetWordsTranslate.Text = jsonObj["HotKeys"]!["GetWordsTranslate"]!["Text"]!.ToString();
+            HotKeys.ScreenshotTranslate.Modifiers =
+                byte.Parse(jsonObj["HotKeys"]!["ScreenshotTranslate"]!["Modifiers"]!.ToString());
+            HotKeys.ScreenshotTranslate.Key = int.Parse(jsonObj["HotKeys"]!["ScreenshotTranslate"]!["Key"]!.ToString());
+            HotKeys.ScreenshotTranslate.Text = jsonObj["HotKeys"]!["ScreenshotTranslate"]!["Text"]!.ToString();
+            HotKeys.TopMost.Modifiers = byte.Parse(jsonObj["HotKeys"]!["TopMost"]!["Modifiers"]!.ToString());
+            HotKeys.TopMost.Key = int.Parse(jsonObj["HotKeys"]!["TopMost"]!["Key"]!.ToString());
+            HotKeys.TopMost.Text = jsonObj["HotKeys"]!["TopMost"]!["Text"]!.ToString();
         }
-
-        public static void SaveConfig()
+        catch (Exception ex)
         {
-            JObject jsonObj = new JObject();
+            Console.WriteLine(ex.Message);
+        }
+    }
 
-            jsonObj["Common"] = new JObject();
-            jsonObj["Common"]["WordSelectionInterval"] = Common.wordSelectionInterval;
-            jsonObj["Common"]["language"] = Common.language;
+    public static void SaveConfig()
+    {
+        var jsonObj = new JObject();
 
-            jsonObj["Ocr"] = new JObject();
-            jsonObj["Ocr"]["defaultOcrProvide"] = Ocr.defaultOcrProvide.ToString();
-            jsonObj["Ocr"]["defaultOcrType"] = Ocr.defaultOcrType;
-            jsonObj["Ocr"]["defaultOcrLanguage"] = Ocr.defaultOcrLanguage;
-            jsonObj["Ocr"]["BaiduCloud"] = new JObject();
-            jsonObj["Ocr"]["BaiduCloud"]["access_token"] = Ocr.BaiduCloud.access_token;
-            jsonObj["Ocr"]["BaiduCloud"]["access_token_expires_time"] = Ocr.BaiduCloud.access_token_expires_time.ToString();
-            jsonObj["Ocr"]["BaiduCloud"]["client_id"] = Ocr.BaiduCloud.client_id;
-            jsonObj["Ocr"]["BaiduCloud"]["client_secret"] = Ocr.BaiduCloud.client_secret;
-            jsonObj["Ocr"]["TencentCloud"] = new JObject();
-            jsonObj["Ocr"]["TencentCloud"]["secret_id"] = Ocr.TencentCloud.secret_id;
-            jsonObj["Ocr"]["TencentCloud"]["secret_key"] = Ocr.TencentCloud.secret_key;
-            jsonObj["Ocr"]["SpaceOCR"] = new JObject();
-            jsonObj["Ocr"]["SpaceOCR"]["apiKey"] = Ocr.SpaceOCR.apiKey;
+        jsonObj["Common"] = new JObject();
+        jsonObj["Common"]!["WordSelectionInterval"] = Common.WordSelectionInterval;
+        jsonObj["Common"]!["language"] = Common.Language;
 
-            jsonObj["Translate"] = new JObject();
-            jsonObj["Translate"]["defaultTranslateProvide"] = Translate.defaultTranslateProvide.ToString();
-            jsonObj["Translate"]["defaultTranslateSourceLanguage"] = Translate.defaultTranslateSourceLanguage;
-            jsonObj["Translate"]["defaultTranslateTargetLanguage"] = Translate.defaultTranslateTargetLanguage;
-            jsonObj["Translate"]["BaiduAI"] = new JObject();
-            jsonObj["Translate"]["BaiduAI"]["app_id"] = Translate.BaiduAI.app_id;
-            jsonObj["Translate"]["BaiduAI"]["app_secret"] = Translate.BaiduAI.app_secret;
-            jsonObj["Translate"]["TencentCloud"] = new JObject();
-            jsonObj["Translate"]["TencentCloud"]["secret_id"] = Translate.TencentCloud.secret_id;
-            jsonObj["Translate"]["TencentCloud"]["secret_key"] = Translate.TencentCloud.secret_key;
+        jsonObj["Ocr"] = new JObject();
+        jsonObj["Ocr"]!["defaultOcrProvide"] = Ocr.DefaultOcrProvide.ToString();
+        jsonObj["Ocr"]!["defaultOcrType"] = Ocr.DefaultOcrType;
+        jsonObj["Ocr"]!["defaultOcrLanguage"] = Ocr.DefaultOcrLanguage;
+        jsonObj["Ocr"]!["BaiduCloud"] = new JObject();
+        jsonObj["Ocr"]!["BaiduCloud"]!["access_token"] = Ocr.BaiduCloud.AccessToken;
+        jsonObj["Ocr"]!["BaiduCloud"]!["access_token_expires_time"] = Ocr.BaiduCloud.AccessTokenExpiresTime.ToString();
+        jsonObj["Ocr"]!["BaiduCloud"]!["client_id"] = Ocr.BaiduCloud.ClientId;
+        jsonObj["Ocr"]!["BaiduCloud"]!["client_secret"] = Ocr.BaiduCloud.ClientSecret;
+        jsonObj["Ocr"]!["TencentCloud"] = new JObject();
+        jsonObj["Ocr"]!["TencentCloud"]!["secret_id"] = Ocr.TencentCloud.SecretId;
+        jsonObj["Ocr"]!["TencentCloud"]!["secret_key"] = Ocr.TencentCloud.SecretKey;
+        jsonObj["Ocr"]!["SpaceOCR"] = new JObject();
+        jsonObj["Ocr"]!["SpaceOCR"]!["apiKey"] = Ocr.SpaceOcr.ApiKey;
 
-            jsonObj["HotKeys"] = new JObject();
-            jsonObj["HotKeys"]["Ocr"] = new JObject();
-            jsonObj["HotKeys"]["Ocr"]["Modifiers"] = HotKeys.Ocr.Modifiers;
-            jsonObj["HotKeys"]["Ocr"]["Key"] = HotKeys.Ocr.Key;
-            jsonObj["HotKeys"]["Ocr"]["Text"] = HotKeys.Ocr.Text;
-            jsonObj["HotKeys"]["GetWordsTranslate"] = new JObject();
-            jsonObj["HotKeys"]["GetWordsTranslate"]["Modifiers"] = HotKeys.GetWordsTranslate.Modifiers;
-            jsonObj["HotKeys"]["GetWordsTranslate"]["Key"] = HotKeys.GetWordsTranslate.Key;
-            jsonObj["HotKeys"]["GetWordsTranslate"]["Text"] = HotKeys.GetWordsTranslate.Text;
-            jsonObj["HotKeys"]["ScreenshotTranslate"] = new JObject();
-            jsonObj["HotKeys"]["ScreenshotTranslate"]["Modifiers"] = HotKeys.ScreenshotTranslate.Modifiers;
-            jsonObj["HotKeys"]["ScreenshotTranslate"]["Key"] = HotKeys.ScreenshotTranslate.Key;
-            jsonObj["HotKeys"]["ScreenshotTranslate"]["Text"] = HotKeys.ScreenshotTranslate.Text;
-            jsonObj["HotKeys"]["TopMost"] = new JObject();
-            jsonObj["HotKeys"]["TopMost"]["Modifiers"] = HotKeys.TopMost.Modifiers;
-            jsonObj["HotKeys"]["TopMost"]["Key"] = HotKeys.TopMost.Key;
-            jsonObj["HotKeys"]["TopMost"]["Text"] = HotKeys.TopMost.Text;
+        jsonObj["Translate"] = new JObject();
+        jsonObj["Translate"]!["defaultTranslateProvide"] = Translate.DefaultTranslateProvide.ToString();
+        jsonObj["Translate"]!["defaultTranslateSourceLanguage"] = Translate.DefaultTranslateSourceLanguage;
+        jsonObj["Translate"]!["defaultTranslateTargetLanguage"] = Translate.DefaultTranslateTargetLanguage;
+        jsonObj["Translate"]!["BaiduAI"] = new JObject();
+        jsonObj["Translate"]!["BaiduAI"]!["app_id"] = Translate.BaiduAi.AppId;
+        jsonObj["Translate"]!["BaiduAI"]!["app_secret"] = Translate.BaiduAi.AppSecret;
+        jsonObj["Translate"]!["TencentCloud"] = new JObject();
+        jsonObj["Translate"]!["TencentCloud"]!["secret_id"] = Translate.TencentCloud.SecretId;
+        jsonObj["Translate"]!["TencentCloud"]!["secret_key"] = Translate.TencentCloud.SecretKey;
 
-            String jsonStr = jsonObj.ToString();
-            using (StreamWriter sw = new StreamWriter(Common.configPath))
-            {
-                sw.WriteLine(jsonStr);
-            }
-            RegeditUtil.SetValue(REGEDIT_CONFIG_PATH_DIR, REGEDIT_CONFIG_PATH_KEY, Common.configPath);
+        jsonObj["HotKeys"] = new JObject();
+        jsonObj["HotKeys"]!["Ocr"] = new JObject();
+        jsonObj["HotKeys"]!["Ocr"]!["Modifiers"] = HotKeys.OcrHotKey.Modifiers;
+        jsonObj["HotKeys"]!["Ocr"]!["Key"] = HotKeys.OcrHotKey.Key;
+        jsonObj["HotKeys"]!["Ocr"]!["Text"] = HotKeys.OcrHotKey.Text;
+        jsonObj["HotKeys"]!["GetWordsTranslate"] = new JObject();
+        jsonObj["HotKeys"]!["GetWordsTranslate"]!["Modifiers"] = HotKeys.GetWordsTranslate.Modifiers;
+        jsonObj["HotKeys"]!["GetWordsTranslate"]!["Key"] = HotKeys.GetWordsTranslate.Key;
+        jsonObj["HotKeys"]!["GetWordsTranslate"]!["Text"] = HotKeys.GetWordsTranslate.Text;
+        jsonObj["HotKeys"]!["ScreenshotTranslate"] = new JObject();
+        jsonObj["HotKeys"]!["ScreenshotTranslate"]!["Modifiers"] = HotKeys.ScreenshotTranslate.Modifiers;
+        jsonObj["HotKeys"]!["ScreenshotTranslate"]!["Key"] = HotKeys.ScreenshotTranslate.Key;
+        jsonObj["HotKeys"]!["ScreenshotTranslate"]!["Text"] = HotKeys.ScreenshotTranslate.Text;
+        jsonObj["HotKeys"]!["TopMost"] = new JObject();
+        jsonObj["HotKeys"]!["TopMost"]!["Modifiers"] = HotKeys.TopMost.Modifiers;
+        jsonObj["HotKeys"]!["TopMost"]!["Key"] = HotKeys.TopMost.Key;
+        jsonObj["HotKeys"]!["TopMost"]!["Text"] = HotKeys.TopMost.Text;
+
+        var jsonStr = jsonObj.ToString();
+        using (var sw = new StreamWriter(Common.ConfigPath))
+        {
+            sw.WriteLine(jsonStr);
         }
 
+        RegeditUtil.SetValue(RegeditConfigPathDir, RegeditConfigPathKey, Common.ConfigPath);
+    }
+
+    public static class Common
+    {
+        public static int WordSelectionInterval;
+        public static bool AutoStart;
+        public static string ConfigPath = "";
+        public static string Language = "en_US";
+    }
+
+    public static class Ocr
+    {
+        public enum OcrProvideEnum
+        {
+            BaiduCloud,
+            TencentCloud,
+            SpaceOcr
+        }
+
+        public static OcrProvideEnum DefaultOcrProvide;
+        public static string DefaultOcrType = "";
+        public static string DefaultOcrLanguage = "";
+
+        public static class BaiduCloud
+        {
+            public enum OcrTypeEnum
+            {
+                GeneralBasic,
+                AccurateBasic,
+                Handwriting
+            }
+
+            public static string AccessToken = "";
+            public static DateTime AccessTokenExpiresTime;
+            public static string ClientId = "";
+            public static string ClientSecret = "";
+        }
+
+        public static class TencentCloud
+        {
+            public enum OcrTypeEnum
+            {
+                GeneralBasicOcr,
+                GeneralAccurateOcr,
+                GeneralHandwritingOcr
+            }
+
+            public static string SecretId = "";
+            public static string SecretKey = "";
+        }
+
+        public static class SpaceOcr
+        {
+            public enum OcrTypeEnum
+            {
+                Engine1,
+                Engine2,
+                Engine3,
+                Engine5
+            }
+
+            public static string ApiKey = "";
+        }
+    }
+
+    public static class Translate
+    {
+        public enum TranslateProvideEnum
+        {
+            BaiduAi,
+            TencentCloud,
+            GoogleCloud
+        }
+
+        public static TranslateProvideEnum DefaultTranslateProvide;
+        public static string? DefaultTranslateSourceLanguage;
+        public static string? DefaultTranslateTargetLanguage;
+
+        public static class BaiduAi
+        {
+            public static string AppId = "";
+            public static string AppSecret = "";
+        }
+
+        public static class TencentCloud
+        {
+            public static string SecretId = "";
+            public static string SecretKey = "";
+        }
+    }
+
+    public static class HotKeys
+    {
+        public static class GetWordsTranslate
+        {
+            public static byte Modifiers;
+            public static int Key = 113;
+            public static string Text = "F2";
+            public static bool Conflict = false;
+        }
+
+        public static class OcrHotKey
+        {
+            public static byte Modifiers;
+            public static int Key = 115;
+            public static string Text = "F4";
+            public static bool Conflict = false;
+        }
+
+        public static class ScreenshotTranslate
+        {
+            public static byte Modifiers = 2;
+            public static int Key = 113;
+            public static string Text = "Ctrl+F2";
+            public static bool Conflict = false;
+        }
+
+        public static class TopMost
+        {
+            public static byte Modifiers;
+            public static int Key = 117;
+            public static string Text = "F6";
+            public static bool Conflict = false;
+        }
     }
 }

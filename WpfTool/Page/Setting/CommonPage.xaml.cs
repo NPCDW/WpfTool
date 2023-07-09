@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using WpfTool.Entity;
+using WpfTool.Util;
 
 namespace WpfTool.Page.Setting;
 
@@ -14,19 +16,19 @@ public partial class CommonPage : System.Windows.Controls.Page
 
     private void Common_OnLoaded(object sender, RoutedEventArgs e)
     {
-        this.autoStartButton.IsChecked = GlobalConfig.Common.autoStart;
-        this.WordSelectionIntervalNumberBox.Value = GlobalConfig.Common.wordSelectionInterval;
+        this.autoStartButton.IsChecked = GlobalConfig.Common.AutoStart;
+        this.WordSelectionIntervalNumberBox.Value = GlobalConfig.Common.WordSelectionInterval;
 
         foreach (ComboBoxItem item in this.languageComboBox.Items)
         {
-            if (item.DataContext.Equals(GlobalConfig.Common.language.ToString()))
+            if (item.DataContext.Equals(GlobalConfig.Common.Language.ToString()))
             {
                 languageComboBox.SelectedItem = item;
                 break;
             }
         }
 
-        if (GlobalConfig.USER_DIR_CONFIG_PATH.Equals(GlobalConfig.Common.configPath))
+        if (GlobalConfig.UserDirConfigPath.Equals(GlobalConfig.Common.ConfigPath))
         {
             this.UserConfigRadioButton.IsChecked = true;
         }
@@ -43,7 +45,7 @@ public partial class CommonPage : System.Windows.Controls.Page
         if (this.PageLoaded)
         {
             AutoStart.Enable();
-            GlobalConfig.Common.autoStart = true;
+            GlobalConfig.Common.AutoStart = true;
         }
     }
 
@@ -52,20 +54,20 @@ public partial class CommonPage : System.Windows.Controls.Page
         if (this.PageLoaded)
         {
             AutoStart.Disable();
-            GlobalConfig.Common.autoStart = false;
+            GlobalConfig.Common.AutoStart = false;
         }
     }
 
     private void ConfigButton_Click(object sender, RoutedEventArgs e)
     {
-        System.Diagnostics.Process.Start("Explorer.exe", "/select," + GlobalConfig.Common.configPath);
+        System.Diagnostics.Process.Start("Explorer.exe", "/select," + GlobalConfig.Common.ConfigPath);
     }
 
     private void UserConfigRadioButton_Checked(object sender, RoutedEventArgs e)
     {
         if (this.PageLoaded)
         {
-            GlobalConfig.Common.configPath = GlobalConfig.USER_DIR_CONFIG_PATH;
+            GlobalConfig.Common.ConfigPath = GlobalConfig.UserDirConfigPath;
         }
     }
 
@@ -73,7 +75,7 @@ public partial class CommonPage : System.Windows.Controls.Page
     {
         if (this.PageLoaded)
         {
-            GlobalConfig.Common.configPath = GlobalConfig.APP_DIR_CONFIG_PATH;
+            GlobalConfig.Common.ConfigPath = GlobalConfig.AppDirConfigPath;
         }
     }
 
@@ -83,7 +85,7 @@ public partial class CommonPage : System.Windows.Controls.Page
         {
             string lang = ((ComboBoxItem)((ComboBox)sender).SelectedItem).DataContext.ToString();
             LanguageUtil.switchLanguage(lang);
-            GlobalConfig.Common.language = lang;
+            GlobalConfig.Common.Language = lang;
             MainWindow.mainWindow.InitialTray();
         }
     }
@@ -92,7 +94,7 @@ public partial class CommonPage : System.Windows.Controls.Page
     {
         if (this.PageLoaded)
         {
-            GlobalConfig.Common.wordSelectionInterval = (int)WordSelectionIntervalNumberBox.Value;
+            GlobalConfig.Common.WordSelectionInterval = (int)WordSelectionIntervalNumberBox.Value;
         }
     }
 }

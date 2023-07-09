@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using WpfTool.Util.HappyEyeballsHttp;
 
-namespace WpfTool
+namespace WpfTool.Util
 {
     public class HttpHelper
     {

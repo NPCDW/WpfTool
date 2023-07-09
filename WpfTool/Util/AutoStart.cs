@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace WpfTool
+namespace WpfTool.Util
 {
     internal class AutoStart
     {
@@ -27,7 +27,7 @@ namespace WpfTool
             bool result = RegeditUtil.SetValue(REGEDIT_AUTO_START_DIR, REGEDIT_AUTO_START_KEY, System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
             if (!result)
             {
-                MessageBox.Show(WpfTool.MainWindow.mainWindow.FindResource("AutoStart_SetFail") as String);
+                MessageBox.Show(MainWindow.mainWindow.FindResource("AutoStart_SetFail") as String);
             }
         }
 
@@ -36,7 +36,7 @@ namespace WpfTool
             bool result = RegeditUtil.DeleteValue(REGEDIT_AUTO_START_DIR, REGEDIT_AUTO_START_KEY);
             if (!result)
             {
-                MessageBox.Show(WpfTool.MainWindow.mainWindow.FindResource("AutoStart_SetFail") as String);
+                MessageBox.Show(MainWindow.mainWindow.FindResource("AutoStart_SetFail") as String);
             }
         }
 

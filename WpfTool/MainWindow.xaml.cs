@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Interop;
+using WpfTool.Entity;
+using WpfTool.Util;
+using WpfTool.Util.HappyEyeballsHttp;
+using ResultWindow = WpfTool.ResultWindow;
 
 namespace WpfTool
 {
@@ -16,12 +20,12 @@ namespace WpfTool
             mainWindow = this;
 
             GlobalConfig.GetConfig();
-            LanguageUtil.switchLanguage(GlobalConfig.Common.language);
+            LanguageUtil.switchLanguage(GlobalConfig.Common.Language);
 
             InitHwnd();
             InitialTray();
 
-            if (GlobalConfig.HotKeys.Ocr.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict || GlobalConfig.HotKeys.ScreenshotTranslate.Conflict || GlobalConfig.HotKeys.TopMost.Conflict)
+            if (GlobalConfig.HotKeys.OcrHotKey.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict || GlobalConfig.HotKeys.ScreenshotTranslate.Conflict || GlobalConfig.HotKeys.TopMost.Conflict)
             {
                 MessageBox.Show(this.FindResource("MainWindows_HotkeyConflictMessage") as String);
             }

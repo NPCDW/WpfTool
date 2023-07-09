@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 
-namespace WpfTool
+namespace WpfTool.Util
 {
     internal class RegeditUtil
     {
@@ -22,7 +22,7 @@ namespace WpfTool
             }
         }
 
-        public static String GetValue(String dir, String key)
+        public static string? GetValue(String dir, String key)
         {
             try
             {

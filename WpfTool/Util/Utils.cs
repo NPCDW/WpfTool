@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WpfTool
+namespace WpfTool.Util
 {
     internal class Utils
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace WpfTool
+namespace WpfTool.Util
 {
     internal class NativeClipboard
     {

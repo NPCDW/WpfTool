@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Input;
+using WpfTool.Entity;
 
-namespace WpfTool
+namespace WpfTool.Util
 {
     public class GetWords
     {
         public static String Get()
         {
             SendCtrlC();
-            Thread.Sleep(GlobalConfig.Common.wordSelectionInterval);
+            Thread.Sleep(GlobalConfig.Common.WordSelectionInterval);
             String text = NativeClipboard.GetText();
             return text;
         }

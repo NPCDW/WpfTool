@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace WpfTool
+namespace WpfTool.Util
 {
     internal class NativeMethod
     {

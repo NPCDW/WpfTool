@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 
-namespace WpfTool
+namespace WpfTool.Util
 {
     internal class LanguageUtil
     {

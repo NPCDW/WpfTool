@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfTool.Util;
 using MessageBox = System.Windows.MessageBox;
 using Paragraph = Spire.Doc.Documents.Paragraph;
 using Path = System.IO.Path;

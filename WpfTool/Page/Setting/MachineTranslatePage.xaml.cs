@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WpfTool.Entity;
 
 namespace WpfTool.Page.Setting;
 
@@ -16,11 +17,11 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
 
     private void MachineTranslate_OnLoaded(object sender, RoutedEventArgs e)
     {
-        string defaultTranslateSourceLanguage = GlobalConfig.Translate.defaultTranslateSourceLanguage;
-        string defaultTranslateTargetLanguage = GlobalConfig.Translate.defaultTranslateTargetLanguage;
+        string defaultTranslateSourceLanguage = GlobalConfig.Translate.DefaultTranslateSourceLanguage;
+        string defaultTranslateTargetLanguage = GlobalConfig.Translate.DefaultTranslateTargetLanguage;
         foreach (ComboBoxItem item in this.defaultTranslateProvideComboBox.Items)
         {
-            if (item.DataContext.Equals(GlobalConfig.Translate.defaultTranslateProvide.ToString()))
+            if (item.DataContext.Equals(GlobalConfig.Translate.DefaultTranslateProvide.ToString()))
             {
                 defaultTranslateProvideComboBox.SelectedItem = item;
                 break;
@@ -45,11 +46,11 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
             }
         }
 
-        this.BaiduAI_AppIdInput.Text = GlobalConfig.Translate.BaiduAI.app_id;
-        this.BaiduAI_SecretKeyInput.Password = GlobalConfig.Translate.BaiduAI.app_secret;
+        this.BaiduAI_AppIdInput.Text = GlobalConfig.Translate.BaiduAi.AppId;
+        this.BaiduAI_SecretKeyInput.Password = GlobalConfig.Translate.BaiduAi.AppSecret;
 
-        this.TencentCloudTranslate_SecretIdInput.Text = GlobalConfig.Translate.TencentCloud.secret_id;
-        this.TencentCloudTranslate_SecretKeyInput.Password = GlobalConfig.Translate.TencentCloud.secret_key;
+        this.TencentCloudTranslate_SecretIdInput.Text = GlobalConfig.Translate.TencentCloud.SecretId;
+        this.TencentCloudTranslate_SecretKeyInput.Password = GlobalConfig.Translate.TencentCloud.SecretKey;
 
         this.PageLoaded = true;
     }
@@ -60,7 +61,7 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
             ((ComboBoxItem)defaultTranslateProvideComboBox.SelectedItem).DataContext;
         if (this.PageLoaded)
         {
-            GlobalConfig.Translate.defaultTranslateProvide = (GlobalConfig.Translate.TranslateProvideEnum)Enum.Parse(
+            GlobalConfig.Translate.DefaultTranslateProvide = (GlobalConfig.Translate.TranslateProvideEnum)Enum.Parse(
                 typeof(GlobalConfig.Translate.TranslateProvideEnum),
                 defaultTranslateProvideComboBox.DataContext.ToString());
         }
@@ -68,7 +69,7 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
         string translateProvide = defaultTranslateProvideComboBox.DataContext.ToString();
         sourceLanguageComboBox.Items.Clear();
         targetLanguageComboBox.Items.Clear();
-        if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.BaiduAI.ToString()))
+        if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.BaiduAi.ToString()))
         {
             foreach (TranslateLanguageAttribute item in TranslateLanguageExtension.TranslateLanguageAttributeList)
             {
@@ -135,7 +136,7 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
         sourceLanguageComboBox.DataContext = ((ComboBoxItem)sourceLanguageComboBox.SelectedItem).DataContext;
         if (this.PageLoaded)
         {
-            GlobalConfig.Translate.defaultTranslateSourceLanguage = sourceLanguageComboBox.DataContext.ToString();
+            GlobalConfig.Translate.DefaultTranslateSourceLanguage = sourceLanguageComboBox.DataContext.ToString();
         }
     }
 
@@ -149,7 +150,7 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
         targetLanguageComboBox.DataContext = ((ComboBoxItem)targetLanguageComboBox.SelectedItem).DataContext;
         if (this.PageLoaded)
         {
-            GlobalConfig.Translate.defaultTranslateTargetLanguage = targetLanguageComboBox.DataContext.ToString();
+            GlobalConfig.Translate.DefaultTranslateTargetLanguage = targetLanguageComboBox.DataContext.ToString();
         }
     }
 
@@ -157,7 +158,7 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
     {
         if (this.PageLoaded)
         {
-            GlobalConfig.Translate.TencentCloud.secret_id = this.TencentCloudTranslate_SecretIdInput.Text;
+            GlobalConfig.Translate.TencentCloud.SecretId = this.TencentCloudTranslate_SecretIdInput.Text;
         }
     }
 
@@ -165,7 +166,7 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
     {
         if (this.PageLoaded)
         {
-            GlobalConfig.Translate.TencentCloud.secret_key = this.TencentCloudTranslate_SecretKeyInput.Password;
+            GlobalConfig.Translate.TencentCloud.SecretKey = this.TencentCloudTranslate_SecretKeyInput.Password;
         }
     }
 
@@ -173,7 +174,7 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
     {
         if (this.PageLoaded)
         {
-            GlobalConfig.Translate.BaiduAI.app_id = this.BaiduAI_AppIdInput.Text;
+            GlobalConfig.Translate.BaiduAi.AppId = this.BaiduAI_AppIdInput.Text;
         }
     }
 
@@ -181,7 +182,7 @@ public partial class MachineTranslatePage : System.Windows.Controls.Page
     {
         if (this.PageLoaded)
         {
-            GlobalConfig.Translate.BaiduAI.app_secret = this.BaiduAI_SecretKeyInput.Password;
+            GlobalConfig.Translate.BaiduAi.AppSecret = this.BaiduAI_SecretKeyInput.Password;
         }
     }
 }

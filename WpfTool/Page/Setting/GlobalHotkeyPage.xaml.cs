@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WpfTool.Entity;
+using WpfTool.Util;
 
 namespace WpfTool.Page.Setting;
 
@@ -19,7 +21,7 @@ public partial class GlobalHotkeyPage : System.Windows.Controls.Page
 
     private void GlobalHotkey_OnLoaded(object sender, RoutedEventArgs e)
     {
-        this.OcrHotKeyTextBox.Text = GlobalConfig.HotKeys.Ocr.Text;
+        this.OcrHotKeyTextBox.Text = GlobalConfig.HotKeys.OcrHotKey.Text;
         this.GetWordsTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.GetWordsTranslate.Text;
         this.ScreenshotTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.ScreenshotTranslate.Text;
         this.TopMostHotKeyTextBox.Text = GlobalConfig.HotKeys.TopMost.Text;
@@ -87,9 +89,9 @@ public partial class GlobalHotkeyPage : System.Windows.Controls.Page
             return;
         }
 
-        GlobalConfig.HotKeys.Ocr.Modifiers = hotkeysModifiers;
-        GlobalConfig.HotKeys.Ocr.Key = hotkeysKey;
-        GlobalConfig.HotKeys.Ocr.Text = hotkeysText.ToString();
+        GlobalConfig.HotKeys.OcrHotKey.Modifiers = hotkeysModifiers;
+        GlobalConfig.HotKeys.OcrHotKey.Key = hotkeysKey;
+        GlobalConfig.HotKeys.OcrHotKey.Text = hotkeysText.ToString();
         HotKeysUtil.ReRegisterHotKey();
         HotKeyConflictCheck();
     }
@@ -158,9 +160,9 @@ public partial class GlobalHotkeyPage : System.Windows.Controls.Page
         GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = 0;
         GlobalConfig.HotKeys.GetWordsTranslate.Key = 113;
         GlobalConfig.HotKeys.GetWordsTranslate.Text = "F2";
-        GlobalConfig.HotKeys.Ocr.Modifiers = 0;
-        GlobalConfig.HotKeys.Ocr.Key = 115;
-        GlobalConfig.HotKeys.Ocr.Text = "F4";
+        GlobalConfig.HotKeys.OcrHotKey.Modifiers = 0;
+        GlobalConfig.HotKeys.OcrHotKey.Key = 115;
+        GlobalConfig.HotKeys.OcrHotKey.Text = "F4";
         GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = 2;
         GlobalConfig.HotKeys.ScreenshotTranslate.Key = 113;
         GlobalConfig.HotKeys.ScreenshotTranslate.Text = "Ctrl + F2";
@@ -175,7 +177,7 @@ public partial class GlobalHotkeyPage : System.Windows.Controls.Page
     private void HotKeyConflictCheck()
     {
         this.OcrHotKeyConflictLabel.Visibility =
-            GlobalConfig.HotKeys.Ocr.Conflict ? Visibility.Visible : Visibility.Hidden;
+            GlobalConfig.HotKeys.OcrHotKey.Conflict ? Visibility.Visible : Visibility.Hidden;
         this.GetWordsTranslateHotKeyConflictLabel.Visibility = GlobalConfig.HotKeys.GetWordsTranslate.Conflict
             ? Visibility.Visible
             : Visibility.Hidden;

@@ -4,6 +4,9 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using WpfTool.CloudService;
+using WpfTool.Entity;
+using WpfTool.CloudService;
+using WpfTool.Util;
 
 namespace WpfTool
 {
@@ -24,7 +27,7 @@ namespace WpfTool
         {
             foreach (ComboBoxItem item in this.defaultOcrProvideComboBox.Items)
             {
-                if (item.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrProvide.ToString()))
+                if (item.DataContext.ToString().Equals(GlobalConfig.Ocr.DefaultOcrProvide.ToString()))
                 {
                     defaultOcrProvideComboBox.SelectedItem = item;
                     break;
@@ -33,7 +36,7 @@ namespace WpfTool
 
             foreach (ComboBoxItem item in this.defaultOcrTypeComboBox.Items)
             {
-                if (item.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrType))
+                if (item.DataContext.ToString().Equals(GlobalConfig.Ocr.DefaultOcrType))
                 {
                     defaultOcrTypeComboBox.SelectedItem = item;
                     break;
@@ -42,7 +45,7 @@ namespace WpfTool
 
             foreach (ComboBoxItem item in this.defaultOcrLanguageComboBox.Items)
             {
-                if (item.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrLanguage))
+                if (item.DataContext.ToString().Equals(GlobalConfig.Ocr.DefaultOcrLanguage))
                 {
                     defaultOcrLanguageComboBox.SelectedItem = item;
                     break;
@@ -51,7 +54,7 @@ namespace WpfTool
 
             foreach (ComboBoxItem item in this.defaultTranslateProvideComboBox.Items)
             {
-                if (item.DataContext.ToString().Equals(GlobalConfig.Translate.defaultTranslateProvide.ToString()))
+                if (item.DataContext.ToString().Equals(GlobalConfig.Translate.DefaultTranslateProvide.ToString()))
                 {
                     defaultTranslateProvideComboBox.SelectedItem = item;
                     break;
@@ -60,7 +63,7 @@ namespace WpfTool
 
             foreach (ComboBoxItem item in this.sourceLanguageComboBox.Items)
             {
-                if (item.DataContext.ToString().Equals(GlobalConfig.Translate.defaultTranslateSourceLanguage.ToString()))
+                if (item.DataContext.ToString().Equals(GlobalConfig.Translate.DefaultTranslateSourceLanguage.ToString()))
                 {
                     sourceLanguageComboBox.SelectedItem = item;
                     break;
@@ -69,7 +72,7 @@ namespace WpfTool
 
             foreach (ComboBoxItem item in this.targetLanguageComboBox.Items)
             {
-                if (item.DataContext.ToString().Equals(GlobalConfig.Translate.defaultTranslateTargetLanguage.ToString()))
+                if (item.DataContext.ToString().Equals(GlobalConfig.Translate.DefaultTranslateTargetLanguage.ToString()))
                 {
                     targetLanguageComboBox.SelectedItem = item;
                     break;
@@ -84,7 +87,7 @@ namespace WpfTool
             GlobalConfig.Translate.TranslateProvideEnum translateProvide;
             if (string.IsNullOrWhiteSpace(translateProvideStr))
             {
-                translateProvide = GlobalConfig.Translate.defaultTranslateProvide;
+                translateProvide = GlobalConfig.Translate.DefaultTranslateProvide;
             }
             else
             {
@@ -92,15 +95,15 @@ namespace WpfTool
             }
             if (string.IsNullOrWhiteSpace(sourceLanguage))
             {
-                sourceLanguage = GlobalConfig.Translate.defaultTranslateSourceLanguage;
+                sourceLanguage = GlobalConfig.Translate.DefaultTranslateSourceLanguage;
             }
             if (string.IsNullOrWhiteSpace(targetLanguage))
             {
-                targetLanguage = GlobalConfig.Translate.defaultTranslateTargetLanguage;
+                targetLanguage = GlobalConfig.Translate.DefaultTranslateTargetLanguage;
             }
             if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.TencentCloud)
             {
-                if (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_id) || string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_key))
+                if (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.SecretId) || string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.SecretKey))
                 {
                     RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
@@ -109,7 +112,7 @@ namespace WpfTool
                 DispatcherHelper.DoEvents();
 
                 String ocrText = ocrTextBox.Text;
-                TencentCloudHelper.translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
+                TencentCloudHelper.Translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
                 {
                     translateTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -117,9 +120,9 @@ namespace WpfTool
                     }));
                 });
             }
-            else if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.BaiduAI)
+            else if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.BaiduAi)
             {
-                if (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_id) || string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_secret))
+                if (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAi.AppId) || string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAi.AppSecret))
                 {
                     RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
@@ -128,7 +131,7 @@ namespace WpfTool
                 DispatcherHelper.DoEvents();
 
                 String ocrText = ocrTextBox.Text;
-                BaiduAIHelper.translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
+                BaiduAiHelper.Translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
                 {
                     translateTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -142,7 +145,7 @@ namespace WpfTool
                 DispatcherHelper.DoEvents();
 
                 String ocrText = ocrTextBox.Text;
-                GoogleCloudHelper.translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
+                GoogleCloudHelper.Translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
                 {
                     translateTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -158,7 +161,7 @@ namespace WpfTool
             GlobalConfig.Ocr.OcrProvideEnum ocrProvide;
             if (string.IsNullOrWhiteSpace(ocrProvideStr))
             {
-                ocrProvide = GlobalConfig.Ocr.defaultOcrProvide;
+                ocrProvide = GlobalConfig.Ocr.DefaultOcrProvide;
             }
             else
             {
@@ -166,15 +169,15 @@ namespace WpfTool
             }
             if (string.IsNullOrWhiteSpace(ocrType))
             {
-                ocrType = GlobalConfig.Ocr.defaultOcrType;
+                ocrType = GlobalConfig.Ocr.DefaultOcrType;
             }
             if (string.IsNullOrWhiteSpace(ocrLanguage))
             {
-                ocrLanguage = GlobalConfig.Ocr.defaultOcrLanguage;
+                ocrLanguage = GlobalConfig.Ocr.DefaultOcrLanguage;
             }
             if (ocrProvide == GlobalConfig.Ocr.OcrProvideEnum.TencentCloud)
             {
-                if (string.IsNullOrEmpty(GlobalConfig.Ocr.TencentCloud.secret_id) || string.IsNullOrEmpty(GlobalConfig.Ocr.TencentCloud.secret_key))
+                if (string.IsNullOrEmpty(GlobalConfig.Ocr.TencentCloud.SecretId) || string.IsNullOrEmpty(GlobalConfig.Ocr.TencentCloud.SecretKey))
                 {
                     RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
@@ -182,7 +185,7 @@ namespace WpfTool
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
                 DispatcherHelper.DoEvents();
 
-                TencentCloudHelper.ocr(bmp, ocrType).ContinueWith(result =>
+                TencentCloudHelper.Ocr(bmp, ocrType).ContinueWith(result =>
                 {
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -192,7 +195,7 @@ namespace WpfTool
             }
             else if (ocrProvide == GlobalConfig.Ocr.OcrProvideEnum.BaiduCloud)
             {
-                if (string.IsNullOrEmpty(GlobalConfig.Ocr.BaiduCloud.client_id) || string.IsNullOrEmpty(GlobalConfig.Ocr.BaiduCloud.client_secret))
+                if (string.IsNullOrEmpty(GlobalConfig.Ocr.BaiduCloud.ClientId) || string.IsNullOrEmpty(GlobalConfig.Ocr.BaiduCloud.ClientSecret))
                 {
                     RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
@@ -200,7 +203,7 @@ namespace WpfTool
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
                 DispatcherHelper.DoEvents();
 
-                BaiduCloudHelper.ocr(bmp, ocrType).ContinueWith(result =>
+                BaiduCloudHelper.Ocr(bmp, ocrType).ContinueWith(result =>
                 {
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -208,9 +211,9 @@ namespace WpfTool
                     }));
                 });
             }
-            else if (ocrProvide == GlobalConfig.Ocr.OcrProvideEnum.SpaceOCR)
+            else if (ocrProvide == GlobalConfig.Ocr.OcrProvideEnum.SpaceOcr)
             {
-                if (string.IsNullOrEmpty(GlobalConfig.Ocr.SpaceOCR.apiKey))
+                if (string.IsNullOrEmpty(GlobalConfig.Ocr.SpaceOcr.ApiKey))
                 {
                     RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
@@ -218,7 +221,7 @@ namespace WpfTool
                 ocrTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_ocring");
                 DispatcherHelper.DoEvents();
 
-                SpaceOCRHelper.ocr(bmp, ocrType, ocrLanguage).ContinueWith(result =>
+                SpaceOcrHelper.Ocr(bmp, ocrType, ocrLanguage).ContinueWith(result =>
                 {
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
                     {
@@ -231,9 +234,9 @@ namespace WpfTool
         public void screenshotTranslate(Bitmap bmp)
         {
             this.bmp = bmp;
-            if (GlobalConfig.Translate.defaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.TencentCloud)
+            if (GlobalConfig.Translate.DefaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.TencentCloud)
             {
-                if (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_id) || string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.secret_key))
+                if (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.SecretId) || string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.SecretKey))
                 {
                     RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
@@ -242,7 +245,7 @@ namespace WpfTool
                 translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
                 DispatcherHelper.DoEvents();
 
-                TencentCloudHelper.screenshotTranslate(bmp).ContinueWith(result =>
+                TencentCloudHelper.ScreenshotTranslate(bmp).ContinueWith(result =>
                 {
                     Dictionary<String, String> keyValues = result.Result;
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
@@ -255,9 +258,9 @@ namespace WpfTool
                     }));
                 });
             }
-            else if (GlobalConfig.Translate.defaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.BaiduAI)
+            else if (GlobalConfig.Translate.DefaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.BaiduAi)
             {
-                if (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_id) || string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAI.app_secret))
+                if (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAi.AppId) || string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAi.AppSecret))
                 {
                     RootDialog.Show("", this.FindResource("ResultWindows_EmptyKeyMessage") as String);
                     return;
@@ -266,7 +269,7 @@ namespace WpfTool
                 translateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
                 DispatcherHelper.DoEvents();
 
-                BaiduAIHelper.screenshotTranslate(bmp).ContinueWith(result =>
+                BaiduAiHelper.ScreenshotTranslate(bmp).ContinueWith(result =>
                 {
                     Dictionary<String, String> keyValues = result.Result;
                     ocrTextBox.Dispatcher.Invoke(new Action(delegate
@@ -279,7 +282,7 @@ namespace WpfTool
                     }));
                 });
             }
-            else if (GlobalConfig.Translate.defaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud)
+            else if (GlobalConfig.Translate.DefaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud)
             {
                 RootDialog.Show("", this.FindResource("ResultWindows_LimitOcrAndTranslate") as String);
             }
@@ -308,15 +311,15 @@ namespace WpfTool
             {
                 defaultOcrTypeComboBox.Items.Clear();
                 ComboBoxItem item = new ComboBoxItem();
-                item.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.general_basic.ToString();
+                item.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.GeneralBasic.ToString();
                 item.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_GeneralBasic");
                 defaultOcrTypeComboBox.Items.Add(item);
                 ComboBoxItem item2 = new ComboBoxItem();
-                item2.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.accurate_basic.ToString();
+                item2.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.AccurateBasic.ToString();
                 item2.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_AccurateBasic");
                 defaultOcrTypeComboBox.Items.Add(item2);
                 ComboBoxItem item3 = new ComboBoxItem();
-                item3.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.handwriting.ToString();
+                item3.DataContext = GlobalConfig.Ocr.BaiduCloud.OcrTypeEnum.Handwriting.ToString();
                 item3.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Handwriting");
                 defaultOcrTypeComboBox.Items.Add(item3);
 
@@ -334,15 +337,15 @@ namespace WpfTool
             {
                 defaultOcrTypeComboBox.Items.Clear();
                 ComboBoxItem item = new ComboBoxItem();
-                item.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralBasicOCR.ToString();
+                item.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralBasicOcr.ToString();
                 item.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_GeneralBasic");
                 defaultOcrTypeComboBox.Items.Add(item);
                 ComboBoxItem item2 = new ComboBoxItem();
-                item2.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralAccurateOCR.ToString();
+                item2.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralAccurateOcr.ToString();
                 item2.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_AccurateBasic");
                 defaultOcrTypeComboBox.Items.Add(item2);
                 ComboBoxItem item3 = new ComboBoxItem();
-                item3.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralHandwritingOCR.ToString();
+                item3.DataContext = GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralHandwritingOcr.ToString();
                 item3.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Handwriting");
                 defaultOcrTypeComboBox.Items.Add(item3);
 
@@ -356,23 +359,23 @@ namespace WpfTool
 
                 defaultOcrLanguageComboBox.SelectedItem = item4;
             }
-            else if (defaultOcrProvideComboBox.DataContext.ToString() == GlobalConfig.Ocr.OcrProvideEnum.SpaceOCR.ToString())
+            else if (defaultOcrProvideComboBox.DataContext.ToString() == GlobalConfig.Ocr.OcrProvideEnum.SpaceOcr.ToString())
             {
                 defaultOcrTypeComboBox.Items.Clear();
                 ComboBoxItem item = new ComboBoxItem();
-                item.DataContext = GlobalConfig.Ocr.SpaceOCR.OcrTypeEnum.Engine1.ToString();
+                item.DataContext = GlobalConfig.Ocr.SpaceOcr.OcrTypeEnum.Engine1.ToString();
                 item.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Engine1");
                 defaultOcrTypeComboBox.Items.Add(item);
                 ComboBoxItem item2 = new ComboBoxItem();
-                item2.DataContext = GlobalConfig.Ocr.SpaceOCR.OcrTypeEnum.Engine2.ToString();
+                item2.DataContext = GlobalConfig.Ocr.SpaceOcr.OcrTypeEnum.Engine2.ToString();
                 item2.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Engine2");
                 defaultOcrTypeComboBox.Items.Add(item2);
                 ComboBoxItem item3 = new ComboBoxItem();
-                item3.DataContext = GlobalConfig.Ocr.SpaceOCR.OcrTypeEnum.Engine3.ToString();
+                item3.DataContext = GlobalConfig.Ocr.SpaceOcr.OcrTypeEnum.Engine3.ToString();
                 item3.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Engine3");
                 defaultOcrTypeComboBox.Items.Add(item3);
                 ComboBoxItem item5 = new ComboBoxItem();
-                item5.DataContext = GlobalConfig.Ocr.SpaceOCR.OcrTypeEnum.Engine5.ToString();
+                item5.DataContext = GlobalConfig.Ocr.SpaceOcr.OcrTypeEnum.Engine5.ToString();
                 item5.SetResourceReference(ComboBoxItem.ContentProperty, "OcrType_Engine5");
                 defaultOcrTypeComboBox.Items.Add(item5);
 
@@ -407,9 +410,9 @@ namespace WpfTool
             {
                 return;
             }
-            if (defaultOcrProvideComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrProvide.ToString())
-                && defaultOcrTypeComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrType)
-                && defaultOcrLanguageComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.defaultOcrLanguage))
+            if (defaultOcrProvideComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.DefaultOcrProvide.ToString())
+                && defaultOcrTypeComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.DefaultOcrType)
+                && defaultOcrLanguageComboBox.DataContext.ToString().Equals(GlobalConfig.Ocr.DefaultOcrLanguage))
             {
                 defaultOcrSettingCheck.IsChecked = true;
                 defaultOcrSettingCheck.IsEnabled = false;
@@ -433,9 +436,9 @@ namespace WpfTool
                 defaultOcrSettingCheck.IsEnabled = false;
                 if (this.WindowLoaded)
                 {
-                    GlobalConfig.Ocr.defaultOcrProvide = (GlobalConfig.Ocr.OcrProvideEnum)Enum.Parse(typeof(GlobalConfig.Ocr.OcrProvideEnum), defaultOcrProvideComboBox.DataContext.ToString());
-                    GlobalConfig.Ocr.defaultOcrType = defaultOcrTypeComboBox.DataContext.ToString();
-                    GlobalConfig.Ocr.defaultOcrLanguage = defaultOcrLanguageComboBox.DataContext.ToString();
+                    GlobalConfig.Ocr.DefaultOcrProvide = (GlobalConfig.Ocr.OcrProvideEnum)Enum.Parse(typeof(GlobalConfig.Ocr.OcrProvideEnum), defaultOcrProvideComboBox.DataContext.ToString());
+                    GlobalConfig.Ocr.DefaultOcrType = defaultOcrTypeComboBox.DataContext.ToString();
+                    GlobalConfig.Ocr.DefaultOcrLanguage = defaultOcrLanguageComboBox.DataContext.ToString();
                     GlobalConfig.SaveConfig();
                 }
             }
@@ -447,7 +450,7 @@ namespace WpfTool
             string translateProvide = defaultTranslateProvideComboBox.DataContext.ToString();
             sourceLanguageComboBox.Items.Clear();
             targetLanguageComboBox.Items.Clear();
-            if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.BaiduAI.ToString()))
+            if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.BaiduAi.ToString()))
             {
                 foreach (TranslateLanguageAttribute item in TranslateLanguageExtension.TranslateLanguageAttributeList)
                 {
@@ -517,9 +520,9 @@ namespace WpfTool
             {
                 return;
             }
-            if (defaultTranslateProvideComboBox.DataContext.ToString().Equals(GlobalConfig.Translate.defaultTranslateProvide.ToString())
-                && sourceLanguageComboBox.DataContext.ToString().Equals(GlobalConfig.Translate.defaultTranslateSourceLanguage)
-                && targetLanguageComboBox.DataContext.ToString().Equals(GlobalConfig.Translate.defaultTranslateTargetLanguage))
+            if (defaultTranslateProvideComboBox.DataContext.ToString().Equals(GlobalConfig.Translate.DefaultTranslateProvide.ToString())
+                && sourceLanguageComboBox.DataContext.ToString().Equals(GlobalConfig.Translate.DefaultTranslateSourceLanguage)
+                && targetLanguageComboBox.DataContext.ToString().Equals(GlobalConfig.Translate.DefaultTranslateTargetLanguage))
             {
                 defaultTranslateSettingCheck.IsChecked = true;
                 defaultTranslateSettingCheck.IsEnabled = false;
@@ -543,9 +546,9 @@ namespace WpfTool
                 defaultTranslateSettingCheck.IsEnabled = false;
                 if (this.WindowLoaded)
                 {
-                    GlobalConfig.Translate.defaultTranslateProvide = (GlobalConfig.Translate.TranslateProvideEnum)Enum.Parse(typeof(GlobalConfig.Translate.TranslateProvideEnum), defaultTranslateProvideComboBox.DataContext.ToString());
-                    GlobalConfig.Translate.defaultTranslateSourceLanguage = sourceLanguageComboBox.DataContext.ToString();
-                    GlobalConfig.Translate.defaultTranslateTargetLanguage = targetLanguageComboBox.DataContext.ToString();
+                    GlobalConfig.Translate.DefaultTranslateProvide = (GlobalConfig.Translate.TranslateProvideEnum)Enum.Parse(typeof(GlobalConfig.Translate.TranslateProvideEnum), defaultTranslateProvideComboBox.DataContext.ToString());
+                    GlobalConfig.Translate.DefaultTranslateSourceLanguage = sourceLanguageComboBox.DataContext.ToString();
+                    GlobalConfig.Translate.DefaultTranslateTargetLanguage = targetLanguageComboBox.DataContext.ToString();
                     GlobalConfig.SaveConfig();
                 }
             }
