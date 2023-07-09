@@ -17,7 +17,6 @@ namespace WpfTool
 
         public ResultWindow()
         {
-            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
         }
 

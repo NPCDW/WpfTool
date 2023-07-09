@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:WpfTool"
         xmlns:pages="clr-namespace:WpfTool.Page.Setting"
         mc:Ignorable="d"
-        Title="{DynamicResource Setting_Title}" Height="600" Width="800" Closed="Window_Closed"
+        Title="{DynamicResource Setting_Title}" Height="600" Width="800"
+        Closed="Window_Closed"
         WindowStartupLocation="CenterScreen"
         ExtendsContentIntoTitleBar="True">
     <Grid>
@@ -53,10 +54,10 @@
                     Icon="Certificate24"
                     PageType="{x:Type pages:AboutPage}"
                     PageTag="about" />
-                <!--  A navigation element that does not point to the page can be used as a button.  -->
-                <ui:NavigationItem
-                    Content="Theme"
-                    Icon="DarkTheme24" />
+                <!-- <ui:NavigationItem -->
+                <!--     Content="Theme" -->
+                <!--     Icon="DarkTheme24" -->
+                <!--     Click="ButtonBase_OnClick"/> -->
             </ui:NavigationFluent.Footer>
         </ui:NavigationFluent>
         <Frame x:Name="RootFrame" Grid.Row="1" Grid.Column="1" />

@@ -15,7 +15,7 @@ namespace WpfTool
     /// <summary>
     /// WordFileExtractWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class WordFileExtractWindow : Window
+    public partial class WordFileExtractWindow : Wpf.Ui.Controls.UiWindow
     {
         public WordFileExtractWindow()
         {

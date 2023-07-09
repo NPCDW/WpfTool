@@ -47,10 +47,10 @@
             <CheckBox x:Name="defaultOcrSettingCheck" Grid.Row="0" Grid.Column="3" Margin="5"
                       VerticalAlignment="Center" Content="{DynamicResource ResultWindows_SetAsDefault}"
                       Checked="defaultOcrSettingCheck_Checked" />
-            <Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right"
+            <ui:Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right"
                     Content="{DynamicResource ResultWindows_ReOCR}" Cursor="Hand" Click="ocrButton_Click" Padding="5" />
 
-            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
+            <ui:TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
                      x:Name="ocrTextBox"
                      Margin="5"
                      VerticalContentAlignment="Top"
@@ -73,11 +73,11 @@
             <CheckBox x:Name="defaultTranslateSettingCheck" Margin="5" Grid.Row="2" Grid.Column="3"
                       VerticalAlignment="Center" Content="{DynamicResource ResultWindows_SetAsDefault}"
                       Checked="defaultTranslateSettingCheck_Checked" />
-            <Button x:Name="translateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right"
+            <ui:Button x:Name="translateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right"
                     Content="{DynamicResource ResultWindows_Translate}" Click="translateButton_Click" Cursor="Hand"
                     MinWidth="60" Padding="5" />
 
-            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"
+            <ui:TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"
                      x:Name="translateTextBox"
                      Margin="5"
                      VerticalContentAlignment="Top"
