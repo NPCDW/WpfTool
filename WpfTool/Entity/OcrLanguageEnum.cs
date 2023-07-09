@@ -74,7 +74,7 @@ namespace WpfTool.Entity
     {
         public static List<OcrLanguageAttribute> TranslateLanguageAttributeList = new List<OcrLanguageAttribute>();
 
-        public static OcrLanguageAttribute GetAttribute(OcrLanguageEnum item)
+        public static OcrLanguageAttribute? GetAttribute(OcrLanguageEnum item)
         {
             MemberInfo[] mi = item.GetType().GetMember(item.ToString());
             return Attribute.GetCustomAttribute(mi[0], typeof(OcrLanguageAttribute)) as OcrLanguageAttribute;
@@ -84,31 +84,31 @@ namespace WpfTool.Entity
         {
             foreach (OcrLanguageEnum item in Enum.GetValues(typeof(OcrLanguageEnum)))
             {
-                TranslateLanguageAttributeList.Add(GetAttribute(item));
+                TranslateLanguageAttributeList.Add(GetAttribute(item)!);
             }
         }
     }
 
     internal class OcrLanguageAttribute : Attribute
     {
-        private string name;
+        private readonly string _name;
 
-        private string spaceOcr;
+        private readonly string _spaceOcr;
 
         public OcrLanguageAttribute(string name, string spaceOcr)
         {
-            this.name = name;
-            this.spaceOcr = spaceOcr;
+            this._name = name;
+            this._spaceOcr = spaceOcr;
         }
 
-        public string getName()
+        public string GetName()
         {
-            return this.name;
+            return this._name;
         }
 
-        public string getSpaceOcrCode()
+        public string GetSpaceOcrCode()
         {
-            return this.spaceOcr;
+            return this._spaceOcr;
         }
 
     }

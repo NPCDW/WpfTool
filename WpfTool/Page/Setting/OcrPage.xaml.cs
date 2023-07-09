@@ -145,11 +145,11 @@ public partial class OcrPage : System.Windows.Controls.Page
             defaultOcrLanguageComboBox.Items.Clear();
             foreach (OcrLanguageAttribute item4 in OcrLanguageExtension.TranslateLanguageAttributeList)
             {
-                if (!string.IsNullOrWhiteSpace(item4.getSpaceOcrCode()))
+                if (!string.IsNullOrWhiteSpace(item4.GetSpaceOcrCode()))
                 {
                     ComboBoxItem comboBoxItem = new ComboBoxItem();
-                    comboBoxItem.DataContext = item4.getSpaceOcrCode();
-                    comboBoxItem.SetResourceReference(ComboBoxItem.ContentProperty, item4.getName());
+                    comboBoxItem.DataContext = item4.GetSpaceOcrCode();
+                    comboBoxItem.SetResourceReference(ComboBoxItem.ContentProperty, item4.GetName());
                     defaultOcrLanguageComboBox.Items.Add(comboBoxItem);
                 }
             }
