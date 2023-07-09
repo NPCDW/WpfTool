@@ -1,0 +1,141 @@
+﻿<Page x:Class="WpfTool.Page.Setting.OcrPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:WpfTool.Page.Setting"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      mc:Ignorable="d"
+      d:DesignHeight="600"
+      d:DesignWidth="800"
+      Title="Ocr" Loaded="Ocr_OnLoaded">
+    <ui:DynamicScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <ui:Card Footer="{DynamicResource Setting_DefaultOCR}">
+                <WrapPanel>
+                    <ComboBox x:Name="defaultOcrProvideComboBox" Width="140"
+                              SelectionChanged="defaultOcrProvideComboBox_SelectionChanged">
+                        <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource CloudService_BaiduCloud}" />
+                        <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
+                        <ComboBoxItem DataContext="SpaceOCR" Content="{DynamicResource CloudService_SpaceOCR}" />
+                    </ComboBox>
+                    <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Margin="5,0,0,0"
+                              SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
+                    <ComboBox x:Name="defaultOcrLanguageComboBox" Width="120" Margin="5,0,0,0"
+                              SelectionChanged="defaultOcrLanguageComboBox_SelectionChanged" />
+                </WrapPanel>
+            </ui:Card>
+            <ui:Card Margin="0,5,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="SecretID" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
+                    <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="TencentCloudOcr_SecretIdInput" Margin="5,0,0,0"
+                                TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" Margin="0,5,0,0" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
+                    <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudOcr_SecretKeyInput"
+                                    Margin="5,5,0,0"
+                                    PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
+                </Grid>
+                <ui:Card.Footer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_TencentCloud}"
+                               VerticalAlignment="Center" />
+                        <ui:Hyperlink Grid.Row="0" Grid.Column="1"
+                                      NavigateUri="https://cloud.tencent.com/document/product/866/35945"
+                                      Icon="Link48" Content="{DynamicResource Setting_GetFreeOCRQuota}" />
+                    </Grid>
+                </ui:Card.Footer>
+            </ui:Card>
+            <ui:Card Margin="0,5,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="AppKey" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
+                    <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="BaiduCloud_AppKeyInput"
+                                TextChanged="BaiduCloud_AppKeyInput_TextChanged" Margin="5,0,0,0" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" Margin="0,5,0,0" />
+                    <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="BaiduCloud_SecretKeyInput" Margin="5,5,0,0"
+                                    PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
+                </Grid>
+                <ui:Card.Footer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_BaiduCloud}"
+                               VerticalAlignment="Center" />
+                        <ui:Hyperlink Grid.Row="0" Grid.Column="1"
+                                      NavigateUri="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h"
+                                      Icon="Link48" Content="{DynamicResource Setting_GetFreeOCRQuota}" />
+                    </Grid>
+                </ui:Card.Footer>
+            </ui:Card>
+            <ui:Card Margin="0,5,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="SecretKey" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
+                    <ui:PasswordBox Grid.Row="0" Grid.Column="1" x:Name="SpaceOCR_ApiKeyInput" Margin="5,0,0,0"
+                                    PasswordChanged="SpaceOCR_ApiKeyInput_PasswordChanged" />
+                </Grid>
+                <ui:Card.Footer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_SpaceOCR}"
+                               VerticalAlignment="Center" />
+                        <ui:Hyperlink Grid.Row="0" Grid.Column="1" NavigateUri="https://ocr.space/OCRAPI"
+                                      Icon="Link48" Content="{DynamicResource Setting_GetFreeOCRQuota}" />
+                    </Grid>
+                </ui:Card.Footer>
+            </ui:Card>
+        </StackPanel>
+    </ui:DynamicScrollViewer>
+</Page>
