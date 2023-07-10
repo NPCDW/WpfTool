@@ -20,7 +20,7 @@ namespace WpfTool.CloudService
             }
             if (string.IsNullOrWhiteSpace(ocrLanguage))
             {
-                ocrType = GlobalConfig.Ocr.defaultOcrLanguage;
+                ocrLanguage = GlobalConfig.Ocr.defaultOcrLanguage;
             }
             try
             {
