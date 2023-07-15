@@ -57,8 +57,8 @@ public static class BaiduAiHelper
         try
         {
             var salt = new Random().Next(1, 10000000);
-            var cuid = "APICUID";
-            var mac = "mac";
+            const string cuid = "APICUID";
+            const string mac = "mac";
             var fileByteArray = Utils.BitmapToByteArray(bmp);
             var signStr = GlobalConfig.Translate.BaiduAi.AppId + Utils.Md5(fileByteArray) + salt + cuid + mac +
                           GlobalConfig.Translate.BaiduAi.AppSecret;
@@ -66,8 +66,8 @@ public static class BaiduAiHelper
 
             var content = new MultipartFormDataContent();
             content.Add(new ByteArrayContent(fileByteArray), "image", salt + ".jpg");
-            content.Add(new StringContent(GlobalConfig.Translate.DefaultTranslateSourceLanguage), "from");
-            content.Add(new StringContent(GlobalConfig.Translate.DefaultTranslateTargetLanguage), "to");
+            content.Add(new StringContent(GlobalConfig.Translate.DefaultTranslateSourceLanguage!), "from");
+            content.Add(new StringContent(GlobalConfig.Translate.DefaultTranslateTargetLanguage!), "to");
             content.Add(new StringContent(GlobalConfig.Translate.BaiduAi.AppId), "appid");
             content.Add(new StringContent(salt + ""), "salt");
             content.Add(new StringContent(cuid), "cuid");

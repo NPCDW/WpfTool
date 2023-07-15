@@ -5,82 +5,68 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using WpfTool.Util.HappyEyeballsHttp;
 
-namespace WpfTool.Util
+namespace WpfTool.Util;
+
+public static class HttpHelper
 {
-    public class HttpHelper
+    private const string UserAgent =
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54";
+
+    private static readonly SocketsHttpHandler Handler = new()
     {
-        private static SocketsHttpHandler handler = new SocketsHttpHandler
+        AutomaticDecompression = DecompressionMethods.All,
+        ConnectCallback = new HappyEyeballsCallback().ConnectCallback
+    };
+
+    private static readonly HttpClient Client = new(Handler)
+    {
+        Timeout = TimeSpan.FromSeconds(5)
+    };
+
+    public static async Task<string> GetAsync(string url, Dictionary<string, string>? headers = null)
+    {
+        var message = new HttpRequestMessage
         {
-            AutomaticDecompression = DecompressionMethods.All,
-            ConnectCallback = new HappyEyeballsCallback().ConnectCallback,
+            Method = HttpMethod.Get,
+            RequestUri = new Uri(url),
+            Headers =
+            {
+                Date = DateTime.Now
+            }
         };
-        private static HttpClient httpClient = new HttpClient(handler)
-        {
-            Timeout = TimeSpan.FromSeconds(5),
-        };
+        message.Headers.UserAgent.ParseAdd(UserAgent);
+        if (headers?.Count > 0)
+            foreach (var header in headers)
+                message.Headers.Add(header.Key, header.Value);
 
-        private static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54";
+        using var response = await Client.SendAsync(message);
 
-        public static async Task<string> GetAsync(string url, Dictionary<String, String>? headers = null)
-        {
-            HttpRequestMessage message = new HttpRequestMessage();
-            message.Method = HttpMethod.Get;
-            message.RequestUri = new Uri(url);
-            message.Headers.Date = DateTime.Now;
-            message.Headers.UserAgent.ParseAdd(USER_AGENT);
-            if (headers != null && headers.Count > 0)
-            {
-                foreach (KeyValuePair<string, string> header in headers)
-                {
-                    message.Headers.Add(header.Key, header.Value);
-                }
-            }
+        if (response.StatusCode != HttpStatusCode.OK)
+            return "HttpClient response fail, " + response.StatusCode + response.ReasonPhrase;
 
-            using HttpResponseMessage response = await httpClient.SendAsync(message);
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        return jsonResponse;
+    }
 
-            if (response == null)
-            {
-                return "HttpClient get response is null";
-            }
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                return "HttpClient response fail, " + response.StatusCode + response.ReasonPhrase;
-            }
+    public static async Task<string> PostAsync(string url, HttpContent content,
+        Dictionary<string, string>? headers = null)
+    {
+        var message = new HttpRequestMessage();
+        message.Method = HttpMethod.Post;
+        message.RequestUri = new Uri(url);
+        message.Headers.Date = DateTime.Now;
+        message.Headers.UserAgent.ParseAdd(UserAgent);
+        if (headers != null && headers.Count > 0)
+            foreach (var header in headers)
+                message.Headers.Add(header.Key, header.Value);
+        message.Content = content;
 
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            return jsonResponse;
-        }
+        using var response = await Client.SendAsync(message);
 
-        public static async Task<string> PostAsync(string url, HttpContent content, Dictionary<String, String>? headers = null)
-        {
-            HttpRequestMessage message = new HttpRequestMessage();
-            message.Method = HttpMethod.Post;
-            message.RequestUri = new Uri(url);
-            message.Headers.Date = DateTime.Now;
-            message.Headers.UserAgent.ParseAdd(USER_AGENT);
-            if (headers != null && headers.Count > 0)
-            {
-                foreach (KeyValuePair<string, string> header in headers)
-                {
-                    message.Headers.Add(header.Key, header.Value);
-                }
-            }
-            message.Content = content;
+        if (response.StatusCode != HttpStatusCode.OK)
+            return "HttpClient response fail, " + response.StatusCode + response.ReasonPhrase;
 
-            using HttpResponseMessage response = await httpClient.SendAsync(message);
-
-            if (response == null)
-            {
-                return "HttpClient get response is null";
-            }
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                return "HttpClient response fail, " + response.StatusCode + response.ReasonPhrase;
-            }
-
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            return jsonResponse;
-        }
-
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        return jsonResponse;
     }
 }

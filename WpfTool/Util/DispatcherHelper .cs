@@ -2,22 +2,28 @@
 using System.Security.Permissions;
 using System.Windows.Threading;
 
-namespace WpfTool.Util
+namespace WpfTool.Util;
+
+internal static class DispatcherHelper
 {
-    internal class DispatcherHelper
+    [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+    public static void DoEvents()
     {
-        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
-        public static void DoEvents()
+        var frame = new DispatcherFrame();
+        Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background,
+            new DispatcherOperationCallback(ExitFrames), frame);
+        try
         {
-            DispatcherFrame frame = new DispatcherFrame();
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrames), frame);
-            try { Dispatcher.PushFrame(frame); }
-            catch (InvalidOperationException) { }
+            Dispatcher.PushFrame(frame);
         }
-        private static object? ExitFrames(object frame)
+        catch (InvalidOperationException)
         {
-            ((DispatcherFrame)frame).Continue = false;
-            return null;
         }
+    }
+
+    private static object? ExitFrames(object frame)
+    {
+        ((DispatcherFrame)frame).Continue = false;
+        return null;
     }
 }

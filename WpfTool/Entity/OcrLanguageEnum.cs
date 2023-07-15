@@ -70,11 +70,11 @@ namespace WpfTool.Entity
         Vietnamese,
     }
 
-    internal class OcrLanguageExtension
+    internal static class OcrLanguageExtension
     {
-        public static List<OcrLanguageAttribute> TranslateLanguageAttributeList = new List<OcrLanguageAttribute>();
+        public static readonly List<OcrLanguageAttribute> TranslateLanguageAttributeList = new List<OcrLanguageAttribute>();
 
-        public static OcrLanguageAttribute? GetAttribute(OcrLanguageEnum item)
+        private static OcrLanguageAttribute? GetAttribute(OcrLanguageEnum item)
         {
             MemberInfo[] mi = item.GetType().GetMember(item.ToString());
             return Attribute.GetCustomAttribute(mi[0], typeof(OcrLanguageAttribute)) as OcrLanguageAttribute;

@@ -84,22 +84,28 @@ public static class TencentCloudHelper
             var base64 = Utils.BitmapToBase64String(bmp);
             if (ocrType == GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralBasicOcr)
             {
-                var req = new GeneralBasicOCRRequest();
-                req.ImageBase64 = base64;
+                var req = new GeneralBasicOCRRequest()
+                {
+                    ImageBase64 = base64,
+                };
                 var resp = await client.GeneralBasicOCR(req);
                 jsonStr = AbstractModel.ToJsonString(resp);
             }
             else if (ocrType == GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralAccurateOcr)
             {
-                var req = new GeneralAccurateOCRRequest();
-                req.ImageBase64 = base64;
+                var req = new GeneralAccurateOCRRequest()
+                {
+                    ImageBase64 = base64,
+                };
                 var resp = await client.GeneralAccurateOCR(req);
                 jsonStr = AbstractModel.ToJsonString(resp);
             }
             else if (ocrType == GlobalConfig.Ocr.TencentCloud.OcrTypeEnum.GeneralHandwritingOcr)
             {
-                var req = new GeneralHandwritingOCRRequest();
-                req.ImageBase64 = base64;
+                var req = new GeneralHandwritingOCRRequest()
+                {
+                    ImageBase64 = base64,
+                };
                 var resp = await client.GeneralHandwritingOCR(req);
                 jsonStr = AbstractModel.ToJsonString(resp);
             }

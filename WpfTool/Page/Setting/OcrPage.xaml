@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:WpfTool.Page.Setting"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d"
       d:DesignHeight="600"
@@ -13,15 +12,15 @@
         <StackPanel>
             <ui:Card Footer="{DynamicResource Setting_DefaultOCR}">
                 <WrapPanel>
-                    <ComboBox x:Name="defaultOcrProvideComboBox" Width="140"
+                    <ComboBox x:Name="DefaultOcrProvideComboBox" Width="140"
                               SelectionChanged="defaultOcrProvideComboBox_SelectionChanged">
                         <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource CloudService_BaiduCloud}" />
                         <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
                         <ComboBoxItem DataContext="SpaceOCR" Content="{DynamicResource CloudService_SpaceOCR}" />
                     </ComboBox>
-                    <ComboBox x:Name="defaultOcrTypeComboBox" Width="120" Margin="5,0,0,0"
+                    <ComboBox x:Name="DefaultOcrTypeComboBox" Width="120" Margin="5,0,0,0"
                               SelectionChanged="defaultOcrTypeComboBox_SelectionChanged" />
-                    <ComboBox x:Name="defaultOcrLanguageComboBox" Width="120" Margin="5,0,0,0"
+                    <ComboBox x:Name="DefaultOcrLanguageComboBox" Width="120" Margin="5,0,0,0"
                               SelectionChanged="defaultOcrLanguageComboBox_SelectionChanged" />
                 </WrapPanel>
             </ui:Card>
@@ -38,12 +37,12 @@
 
                     <Label Grid.Row="0" Grid.Column="0" Content="SecretID" VerticalAlignment="Center"
                            HorizontalAlignment="Right" />
-                    <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="TencentCloudOcr_SecretIdInput" Margin="5,0,0,0"
+                    <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="TencentCloudOcrSecretIdInput" Margin="5,0,0,0"
                                 TextChanged="TencentCloudOcr_SecretIdInput_TextChanged" />
 
                     <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" Margin="0,5,0,0" VerticalAlignment="Center"
                            HorizontalAlignment="Right" />
-                    <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudOcr_SecretKeyInput"
+                    <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudOcrSecretKeyInput"
                                     Margin="5,5,0,0"
                                     PasswordChanged="TencentCloudOcr_SecretKeyInput_PasswordChanged" />
                 </Grid>
@@ -78,12 +77,12 @@
 
                     <Label Grid.Row="0" Grid.Column="0" Content="AppKey" VerticalAlignment="Center"
                            HorizontalAlignment="Right" />
-                    <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="BaiduCloud_AppKeyInput"
+                    <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="BaiduCloudAppKeyInput"
                                 TextChanged="BaiduCloud_AppKeyInput_TextChanged" Margin="5,0,0,0" />
 
                     <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" VerticalAlignment="Center"
                            HorizontalAlignment="Right" Margin="0,5,0,0" />
-                    <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="BaiduCloud_SecretKeyInput" Margin="5,5,0,0"
+                    <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="BaiduCloudSecretKeyInput" Margin="5,5,0,0"
                                     PasswordChanged="BaiduCloud_SecretKeyInput_PasswordChanged" />
                 </Grid>
                 <ui:Card.Footer>
@@ -116,7 +115,7 @@
 
                     <Label Grid.Row="0" Grid.Column="0" Content="SecretKey" VerticalAlignment="Center"
                            HorizontalAlignment="Right" />
-                    <ui:PasswordBox Grid.Row="0" Grid.Column="1" x:Name="SpaceOCR_ApiKeyInput" Margin="5,0,0,0"
+                    <ui:PasswordBox Grid.Row="0" Grid.Column="1" x:Name="SpaceOcrApiKeyInput" Margin="5,0,0,0"
                                     PasswordChanged="SpaceOCR_ApiKeyInput_PasswordChanged" />
                 </Grid>
                 <ui:Card.Footer>

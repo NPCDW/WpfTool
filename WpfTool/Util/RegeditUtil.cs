@@ -1,82 +1,75 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
+using Microsoft.Win32;
 
-namespace WpfTool.Util
+namespace WpfTool.Util;
+
+internal class RegeditUtil
 {
-    internal class RegeditUtil
+    public static bool CreateDir(string dir)
     {
-
-        public static bool CreateDir(String dir)
+        try
         {
-            try
-            {
-                RegistryKey R_local = Registry.CurrentUser;
-                RegistryKey R_run = R_local.CreateSubKey(dir);
-                R_run.Close();
-                R_local.Close();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            var rLocal = Registry.CurrentUser;
+            var rRun = rLocal.CreateSubKey(dir);
+            rRun.Close();
+            rLocal.Close();
+            return true;
         }
-
-        public static string? GetValue(String dir, String key)
+        catch (Exception)
         {
-            try
-            {
-                RegistryKey R_local = Registry.CurrentUser;
-                RegistryKey R_run = R_local.CreateSubKey(dir);
-                object value = R_run.GetValue(key);
-                R_run.Close();
-                R_local.Close();
-                if (value == null)
-                {
-                    return null;
-                }
-                return value.ToString();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return null;
-            }
+            return false;
         }
+    }
 
-        public static bool SetValue(String dir, String key, String value)
+    public static string? GetValue(string dir, string key)
+    {
+        try
         {
-            try
-            {
-                RegistryKey R_local = Registry.CurrentUser;
-                RegistryKey R_run = R_local.CreateSubKey(dir);
-                R_run.SetValue(key, value);
-                R_run.Close();
-                R_local.Close();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            var rLocal = Registry.CurrentUser;
+            var rRun = rLocal.CreateSubKey(dir);
+            var value = rRun.GetValue(key);
+            rRun.Close();
+            rLocal.Close();
+            return value?.ToString();
         }
-
-        public static bool DeleteValue(String dir, String key)
+        catch (Exception e)
         {
-            try
-            {
-                RegistryKey R_local = Registry.CurrentUser;
-                RegistryKey R_run = R_local.CreateSubKey(dir);
-                R_run.DeleteValue(key, false);
-                R_run.Close();
-                R_local.Close();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            Console.WriteLine(e);
+            return null;
         }
+    }
 
+    public static bool SetValue(string dir, string key, string value)
+    {
+        try
+        {
+            var rLocal = Registry.CurrentUser;
+            var rRun = rLocal.CreateSubKey(dir);
+            rRun.SetValue(key, value);
+            rRun.Close();
+            rLocal.Close();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    public static bool DeleteValue(string dir, string key)
+    {
+        try
+        {
+            var rLocal = Registry.CurrentUser;
+            var rRun = rLocal.CreateSubKey(dir);
+            rRun.DeleteValue(key, false);
+            rRun.Close();
+            rLocal.Close();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 }

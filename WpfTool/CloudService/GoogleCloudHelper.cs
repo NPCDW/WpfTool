@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json.Linq;
-using WpfTool.Entity;
 using WpfTool.Util;
 
 namespace WpfTool.CloudService;

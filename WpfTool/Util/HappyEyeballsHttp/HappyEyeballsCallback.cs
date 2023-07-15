@@ -13,51 +13,48 @@ namespace WpfTool.Util.HappyEyeballsHttp;
 // Inspired by and adapted from https://github.com/jellyfin/jellyfin/pull/8598
 
 /// <summary>
-/// A class to provide a <see cref="SocketsHttpHandler.ConnectCallback"/> method (and tracked state) to implement a
-/// variant of the Happy Eyeballs algorithm for HTTP connections to dual-stack servers.
-///
-/// Each instance of this class tracks its own state.
+///     A class to provide a <see cref="SocketsHttpHandler.ConnectCallback" /> method (and tracked state) to implement a
+///     variant of the Happy Eyeballs algorithm for HTTP connections to dual-stack servers.
+///     Each instance of this class tracks its own state.
 /// </summary>
 public class HappyEyeballsCallback : IDisposable
 {
-    private readonly ConcurrentDictionary<DnsEndPoint, AddressFamily> addressFamilyCache = new();
+    private readonly ConcurrentDictionary<DnsEndPoint, AddressFamily> _addressFamilyCache = new();
 
-    private readonly AddressFamily? forcedAddressFamily;
-    private readonly int ipv6GracePeriod;
+    private readonly AddressFamily? _forcedAddressFamily;
+    private readonly int _ipv6GracePeriod;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="HappyEyeballsCallback"/> class.
+    ///     Initializes a new instance of the <see cref="HappyEyeballsCallback" /> class.
     /// </summary>
     /// <param name="forcedAddressFamily">Optional override to force a specific AddressFamily.</param>
     /// <param name="ipv6GracePeriod">Grace period for IPv6 connectivity before starting IPv4 attempt.</param>
     public HappyEyeballsCallback(AddressFamily? forcedAddressFamily = null, int ipv6GracePeriod = 100)
     {
-        this.forcedAddressFamily = forcedAddressFamily;
-        this.ipv6GracePeriod = ipv6GracePeriod;
+        _forcedAddressFamily = forcedAddressFamily;
+        _ipv6GracePeriod = ipv6GracePeriod;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public void Dispose()
     {
-        this.addressFamilyCache.Clear();
+        _addressFamilyCache.Clear();
 
         GC.SuppressFinalize(this);
     }
 
     /// <summary>
-    /// The connection callback to provide to a <see cref="SocketsHttpHandler"/>.
+    ///     The connection callback to provide to a <see cref="SocketsHttpHandler" />.
     /// </summary>
     /// <param name="context">The context for an HTTP connection.</param>
     /// <param name="token">The cancellation token to abort this request.</param>
     /// <returns>Returns a Stream for consumption by HttpClient.</returns>
     public async ValueTask<Stream> ConnectCallback(SocketsHttpConnectionContext context, CancellationToken token)
     {
-        var addressFamilyOverride = this.GetAddressFamilyOverride(context);
+        var addressFamilyOverride = GetAddressFamilyOverride(context);
 
         if (addressFamilyOverride.HasValue)
-        {
-            return this.AttemptConnection(addressFamilyOverride.Value, context, token).GetAwaiter().GetResult();
-        }
+            return AttemptConnection(addressFamilyOverride.Value, context, token).GetAwaiter().GetResult();
 
         using var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(token);
 
@@ -65,8 +62,8 @@ public class HappyEyeballsCallback : IDisposable
 
         // Give IPv6 a chance to connect first.
         // However, only give it ipv4WaitMillis to connect before throwing IPv4 into the mix.
-        var tryConnectIPv6 = this.AttemptConnection(AddressFamily.InterNetworkV6, context, linkedToken.Token);
-        var timedV6Attempt = Task.WhenAny(tryConnectIPv6, Task.Delay(this.ipv6GracePeriod, linkedToken.Token));
+        var tryConnectIPv6 = AttemptConnection(AddressFamily.InterNetworkV6, context, linkedToken.Token);
+        var timedV6Attempt = Task.WhenAny(tryConnectIPv6, Task.Delay(_ipv6GracePeriod, linkedToken.Token));
 
         if (await timedV6Attempt == tryConnectIPv6 && tryConnectIPv6.IsCompletedSuccessfully)
         {
@@ -77,35 +74,27 @@ public class HappyEyeballsCallback : IDisposable
             var race = AsyncUtils.FirstSuccessfulTask(new List<Task<NetworkStream>>
             {
                 tryConnectIPv6,
-                this.AttemptConnection(AddressFamily.InterNetwork, context, linkedToken.Token),
+                AttemptConnection(AddressFamily.InterNetwork, context, linkedToken.Token)
             });
 
             // If our connections all fail, this will explode with an exception.
             stream = race.GetAwaiter().GetResult();
         }
 
-        this.addressFamilyCache[context.DnsEndPoint] = stream.Socket.AddressFamily;
+        _addressFamilyCache[context.DnsEndPoint] = stream.Socket.AddressFamily;
         return stream;
     }
 
     private AddressFamily? GetAddressFamilyOverride(SocketsHttpConnectionContext context)
     {
-        if (this.forcedAddressFamily.HasValue)
-        {
-            return this.forcedAddressFamily.Value;
-        }
+        if (_forcedAddressFamily.HasValue) return _forcedAddressFamily.Value;
 
         // Force IPv4 if IPv6 support isn't detected to avoid the resolution delay.
-        if (!Socket.OSSupportsIPv6)
-        {
-            return AddressFamily.InterNetwork;
-        }
+        if (!Socket.OSSupportsIPv6) return AddressFamily.InterNetwork;
 
-        if (this.addressFamilyCache.TryGetValue(context.DnsEndPoint, out var cachedValue))
-        {
+        if (_addressFamilyCache.TryGetValue(context.DnsEndPoint, out var cachedValue))
             // TODO: Find some way to delete this after a while.
             return cachedValue;
-        }
 
         return null;
     }
@@ -115,13 +104,13 @@ public class HappyEyeballsCallback : IDisposable
     {
         var socket = new Socket(family, SocketType.Stream, ProtocolType.Tcp)
         {
-            NoDelay = true,
+            NoDelay = true
         };
 
         try
         {
             await socket.ConnectAsync(context.DnsEndPoint, token).ConfigureAwait(false);
-            return new NetworkStream(socket, ownsSocket: true);
+            return new NetworkStream(socket, true);
         }
         catch
         {

@@ -30,314 +30,314 @@ internal enum TranslateLanguageEnum
     Spa,
 
     [TranslateLanguage("Language_th", "th", "th", "th")]
-    th,
+    Th,
 
     [TranslateLanguage("Language_ara", "ara", "ar", "ar")]
-    ara,
+    Ara,
 
     [TranslateLanguage("Language_ru", "ru", "ru", "ru")]
-    ru,
+    Ru,
 
     [TranslateLanguage("Language_pt", "pt", "pt", "pt")]
-    pt,
+    Pt,
 
     [TranslateLanguage("Language_de", "de", "de", "de")]
-    de,
+    De,
 
     [TranslateLanguage("Language_it", "it", "it", "it")]
-    it,
+    It,
 
     [TranslateLanguage("Language_vie", "vie", "vi", "vi")]
-    vie,
+    Vie,
 
     [TranslateLanguage("Language_el", "el", "", "el")]
-    el,
+    El,
 
     [TranslateLanguage("Language_nl", "nl", "", "nl")]
-    nl,
+    Nl,
 
     [TranslateLanguage("Language_pl", "pl", "", "pl")]
-    pl,
+    Pl,
 
     [TranslateLanguage("Language_bul", "bul", "", "bg")]
-    bul,
+    Bul,
 
     [TranslateLanguage("Language_est", "est", "", "et")]
-    est,
+    Est,
 
     [TranslateLanguage("Language_dan", "dan", "", "da")]
-    dan,
+    Dan,
 
     [TranslateLanguage("Language_fin", "fin", "", "fi")]
-    fin,
+    Fin,
 
     [TranslateLanguage("Language_cs", "cs", "", "cs")]
-    cs,
+    Cs,
 
     [TranslateLanguage("Language_rom", "rom", "", "ro")]
-    rom,
+    Som,
 
     [TranslateLanguage("Language_slo", "slo", "", "sl")]
-    slo,
+    Slo,
 
     [TranslateLanguage("Language_swe", "swe", "", "sv")]
-    swe,
+    Swe,
 
     [TranslateLanguage("Language_hu", "hu", "", "hu")]
-    hu,
+    Hu,
 
     [TranslateLanguage("Language_tr", "", "tr", "tr")]
-    tr,
+    Tr,
 
     [TranslateLanguage("Language_id", "", "id", "id")]
-    id,
+    Id,
 
     [TranslateLanguage("Language_ms", "", "ms", "ms")]
-    ms,
+    Ms,
 
     [TranslateLanguage("Language_hi", "", "hi", "hi")]
-    hi,
+    Hi,
 
     [TranslateLanguage("Language_yue", "yue", "", "")]
-    yue,
+    Yue,
 
     [TranslateLanguage("Language_wyw", "wyw", "", "")]
-    wyw,
+    Wyw,
 
     [TranslateLanguage("Language_af", "", "", "af")]
-    af,
+    Af,
 
     [TranslateLanguage("Language_sq", "", "", "sq")]
-    sq,
+    Sq,
 
     [TranslateLanguage("Language_am", "", "", "am")]
-    am,
+    Am,
 
     [TranslateLanguage("Language_hy", "", "", "hy")]
-    hy,
+    Hy,
 
     [TranslateLanguage("Language_az", "", "", "az")]
-    az,
+    Az,
 
     [TranslateLanguage("Language_eu", "", "", "eu")]
-    eu,
+    Eu,
 
     [TranslateLanguage("Language_be", "", "", "be")]
-    be,
+    Be,
 
     [TranslateLanguage("Language_bn", "", "", "bn")]
-    bn,
+    Bn,
 
     [TranslateLanguage("Language_bs", "", "", "bs")]
-    bs,
+    Bs,
 
     [TranslateLanguage("Language_ca", "", "", "ca")]
-    ca,
+    Ca,
 
     [TranslateLanguage("Language_ceb", "", "", "ceb")]
-    ceb,
+    Ceb,
 
     [TranslateLanguage("Language_ny", "", "", "ny")]
-    ny,
+    Ny,
 
     [TranslateLanguage("Language_co", "", "", "co")]
-    co,
+    Co,
 
     [TranslateLanguage("Language_hr", "", "", "hr")]
-    hr,
+    Hr,
 
     [TranslateLanguage("Language_eo", "", "", "eo")]
-    eo,
+    Eo,
 
     [TranslateLanguage("Language_tl", "", "", "tl")]
-    tl,
+    Tl,
 
     [TranslateLanguage("Language_fy", "", "", "fy")]
-    fy,
+    Fy,
 
     [TranslateLanguage("Language_gl", "", "", "gl")]
-    gl,
+    Gl,
 
     [TranslateLanguage("Language_ka", "", "", "ka")]
-    ka,
+    Ka,
 
     [TranslateLanguage("Language_gu", "", "", "gu")]
-    gu,
+    Gu,
 
     [TranslateLanguage("Language_ht", "", "", "ht")]
-    ht,
+    Ht,
 
     [TranslateLanguage("Language_ha", "", "", "ha")]
-    ha,
+    Ha,
 
     [TranslateLanguage("Language_haw", "", "", "haw")]
-    haw,
+    Haw,
 
     [TranslateLanguage("Language_iw", "", "", "iw")]
-    iw,
+    Iw,
 
     [TranslateLanguage("Language_hmn", "", "", "hmn")]
-    hmn,
+    Hmn,
 
     [TranslateLanguage("Language_is", "", "", "is")]
     Icelandic,
 
     [TranslateLanguage("Language_ig", "", "", "ig")]
-    ig,
+    Ig,
 
     [TranslateLanguage("Language_ga", "", "", "ga")]
-    ga,
+    Ga,
 
     [TranslateLanguage("Language_jw", "", "", "jw")]
-    jw,
+    Jw,
 
     [TranslateLanguage("Language_kn", "", "", "kn")]
-    kn,
+    Kn,
 
     [TranslateLanguage("Language_kk", "", "", "kk")]
-    kk,
+    Kk,
 
     [TranslateLanguage("Language_km", "", "", "km")]
-    km,
+    Km,
 
     [TranslateLanguage("Language_ku", "", "", "ku")]
-    ku,
+    Ku,
 
     [TranslateLanguage("Language_ky", "", "", "ky")]
-    ky,
+    Ky,
 
     [TranslateLanguage("Language_lo", "", "", "lo")]
-    lo,
+    Lo,
 
     [TranslateLanguage("Language_la", "", "", "la")]
-    la,
+    La,
 
     [TranslateLanguage("Language_lv", "", "", "lv")]
-    lv,
+    Lv,
 
     [TranslateLanguage("Language_lt", "", "", "lt")]
-    lt,
+    Lt,
 
     [TranslateLanguage("Language_lb", "", "", "lb")]
-    lb,
+    Lb,
 
     [TranslateLanguage("Language_mk", "", "", "mk")]
-    mk,
+    Mk,
 
     [TranslateLanguage("Language_mg", "", "", "mg")]
-    mg,
+    Mg,
 
     [TranslateLanguage("Language_ml", "", "", "ml")]
-    ml,
+    Ml,
 
     [TranslateLanguage("Language_mt", "", "", "mt")]
-    mt,
+    Mt,
 
     [TranslateLanguage("Language_mi", "", "", "mi")]
-    mi,
+    Mi,
 
     [TranslateLanguage("Language_mr", "", "", "mr")]
-    mr,
+    Mr,
 
     [TranslateLanguage("Language_mn", "", "", "mn")]
-    mn,
+    Mn,
 
     [TranslateLanguage("Language_my", "", "", "my")]
-    my,
+    My,
 
     [TranslateLanguage("Language_ne", "", "", "ne")]
-    ne,
+    Ne,
 
     [TranslateLanguage("Language_no", "", "", "no")]
-    no,
+    No,
 
     [TranslateLanguage("Language_ps", "", "", "ps")]
-    ps,
+    Ps,
 
     [TranslateLanguage("Language_fa", "", "", "fa")]
-    fa,
+    Fa,
 
     [TranslateLanguage("Language_ma", "", "", "ma")]
-    ma,
+    Ma,
 
     [TranslateLanguage("Language_sm", "", "", "sm")]
-    sm,
+    Sm,
 
     [TranslateLanguage("Language_gd", "", "", "gd")]
-    gd,
+    Gd,
 
     [TranslateLanguage("Language_sr", "", "", "sr")]
-    sr,
+    Sr,
 
     [TranslateLanguage("Language_st", "", "", "st")]
-    st,
+    St,
 
     [TranslateLanguage("Language_sn", "", "", "sn")]
-    sn,
+    Sn,
 
     [TranslateLanguage("Language_sd", "", "", "sd")]
-    sd,
+    Sd,
 
     [TranslateLanguage("Language_si", "", "", "si")]
-    si,
+    Si,
 
     [TranslateLanguage("Language_sk", "", "", "sk")]
-    sk,
+    Sk,
 
     [TranslateLanguage("Language_so", "", "", "so")]
-    so,
+    So,
 
     [TranslateLanguage("Language_su", "", "", "su")]
-    su,
+    Su,
 
     [TranslateLanguage("Language_sw", "", "", "sw")]
-    sw,
+    Sw,
 
     [TranslateLanguage("Language_tg", "", "", "tg")]
-    tg,
+    Tg,
 
     [TranslateLanguage("Language_ta", "", "", "ta")]
-    ta,
+    Ta,
 
     [TranslateLanguage("Language_te", "", "", "te")]
-    te,
+    Te,
 
     [TranslateLanguage("Language_uk", "", "", "uk")]
-    uk,
+    Uk,
 
     [TranslateLanguage("Language_ur", "", "", "ur")]
-    ur,
+    Ur,
 
     [TranslateLanguage("Language_uz", "", "", "uz")]
-    uz,
+    Uz,
 
     [TranslateLanguage("Language_cy", "", "", "cy")]
-    cy,
+    Cy,
 
     [TranslateLanguage("Language_xh", "", "", "xh")]
-    xh,
+    Xh,
 
     [TranslateLanguage("Language_yi", "", "", "yi")]
-    yi,
+    Yi,
 
     [TranslateLanguage("Language_yo", "", "", "yo")]
-    yo,
+    Yo,
 
     [TranslateLanguage("Language_zu", "", "", "zu")]
-    zu
+    Zu
 }
 
-internal class TranslateLanguageExtension
+internal static class TranslateLanguageExtension
 {
-    public static List<TranslateLanguageAttribute> TranslateLanguageAttributeList = new();
+    public static readonly List<TranslateLanguageAttribute> TranslateLanguageAttributeList = new();
 
     static TranslateLanguageExtension()
     {
         foreach (TranslateLanguageEnum item in Enum.GetValues(typeof(TranslateLanguageEnum)))
-            TranslateLanguageAttributeList.Add(GetAttribute(item));
+            TranslateLanguageAttributeList.Add(GetAttribute(item)!);
     }
 
-    public static TranslateLanguageAttribute GetAttribute(TranslateLanguageEnum item)
+    private static TranslateLanguageAttribute? GetAttribute(TranslateLanguageEnum item)
     {
         var mi = item.GetType().GetMember(item.ToString());
         return Attribute.GetCustomAttribute(mi[0], typeof(TranslateLanguageAttribute)) as TranslateLanguageAttribute;
@@ -346,38 +346,38 @@ internal class TranslateLanguageExtension
 
 internal class TranslateLanguageAttribute : Attribute
 {
-    private readonly string baiduAiCode;
+    private readonly string _baiduAiCode;
 
-    private readonly string googleCloudCode;
-    private readonly string name;
+    private readonly string _googleCloudCode;
+    private readonly string _name;
 
-    private readonly string tencentCloudCode;
+    private readonly string _tencentCloudCode;
 
     public TranslateLanguageAttribute(string name, string baiduAiCode, string tencentCloudCode, string googleCloudCode)
     {
-        this.name = name;
-        this.baiduAiCode = baiduAiCode;
-        this.tencentCloudCode = tencentCloudCode;
-        this.googleCloudCode = googleCloudCode;
+        this._name = name;
+        this._baiduAiCode = baiduAiCode;
+        this._tencentCloudCode = tencentCloudCode;
+        this._googleCloudCode = googleCloudCode;
     }
 
-    public string getName()
+    public string GetName()
     {
-        return name;
+        return _name;
     }
 
-    public string getBaiduAiCode()
+    public string GetBaiduAiCode()
     {
-        return baiduAiCode;
+        return _baiduAiCode;
     }
 
-    public string getTencentCloudCode()
+    public string GetTencentCloudCode()
     {
-        return tencentCloudCode;
+        return _tencentCloudCode;
     }
 
-    public string getGoogleCloudCode()
+    public string GetGoogleCloudCode()
     {
-        return googleCloudCode;
+        return _googleCloudCode;
     }
 }

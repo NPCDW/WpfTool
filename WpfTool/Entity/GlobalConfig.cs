@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using WpfTool.Util;
@@ -63,7 +64,7 @@ public static class GlobalConfig
             Ocr.BaiduCloud.ClientSecret = jsonObj["Ocr"]!["BaiduCloud"]!["client_secret"]!.ToString();
             Ocr.TencentCloud.SecretId = jsonObj["Ocr"]!["TencentCloud"]!["secret_id"]!.ToString();
             Ocr.TencentCloud.SecretKey = jsonObj["Ocr"]!["TencentCloud"]!["secret_key"]!.ToString();
-            if (jsonObj["Ocr"]!["SpaceOCR"] == null) jsonObj["Ocr"]!["SpaceOCR"] = new JObject();
+            jsonObj["Ocr"]!["SpaceOCR"] ??= new JObject();
             Ocr.SpaceOcr.ApiKey = jsonObj["Ocr"]!["SpaceOCR"]!["apiKey"] == null
                 ? ""
                 : jsonObj["Ocr"]!["SpaceOCR"]!["apiKey"]!.ToString();
@@ -114,7 +115,7 @@ public static class GlobalConfig
         jsonObj["Ocr"]!["defaultOcrLanguage"] = Ocr.DefaultOcrLanguage;
         jsonObj["Ocr"]!["BaiduCloud"] = new JObject();
         jsonObj["Ocr"]!["BaiduCloud"]!["access_token"] = Ocr.BaiduCloud.AccessToken;
-        jsonObj["Ocr"]!["BaiduCloud"]!["access_token_expires_time"] = Ocr.BaiduCloud.AccessTokenExpiresTime.ToString();
+        jsonObj["Ocr"]!["BaiduCloud"]!["access_token_expires_time"] = Ocr.BaiduCloud.AccessTokenExpiresTime.ToString(CultureInfo.CurrentCulture);
         jsonObj["Ocr"]!["BaiduCloud"]!["client_id"] = Ocr.BaiduCloud.ClientId;
         jsonObj["Ocr"]!["BaiduCloud"]!["client_secret"] = Ocr.BaiduCloud.ClientSecret;
         jsonObj["Ocr"]!["TencentCloud"] = new JObject();

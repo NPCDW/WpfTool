@@ -1,85 +1,81 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
-namespace WpfTool.Util
+namespace WpfTool.Util;
+
+internal class Utils
 {
-    internal class Utils
+    public static ImageBrush BitmapToImageBrush(Bitmap bmp)
     {
-        public static ImageBrush BitmapToImageBrush(Bitmap bmp)
-        {
-            ImageBrush brush = new ImageBrush();
-            IntPtr hBitmap = bmp.GetHbitmap();
-            ImageSource wpfBitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                hBitmap,
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
-            brush.ImageSource = wpfBitmap;
-            Utils.FlushMemory();
-            return brush;
-        }
+        var brush = new ImageBrush();
+        var hBitmap = bmp.GetHbitmap();
+        ImageSource wpfBitmap = Imaging.CreateBitmapSourceFromHBitmap(
+            hBitmap,
+            IntPtr.Zero,
+            Int32Rect.Empty,
+            BitmapSizeOptions.FromEmptyOptions());
+        brush.ImageSource = wpfBitmap;
+        FlushMemory();
+        return brush;
+    }
 
-        public static string BitmapToBase64String(Bitmap bmp)
+    public static string BitmapToBase64String(Bitmap bmp)
+    {
+        using (var ms = new MemoryStream())
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                byte[] arr = new byte[ms.Length];
-                ms.Position = 0;
-                ms.Read(arr, 0, (int)ms.Length);
-                return Convert.ToBase64String(arr);
-            }
+            bmp.Save(ms, ImageFormat.Jpeg);
+            var arr = new byte[ms.Length];
+            ms.Position = 0;
+            var _ = ms.Read(arr, 0, (int)ms.Length);
+            return Convert.ToBase64String(arr);
         }
+    }
 
-        public static byte[] BitmapToByteArray(Bitmap bmp)
+    public static byte[] BitmapToByteArray(Bitmap bmp)
+    {
+        using (var ms = new MemoryStream())
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                byte[] arr = new byte[ms.Length];
-                ms.Position = 0;
-                ms.Read(arr, 0, (int)ms.Length);
-                return arr;
-            }
+            bmp.Save(ms, ImageFormat.Jpeg);
+            var arr = new byte[ms.Length];
+            ms.Position = 0;
+            var _ = ms.Read(arr, 0, (int)ms.Length);
+            return arr;
         }
+    }
 
-        /// <summary>
-        /// 清理内存
-        /// </summary>
-        public static void FlushMemory()
+    /// <summary>
+    ///     清理内存
+    /// </summary>
+    public static void FlushMemory()
+    {
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            NativeMethod.SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, -1, -1);
+    }
+
+    public static string Md5(string str)
+    {
+        return Md5(Encoding.UTF8.GetBytes(str));
+    }
+
+    public static string Md5(byte[] byteArray)
+    {
+        using (var md5 = MD5.Create())
         {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-            {
-                NativeMethod.SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, -1, -1);
-            }
+            var hash = md5.ComputeHash(byteArray);
+            var sign = "";
+            for (var i = 0; i < hash.Length; i++) sign += hash[i].ToString("X").PadLeft(2, '0');
+            return sign.ToLower();
         }
-
-        public static string Md5(string str)
-        {
-            return Md5(Encoding.UTF8.GetBytes(str));
-        }
-
-        public static string Md5(byte[] byteArray)
-        {
-            using (var md5 = MD5.Create())
-            {
-                var hash = md5.ComputeHash(byteArray);
-                string sign = "";
-                for (int i = 0; i < hash.Length; i++)
-                {
-                    sign += hash[i].ToString("X").PadLeft(2, '0');
-                }
-                return sign.ToLower();
-            }
-        }
-
     }
 }

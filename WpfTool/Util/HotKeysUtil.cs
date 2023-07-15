@@ -1,116 +1,123 @@
 ﻿using System;
 using WpfTool.Entity;
 
-namespace WpfTool.Util
+namespace WpfTool.Util;
+
+internal static class HotKeysUtil
 {
-    internal class HotKeysUtil
+    public const int GetWordsTranslateId = 855;
+    public const int OcrId = 856;
+    public const int ScreenshotTranslateId = 857;
+    public const int TopMostId = 858;
+    private static IntPtr _mainFormHandle;
+    private static byte _getWordsTranslateModifiers;
+    private static int _getWordsTranslateKey;
+    private static byte _ocrModifiers;
+    private static int _ocrKey;
+    private static byte _screenshotTranslateModifiers;
+    private static int _screenshotTranslateKey;
+    private static byte _topMostModifiers;
+    private static int _topMostKey;
+
+    public static void RegisterHotKey(IntPtr mainFormHandle)
     {
-        public static IntPtr mainFormHandle;
+        _mainFormHandle = mainFormHandle;
 
-        public static int GetWordsTranslateId = 855;
-        public static byte GetWordsTranslateModifiers;
-        public static int GetWordsTranslateKey;
-        public static int OcrId = 856;
-        public static byte OcrModifiers;
-        public static int OcrKey;
-        public static int ScreenshotTranslateId = 857;
-        public static byte ScreenshotTranslateModifiers;
-        public static int ScreenshotTranslateKey;
-        public static int TopMostId = 858;
-        public static byte TopMostModifiers;
-        public static int TopMostKey;
+        _getWordsTranslateModifiers = GlobalConfig.HotKeys.GetWordsTranslate.Modifiers;
+        _getWordsTranslateKey = GlobalConfig.HotKeys.GetWordsTranslate.Key;
+        _ocrModifiers = GlobalConfig.HotKeys.OcrHotKey.Modifiers;
+        _ocrKey = GlobalConfig.HotKeys.OcrHotKey.Key;
+        _screenshotTranslateModifiers = GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers;
+        _screenshotTranslateKey = GlobalConfig.HotKeys.ScreenshotTranslate.Key;
+        _topMostModifiers = GlobalConfig.HotKeys.TopMost.Modifiers;
+        _topMostKey = GlobalConfig.HotKeys.TopMost.Key;
 
-        public static void RegisterHotKey(IntPtr mainFormHandle)
+        if (GlobalConfig.HotKeys.GetWordsTranslate.Key != 0)
+            GlobalConfig.HotKeys.GetWordsTranslate.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle,
+                GetWordsTranslateId, GlobalConfig.HotKeys.GetWordsTranslate.Modifiers,
+                GlobalConfig.HotKeys.GetWordsTranslate.Key);
+        if (GlobalConfig.HotKeys.OcrHotKey.Key != 0)
+            GlobalConfig.HotKeys.OcrHotKey.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, OcrId,
+                GlobalConfig.HotKeys.OcrHotKey.Modifiers, GlobalConfig.HotKeys.OcrHotKey.Key);
+        if (GlobalConfig.HotKeys.ScreenshotTranslate.Key != 0)
+            GlobalConfig.HotKeys.ScreenshotTranslate.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle,
+                ScreenshotTranslateId, GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers,
+                GlobalConfig.HotKeys.ScreenshotTranslate.Key);
+        if (GlobalConfig.HotKeys.TopMost.Key != 0)
+            GlobalConfig.HotKeys.TopMost.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, TopMostId,
+                GlobalConfig.HotKeys.TopMost.Modifiers, GlobalConfig.HotKeys.TopMost.Key);
+    }
+
+    public static void UnRegisterHotKey()
+    {
+        NativeMethod.UnregisterHotKey(_mainFormHandle, GetWordsTranslateId);
+        NativeMethod.UnregisterHotKey(_mainFormHandle, OcrId);
+        NativeMethod.UnregisterHotKey(_mainFormHandle, ScreenshotTranslateId);
+        NativeMethod.UnregisterHotKey(_mainFormHandle, TopMostId);
+    }
+
+    public static void ReRegisterHotKey()
+    {
+        if (GlobalConfig.HotKeys.GetWordsTranslate.Key == 0)
         {
-            HotKeysUtil.mainFormHandle = mainFormHandle;
-
-            HotKeysUtil.GetWordsTranslateModifiers = GlobalConfig.HotKeys.GetWordsTranslate.Modifiers;
-            HotKeysUtil.GetWordsTranslateKey = GlobalConfig.HotKeys.GetWordsTranslate.Key;
-            HotKeysUtil.OcrModifiers = GlobalConfig.HotKeys.OcrHotKey.Modifiers;
-            HotKeysUtil.OcrKey = GlobalConfig.HotKeys.OcrHotKey.Key;
-            HotKeysUtil.ScreenshotTranslateModifiers = GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers;
-            HotKeysUtil.ScreenshotTranslateKey = GlobalConfig.HotKeys.ScreenshotTranslate.Key;
-            HotKeysUtil.TopMostModifiers = GlobalConfig.HotKeys.TopMost.Modifiers;
-            HotKeysUtil.TopMostKey = GlobalConfig.HotKeys.TopMost.Key;
-
-            if (GlobalConfig.HotKeys.GetWordsTranslate.Key != 0)
-            {
-                GlobalConfig.HotKeys.GetWordsTranslate.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, GetWordsTranslateId, GlobalConfig.HotKeys.GetWordsTranslate.Modifiers, GlobalConfig.HotKeys.GetWordsTranslate.Key);
-            }
-            if (GlobalConfig.HotKeys.OcrHotKey.Key != 0)
-            {
-                GlobalConfig.HotKeys.OcrHotKey.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, OcrId, GlobalConfig.HotKeys.OcrHotKey.Modifiers, GlobalConfig.HotKeys.OcrHotKey.Key);
-            }
-            if (GlobalConfig.HotKeys.ScreenshotTranslate.Key != 0)
-            {
-                GlobalConfig.HotKeys.ScreenshotTranslate.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, ScreenshotTranslateId, GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers, GlobalConfig.HotKeys.ScreenshotTranslate.Key);
-            }
-            if (GlobalConfig.HotKeys.TopMost.Key != 0)
-            {
-                GlobalConfig.HotKeys.TopMost.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, TopMostId, GlobalConfig.HotKeys.TopMost.Modifiers, GlobalConfig.HotKeys.TopMost.Key);
-            }
+            NativeMethod.UnregisterHotKey(_mainFormHandle, GetWordsTranslateId);
+        }
+        else if (_getWordsTranslateModifiers != GlobalConfig.HotKeys.GetWordsTranslate.Modifiers ||
+                 _getWordsTranslateKey != GlobalConfig.HotKeys.GetWordsTranslate.Key)
+        {
+            NativeMethod.UnregisterHotKey(_mainFormHandle, GetWordsTranslateId);
+            GlobalConfig.HotKeys.GetWordsTranslate.Conflict = !NativeMethod.RegisterHotKey(_mainFormHandle,
+                GetWordsTranslateId, GlobalConfig.HotKeys.GetWordsTranslate.Modifiers,
+                GlobalConfig.HotKeys.GetWordsTranslate.Key);
         }
 
-        public static void UnRegisterHotKey()
+        _getWordsTranslateModifiers = GlobalConfig.HotKeys.GetWordsTranslate.Modifiers;
+        _getWordsTranslateKey = GlobalConfig.HotKeys.GetWordsTranslate.Key;
+
+        if (GlobalConfig.HotKeys.OcrHotKey.Key == 0)
         {
-            NativeMethod.UnregisterHotKey(mainFormHandle, GetWordsTranslateId);
-            NativeMethod.UnregisterHotKey(mainFormHandle, OcrId);
-            NativeMethod.UnregisterHotKey(mainFormHandle, ScreenshotTranslateId);
-            NativeMethod.UnregisterHotKey(mainFormHandle, TopMostId);
+            NativeMethod.UnregisterHotKey(_mainFormHandle, OcrId);
+        }
+        else if (_ocrModifiers != GlobalConfig.HotKeys.OcrHotKey.Modifiers ||
+                 _ocrKey != GlobalConfig.HotKeys.OcrHotKey.Key)
+        {
+            NativeMethod.UnregisterHotKey(_mainFormHandle, OcrId);
+            GlobalConfig.HotKeys.OcrHotKey.Conflict = !NativeMethod.RegisterHotKey(_mainFormHandle, OcrId,
+                GlobalConfig.HotKeys.OcrHotKey.Modifiers, GlobalConfig.HotKeys.OcrHotKey.Key);
         }
 
-        public static void ReRegisterHotKey()
+        _ocrModifiers = GlobalConfig.HotKeys.OcrHotKey.Modifiers;
+        _ocrKey = GlobalConfig.HotKeys.OcrHotKey.Key;
+
+        if (GlobalConfig.HotKeys.ScreenshotTranslate.Key == 0)
         {
-            if (GlobalConfig.HotKeys.GetWordsTranslate.Key == 0)
-            {
-                NativeMethod.UnregisterHotKey(mainFormHandle, GetWordsTranslateId);
-            }
-            else if (GetWordsTranslateModifiers != GlobalConfig.HotKeys.GetWordsTranslate.Modifiers || GetWordsTranslateKey != GlobalConfig.HotKeys.GetWordsTranslate.Key)
-            {
-                {
-                    NativeMethod.UnregisterHotKey(mainFormHandle, GetWordsTranslateId);
-                    GlobalConfig.HotKeys.GetWordsTranslate.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, GetWordsTranslateId, GlobalConfig.HotKeys.GetWordsTranslate.Modifiers, GlobalConfig.HotKeys.GetWordsTranslate.Key);
-                }
-            }
-            HotKeysUtil.GetWordsTranslateModifiers = GlobalConfig.HotKeys.GetWordsTranslate.Modifiers;
-            HotKeysUtil.GetWordsTranslateKey = GlobalConfig.HotKeys.GetWordsTranslate.Key;
-
-            if (GlobalConfig.HotKeys.OcrHotKey.Key == 0)
-            {
-                NativeMethod.UnregisterHotKey(mainFormHandle, OcrId);
-            }
-            else if (OcrModifiers != GlobalConfig.HotKeys.OcrHotKey.Modifiers || OcrKey != GlobalConfig.HotKeys.OcrHotKey.Key)
-            {
-                NativeMethod.UnregisterHotKey(mainFormHandle, OcrId);
-                GlobalConfig.HotKeys.OcrHotKey.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, OcrId, GlobalConfig.HotKeys.OcrHotKey.Modifiers, GlobalConfig.HotKeys.OcrHotKey.Key);
-            }
-            HotKeysUtil.OcrModifiers = GlobalConfig.HotKeys.OcrHotKey.Modifiers;
-            HotKeysUtil.OcrKey = GlobalConfig.HotKeys.OcrHotKey.Key;
-
-            if (GlobalConfig.HotKeys.ScreenshotTranslate.Key == 0)
-            {
-                NativeMethod.UnregisterHotKey(mainFormHandle, ScreenshotTranslateId);
-            }
-            else if (ScreenshotTranslateModifiers != GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers || ScreenshotTranslateKey != GlobalConfig.HotKeys.ScreenshotTranslate.Key)
-            {
-                NativeMethod.UnregisterHotKey(mainFormHandle, ScreenshotTranslateId);
-                GlobalConfig.HotKeys.ScreenshotTranslate.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, ScreenshotTranslateId, GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers, GlobalConfig.HotKeys.ScreenshotTranslate.Key);
-            }
-            HotKeysUtil.ScreenshotTranslateModifiers = GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers;
-            HotKeysUtil.ScreenshotTranslateKey = GlobalConfig.HotKeys.ScreenshotTranslate.Key;
-
-            if (GlobalConfig.HotKeys.TopMost.Key == 0)
-            {
-                NativeMethod.UnregisterHotKey(mainFormHandle, TopMostId);
-            }
-            else if (TopMostModifiers != GlobalConfig.HotKeys.TopMost.Modifiers || TopMostKey != GlobalConfig.HotKeys.TopMost.Key)
-            {
-                NativeMethod.UnregisterHotKey(mainFormHandle, TopMostId);
-                GlobalConfig.HotKeys.TopMost.Conflict = !NativeMethod.RegisterHotKey(mainFormHandle, TopMostId, GlobalConfig.HotKeys.TopMost.Modifiers, GlobalConfig.HotKeys.TopMost.Key);
-            }
-            HotKeysUtil.TopMostModifiers = GlobalConfig.HotKeys.TopMost.Modifiers;
-            HotKeysUtil.TopMostKey = GlobalConfig.HotKeys.TopMost.Key;
+            NativeMethod.UnregisterHotKey(_mainFormHandle, ScreenshotTranslateId);
+        }
+        else if (_screenshotTranslateModifiers != GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers ||
+                 _screenshotTranslateKey != GlobalConfig.HotKeys.ScreenshotTranslate.Key)
+        {
+            NativeMethod.UnregisterHotKey(_mainFormHandle, ScreenshotTranslateId);
+            GlobalConfig.HotKeys.ScreenshotTranslate.Conflict = !NativeMethod.RegisterHotKey(_mainFormHandle,
+                ScreenshotTranslateId, GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers,
+                GlobalConfig.HotKeys.ScreenshotTranslate.Key);
         }
 
+        _screenshotTranslateModifiers = GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers;
+        _screenshotTranslateKey = GlobalConfig.HotKeys.ScreenshotTranslate.Key;
+
+        if (GlobalConfig.HotKeys.TopMost.Key == 0)
+        {
+            NativeMethod.UnregisterHotKey(_mainFormHandle, TopMostId);
+        }
+        else if (_topMostModifiers != GlobalConfig.HotKeys.TopMost.Modifiers ||
+                 _topMostKey != GlobalConfig.HotKeys.TopMost.Key)
+        {
+            NativeMethod.UnregisterHotKey(_mainFormHandle, TopMostId);
+            GlobalConfig.HotKeys.TopMost.Conflict = !NativeMethod.RegisterHotKey(_mainFormHandle, TopMostId,
+                GlobalConfig.HotKeys.TopMost.Modifiers, GlobalConfig.HotKeys.TopMost.Key);
+        }
+
+        _topMostModifiers = GlobalConfig.HotKeys.TopMost.Modifiers;
+        _topMostKey = GlobalConfig.HotKeys.TopMost.Key;
     }
 }

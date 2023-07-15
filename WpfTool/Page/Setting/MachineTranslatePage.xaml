@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:WpfTool.Page.Setting"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d"
       d:DesignHeight="600"
@@ -12,15 +11,15 @@
     <StackPanel>
         <ui:Card Footer="{DynamicResource Setting_defaultMachineTranslate}">
             <WrapPanel>
-                <ComboBox x:Name="defaultTranslateProvideComboBox" Width="140"
+                <ComboBox x:Name="DefaultTranslateProvideComboBox" Width="140"
                           SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
                     <ComboBoxItem DataContext="BaiduAI" Content="{DynamicResource CloudService_BaiduAI}" />
                     <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
                     <ComboBoxItem DataContext="GoogleCloud" Content="{DynamicResource CloudService_GoogleCloud}" />
                 </ComboBox>
-                <ComboBox x:Name="sourceLanguageComboBox" Width="120" Margin="5,0,0,0"
+                <ComboBox x:Name="SourceLanguageComboBox" Width="120" Margin="5,0,0,0"
                           SelectionChanged="sourceLanguageComboBox_SelectionChanged" />
-                <ComboBox x:Name="targetLanguageComboBox" Width="120" Margin="5,0,0,0"
+                <ComboBox x:Name="TargetLanguageComboBox" Width="120" Margin="5,0,0,0"
                           SelectionChanged="targetLanguageComboBox_SelectionChanged" />
             </WrapPanel>
         </ui:Card>
@@ -37,12 +36,12 @@
 
                 <Label Grid.Row="0" Grid.Column="0" Content="SecretID" VerticalAlignment="Center"
                        HorizontalAlignment="Right" />
-                <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="TencentCloudTranslate_SecretIdInput" Margin="5,0,0,0"
+                <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="TencentCloudTranslateSecretIdInput" Margin="5,0,0,0"
                             TextChanged="TencentCloudTranslate_SecretIdInput_TextChanged" />
 
                 <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" Margin="0,5,0,0" VerticalAlignment="Center"
                        HorizontalAlignment="Right" />
-                <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudTranslate_SecretKeyInput"
+                <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudTranslateSecretKeyInput"
                                 Margin="5,5,0,0"
                                 PasswordChanged="TencentCloudTranslate_SecretKeyInput_PasswordChanged" />
             </Grid>
@@ -77,12 +76,12 @@
 
                 <Label Grid.Row="0" Grid.Column="0" Content="SecretID" VerticalAlignment="Center"
                        HorizontalAlignment="Right" />
-                <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="BaiduAI_AppIdInput" Margin="5,0,0,0"
+                <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="BaiduAiAppIdInput" Margin="5,0,0,0"
                             TextChanged="BaiduAI_AppIdInput_TextChanged" />
 
                 <Label Grid.Row="1" Grid.Column="0" Content="SecretKey" Margin="0,5,0,0" VerticalAlignment="Center"
                        HorizontalAlignment="Right" />
-                <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="BaiduAI_SecretKeyInput" Margin="5,5,0,0"
+                <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="BaiduAiSecretKeyInput" Margin="5,5,0,0"
                                 PasswordChanged="BaiduAI_SecretKeyInput_PasswordChanged" />
             </Grid>
             <ui:Card.Footer>

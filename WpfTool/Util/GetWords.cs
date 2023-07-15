@@ -1,38 +1,35 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
+using System.Windows.Forms;
 using System.Windows.Input;
 using WpfTool.Entity;
 
-namespace WpfTool.Util
+namespace WpfTool.Util;
+
+public static class GetWords
 {
-    public class GetWords
+    public static string Get()
     {
-        public static String Get()
-        {
-            SendCtrlC();
-            Thread.Sleep(GlobalConfig.Common.WordSelectionInterval);
-            String text = NativeClipboard.GetText();
-            return text;
-        }
+        SendCtrlC();
+        Thread.Sleep(GlobalConfig.Common.WordSelectionInterval);
+        return NativeClipboard.GetText();
+    }
 
-        private static void SendCtrlC()
-        {
-            //IntPtr hWnd = GetForegroundWindow();
-            //SetForegroundWindow(hWnd);
-            uint KEYEVENTF_KEYUP = 2;
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, KEYEVENTF_KEYUP, 0);
-            NativeMethod.keybd_event(KeyInterop.VirtualKeyFromKey(Key.LeftAlt), 0, KEYEVENTF_KEYUP, 0);
-            NativeMethod.keybd_event(KeyInterop.VirtualKeyFromKey(Key.RightAlt), 0, KEYEVENTF_KEYUP, 0);
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.LWin, 0, KEYEVENTF_KEYUP, 0);
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.RWin, 0, KEYEVENTF_KEYUP, 0);
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.ShiftKey, 0, KEYEVENTF_KEYUP, 0);
-
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, 0, 0);
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.C, 0, 0, 0);
-
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.C, 0, KEYEVENTF_KEYUP, 0);
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, KEYEVENTF_KEYUP, 0);// 'Left Control Up
-        }
-
+    private static void SendCtrlC()
+    {
+        const uint keyEventKeyup = 2;
+        const uint keyEventKeydown = 0;
+        // 抬起所有键盘控制键
+        NativeMethod.keybd_event(Keys.ControlKey, 0, keyEventKeyup, 0);
+        NativeMethod.keybd_event(KeyInterop.VirtualKeyFromKey(Key.LeftAlt), 0, keyEventKeyup, 0);
+        NativeMethod.keybd_event(KeyInterop.VirtualKeyFromKey(Key.RightAlt), 0, keyEventKeyup, 0);
+        NativeMethod.keybd_event(Keys.LWin, 0, keyEventKeyup, 0);
+        NativeMethod.keybd_event(Keys.RWin, 0, keyEventKeyup, 0);
+        NativeMethod.keybd_event(Keys.ShiftKey, 0, keyEventKeyup, 0);
+        // 按下 Ctrl + C
+        NativeMethod.keybd_event(Keys.ControlKey, 0, keyEventKeydown, 0);
+        NativeMethod.keybd_event(Keys.C, 0, keyEventKeydown, 0);
+        // 抬起 Ctrl + C
+        NativeMethod.keybd_event(Keys.C, 0, keyEventKeyup, 0);
+        NativeMethod.keybd_event(Keys.ControlKey, 0, keyEventKeyup, 0);
     }
 }

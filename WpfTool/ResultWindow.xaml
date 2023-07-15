@@ -4,7 +4,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:local="clr-namespace:WpfTool"
     x:Class="WpfTool.ResultWindow"
     mc:Ignorable="d"
     ExtendsContentIntoTitleBar="True"
@@ -34,59 +33,60 @@
                 <RowDefinition Height="100*" />
             </Grid.RowDefinitions>
 
-            <ComboBox x:Name="defaultOcrProvideComboBox" Width="200" Grid.Row="0" Grid.Column="0" Margin="5"
+            <ComboBox x:Name="DefaultOcrProvideComboBox" Width="200" Grid.Row="0" Grid.Column="0" Margin="5"
                       SelectionChanged="defaultOcrProvideComboBox_SelectionChanged" VerticalContentAlignment="Center">
                 <ComboBoxItem DataContext="BaiduCloud" Content="{DynamicResource CloudService_BaiduCloud}" />
                 <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
                 <ComboBoxItem DataContext="SpaceOCR" Content="{DynamicResource CloudService_SpaceOCR}" />
             </ComboBox>
-            <ComboBox x:Name="defaultOcrTypeComboBox" Width="140" Grid.Row="0" Grid.Column="1" Margin="5"
+            <ComboBox x:Name="DefaultOcrTypeComboBox" Width="140" Grid.Row="0" Grid.Column="1" Margin="5"
                       SelectionChanged="OcrTypeComboBox_SelectionChanged" VerticalContentAlignment="Center" />
-            <ComboBox x:Name="defaultOcrLanguageComboBox" Width="140" Grid.Row="0" Grid.Column="2" Margin="5"
+            <ComboBox x:Name="DefaultOcrLanguageComboBox" Width="140" Grid.Row="0" Grid.Column="2" Margin="5"
                       SelectionChanged="OcrTypeComboBox_SelectionChanged" VerticalContentAlignment="Center" />
-            <CheckBox x:Name="defaultOcrSettingCheck" Grid.Row="0" Grid.Column="3" Margin="5"
+            <CheckBox x:Name="DefaultOcrSettingCheck" Grid.Row="0" Grid.Column="3" Margin="5"
                       VerticalAlignment="Center" Content="{DynamicResource ResultWindows_SetAsDefault}"
                       Checked="defaultOcrSettingCheck_Checked" />
-            <ui:Button x:Name="ocrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right"
-                    Content="{DynamicResource ResultWindows_ReOCR}" Cursor="Hand" Click="ocrButton_Click" Padding="5" />
+            <ui:Button x:Name="OcrButton" Margin="5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right"
+                       Content="{DynamicResource ResultWindows_ReOCR}" Cursor="Hand" Click="ocrButton_Click"
+                       Padding="5" />
 
             <ui:TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
-                     x:Name="ocrTextBox"
-                     Margin="5"
-                     VerticalContentAlignment="Top"
-                     VerticalAlignment="Stretch"
-                     AcceptsReturn="True"
-                     TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Auto" />
+                        x:Name="OcrTextBox"
+                        Margin="5"
+                        VerticalContentAlignment="Top"
+                        VerticalAlignment="Stretch"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
 
-            <ComboBox x:Name="defaultTranslateProvideComboBox" Width="200" Margin="5" Grid.Row="2" Grid.Column="0"
+            <ComboBox x:Name="DefaultTranslateProvideComboBox" Width="200" Margin="5" Grid.Row="2" Grid.Column="0"
                       SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged"
                       VerticalContentAlignment="Center">
                 <ComboBoxItem DataContext="BaiduAI" Content="{DynamicResource CloudService_BaiduAI}" />
                 <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
                 <ComboBoxItem DataContext="GoogleCloud" Content="{DynamicResource CloudService_GoogleCloud}" />
             </ComboBox>
-            <ComboBox x:Name="sourceLanguageComboBox" Width="140" Margin="5" Grid.Row="2" Grid.Column="1"
+            <ComboBox x:Name="SourceLanguageComboBox" Width="140" Margin="5" Grid.Row="2" Grid.Column="1"
                       SelectionChanged="TranslateLanguageComboBox_SelectionChanged" VerticalContentAlignment="Center" />
-            <ComboBox x:Name="targetLanguageComboBox" Width="140" Margin="5" Grid.Row="2" Grid.Column="2"
+            <ComboBox x:Name="TargetLanguageComboBox" Width="140" Margin="5" Grid.Row="2" Grid.Column="2"
                       SelectionChanged="TranslateLanguageComboBox_SelectionChanged" VerticalContentAlignment="Center" />
-            <CheckBox x:Name="defaultTranslateSettingCheck" Margin="5" Grid.Row="2" Grid.Column="3"
+            <CheckBox x:Name="DefaultTranslateSettingCheck" Margin="5" Grid.Row="2" Grid.Column="3"
                       VerticalAlignment="Center" Content="{DynamicResource ResultWindows_SetAsDefault}"
                       Checked="defaultTranslateSettingCheck_Checked" />
-            <ui:Button x:Name="translateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right"
-                    Content="{DynamicResource ResultWindows_Translate}" Click="translateButton_Click" Cursor="Hand"
-                    MinWidth="60" Padding="5" />
+            <ui:Button x:Name="TranslateButton" Margin="5" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right"
+                       Content="{DynamicResource ResultWindows_Translate}" Click="translateButton_Click" Cursor="Hand"
+                       MinWidth="60" Padding="5" />
 
             <ui:TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"
-                     x:Name="translateTextBox"
-                     Margin="5"
-                     VerticalContentAlignment="Top"
-                     VerticalAlignment="Stretch"
-                     AcceptsReturn="True"
-                     TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Auto" />
+                        x:Name="TranslateTextBox"
+                        Margin="5"
+                        VerticalContentAlignment="Top"
+                        VerticalAlignment="Stretch"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
         </Grid>
-        
+
         <ui:Dialog
             x:Name="RootDialog"
             Grid.Row="1"
@@ -94,6 +94,6 @@
             Message="Remember that the Heat Death of Universe is coming someday, no time to explain - let's go!"
             ButtonLeftVisibility="Hidden"
             ButtonRightName="{DynamicResource ResultWindows_DialogClose}"
-            ButtonRightClick="RootDialog_OnButtonRightClick"/>
+            ButtonRightClick="RootDialog_OnButtonRightClick" />
     </Grid>
 </ui:UiWindow>

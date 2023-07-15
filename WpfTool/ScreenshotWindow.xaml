@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfTool"
         mc:Ignorable="d"
-        Title="ScreenshotWindow" Height="1" Width="1" ShowInTaskbar="False" 
-        ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-        Topmost="True" Cursor="Cross" KeyDown="Window_KeyDown" Background="Transparent" 
-        WindowStyle="None" ResizeMode="NoResize" IsTabStop="False" 
-        MouseRightButtonDown="Window_MouseRightButtonDown" MouseMove="Window_MouseMove" 
-        MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseLeftButtonUp="Window_MouseLeftButtonUp" Closed="Window_Closed">
+        Title="ScreenshotWindow" Height="1" Width="1" ShowInTaskbar="False"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+        Topmost="True" Cursor="Cross" KeyDown="Window_KeyDown" Background="Transparent"
+        WindowStyle="None" ResizeMode="NoResize" IsTabStop="False"
+        MouseRightButtonDown="Window_MouseRightButtonDown" MouseMove="Window_MouseMove"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseLeftButtonUp="Window_MouseLeftButtonUp"
+        Closed="Window_Closed">
     <Canvas x:Name="ScreenCanvas">
         <Rectangle x:Name="LeftMask" Fill="#FF000000" Opacity="0.6" />
         <Rectangle x:Name="RightMask" Fill="#FF000000" Opacity="0.6" />

@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:WpfTool.Page.Setting"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d"
       d:DesignHeight="600"
@@ -11,11 +10,11 @@
       Title="Common" Loaded="Common_OnLoaded">
     <StackPanel>
         <ui:CardControl Header="{DynamicResource Setting_AutoStart}">
-            <ui:ToggleSwitch x:Name="autoStartButton" Checked="autoStartButton_Checked"
+            <ui:ToggleSwitch x:Name="AutoStartButton" Checked="autoStartButton_Checked"
                              Unchecked="autoStartButton_Unchecked" />
         </ui:CardControl>
         <ui:CardControl Header="{DynamicResource Setting_language}" Margin="0,5,0,0">
-            <ComboBox x:Name="languageComboBox" SelectionChanged="languageComboBox_SelectionChanged">
+            <ComboBox x:Name="LanguageComboBox" SelectionChanged="languageComboBox_SelectionChanged">
                 <ComboBoxItem DataContext="en_US" Content="English" />
                 <ComboBoxItem DataContext="zh_CN" Content="简体中文" />
             </ComboBox>

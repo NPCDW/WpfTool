@@ -7,12 +7,11 @@ using WpfTool.Util;
 
 namespace WpfTool.Page.Setting;
 
-public partial class GlobalHotkeyPage : System.Windows.Controls.Page
+public partial class GlobalHotkeyPage
 {
-    private bool WindowLoaded = false;
-    private byte hotkeysModifiers;
-    private int hotkeysKey;
-    private string hotkeysText = "";
+    private int _hotkeysKey;
+    private byte _hotkeysModifiers;
+    private string _hotkeysText = "";
 
     public GlobalHotkeyPage()
     {
@@ -21,131 +20,119 @@ public partial class GlobalHotkeyPage : System.Windows.Controls.Page
 
     private void GlobalHotkey_OnLoaded(object sender, RoutedEventArgs e)
     {
-        this.OcrHotKeyTextBox.Text = GlobalConfig.HotKeys.OcrHotKey.Text;
-        this.GetWordsTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.GetWordsTranslate.Text;
-        this.ScreenshotTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.ScreenshotTranslate.Text;
-        this.TopMostHotKeyTextBox.Text = GlobalConfig.HotKeys.TopMost.Text;
+        OcrHotKeyTextBox.Text = GlobalConfig.HotKeys.OcrHotKey.Text;
+        GetWordsTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.GetWordsTranslate.Text;
+        ScreenshotTranslateHotKeyTextBox.Text = GlobalConfig.HotKeys.ScreenshotTranslate.Text;
+        TopMostHotKeyTextBox.Text = GlobalConfig.HotKeys.TopMost.Text;
 
         HotKeyConflictCheck();
-
-        this.WindowLoaded = true;
     }
 
     private void HotKeyTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
     {
         e.Handled = true;
-        hotkeysModifiers = 0;
-        hotkeysKey = 0;
-        hotkeysText = "";
-        Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
+        _hotkeysModifiers = 0;
+        _hotkeysKey = 0;
+        _hotkeysText = "";
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
         if (key == Key.LeftShift || key == Key.RightShift
                                  || key == Key.LeftCtrl || key == Key.RightCtrl
                                  || key == Key.LeftAlt || key == Key.RightAlt
                                  || key == Key.LWin || key == Key.RWin)
-        {
             return;
-        }
 
-        StringBuilder shortcutText = new StringBuilder();
+        var shortcutText = new StringBuilder();
         if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
         {
-            hotkeysModifiers += 2;
+            _hotkeysModifiers += 2;
             shortcutText.Append("Ctrl + ");
         }
 
         if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
         {
-            hotkeysModifiers += 4;
+            _hotkeysModifiers += 4;
             shortcutText.Append("Shift + ");
         }
 
         if ((Keyboard.Modifiers & ModifierKeys.Alt) != 0)
         {
-            hotkeysModifiers += 1;
+            _hotkeysModifiers += 1;
             shortcutText.Append("Alt + ");
         }
 
-        if (hotkeysModifiers == 0 && (key < Key.F1 || key > Key.F12))
+        if (_hotkeysModifiers == 0 && (key < Key.F1 || key > Key.F12))
         {
-            hotkeysKey = 0;
+            _hotkeysKey = 0;
             shortcutText.Clear();
-            ((TextBox)sender).Text = hotkeysText = "";
+            ((TextBox)sender).Text = _hotkeysText = "";
             return;
         }
 
-        hotkeysKey = KeyInterop.VirtualKeyFromKey(key);
+        _hotkeysKey = KeyInterop.VirtualKeyFromKey(key);
         shortcutText.Append(key.ToString());
-        ((TextBox)sender).Text = hotkeysText = shortcutText.ToString();
+        ((TextBox)sender).Text = _hotkeysText = shortcutText.ToString();
     }
 
     private void OcrHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
     {
-        Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
         if (key == Key.LeftShift || key == Key.RightShift
                                  || key == Key.LeftCtrl || key == Key.RightCtrl
                                  || key == Key.LeftAlt || key == Key.RightAlt
                                  || key == Key.LWin || key == Key.RWin)
-        {
             return;
-        }
 
-        GlobalConfig.HotKeys.OcrHotKey.Modifiers = hotkeysModifiers;
-        GlobalConfig.HotKeys.OcrHotKey.Key = hotkeysKey;
-        GlobalConfig.HotKeys.OcrHotKey.Text = hotkeysText.ToString();
+        GlobalConfig.HotKeys.OcrHotKey.Modifiers = _hotkeysModifiers;
+        GlobalConfig.HotKeys.OcrHotKey.Key = _hotkeysKey;
+        GlobalConfig.HotKeys.OcrHotKey.Text = _hotkeysText;
         HotKeysUtil.ReRegisterHotKey();
         HotKeyConflictCheck();
     }
 
     private void GetWordsTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
     {
-        Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
         if (key == Key.LeftShift || key == Key.RightShift
                                  || key == Key.LeftCtrl || key == Key.RightCtrl
                                  || key == Key.LeftAlt || key == Key.RightAlt
                                  || key == Key.LWin || key == Key.RWin)
-        {
             return;
-        }
 
-        GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = hotkeysModifiers;
-        GlobalConfig.HotKeys.GetWordsTranslate.Key = hotkeysKey;
-        GlobalConfig.HotKeys.GetWordsTranslate.Text = hotkeysText.ToString();
+        GlobalConfig.HotKeys.GetWordsTranslate.Modifiers = _hotkeysModifiers;
+        GlobalConfig.HotKeys.GetWordsTranslate.Key = _hotkeysKey;
+        GlobalConfig.HotKeys.GetWordsTranslate.Text = _hotkeysText;
         HotKeysUtil.ReRegisterHotKey();
         HotKeyConflictCheck();
     }
 
     private void ScreenshotTranslateHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
     {
-        Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
         if (key == Key.LeftShift || key == Key.RightShift
                                  || key == Key.LeftCtrl || key == Key.RightCtrl
                                  || key == Key.LeftAlt || key == Key.RightAlt
                                  || key == Key.LWin || key == Key.RWin)
-        {
             return;
-        }
 
-        GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = hotkeysModifiers;
-        GlobalConfig.HotKeys.ScreenshotTranslate.Key = hotkeysKey;
-        GlobalConfig.HotKeys.ScreenshotTranslate.Text = hotkeysText.ToString();
+        GlobalConfig.HotKeys.ScreenshotTranslate.Modifiers = _hotkeysModifiers;
+        GlobalConfig.HotKeys.ScreenshotTranslate.Key = _hotkeysKey;
+        GlobalConfig.HotKeys.ScreenshotTranslate.Text = _hotkeysText;
         HotKeysUtil.ReRegisterHotKey();
         HotKeyConflictCheck();
     }
 
     private void TopMostHotKeyTextBox_KeyUp(object sender, KeyEventArgs e)
     {
-        Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
         if (key == Key.LeftShift || key == Key.RightShift
                                  || key == Key.LeftCtrl || key == Key.RightCtrl
                                  || key == Key.LeftAlt || key == Key.RightAlt
                                  || key == Key.LWin || key == Key.RWin)
-        {
             return;
-        }
 
-        GlobalConfig.HotKeys.TopMost.Modifiers = hotkeysModifiers;
-        GlobalConfig.HotKeys.TopMost.Key = hotkeysKey;
-        GlobalConfig.HotKeys.TopMost.Text = hotkeysText.ToString();
+        GlobalConfig.HotKeys.TopMost.Modifiers = _hotkeysModifiers;
+        GlobalConfig.HotKeys.TopMost.Key = _hotkeysKey;
+        GlobalConfig.HotKeys.TopMost.Text = _hotkeysText;
         HotKeysUtil.ReRegisterHotKey();
         HotKeyConflictCheck();
     }
@@ -176,15 +163,15 @@ public partial class GlobalHotkeyPage : System.Windows.Controls.Page
 
     private void HotKeyConflictCheck()
     {
-        this.OcrHotKeyConflictLabel.Visibility =
+        OcrHotKeyConflictLabel.Visibility =
             GlobalConfig.HotKeys.OcrHotKey.Conflict ? Visibility.Visible : Visibility.Hidden;
-        this.GetWordsTranslateHotKeyConflictLabel.Visibility = GlobalConfig.HotKeys.GetWordsTranslate.Conflict
+        GetWordsTranslateHotKeyConflictLabel.Visibility = GlobalConfig.HotKeys.GetWordsTranslate.Conflict
             ? Visibility.Visible
             : Visibility.Hidden;
-        this.ScreenshotTranslateHotKeyConflictLabel.Visibility = GlobalConfig.HotKeys.ScreenshotTranslate.Conflict
+        ScreenshotTranslateHotKeyConflictLabel.Visibility = GlobalConfig.HotKeys.ScreenshotTranslate.Conflict
             ? Visibility.Visible
             : Visibility.Hidden;
-        this.TopMostHotKeyConflictLabel.Visibility =
+        TopMostHotKeyConflictLabel.Visibility =
             GlobalConfig.HotKeys.TopMost.Conflict ? Visibility.Visible : Visibility.Hidden;
     }
 }
