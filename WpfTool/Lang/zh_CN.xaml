@@ -31,6 +31,7 @@
     <sys:String x:Key="Setting_SourceCode">源码</sys:String>
     <sys:String x:Key="Setting_feedback">反馈</sys:String>
     <sys:String x:Key="Setting_Links">友情链接</sys:String>
+    <sys:String x:Key="Setting_FreeOCR">无需领取，免费且不限量</sys:String>
 
     <sys:String x:Key="MainWindows_HotkeyConflictMessage">全局快捷键有冲突，请您到设置中重新设置</sys:String>
     <sys:String x:Key="MainWindows_TopMostMessage">请将鼠标移动到您想要置顶的窗口的标题栏（窗口最上方），按F6或您自己设置的快捷键，即可置顶或取消置顶，只支持Win32应用，不支持UWP应用</sys:String>
