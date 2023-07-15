@@ -27,9 +27,9 @@ namespace WpfTool
             NativeMethod.keybd_event(System.Windows.Forms.Keys.ShiftKey, 0, KEYEVENTF_KEYUP, 0);
 
             NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, 0, 0);
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.C, 0, 0, 0);
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.Insert, 0, 0, 0);
 
-            NativeMethod.keybd_event(System.Windows.Forms.Keys.C, 0, KEYEVENTF_KEYUP, 0);
+            NativeMethod.keybd_event(System.Windows.Forms.Keys.Insert, 0, KEYEVENTF_KEYUP, 0);
             NativeMethod.keybd_event(System.Windows.Forms.Keys.ControlKey, 0, KEYEVENTF_KEYUP, 0);// 'Left Control Up
         }
 
