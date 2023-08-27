@@ -30,7 +30,7 @@ Multi-screen capture text recognition or translation: only the screen where the 
 
 How to cancel screenshot? Press `ESC` or right-click
 
-Marking words (taking words from the screen) is to send `Ctrl+C` by analog, and then get words from the clipboard
+Marking words (taking words from the screen) is to send `Ctrl+Insert` by analog, and then get words from the clipboard
 
 Keep the background process, the memory usage is about `3-4M`
 

@@ -25,10 +25,10 @@ public static class GetWords
         NativeMethod.keybd_event(Keys.LWin, 0, keyEventKeyup, 0);
         NativeMethod.keybd_event(Keys.RWin, 0, keyEventKeyup, 0);
         NativeMethod.keybd_event(Keys.ShiftKey, 0, keyEventKeyup, 0);
-        // 按下 Ctrl + C
+        // 按下 Ctrl + Insert
         NativeMethod.keybd_event(Keys.ControlKey, 0, keyEventKeydown, 0);
         NativeMethod.keybd_event(Keys.Insert, 0, keyEventKeydown, 0);
-        // 抬起 Ctrl + C
+        // 抬起 Ctrl + Insert
         NativeMethod.keybd_event(Keys.Insert, 0, keyEventKeyup, 0);
         NativeMethod.keybd_event(Keys.ControlKey, 0, keyEventKeyup, 0);
     }
