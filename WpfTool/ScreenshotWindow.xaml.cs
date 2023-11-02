@@ -42,6 +42,7 @@ public partial class ScreenshotWindow
             y = (int)(bounds.Y * _dpiScale);
             width = (int)(bounds.Width * _dpiScale);
             height = (int)(bounds.Height * _dpiScale);
+            bounds = new Rect(x, y, width, height);
             if (x <= ms.X && ms.X < x + width && y <= ms.Y && ms.Y < y + height) break;
         }
 
