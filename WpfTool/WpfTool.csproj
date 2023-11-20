@@ -8,8 +8,8 @@
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>1.14.2.0</FileVersion>
-    <AssemblyVersion>1.14.2.0</AssemblyVersion>
+    <FileVersion>1.14.3.0</FileVersion>
+    <AssemblyVersion>1.14.3.0</AssemblyVersion>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/NPCDW/WpfTool.git</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>

@@ -13,7 +13,7 @@
             <WrapPanel>
                 <ComboBox x:Name="DefaultTranslateProvideComboBox" Width="140"
                           SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged">
-                    <ComboBoxItem DataContext="BaiduAI" Content="{DynamicResource CloudService_BaiduAI}" />
+                    <ComboBoxItem DataContext="BaiduAi" Content="{DynamicResource CloudService_BaiduAI}" />
                     <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
                     <ComboBoxItem DataContext="GoogleCloud" Content="{DynamicResource CloudService_GoogleCloud}" />
                 </ComboBox>

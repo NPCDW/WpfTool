@@ -62,7 +62,7 @@
             <ComboBox x:Name="DefaultTranslateProvideComboBox" Width="200" Margin="5" Grid.Row="2" Grid.Column="0"
                       SelectionChanged="defaultTranslateProvideComboBox_SelectionChanged"
                       VerticalContentAlignment="Center">
-                <ComboBoxItem DataContext="BaiduAI" Content="{DynamicResource CloudService_BaiduAI}" />
+                <ComboBoxItem DataContext="BaiduAi" Content="{DynamicResource CloudService_BaiduAI}" />
                 <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
                 <ComboBoxItem DataContext="GoogleCloud" Content="{DynamicResource CloudService_GoogleCloud}" />
             </ComboBox>
