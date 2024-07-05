@@ -32,6 +32,7 @@
     <sys:String x:Key="Setting_feedback">Feedback</sys:String>
     <sys:String x:Key="Setting_Links">Links</sys:String>
     <sys:String x:Key="Setting_FreeOCR">No need to claim, free and unlimited</sys:String>
+    <sys:String x:Key="Setting_GetFreeDeeplx">Get Free Deeplx (self-host or linux.do)</sys:String>
 
     <sys:String x:Key="MainWindows_HotkeyConflictMessage">There is a conflict with the global shortcut keys, please go to the settings to reset</sys:String>
     <sys:String x:Key="MainWindows_TopMostMessage">Please move the mouse to the title bar of the window you want to stick to the top (the top of the window), press F6 or the shortcut key you set yourself, you can stick it to the top or cancel it. Only Win32 applications are supported, UWP applications are not supported</sys:String>
@@ -77,6 +78,7 @@
     <sys:String x:Key="CloudService_TencentCloud">Tencent Cloud</sys:String>
     <sys:String x:Key="CloudService_BaiduAI">BaiduAI</sys:String>
     <sys:String x:Key="CloudService_GoogleCloud">GoogleCloud</sys:String>
+    <sys:String x:Key="CloudService_Deeplx">Deeplx</sys:String>
     <sys:String x:Key="CloudService_SpaceOCR">SpaceOCR</sys:String>
 
     <sys:String x:Key="OcrType_GeneralBasic">General Basic</sys:String>
