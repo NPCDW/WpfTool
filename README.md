@@ -15,7 +15,7 @@ Free Quota:
     - Tencent Cloud [https://cloud.tencent.com/document/product/551/35017](https://cloud.tencent.com/document/product/551/35017)
     - Baidu AI [https://fanyi-api.baidu.com/product/113](https://fanyi-api.baidu.com/product/113)
     - Google Translate (free and unlimited, but unofficial endpoint)
-    - Deeplx (linux.do)[https://linux.do/] or (self-host)[https://deeplx.owo.network/]
+    - Deeplx [linux.do](https://linux.do/) or [self-host](https://deeplx.owo.network/)
 
 # Features
 
