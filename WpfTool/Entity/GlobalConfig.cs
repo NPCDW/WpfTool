@@ -79,6 +79,8 @@ public static class GlobalConfig
             Translate.BaiduAi.AppSecret = jsonObj["Translate"]!["BaiduAI"]!["app_secret"]!.ToString();
             Translate.TencentCloud.SecretId = jsonObj["Translate"]!["TencentCloud"]!["secret_id"]!.ToString();
             Translate.TencentCloud.SecretKey = jsonObj["Translate"]!["TencentCloud"]!["secret_key"]!.ToString();
+            Translate.Deeplx.Url = jsonObj["Translate"]!["Deeplx"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Url"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Url"]!.ToString();
+            Translate.Deeplx.Authorization = jsonObj["Translate"]!["Deeplx"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Authorization"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Authorization"]!.ToString();
 
             HotKeys.OcrHotKey.Modifiers = byte.Parse(jsonObj["HotKeys"]!["Ocr"]!["Modifiers"]!.ToString());
             HotKeys.OcrHotKey.Key = int.Parse(jsonObj["HotKeys"]!["Ocr"]!["Key"]!.ToString());
@@ -134,6 +136,9 @@ public static class GlobalConfig
         jsonObj["Translate"]!["TencentCloud"] = new JObject();
         jsonObj["Translate"]!["TencentCloud"]!["secret_id"] = Translate.TencentCloud.SecretId;
         jsonObj["Translate"]!["TencentCloud"]!["secret_key"] = Translate.TencentCloud.SecretKey;
+        jsonObj["Translate"]!["Deeplx"] = new JObject();
+        jsonObj["Translate"]!["Deeplx"]!["Url"] = Translate.Deeplx.Url;
+        jsonObj["Translate"]!["Deeplx"]!["Authorization"] = Translate.Deeplx.Authorization;
 
         jsonObj["HotKeys"] = new JObject();
         jsonObj["HotKeys"]!["Ocr"] = new JObject();
@@ -231,7 +236,8 @@ public static class GlobalConfig
         {
             BaiduAi,
             TencentCloud,
-            GoogleCloud
+            GoogleCloud,
+            Deeplx
         }
 
         public static TranslateProvideEnum DefaultTranslateProvide;
@@ -248,6 +254,12 @@ public static class GlobalConfig
         {
             public static string SecretId = "";
             public static string SecretKey = "";
+        }
+
+        public static class Deeplx
+        {
+            public static string Url = "";
+            public static string Authorization = "";
         }
     }
 

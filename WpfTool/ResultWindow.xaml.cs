@@ -129,6 +129,23 @@ public partial class ResultWindow
                 TranslateTextBox.Dispatcher.Invoke(delegate { TranslateTextBox.Text = result.Result; });
             });
         }
+        else if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.Deeplx)
+        {
+            if (string.IsNullOrEmpty(GlobalConfig.Translate.Deeplx.Url))
+            {
+                RootDialog.Show("", (FindResource("ResultWindows_EmptyKeyMessage") as string)!);
+                return;
+            }
+
+            TranslateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
+            DispatcherHelper.DoEvents();
+
+            var ocrText = OcrTextBox.Text;
+            DeeplxHelper.Translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
+            {
+                TranslateTextBox.Dispatcher.Invoke(delegate { TranslateTextBox.Text = result.Result; });
+            });
+        }
     }
 
     public void Ocr(Bitmap bmp, string? ocrProvideStr = null, string? ocrType = null, string? ocrLanguage = null)
@@ -448,8 +465,26 @@ public partial class ResultWindow
                     TargetLanguageComboBox.Items.Add(comboBoxItem2);
                 }
         }
+        else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Deeplx.ToString()))
+        {
+            foreach (var item in TranslateLanguageExtension.TranslateLanguageAttributeList)
+                if (!string.IsNullOrWhiteSpace(item.GetDeeplxCode()))
+                {
+                    var comboBoxItem = new ComboBoxItem();
+                    comboBoxItem.DataContext = item.GetDeeplxCode();
+                    comboBoxItem.SetResourceReference(ContentProperty, item.GetName());
+                    SourceLanguageComboBox.Items.Add(comboBoxItem);
+                    var comboBoxItem2 = new ComboBoxItem();
+                    comboBoxItem2.DataContext = item.GetDeeplxCode();
+                    comboBoxItem2.SetResourceReference(ContentProperty, item.GetName());
+                    TargetLanguageComboBox.Items.Add(comboBoxItem2);
+                }
+        }
 
-        TargetLanguageComboBox.Items.RemoveAt(0);
+        if (!translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Deeplx.ToString()))
+        {
+            TargetLanguageComboBox.Items.RemoveAt(0);
+        }
         SourceLanguageComboBox.SelectedItem = SourceLanguageComboBox.Items[0];
         TargetLanguageComboBox.SelectedItem = TargetLanguageComboBox.Items[0];
     }

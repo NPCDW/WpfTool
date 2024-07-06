@@ -32,6 +32,10 @@
     "TencentCloud": {
       "secret_id": "",
       "secret_key": ""
+    },
+    "Deeplx": {
+      "Url": "",
+      "Authorization": ""
     }
   },
   "HotKeys": {

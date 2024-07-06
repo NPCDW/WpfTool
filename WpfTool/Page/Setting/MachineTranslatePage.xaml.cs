@@ -45,6 +45,9 @@ public partial class MachineTranslatePage
         TencentCloudTranslateSecretIdInput.Text = GlobalConfig.Translate.TencentCloud.SecretId;
         TencentCloudTranslateSecretKeyInput.Password = GlobalConfig.Translate.TencentCloud.SecretKey;
 
+        DeeplxUrlInput.Text = GlobalConfig.Translate.Deeplx.Url;
+        DeeplxAuthorizationInput.Password = GlobalConfig.Translate.Deeplx.Authorization;
+
         _pageLoaded = true;
     }
 
@@ -105,8 +108,26 @@ public partial class MachineTranslatePage
                     TargetLanguageComboBox.Items.Add(comboBoxItem2);
                 }
         }
+        else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Deeplx.ToString()))
+        {
+            foreach (var item in TranslateLanguageExtension.TranslateLanguageAttributeList)
+                if (!string.IsNullOrWhiteSpace(item.GetDeeplxCode()))
+                {
+                    var comboBoxItem = new ComboBoxItem();
+                    comboBoxItem.DataContext = item.GetDeeplxCode();
+                    comboBoxItem.SetResourceReference(ContentControl.ContentProperty, item.GetName());
+                    SourceLanguageComboBox.Items.Add(comboBoxItem);
+                    var comboBoxItem2 = new ComboBoxItem();
+                    comboBoxItem2.DataContext = item.GetDeeplxCode();
+                    comboBoxItem2.SetResourceReference(ContentControl.ContentProperty, item.GetName());
+                    TargetLanguageComboBox.Items.Add(comboBoxItem2);
+                }
+        }
 
-        TargetLanguageComboBox.Items.RemoveAt(0);
+        if (!translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Deeplx.ToString()))
+        {
+            TargetLanguageComboBox.Items.RemoveAt(0);
+        }
         SourceLanguageComboBox.SelectedItem = SourceLanguageComboBox.Items[0];
         TargetLanguageComboBox.SelectedItem = TargetLanguageComboBox.Items[0];
     }
@@ -127,6 +148,16 @@ public partial class MachineTranslatePage
         TargetLanguageComboBox.DataContext = ((ComboBoxItem)TargetLanguageComboBox.SelectedItem).DataContext;
         if (_pageLoaded)
             GlobalConfig.Translate.DefaultTranslateTargetLanguage = TargetLanguageComboBox.DataContext.ToString();
+    }
+
+    private void Deeplx_UrlInput_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_pageLoaded) GlobalConfig.Translate.Deeplx.Url = DeeplxUrlInput.Text;
+    }
+
+    private void Deeplx_AuthorizationInput_PasswordChanged(object sender, RoutedEventArgs e)
+    {
+        if (_pageLoaded) GlobalConfig.Translate.Deeplx.Authorization = DeeplxAuthorizationInput.Password;
     }
 
     private void TencentCloudTranslate_SecretIdInput_TextChanged(object sender, TextChangedEventArgs e)

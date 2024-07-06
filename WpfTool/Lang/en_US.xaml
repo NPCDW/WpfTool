@@ -31,7 +31,7 @@
     <sys:String x:Key="Setting_SourceCode">SourceCode</sys:String>
     <sys:String x:Key="Setting_feedback">Feedback</sys:String>
     <sys:String x:Key="Setting_Links">Links</sys:String>
-    <sys:String x:Key="Setting_FreeOCR">No need to claim, free and unlimited</sys:String>
+    <sys:String x:Key="Setting_GoogleFreeTranslate">No need to claim, free and unlimited</sys:String>
     <sys:String x:Key="Setting_GetFreeDeeplx">Get Free Deeplx (self-host or linux.do)</sys:String>
 
     <sys:String x:Key="MainWindows_HotkeyConflictMessage">There is a conflict with the global shortcut keys, please go to the settings to reset</sys:String>
@@ -93,6 +93,8 @@
     <sys:String x:Key="Language_zh">Simplified Chinese</sys:String>
     <sys:String x:Key="Language_cht">Traditional Chinese</sys:String>
     <sys:String x:Key="Language_en">English</sys:String>
+    <sys:String x:Key="Language_en_gb">English (British)</sys:String>
+    <sys:String x:Key="Language_en_us">English (American)</sys:String>
     <sys:String x:Key="Language_jp">Japanese</sys:String>
     <sys:String x:Key="Language_kor">Korean</sys:String>
     <sys:String x:Key="Language_fra">French</sys:String>
@@ -101,6 +103,8 @@
     <sys:String x:Key="Language_ara">Arabic</sys:String>
     <sys:String x:Key="Language_ru">Russian</sys:String>
     <sys:String x:Key="Language_pt">Portuguese</sys:String>
+    <sys:String x:Key="Language_pt_br">Portuguese (Brazilian)</sys:String>
+    <sys:String x:Key="Language_pt_pt">Portuguese (all Portuguese varieties excluding Brazilian Portuguese)</sys:String>
     <sys:String x:Key="Language_de">German</sys:String>
     <sys:String x:Key="Language_it">Italian</sys:String>
     <sys:String x:Key="Language_vie">Vietnamese</sys:String>
@@ -169,6 +173,7 @@
     <sys:String x:Key="Language_mr">Marathi</sys:String>
     <sys:String x:Key="Language_mn">Mongolian</sys:String>
     <sys:String x:Key="Language_my">Myanmar (Burmese)</sys:String>
+    <sys:String x:Key="Language_nb">Norwegian Bokmål</sys:String>
     <sys:String x:Key="Language_ne">Nepali</sys:String>
     <sys:String x:Key="Language_no">Norwegian</sys:String>
     <sys:String x:Key="Language_ps">Pashto</sys:String>
