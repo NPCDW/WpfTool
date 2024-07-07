@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using WpfTool.Entity;
+using System.Collections.Generic;
 
 namespace WpfTool.Page.Setting;
 
@@ -63,71 +64,45 @@ public partial class MachineTranslatePage
         var translateProvide = DefaultTranslateProvideComboBox.DataContext.ToString()!;
         SourceLanguageComboBox.Items.Clear();
         TargetLanguageComboBox.Items.Clear();
-        if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.BaiduAi.ToString()))
+        List<TranslateLanguageAttribute> list;
+        if (translateProvide!.Equals(GlobalConfig.Translate.TranslateProvideEnum.BaiduAi.ToString()))
         {
-            foreach (var item in TranslateLanguageExtension.TranslateLanguageAttributeList)
-                if (!string.IsNullOrWhiteSpace(item.GetBaiduAiCode()))
-                {
-                    var comboBoxItem = new ComboBoxItem();
-                    comboBoxItem.DataContext = item.GetBaiduAiCode();
-                    comboBoxItem.SetResourceReference(ContentControl.ContentProperty, item.GetName());
-                    SourceLanguageComboBox.Items.Add(comboBoxItem);
-                    var comboBoxItem2 = new ComboBoxItem();
-                    comboBoxItem2.DataContext = item.GetBaiduAiCode();
-                    comboBoxItem2.SetResourceReference(ContentControl.ContentProperty, item.GetName());
-                    TargetLanguageComboBox.Items.Add(comboBoxItem2);
-                }
+            list = BaiduAiTranslateLanguageExtension.TranslateLanguageAttributeList;
         }
         else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.TencentCloud.ToString()))
         {
-            foreach (var item in TranslateLanguageExtension.TranslateLanguageAttributeList)
-                if (!string.IsNullOrWhiteSpace(item.GetTencentCloudCode()))
-                {
-                    var comboBoxItem = new ComboBoxItem();
-                    comboBoxItem.DataContext = item.GetTencentCloudCode();
-                    comboBoxItem.SetResourceReference(ContentControl.ContentProperty, item.GetName());
-                    SourceLanguageComboBox.Items.Add(comboBoxItem);
-                    var comboBoxItem2 = new ComboBoxItem();
-                    comboBoxItem2.DataContext = item.GetTencentCloudCode();
-                    comboBoxItem2.SetResourceReference(ContentControl.ContentProperty, item.GetName());
-                    TargetLanguageComboBox.Items.Add(comboBoxItem2);
-                }
+            list = TencentTranslateLanguageExtension.TranslateLanguageAttributeList;
         }
         else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud.ToString()))
         {
-            foreach (var item in TranslateLanguageExtension.TranslateLanguageAttributeList)
-                if (!string.IsNullOrWhiteSpace(item.GetGoogleCloudCode()))
-                {
-                    var comboBoxItem = new ComboBoxItem();
-                    comboBoxItem.DataContext = item.GetGoogleCloudCode();
-                    comboBoxItem.SetResourceReference(ContentControl.ContentProperty, item.GetName());
-                    SourceLanguageComboBox.Items.Add(comboBoxItem);
-                    var comboBoxItem2 = new ComboBoxItem();
-                    comboBoxItem2.DataContext = item.GetGoogleCloudCode();
-                    comboBoxItem2.SetResourceReference(ContentControl.ContentProperty, item.GetName());
-                    TargetLanguageComboBox.Items.Add(comboBoxItem2);
-                }
+            list = GoogleTranslateLanguageExtension.TranslateLanguageAttributeList;
         }
         else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Deeplx.ToString()))
         {
-            foreach (var item in TranslateLanguageExtension.TranslateLanguageAttributeList)
-                if (!string.IsNullOrWhiteSpace(item.GetDeeplxCode()))
-                {
-                    var comboBoxItem = new ComboBoxItem();
-                    comboBoxItem.DataContext = item.GetDeeplxCode();
-                    comboBoxItem.SetResourceReference(ContentControl.ContentProperty, item.GetName());
-                    SourceLanguageComboBox.Items.Add(comboBoxItem);
-                    var comboBoxItem2 = new ComboBoxItem();
-                    comboBoxItem2.DataContext = item.GetDeeplxCode();
-                    comboBoxItem2.SetResourceReference(ContentControl.ContentProperty, item.GetName());
-                    TargetLanguageComboBox.Items.Add(comboBoxItem2);
-                }
+            list = DeeplxTranslateLanguageExtension.TranslateLanguageAttributeList;
+        }
+        else
+        {
+            return;
+        }
+        foreach (var item in list)
+        {
+            if (item.GetSource())
+            {
+                var comboBoxItem = new ComboBoxItem();
+                comboBoxItem.DataContext = item.GetCode();
+                comboBoxItem.SetResourceReference(ContentControl.ContentProperty, item.GetName());
+                SourceLanguageComboBox.Items.Add(comboBoxItem);
+            }
+            if (item.GetTarget())
+            {
+                var comboBoxItem2 = new ComboBoxItem();
+                comboBoxItem2.DataContext = item.GetCode();
+                comboBoxItem2.SetResourceReference(ContentControl.ContentProperty, item.GetName());
+                TargetLanguageComboBox.Items.Add(comboBoxItem2);
+            }
         }
 
-        if (!translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Deeplx.ToString()))
-        {
-            TargetLanguageComboBox.Items.RemoveAt(0);
-        }
         SourceLanguageComboBox.SelectedItem = SourceLanguageComboBox.Items[0];
         TargetLanguageComboBox.SelectedItem = TargetLanguageComboBox.Items[0];
     }

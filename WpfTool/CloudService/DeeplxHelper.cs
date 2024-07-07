@@ -42,7 +42,7 @@ public static class DeeplxHelper
             {
                 jsonObj = JObject.Parse(response);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return response;
             }

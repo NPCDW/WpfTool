@@ -134,7 +134,7 @@ public partial class OcrPage
             DefaultOcrTypeComboBox.SelectedItem = item;
 
             DefaultOcrLanguageComboBox.Items.Clear();
-            foreach (var item4 in OcrLanguageExtension.TranslateLanguageAttributeList)
+            foreach (var item4 in OcrLanguageExtension.OcrLanguageAttributeList)
                 if (!string.IsNullOrWhiteSpace(item4.GetSpaceOcrCode()))
                 {
                     var comboBoxItem = new ComboBoxItem();

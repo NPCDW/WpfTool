@@ -72,7 +72,7 @@ namespace WpfTool.Entity
 
     internal static class OcrLanguageExtension
     {
-        public static readonly List<OcrLanguageAttribute> TranslateLanguageAttributeList = new List<OcrLanguageAttribute>();
+        public static readonly List<OcrLanguageAttribute> OcrLanguageAttributeList = new List<OcrLanguageAttribute>();
 
         private static OcrLanguageAttribute? GetAttribute(OcrLanguageEnum item)
         {
@@ -84,7 +84,7 @@ namespace WpfTool.Entity
         {
             foreach (OcrLanguageEnum item in Enum.GetValues(typeof(OcrLanguageEnum)))
             {
-                TranslateLanguageAttributeList.Add(GetAttribute(item)!);
+                OcrLanguageAttributeList.Add(GetAttribute(item)!);
             }
         }
     }
