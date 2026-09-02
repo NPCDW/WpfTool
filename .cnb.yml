@@ -1,0 +1,30 @@
+$:
+  vscode:
+    - docker:
+        image: docker.cnb.cool/my-codespace/dev-image/tauri:latest
+      runner:
+        cpus: 16
+      services:
+        - vscode
+        - docker
+      imports: https://cnb.cool/my-codespace/envs/-/blob/main/loemby-updater.yml
+      # 开发环境启动后会执行的任务
+      stages:
+        # 配置codebuddy
+        - name: codebuddy
+          script: /root/.cnb/codebuddy/use.sh
+      # 开发环境销毁前会执行该任务
+      endStages:
+        - name: end stage
+          script: echo "end stage"
+
+  push:
+    - imports: https://cnb.cool/my-codespace/envs/-/blob/main/github-secret.yml
+      stages:
+        - name: sync to github
+          image: tencentcom/git-sync
+          settings:
+            target_url: https://github.com/NPCDW/WpfTool.git
+            auth_type: https
+            username: ${GITHUB_USERNAME}
+            password: ${GITHUB_ACCESS_TOKEN}
