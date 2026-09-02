@@ -1,12 +1,4 @@
 $:
-  vscode:
-    - docker:
-        image: docker.cnb.cool/my-codespace/dev-image/tauri:latest
-      services:
-        - vscode
-        - docker
-      imports: https://cnb.cool/my-codespace/envs/-/blob/main/loemby-updater.yml
-
   push:
     - imports: https://cnb.cool/my-codespace/envs/-/blob/main/github-secret.yml
       stages:
