@@ -2,21 +2,10 @@ $:
   vscode:
     - docker:
         image: docker.cnb.cool/my-codespace/dev-image/tauri:latest
-      runner:
-        cpus: 16
       services:
         - vscode
         - docker
       imports: https://cnb.cool/my-codespace/envs/-/blob/main/loemby-updater.yml
-      # 开发环境启动后会执行的任务
-      stages:
-        # 配置codebuddy
-        - name: codebuddy
-          script: /root/.cnb/codebuddy/use.sh
-      # 开发环境销毁前会执行该任务
-      endStages:
-        - name: end stage
-          script: echo "end stage"
 
   push:
     - imports: https://cnb.cool/my-codespace/envs/-/blob/main/github-secret.yml
