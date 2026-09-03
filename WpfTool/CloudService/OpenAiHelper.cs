@@ -63,7 +63,8 @@ public static class OpenAiHelper
 
             var responseStr = await response.Content.ReadAsStringAsync();
             var jsonObj = JObject.Parse(responseStr);
-            return jsonObj["choices"]![0]!["message"]!["content"]!.ToString().Trim();
+            var response_content = jsonObj["choices"]![0]!["message"]!["content"]?.ToString().Trim() == "" ? jsonObj["choices"]![0]!["message"]!["reasoning_content"] : jsonObj["choices"]![0]!["message"]!["content"];
+            return response_content!.ToString().Trim();
         }
         catch (Exception e)
         {
