@@ -147,6 +147,25 @@ public partial class ResultWindow
                 TranslateTextBox.Dispatcher.Invoke(delegate { TranslateTextBox.Text = result.Result; });
             });
         }
+        else if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.OpenAi)
+        {
+            if (string.IsNullOrEmpty(GlobalConfig.Translate.OpenAi.Url) ||
+                string.IsNullOrEmpty(GlobalConfig.Translate.OpenAi.ApiKey) ||
+                string.IsNullOrEmpty(GlobalConfig.Translate.OpenAi.Model))
+            {
+                RootDialog.Show("", (FindResource("ResultWindows_EmptyKeyMessage") as string)!);
+                return;
+            }
+
+            TranslateTextBox.SetResourceReference(TextBox.TextProperty, "ResultWindows_translating");
+            DispatcherHelper.DoEvents();
+
+            var ocrText = OcrTextBox.Text;
+            OpenAiHelper.Translate(ocrText, sourceLanguage, targetLanguage).ContinueWith(result =>
+            {
+                TranslateTextBox.Dispatcher.Invoke(delegate { TranslateTextBox.Text = result.Result; });
+            });
+        }
     }
 
     public void Ocr(Bitmap bmp, string? ocrProvideStr = null, string? ocrType = null, string? ocrLanguage = null)
@@ -257,6 +276,16 @@ public partial class ResultWindow
         }
         else if (GlobalConfig.Translate.DefaultTranslateProvide ==
                  GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud)
+        {
+            RootDialog.Show("", (FindResource("ResultWindows_LimitOcrAndTranslate") as string)!);
+        }
+        else if (GlobalConfig.Translate.DefaultTranslateProvide ==
+                 GlobalConfig.Translate.TranslateProvideEnum.Deeplx)
+        {
+            RootDialog.Show("", (FindResource("ResultWindows_LimitOcrAndTranslate") as string)!);
+        }
+        else if (GlobalConfig.Translate.DefaultTranslateProvide ==
+                 GlobalConfig.Translate.TranslateProvideEnum.OpenAi)
         {
             RootDialog.Show("", (FindResource("ResultWindows_LimitOcrAndTranslate") as string)!);
         }
@@ -437,6 +466,10 @@ public partial class ResultWindow
         else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Deeplx.ToString()))
         {
             list = DeeplxTranslateLanguageExtension.TranslateLanguageAttributeList;
+        }
+        else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.OpenAi.ToString()))
+        {
+            list = OpenAiTranslateLanguageExtension.TranslateLanguageAttributeList;
         }
         else
         {

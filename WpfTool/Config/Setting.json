@@ -36,6 +36,11 @@
     "Deeplx": {
       "Url": "",
       "Authorization": ""
+    },
+    "OpenAi": {
+      "Url": "",
+      "ApiKey": "",
+      "Model": ""
     }
   },
   "HotKeys": {

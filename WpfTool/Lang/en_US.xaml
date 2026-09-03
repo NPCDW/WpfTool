@@ -79,6 +79,7 @@
     <sys:String x:Key="CloudService_BaiduAI">BaiduAI</sys:String>
     <sys:String x:Key="CloudService_GoogleCloud">GoogleCloud</sys:String>
     <sys:String x:Key="CloudService_Deeplx">Deeplx</sys:String>
+    <sys:String x:Key="CloudService_OpenAI">OpenAI Compatible</sys:String>
     <sys:String x:Key="CloudService_SpaceOCR">SpaceOCR</sys:String>
 
     <sys:String x:Key="OcrType_GeneralBasic">General Basic</sys:String>

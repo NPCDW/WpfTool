@@ -644,6 +644,89 @@ internal static class DeeplxTranslateLanguageExtension
     }
 }
 
+internal enum OpenAiTranslateLanguageEnum
+{
+    [TranslateLanguage("Language_auto", "auto", true, false)]
+    Auto,
+
+    [TranslateLanguage("Language_zh", "Chinese", true, true)]
+    Zh,
+
+    [TranslateLanguage("Language_cht", "Traditional Chinese", true, true)]
+    Cht,
+
+    [TranslateLanguage("Language_en", "English", true, true)]
+    En,
+
+    [TranslateLanguage("Language_jp", "Japanese", true, true)]
+    Jp,
+
+    [TranslateLanguage("Language_kor", "Korean", true, true)]
+    Kor,
+
+    [TranslateLanguage("Language_fra", "French", true, true)]
+    Fra,
+
+    [TranslateLanguage("Language_spa", "Spanish", true, true)]
+    Spa,
+
+    [TranslateLanguage("Language_th", "Thai", true, true)]
+    Th,
+
+    [TranslateLanguage("Language_ara", "Arabic", true, true)]
+    Ara,
+
+    [TranslateLanguage("Language_ru", "Russian", true, true)]
+    Ru,
+
+    [TranslateLanguage("Language_pt", "Portuguese", true, true)]
+    Pt,
+
+    [TranslateLanguage("Language_de", "German", true, true)]
+    De,
+
+    [TranslateLanguage("Language_it", "Italian", true, true)]
+    It,
+
+    [TranslateLanguage("Language_vie", "Vietnamese", true, true)]
+    Vie,
+
+    [TranslateLanguage("Language_el", "Greek", true, true)]
+    El,
+
+    [TranslateLanguage("Language_nl", "Dutch", true, true)]
+    Nl,
+
+    [TranslateLanguage("Language_pl", "Polish", true, true)]
+    Pl,
+
+    [TranslateLanguage("Language_tr", "Turkish", true, true)]
+    Tr,
+
+    [TranslateLanguage("Language_id", "Indonesian", true, true)]
+    Id,
+
+    [TranslateLanguage("Language_hi", "Hindi", true, true)]
+    Hi,
+}
+
+internal static class OpenAiTranslateLanguageExtension
+{
+    public static readonly List<TranslateLanguageAttribute> TranslateLanguageAttributeList = new();
+
+    static OpenAiTranslateLanguageExtension()
+    {
+        foreach (OpenAiTranslateLanguageEnum item in Enum.GetValues(typeof(OpenAiTranslateLanguageEnum)))
+            TranslateLanguageAttributeList.Add(GetAttribute(item)!);
+    }
+
+    private static TranslateLanguageAttribute? GetAttribute(OpenAiTranslateLanguageEnum item)
+    {
+        var mi = item.GetType().GetMember(item.ToString());
+        return Attribute.GetCustomAttribute(mi[0], typeof(TranslateLanguageAttribute)) as TranslateLanguageAttribute;
+    }
+}
+
 internal class TranslateLanguageAttribute : Attribute
 {
     private readonly string _name;

@@ -49,6 +49,10 @@ public partial class MachineTranslatePage
         DeeplxUrlInput.Text = GlobalConfig.Translate.Deeplx.Url;
         DeeplxAuthorizationInput.Password = GlobalConfig.Translate.Deeplx.Authorization;
 
+        OpenAiUrlInput.Text = GlobalConfig.Translate.OpenAi.Url;
+        OpenAiApiKeyInput.Password = GlobalConfig.Translate.OpenAi.ApiKey;
+        OpenAiModelInput.Text = GlobalConfig.Translate.OpenAi.Model;
+
         _pageLoaded = true;
     }
 
@@ -80,6 +84,10 @@ public partial class MachineTranslatePage
         else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Deeplx.ToString()))
         {
             list = DeeplxTranslateLanguageExtension.TranslateLanguageAttributeList;
+        }
+        else if (translateProvide.Equals(GlobalConfig.Translate.TranslateProvideEnum.OpenAi.ToString()))
+        {
+            list = OpenAiTranslateLanguageExtension.TranslateLanguageAttributeList;
         }
         else
         {
@@ -153,5 +161,20 @@ public partial class MachineTranslatePage
     private void BaiduAI_SecretKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
     {
         if (_pageLoaded) GlobalConfig.Translate.BaiduAi.AppSecret = BaiduAiSecretKeyInput.Password;
+    }
+
+    private void OpenAi_UrlInput_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_pageLoaded) GlobalConfig.Translate.OpenAi.Url = OpenAiUrlInput.Text;
+    }
+
+    private void OpenAi_ApiKeyInput_PasswordChanged(object sender, RoutedEventArgs e)
+    {
+        if (_pageLoaded) GlobalConfig.Translate.OpenAi.ApiKey = OpenAiApiKeyInput.Password;
+    }
+
+    private void OpenAi_ModelInput_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_pageLoaded) GlobalConfig.Translate.OpenAi.Model = OpenAiModelInput.Text;
     }
 }

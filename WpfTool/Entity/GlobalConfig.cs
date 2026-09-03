@@ -81,6 +81,10 @@ public static class GlobalConfig
             Translate.TencentCloud.SecretKey = jsonObj["Translate"]!["TencentCloud"]!["secret_key"]!.ToString();
             Translate.Deeplx.Url = jsonObj["Translate"]!["Deeplx"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Url"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Url"]!.ToString();
             Translate.Deeplx.Authorization = jsonObj["Translate"]!["Deeplx"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Authorization"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Authorization"]!.ToString();
+            jsonObj["Translate"]!["OpenAi"] ??= new JObject();
+            Translate.OpenAi.Url = jsonObj["Translate"]!["OpenAi"]!["Url"] == null ? "" : jsonObj["Translate"]!["OpenAi"]!["Url"]!.ToString();
+            Translate.OpenAi.ApiKey = jsonObj["Translate"]!["OpenAi"]!["ApiKey"] == null ? "" : jsonObj["Translate"]!["OpenAi"]!["ApiKey"]!.ToString();
+            Translate.OpenAi.Model = jsonObj["Translate"]!["OpenAi"]!["Model"] == null ? "" : jsonObj["Translate"]!["OpenAi"]!["Model"]!.ToString();
 
             HotKeys.OcrHotKey.Modifiers = byte.Parse(jsonObj["HotKeys"]!["Ocr"]!["Modifiers"]!.ToString());
             HotKeys.OcrHotKey.Key = int.Parse(jsonObj["HotKeys"]!["Ocr"]!["Key"]!.ToString());
@@ -139,6 +143,10 @@ public static class GlobalConfig
         jsonObj["Translate"]!["Deeplx"] = new JObject();
         jsonObj["Translate"]!["Deeplx"]!["Url"] = Translate.Deeplx.Url;
         jsonObj["Translate"]!["Deeplx"]!["Authorization"] = Translate.Deeplx.Authorization;
+        jsonObj["Translate"]!["OpenAi"] = new JObject();
+        jsonObj["Translate"]!["OpenAi"]!["Url"] = Translate.OpenAi.Url;
+        jsonObj["Translate"]!["OpenAi"]!["ApiKey"] = Translate.OpenAi.ApiKey;
+        jsonObj["Translate"]!["OpenAi"]!["Model"] = Translate.OpenAi.Model;
 
         jsonObj["HotKeys"] = new JObject();
         jsonObj["HotKeys"]!["Ocr"] = new JObject();
@@ -237,7 +245,8 @@ public static class GlobalConfig
             BaiduAi,
             TencentCloud,
             GoogleCloud,
-            Deeplx
+            Deeplx,
+            OpenAi
         }
 
         public static TranslateProvideEnum DefaultTranslateProvide;
@@ -260,6 +269,13 @@ public static class GlobalConfig
         {
             public static string Url = "";
             public static string Authorization = "";
+        }
+
+        public static class OpenAi
+        {
+            public static string Url = "";
+            public static string ApiKey = "";
+            public static string Model = "";
         }
     }
 

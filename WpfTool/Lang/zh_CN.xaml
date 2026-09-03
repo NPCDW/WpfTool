@@ -79,6 +79,7 @@
     <sys:String x:Key="CloudService_BaiduAI">百度翻译开放平台</sys:String>
     <sys:String x:Key="CloudService_GoogleCloud">谷歌云</sys:String>
     <sys:String x:Key="CloudService_Deeplx">Deeplx</sys:String>
+    <sys:String x:Key="CloudService_OpenAI">OpenAI 兼容</sys:String>
     <sys:String x:Key="CloudService_SpaceOCR">SpaceOCR</sys:String>
 
     <sys:String x:Key="OcrType_GeneralBasic">通用</sys:String>

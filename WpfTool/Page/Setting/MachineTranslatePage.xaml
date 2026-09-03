@@ -18,6 +18,7 @@
                         <ComboBoxItem DataContext="TencentCloud" Content="{DynamicResource CloudService_TencentCloud}" />
                         <ComboBoxItem DataContext="GoogleCloud" Content="{DynamicResource CloudService_GoogleCloud}" />
                         <ComboBoxItem DataContext="Deeplx" Content="{DynamicResource CloudService_Deeplx}" />
+                        <ComboBoxItem DataContext="OpenAi" Content="{DynamicResource CloudService_OpenAI}" />
                     </ComboBox>
                     <ComboBox x:Name="SourceLanguageComboBox" Width="120" Margin="5,0,0,0"
                               SelectionChanged="sourceLanguageComboBox_SelectionChanged" />
@@ -138,6 +139,50 @@
                                VerticalAlignment="Center" />
                         <ui:Hyperlink Grid.Row="0" Grid.Column="1" NavigateUri="https://deeplx.owo.network/"
                                       Icon="Link48" Content="{DynamicResource Setting_GetFreeDeeplx}" />
+                    </Grid>
+                </ui:Card.Footer>
+            </ui:Card>
+            <ui:Card Margin="0,5,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Url" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
+                    <ui:TextBox Grid.Row="0" Grid.Column="1" x:Name="OpenAiUrlInput" Margin="5,0,0,0"
+                                TextChanged="OpenAi_UrlInput_TextChanged" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="API Key" Margin="0,5,0,0" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
+                    <ui:PasswordBox Grid.Row="1" Grid.Column="1" x:Name="OpenAiApiKeyInput" Margin="5,5,0,0"
+                                    PasswordChanged="OpenAi_ApiKeyInput_PasswordChanged" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Model" Margin="0,5,0,0" VerticalAlignment="Center"
+                           HorizontalAlignment="Right" />
+                    <ui:TextBox Grid.Row="2" Grid.Column="1" x:Name="OpenAiModelInput" Margin="5,5,0,0"
+                                TextChanged="OpenAi_ModelInput_TextChanged" />
+                </Grid>
+                <ui:Card.Footer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_OpenAI}"
+                               VerticalAlignment="Center" />
+                        <ui:Hyperlink Grid.Row="0" Grid.Column="1" NavigateUri="https://platform.openai.com/docs/api-reference/chat"
+                                      Icon="Link48" Content="{DynamicResource Setting_GetFreeTranslateQuota}" />
                     </Grid>
                 </ui:Card.Footer>
             </ui:Card>
