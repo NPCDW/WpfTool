@@ -1,4 +1,4 @@
-﻿<Page x:Class="WpfTool.Page.Setting.MachineTranslatePage"
+<Page x:Class="WpfTool.Page.Setting.MachineTranslatePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -181,7 +181,7 @@
 
                         <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CloudService_OpenAI}"
                                VerticalAlignment="Center" />
-                        <ui:Hyperlink Grid.Row="0" Grid.Column="1" NavigateUri="https://platform.openai.com/docs/api-reference/chat"
+                        <ui:Hyperlink Grid.Row="0" Grid.Column="1" NavigateUri="https://github.com/for-the-zero/Free-LLM-Collection"
                                       Icon="Link48" Content="{DynamicResource Setting_GetFreeTranslateQuota}" />
                     </Grid>
                 </ui:Card.Footer>
