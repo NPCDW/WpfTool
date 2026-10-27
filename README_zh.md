@@ -12,10 +12,10 @@
     - 百度云 [https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h](https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h)
     - SpaceOCR [https://ocr.space/OCRAPI](https://ocr.space/OCRAPI)
 - 翻译
-    - 腾讯云 [https://cloud.tencent.com/document/product/551/35017](https://cloud.tencent.com/document/product/551/35017)
     - 百度AI [https://fanyi-api.baidu.com/product/113](https://fanyi-api.baidu.com/product/113)
     - 谷歌翻译（免费不限量，但不是官方接入点）
     - Deeplx 使用 [linux.do](https://linux.do/) 或者 [自建](https://deeplx.owo.network/)
+    - AI 翻译（任意 OpenAI 兼容接口，支持多个服务商，每个服务商下可配置多个模型）
 
 # 功能
 

@@ -93,66 +93,6 @@ internal enum BaiduAiTranslateLanguageEnum
     Wyw,
 }
 
-internal enum TencentTranslateLanguageEnum
-{
-    [TranslateLanguage("Language_auto", "auto", true, false)]
-    Auto,
-
-    [TranslateLanguage("Language_zh", "zh", true, true)]
-    Zh,
-
-    [TranslateLanguage("Language_cht", "zh-TW", true, true)]
-    Cht,
-
-    [TranslateLanguage("Language_en", "en", true, true)]
-    En,
-
-    [TranslateLanguage("Language_jp", "ja", true, true)]
-    Jp,
-
-    [TranslateLanguage("Language_kor", "ko", true, true)]
-    Kor,
-
-    [TranslateLanguage("Language_fra", "fr", true, true)]
-    Fra,
-
-    [TranslateLanguage("Language_spa", "es", true, true)]
-    Spa,
-
-    [TranslateLanguage("Language_it", "it", true, true)]
-    It,
-
-    [TranslateLanguage("Language_de", "de", true, true)]
-    De,
-
-    [TranslateLanguage("Language_tr", "tr", true, true)]
-    Tr,
-
-    [TranslateLanguage("Language_ru", "ru", true, true)]
-    Ru,
-
-    [TranslateLanguage("Language_pt", "pt", true, true)]
-    Pt,
-
-    [TranslateLanguage("Language_vie", "vi", true, true)]
-    Vie,
-
-    [TranslateLanguage("Language_id", "id", true, true)]
-    Id,
-
-    [TranslateLanguage("Language_th", "th", true, true)]
-    Th,
-
-    [TranslateLanguage("Language_ms", "ms", true, true)]
-    Ms,
-
-    [TranslateLanguage("Language_ara", "ar", true, true)]
-    Ara,
-
-    [TranslateLanguage("Language_hi", "hi", true, true)]
-    Hi,
-}
-
 internal enum GoogleTranslateLanguageEnum
 {
     [TranslateLanguage("Language_auto", "auto", true, false)]
@@ -576,7 +516,7 @@ internal enum DeeplxTranslateLanguageEnum
     Uk,
 }
 
-public static class BaiduAiTranslateLanguageExtension
+internal static class BaiduAiTranslateLanguageExtension
 {
     public static readonly List<TranslateLanguageAttribute> TranslateLanguageAttributeList = new();
 
@@ -587,23 +527,6 @@ public static class BaiduAiTranslateLanguageExtension
     }
 
     private static TranslateLanguageAttribute? GetAttribute(BaiduAiTranslateLanguageEnum item)
-    {
-        var mi = item.GetType().GetMember(item.ToString());
-        return Attribute.GetCustomAttribute(mi[0], typeof(TranslateLanguageAttribute)) as TranslateLanguageAttribute;
-    }
-}
-
-public static class TencentTranslateLanguageExtension
-{
-    public static readonly List<TranslateLanguageAttribute> TranslateLanguageAttributeList = new();
-
-    static TencentTranslateLanguageExtension()
-    {
-        foreach (TencentTranslateLanguageEnum item in Enum.GetValues(typeof(TencentTranslateLanguageEnum)))
-            TranslateLanguageAttributeList.Add(GetAttribute(item)!);
-    }
-
-    private static TranslateLanguageAttribute? GetAttribute(TencentTranslateLanguageEnum item)
     {
         var mi = item.GetType().GetMember(item.ToString());
         return Attribute.GetCustomAttribute(mi[0], typeof(TranslateLanguageAttribute)) as TranslateLanguageAttribute;

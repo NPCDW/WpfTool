@@ -15,10 +15,10 @@ Free Quota:
     - Baidu Cloud [https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h](https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h)
     - SpaceOCR [https://ocr.space/OCRAPI](https://ocr.space/OCRAPI)
 - Translate
-    - Tencent Cloud [https://cloud.tencent.com/document/product/551/35017](https://cloud.tencent.com/document/product/551/35017)
     - Baidu AI [https://fanyi-api.baidu.com/product/113](https://fanyi-api.baidu.com/product/113)
     - Google Translate (free and unlimited, but unofficial endpoint)
     - Deeplx [linux.do](https://linux.do/) or [self-host](https://deeplx.owo.network/)
+    - AI translate (any OpenAI compatible endpoint, multiple providers with multiple models each)
 
 # Features
 

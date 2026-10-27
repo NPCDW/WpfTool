@@ -50,6 +50,8 @@
                           SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
                 <ComboBox x:Name="TargetLanguageComboBox" Width="140"
                           SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
+                <ComboBox x:Name="AiProviderComboBox" Width="140" Visibility="Collapsed" />
+                <ComboBox x:Name="AiModelComboBox" Width="120" Visibility="Collapsed" />
                 <CheckBox x:Name="DefaultTranslateSettingCheck" Content="设为默认"
                           Checked="DefaultTranslateSettingCheck_Checked" VerticalAlignment="Center" />
                 <Button x:Name="TranslateButton" Content="翻译" Click="TranslateButton_Click" />

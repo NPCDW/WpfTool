@@ -292,6 +292,36 @@
   <data name="CloudService_SpaceOCR" xml:space="preserve">
     <value>SpaceOCR</value>
   </data>
+  <data name="CloudService_AI" xml:space="preserve">
+    <value>AI 翻译</value>
+  </data>
+  <data name="ResultWindows_EmptyAiProviderMessage" xml:space="preserve">
+    <value>请先到设置中添加 AI 翻译服务商与模型</value>
+  </data>
+  <data name="Setting_AiProviderHeader" xml:space="preserve">
+    <value>AI 翻译服务商（支持任意 OpenAI 兼容接口，一个服务商下可配置多个模型）</value>
+  </data>
+  <data name="Setting_AddAiProvider" xml:space="preserve">
+    <value>添加服务商</value>
+  </data>
+  <data name="Setting_RemoveAiProvider" xml:space="preserve">
+    <value>删除服务商</value>
+  </data>
+  <data name="Setting_AddAiModel" xml:space="preserve">
+    <value>添加模型</value>
+  </data>
+  <data name="Setting_RemoveAiModel" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Setting_AiProviderName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Setting_AiModel" xml:space="preserve">
+    <value>模型名称</value>
+  </data>
+  <data name="Setting_NoAiProvider" xml:space="preserve">
+    <value>还没有配置 AI 服务商，点击上方按钮添加</value>
+  </data>
   <data name="OcrType_GeneralBasic" xml:space="preserve">
     <value>通用</value>
   </data>

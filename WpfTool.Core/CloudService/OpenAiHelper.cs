@@ -14,13 +14,15 @@ public static class OpenAiHelper
         Timeout = TimeSpan.FromSeconds(60)
     };
 
-    public static async Task<string> Translate(string text, string sourceLanguage, string targetLanguage)
+    public static async Task<string> Translate(string text, string sourceLanguage, string targetLanguage,
+        string? providerId = null, string? modelId = null)
     {
         try
         {
-            var url = GlobalConfig.Translate.OpenAi.Url;
-            var apiKey = GlobalConfig.Translate.OpenAi.ApiKey;
-            var model = GlobalConfig.Translate.OpenAi.Model;
+            var provider = GlobalConfig.Translate.GetAiProvider(providerId);
+            var url = provider.Url;
+            var apiKey = provider.ApiKey;
+            var model = GlobalConfig.Translate.GetAiModel(provider, modelId).Name;
 
             var sourceLangText = sourceLanguage == "auto"
                 ? "the original language (auto-detect)"
@@ -59,7 +61,7 @@ public static class OpenAiHelper
             using var response = await Client.SendAsync(request);
 
             if (!response.IsSuccessStatusCode)
-                return "OpenAI API error: " + response.StatusCode + " " + response.ReasonPhrase;
+                return "AI API error: " + response.StatusCode + " " + response.ReasonPhrase;
 
             var responseStr = await response.Content.ReadAsStringAsync();
             var jsonObj = JObject.Parse(responseStr);

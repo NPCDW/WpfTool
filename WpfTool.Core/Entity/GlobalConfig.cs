@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WpfTool.Util;
 
@@ -72,22 +75,29 @@ public static class GlobalConfig
                 ? ""
                 : jsonObj["Ocr"]!["SpaceOCR"]!["apiKey"]!.ToString();
 
-            Translate.DefaultTranslateProvide = (Translate.TranslateProvideEnum)Enum.Parse(
-                typeof(Translate.TranslateProvideEnum), jsonObj["Translate"]!["defaultTranslateProvide"]!.ToString());
+            var translateProvideStr = jsonObj["Translate"]!["defaultTranslateProvide"]?.ToString();
+            if (!Enum.TryParse<Translate.TranslateProvideEnum>(translateProvideStr, out var translateProvide))
+                translateProvide = Translate.TranslateProvideEnum.Ai;
+            Translate.DefaultTranslateProvide = translateProvide;
+            Translate.DefaultAiProvider = jsonObj["Translate"]!["defaultAiProvider"] == null
+                ? ""
+                : jsonObj["Translate"]!["defaultAiProvider"]!.ToString();
+            Translate.DefaultAiModel = jsonObj["Translate"]!["defaultAiModel"] == null
+                ? ""
+                : jsonObj["Translate"]!["defaultAiModel"]!.ToString();
             Translate.DefaultTranslateSourceLanguage =
                 jsonObj["Translate"]!["defaultTranslateSourceLanguage"]!.ToString();
             Translate.DefaultTranslateTargetLanguage =
                 jsonObj["Translate"]!["defaultTranslateTargetLanguage"]!.ToString();
             Translate.BaiduAi.AppId = jsonObj["Translate"]!["BaiduAI"]!["app_id"]!.ToString();
             Translate.BaiduAi.AppSecret = jsonObj["Translate"]!["BaiduAI"]!["app_secret"]!.ToString();
-            Translate.TencentCloud.SecretId = jsonObj["Translate"]!["TencentCloud"]!["secret_id"]!.ToString();
-            Translate.TencentCloud.SecretKey = jsonObj["Translate"]!["TencentCloud"]!["secret_key"]!.ToString();
             Translate.Deeplx.Url = jsonObj["Translate"]!["Deeplx"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Url"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Url"]!.ToString();
             Translate.Deeplx.Authorization = jsonObj["Translate"]!["Deeplx"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Authorization"] == null ? "" : jsonObj["Translate"]!["Deeplx"]!["Authorization"]!.ToString();
-            jsonObj["Translate"]!["OpenAi"] ??= new JObject();
-            Translate.OpenAi.Url = jsonObj["Translate"]!["OpenAi"]!["Url"] == null ? "" : jsonObj["Translate"]!["OpenAi"]!["Url"]!.ToString();
-            Translate.OpenAi.ApiKey = jsonObj["Translate"]!["OpenAi"]!["ApiKey"] == null ? "" : jsonObj["Translate"]!["OpenAi"]!["ApiKey"]!.ToString();
-            Translate.OpenAi.Model = jsonObj["Translate"]!["OpenAi"]!["Model"] == null ? "" : jsonObj["Translate"]!["OpenAi"]!["Model"]!.ToString();
+            Translate.AiProviders.Clear();
+            var aiProviders = (jsonObj["Translate"]!["AiProviders"] as JArray)?.ToObject<List<AiProvider>>();
+            if (aiProviders != null) Translate.AiProviders.AddRange(aiProviders);
+            if (Translate.AiProviders.Count == 0) Translate.LegacyOpenAiToAiProvider(jsonObj["Translate"]!);
+            Translate.NormalizeAiSelection();
 
             HotKeys.OcrHotKey.Modifiers = byte.Parse(jsonObj["HotKeys"]!["Ocr"]!["Modifiers"]!.ToString());
             HotKeys.OcrHotKey.Key = int.Parse(jsonObj["HotKeys"]!["Ocr"]!["Key"]!.ToString());
@@ -136,21 +146,17 @@ public static class GlobalConfig
 
         jsonObj["Translate"] = new JObject();
         jsonObj["Translate"]!["defaultTranslateProvide"] = Translate.DefaultTranslateProvide.ToString();
+        jsonObj["Translate"]!["defaultAiProvider"] = Translate.DefaultAiProvider;
+        jsonObj["Translate"]!["defaultAiModel"] = Translate.DefaultAiModel;
         jsonObj["Translate"]!["defaultTranslateSourceLanguage"] = Translate.DefaultTranslateSourceLanguage;
         jsonObj["Translate"]!["defaultTranslateTargetLanguage"] = Translate.DefaultTranslateTargetLanguage;
         jsonObj["Translate"]!["BaiduAI"] = new JObject();
         jsonObj["Translate"]!["BaiduAI"]!["app_id"] = Translate.BaiduAi.AppId;
         jsonObj["Translate"]!["BaiduAI"]!["app_secret"] = Translate.BaiduAi.AppSecret;
-        jsonObj["Translate"]!["TencentCloud"] = new JObject();
-        jsonObj["Translate"]!["TencentCloud"]!["secret_id"] = Translate.TencentCloud.SecretId;
-        jsonObj["Translate"]!["TencentCloud"]!["secret_key"] = Translate.TencentCloud.SecretKey;
         jsonObj["Translate"]!["Deeplx"] = new JObject();
         jsonObj["Translate"]!["Deeplx"]!["Url"] = Translate.Deeplx.Url;
         jsonObj["Translate"]!["Deeplx"]!["Authorization"] = Translate.Deeplx.Authorization;
-        jsonObj["Translate"]!["OpenAi"] = new JObject();
-        jsonObj["Translate"]!["OpenAi"]!["Url"] = Translate.OpenAi.Url;
-        jsonObj["Translate"]!["OpenAi"]!["ApiKey"] = Translate.OpenAi.ApiKey;
-        jsonObj["Translate"]!["OpenAi"]!["Model"] = Translate.OpenAi.Model;
+        jsonObj["Translate"]!["AiProviders"] = ParseJson(Translate.AiProviders);
 
         jsonObj["HotKeys"] = new JObject();
         jsonObj["HotKeys"]!["Ocr"] = new JObject();
@@ -248,26 +254,34 @@ public static class GlobalConfig
         public enum TranslateProvideEnum
         {
             BaiduAi,
-            TencentCloud,
             GoogleCloud,
             Deeplx,
-            OpenAi
+            Ai
         }
 
         public static TranslateProvideEnum DefaultTranslateProvide;
         public static string? DefaultTranslateSourceLanguage;
         public static string? DefaultTranslateTargetLanguage;
 
+        /// <summary>
+        ///     默认 AI 服务商 ID，为空表示未选择
+        /// </summary>
+        public static string DefaultAiProvider = "";
+
+        /// <summary>
+        ///     默认 AI 模型 ID
+        /// </summary>
+        public static string DefaultAiModel = "";
+
+        /// <summary>
+        ///     已配置的 AI 翻译服务商，每个服务商下可配置多个模型
+        /// </summary>
+        public static List<AiProvider> AiProviders = new();
+
         public static class BaiduAi
         {
             public static string AppId = "";
             public static string AppSecret = "";
-        }
-
-        public static class TencentCloud
-        {
-            public static string SecretId = "";
-            public static string SecretKey = "";
         }
 
         public static class Deeplx
@@ -276,11 +290,56 @@ public static class GlobalConfig
             public static string Authorization = "";
         }
 
-        public static class OpenAi
+        public static JsonArray ParseJson(object obj)
         {
-            public static string Url = "";
-            public static string ApiKey = "";
-            public static string Model = "";
+            return JArray.FromObject(obj, JsonSerializer.CreateDefault(new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            }));
+        }
+
+        public static AiProvider GetAiProvider(string? providerId)
+        {
+            var id = string.IsNullOrWhiteSpace(providerId) ? DefaultAiProvider : providerId;
+            return AiProviders.Find(p => p.Id == id) ?? AiProviders.FirstOrDefault() ?? new AiProvider();
+        }
+
+        public static AiProvider.AiModel GetAiModel(AiProvider provider, string? modelId)
+        {
+            var useDefault = string.IsNullOrWhiteSpace(modelId) && provider.Id == DefaultAiProvider;
+            var id = useDefault ? DefaultAiModel : modelId;
+            return provider.Models.Find(m => m.Id == id) ?? provider.Models.FirstOrDefault() ??
+                new AiProvider.AiModel();
+        }
+
+        /// <summary>
+        ///     让默认服务商 / 模型指向实际存在的配置
+        /// </summary>
+        public static void NormalizeAiSelection()
+        {
+            if (!AiProviders.Exists(p => p.Id == DefaultAiProvider))
+                DefaultAiProvider = AiProviders.Count > 0 ? AiProviders[0].Id : "";
+
+            var provider = GetAiProvider(DefaultAiProvider);
+            if (!provider.Models.Exists(m => m.Id == DefaultAiModel))
+                DefaultAiModel = provider.Models.Count > 0 ? provider.Models[0].Id : "";
+        }
+
+        /// <summary>
+        ///     兼容旧配置：把单个 OpenAi 配置迁移成一个 AI 服务商
+        /// </summary>
+        public static void LegacyOpenAiToAiProvider(JToken translateObj)
+        {
+            if (translateObj["OpenAi"] is not JObject openAi) return;
+
+            var url = openAi["Url"]?.ToString() ?? "";
+            var apiKey = openAi["ApiKey"]?.ToString() ?? "";
+            var model = openAi["Model"]?.ToString() ?? "";
+            if (string.IsNullOrWhiteSpace(url) && string.IsNullOrWhiteSpace(apiKey)) return;
+
+            var provider = new AiProvider { Name = "OpenAI", Url = url, ApiKey = apiKey };
+            if (!string.IsNullOrWhiteSpace(model)) provider.Models.Add(new AiProvider.AiModel { Name = model });
+            AiProviders.Add(provider);
         }
     }
 

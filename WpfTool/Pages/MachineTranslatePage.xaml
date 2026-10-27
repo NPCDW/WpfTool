@@ -13,32 +13,15 @@
             <StackPanel Orientation="Horizontal" Spacing="8">
                 <ComboBox x:Name="DefaultTranslateProvideComboBox" Width="200"
                           SelectionChanged="DefaultTranslateProvideComboBox_SelectionChanged" />
+                <ComboBox x:Name="AiProviderComboBox" Width="150" Visibility="Collapsed"
+                          SelectionChanged="AiProviderComboBox_SelectionChanged" />
+                <ComboBox x:Name="AiModelComboBox" Width="150" Visibility="Collapsed"
+                          SelectionChanged="AiModelComboBox_SelectionChanged" />
                 <ComboBox x:Name="SourceLanguageComboBox" Width="150"
                           SelectionChanged="SourceLanguageComboBox_SelectionChanged" />
                 <ComboBox x:Name="TargetLanguageComboBox" Width="150"
                           SelectionChanged="TargetLanguageComboBox_SelectionChanged" />
             </StackPanel>
-
-            <!-- 腾讯云 -->
-            <Grid ColumnSpacing="12" RowSpacing="8" Margin="0,8,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock Text="SecretID" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                <TextBox Grid.Column="1" x:Name="TencentCloudTranslateSecretIdInput"
-                         TextChanged="TencentCloudTranslateSecretIdInput_TextChanged" />
-                <TextBlock Grid.Row="1" Text="SecretKey" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudTranslateSecretKeyInput"
-                             PasswordChanged="TencentCloudTranslateSecretKeyInput_PasswordChanged" />
-                <HyperlinkButton Grid.Row="2" Grid.Column="1" Content="腾讯云"
-                                 NavigateUri="https://cloud.tencent.com/document/product/551/35017" />
-            </Grid>
 
             <!-- 百度翻译开放平台 -->
             <Grid ColumnSpacing="12" RowSpacing="8" Margin="0,8,0,0">
@@ -80,29 +63,14 @@
                                  NavigateUri="https://deeplx.owo.network/" />
             </Grid>
 
-            <!-- OpenAI 兼容 -->
-            <Grid ColumnSpacing="12" RowSpacing="8" Margin="0,8,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock Text="Url" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                <TextBox Grid.Column="1" x:Name="OpenAiUrlInput" TextChanged="OpenAiUrlInput_TextChanged" />
-                <TextBlock Grid.Row="1" Text="API Key" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="OpenAiApiKeyInput"
-                             PasswordChanged="OpenAiApiKeyInput_PasswordChanged" />
-                <TextBlock Grid.Row="2" Text="Model" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                <TextBox Grid.Row="2" Grid.Column="1" x:Name="OpenAiModelInput"
-                         TextChanged="OpenAiModelInput_TextChanged" />
-                <HyperlinkButton Grid.Row="3" Grid.Column="1" Content="OpenAI"
+            <!-- AI 翻译：多服务商、多模型 -->
+            <StackPanel Spacing="8" Margin="0,8,0,0">
+                <TextBlock x:Name="AiProviderHeader" FontWeight="SemiBold" />
+                <Button x:Name="AddAiProviderButton" Content="添加" Click="AddAiProviderButton_Click" />
+                <StackPanel x:Name="AiProviderPanel" Spacing="8" />
+                <HyperlinkButton x:Name="AiProviderNote" Content="OpenAI"
                                  NavigateUri="https://github.com/for-the-zero/Free-LLM-Collection" />
-            </Grid>
+            </StackPanel>
 
             <TextBlock x:Name="GoogleCloudNote" TextWrapping="Wrap" Margin="0,8,0,0" Opacity="0.75" />
         </StackPanel>

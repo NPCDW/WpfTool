@@ -61,10 +61,19 @@ public sealed partial class ResultWindow : Window
         AddItem(DefaultOcrProvideComboBox, "SpaceOcr", Strings.CloudService_SpaceOCR);
 
         AddItem(DefaultTranslateProvideComboBox, "BaiduAi", Strings.CloudService_BaiduAI);
-        AddItem(DefaultTranslateProvideComboBox, "TencentCloud", Strings.CloudService_TencentCloud);
         AddItem(DefaultTranslateProvideComboBox, "GoogleCloud", Strings.CloudService_GoogleCloud);
         AddItem(DefaultTranslateProvideComboBox, "Deeplx", Strings.CloudService_Deeplx);
-        AddItem(DefaultTranslateProvideComboBox, "OpenAi", Strings.CloudService_OpenAI);
+        AddItem(DefaultTranslateProvideComboBox, "Ai", Strings.CloudService_AI);
+
+        AiProviderComboBox.SelectionChanged += (_, _) =>
+        {
+            RefreshAiModelItems();
+            RefreshTranslateDefaultCheckState();
+        };
+        AiModelComboBox.SelectionChanged += (_, _) => RefreshTranslateDefaultCheckState();
+        AiProviderComboBox.Items.Clear();
+        foreach (var provider in GlobalConfig.Translate.AiProviders)
+            AddItem(AiProviderComboBox, provider.Id, provider.ToString());
     }
 
     private static void AddItem(ComboBox comboBox, string tag, string content)
@@ -85,6 +94,13 @@ public sealed partial class ResultWindow : Window
         SelectByTag(DefaultOcrLanguageComboBox, GlobalConfig.Ocr.DefaultOcrLanguage);
 
         SelectByTag(DefaultTranslateProvideComboBox, GlobalConfig.Translate.DefaultTranslateProvide.ToString());
+        SelectByTag(AiProviderComboBox, GlobalConfig.Translate.DefaultAiProvider);
+        if (AiProviderComboBox.SelectedItem == null && AiProviderComboBox.Items.Count > 0)
+            AiProviderComboBox.SelectedIndex = 0;
+        RefreshAiModelItems();
+        SelectByTag(AiModelComboBox, GlobalConfig.Translate.DefaultAiModel);
+        if (AiModelComboBox.SelectedItem == null && AiModelComboBox.Items.Count > 0)
+            AiModelComboBox.SelectedIndex = 0;
         RefreshTranslateItems();
         SelectByTag(SourceLanguageComboBox, GlobalConfig.Translate.DefaultTranslateSourceLanguage);
         SelectByTag(TargetLanguageComboBox, GlobalConfig.Translate.DefaultTranslateTargetLanguage);
@@ -106,11 +122,23 @@ public sealed partial class ResultWindow : Window
 
     public void StartTranslate()
     {
-        Translate(TagOf(DefaultTranslateProvideComboBox), TagOf(SourceLanguageComboBox), TagOf(TargetLanguageComboBox));
+        Translate(TagOf(DefaultTranslateProvideComboBox), TagOf(SourceLanguageComboBox),
+            TagOf(TargetLanguageComboBox), TagOf(AiProviderComboBox), TagOf(AiModelComboBox));
+    }
+
+    /// <summary>
+    ///     按当前选中的 AI 服务商重建模型选项
+    /// </summary>
+    private void RefreshAiModelItems()
+    {
+        AiModelComboBox.Items.Clear();
+        var provider = GlobalConfig.Translate.GetAiProvider(TagOf(AiProviderComboBox));
+        foreach (var model in provider.Models) AddItem(AiModelComboBox, model.Id, model.ToString());
+        if (AiModelComboBox.Items.Count > 0) AiModelComboBox.SelectedIndex = 0;
     }
 
     public void Translate(string? translateProvideStr = null, string? sourceLanguage = null,
-        string? targetLanguage = null)
+        string? targetLanguage = null, string? aiProviderId = null, string? aiModelId = null)
     {
         GlobalConfig.Translate.TranslateProvideEnum translateProvide;
         if (string.IsNullOrWhiteSpace(translateProvideStr))
@@ -120,14 +148,6 @@ public sealed partial class ResultWindow : Window
                 typeof(GlobalConfig.Translate.TranslateProvideEnum), translateProvideStr);
         sourceLanguage ??= GlobalConfig.Translate.DefaultTranslateSourceLanguage!;
         targetLanguage ??= GlobalConfig.Translate.DefaultTranslateTargetLanguage!;
-
-        if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.TencentCloud &&
-            (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.SecretId) ||
-             string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.SecretKey)))
-        {
-            DialogService.Show(Strings.ResultWindows_EmptyKeyMessage);
-            return;
-        }
 
         if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.BaiduAi &&
             (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAi.AppId) ||
@@ -144,10 +164,18 @@ public sealed partial class ResultWindow : Window
             return;
         }
 
-        if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.OpenAi &&
-            (string.IsNullOrEmpty(GlobalConfig.Translate.OpenAi.Url) ||
-             string.IsNullOrEmpty(GlobalConfig.Translate.OpenAi.ApiKey) ||
-             string.IsNullOrEmpty(GlobalConfig.Translate.OpenAi.Model)))
+        var aiProvider = GlobalConfig.Translate.GetAiProvider(aiProviderId);
+        var aiModel = GlobalConfig.Translate.GetAiModel(aiProvider, aiModelId);
+        if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.Ai &&
+            GlobalConfig.Translate.AiProviders.Count == 0)
+        {
+            DialogService.Show(Strings.ResultWindows_EmptyAiProviderMessage);
+            return;
+        }
+
+        if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.Ai &&
+            (string.IsNullOrEmpty(aiProvider.Url) || string.IsNullOrEmpty(aiProvider.ApiKey) ||
+             string.IsNullOrEmpty(aiModel.Name)))
         {
             DialogService.Show(Strings.ResultWindows_EmptyKeyMessage);
             return;
@@ -158,16 +186,14 @@ public sealed partial class ResultWindow : Window
 
         Task<string> task = translateProvide switch
         {
-            GlobalConfig.Translate.TranslateProvideEnum.TencentCloud =>
-                TencentCloudHelper.Translate(ocrText, sourceLanguage, targetLanguage),
             GlobalConfig.Translate.TranslateProvideEnum.BaiduAi =>
                 BaiduAiHelper.Translate(ocrText, sourceLanguage, targetLanguage),
             GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud =>
                 GoogleCloudHelper.Translate(ocrText, sourceLanguage, targetLanguage),
             GlobalConfig.Translate.TranslateProvideEnum.Deeplx =>
                 DeeplxHelper.Translate(ocrText, sourceLanguage, targetLanguage),
-            GlobalConfig.Translate.TranslateProvideEnum.OpenAi =>
-                OpenAiHelper.Translate(ocrText, sourceLanguage, targetLanguage),
+            GlobalConfig.Translate.TranslateProvideEnum.Ai =>
+                OpenAiHelper.Translate(ocrText, sourceLanguage, targetLanguage, aiProvider.Id, aiModel.Id),
             _ => Task.FromResult(string.Empty)
         };
 
@@ -230,17 +256,9 @@ public sealed partial class ResultWindow : Window
 
         if (provide == GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud ||
             provide == GlobalConfig.Translate.TranslateProvideEnum.Deeplx ||
-            provide == GlobalConfig.Translate.TranslateProvideEnum.OpenAi)
+            provide == GlobalConfig.Translate.TranslateProvideEnum.Ai)
         {
             DialogService.Show(Strings.ResultWindows_LimitOcrAndTranslate);
-            return;
-        }
-
-        if (provide == GlobalConfig.Translate.TranslateProvideEnum.TencentCloud &&
-            (string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.SecretId) ||
-             string.IsNullOrEmpty(GlobalConfig.Translate.TencentCloud.SecretKey)))
-        {
-            DialogService.Show(Strings.ResultWindows_EmptyKeyMessage);
             return;
         }
 
@@ -255,9 +273,7 @@ public sealed partial class ResultWindow : Window
         OcrTextBox.Text = Strings.ResultWindows_ocring;
         TranslateTextBox.Text = Strings.ResultWindows_translating;
 
-        var keyValues = provide == GlobalConfig.Translate.TranslateProvideEnum.BaiduAi
-            ? await BaiduAiHelper.ScreenshotTranslate(bmp)
-            : await TencentCloudHelper.ScreenshotTranslate(bmp);
+        var keyValues = await BaiduAiHelper.ScreenshotTranslate(bmp);
 
         OcrTextBox.Text = keyValues["ocrText"];
         TranslateTextBox.Text = keyValues["translateText"];
@@ -383,6 +399,9 @@ public sealed partial class ResultWindow : Window
 
     private void DefaultTranslateProvideComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        var isAi = TagOf(DefaultTranslateProvideComboBox) == GlobalConfig.Translate.TranslateProvideEnum.Ai.ToString();
+        AiProviderComboBox.Visibility = isAi ? Visibility.Visible : Visibility.Collapsed;
+        AiModelComboBox.Visibility = isAi ? Visibility.Visible : Visibility.Collapsed;
         RefreshTranslateItems();
     }
 
@@ -399,13 +418,11 @@ public sealed partial class ResultWindow : Window
         List<TranslateLanguageAttribute> list;
         if (provide.Equals(GlobalConfig.Translate.TranslateProvideEnum.BaiduAi.ToString()))
             list = BaiduAiTranslateLanguageExtension.TranslateLanguageAttributeList;
-        else if (provide.Equals(GlobalConfig.Translate.TranslateProvideEnum.TencentCloud.ToString()))
-            list = TencentTranslateLanguageExtension.TranslateLanguageAttributeList;
         else if (provide.Equals(GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud.ToString()))
             list = GoogleTranslateLanguageExtension.TranslateLanguageAttributeList;
         else if (provide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Deeplx.ToString()))
             list = DeeplxTranslateLanguageExtension.TranslateLanguageAttributeList;
-        else if (provide.Equals(GlobalConfig.Translate.TranslateProvideEnum.OpenAi.ToString()))
+        else if (provide.Equals(GlobalConfig.Translate.TranslateProvideEnum.Ai.ToString()))
             list = OpenAiTranslateLanguageExtension.TranslateLanguageAttributeList;
         else
             return;
@@ -436,10 +453,21 @@ public sealed partial class ResultWindow : Window
         if (provide == null || source == null || target == null) return;
 
         var isDefault = provide.Equals(GlobalConfig.Translate.DefaultTranslateProvide.ToString())
+                        && IsDefaultAiSelection(provide)
                         && source.Equals(GlobalConfig.Translate.DefaultTranslateSourceLanguage)
                         && target.Equals(GlobalConfig.Translate.DefaultTranslateTargetLanguage);
         DefaultTranslateSettingCheck.IsChecked = isDefault;
         DefaultTranslateSettingCheck.IsEnabled = !isDefault;
+    }
+
+    /// <summary>
+    ///     非 AI 服务商恒为真；AI 服务商需服务商与模型都与默认配置一致
+    /// </summary>
+    private bool IsDefaultAiSelection(string provide)
+    {
+        if (provide != GlobalConfig.Translate.TranslateProvideEnum.Ai.ToString()) return true;
+        return TagOf(AiProviderComboBox) == GlobalConfig.Translate.DefaultAiProvider
+               && TagOf(AiModelComboBox) == GlobalConfig.Translate.DefaultAiModel;
     }
 
     private void DefaultTranslateSettingCheck_Checked(object sender, RoutedEventArgs e)
@@ -457,6 +485,12 @@ public sealed partial class ResultWindow : Window
             typeof(GlobalConfig.Translate.TranslateProvideEnum), TagOf(DefaultTranslateProvideComboBox)!);
         GlobalConfig.Translate.DefaultTranslateSourceLanguage = TagOf(SourceLanguageComboBox);
         GlobalConfig.Translate.DefaultTranslateTargetLanguage = TagOf(TargetLanguageComboBox);
+        if (GlobalConfig.Translate.DefaultTranslateProvide == GlobalConfig.Translate.TranslateProvideEnum.Ai)
+        {
+            GlobalConfig.Translate.DefaultAiProvider = TagOf(AiProviderComboBox) ?? GlobalConfig.Translate.DefaultAiProvider;
+            GlobalConfig.Translate.DefaultAiModel = TagOf(AiModelComboBox) ?? GlobalConfig.Translate.DefaultAiModel;
+        }
+
         GlobalConfig.SaveConfig();
     }
 }

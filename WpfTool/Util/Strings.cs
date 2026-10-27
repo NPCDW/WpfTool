@@ -51,6 +51,7 @@ internal static class Strings
     public static string ResultWindows_EmptyKeyMessage => Get(nameof(ResultWindows_EmptyKeyMessage));
     public static string ResultWindows_NotFoundImage => Get(nameof(ResultWindows_NotFoundImage));
     public static string ResultWindows_LimitOcrAndTranslate => Get(nameof(ResultWindows_LimitOcrAndTranslate));
+    public static string ResultWindows_EmptyAiProviderMessage => Get(nameof(ResultWindows_EmptyAiProviderMessage));
 
     public static string WordFileExtractWindow_Title => Get(nameof(WordFileExtractWindow_Title));
     public static string WordFileExtractWindow_WordFilePath => Get(nameof(WordFileExtractWindow_WordFilePath));
@@ -87,6 +88,14 @@ internal static class Strings
     public static string Setting_defaultMachineTranslate => Get(nameof(Setting_defaultMachineTranslate));
     public static string Setting_GetFreeTranslateQuota => Get(nameof(Setting_GetFreeTranslateQuota));
     public static string Setting_GetFreeDeeplx => Get(nameof(Setting_GetFreeDeeplx));
+    public static string Setting_AiProviderHeader => Get(nameof(Setting_AiProviderHeader));
+    public static string Setting_AddAiProvider => Get(nameof(Setting_AddAiProvider));
+    public static string Setting_RemoveAiProvider => Get(nameof(Setting_RemoveAiProvider));
+    public static string Setting_AddAiModel => Get(nameof(Setting_AddAiModel));
+    public static string Setting_RemoveAiModel => Get(nameof(Setting_RemoveAiModel));
+    public static string Setting_AiProviderName => Get(nameof(Setting_AiProviderName));
+    public static string Setting_AiModel => Get(nameof(Setting_AiModel));
+    public static string Setting_NoAiProvider => Get(nameof(Setting_NoAiProvider));
     public static string Setting_GoogleFreeTranslate => Get(nameof(Setting_GoogleFreeTranslate));
     public static string Setting_HotkeyConflict => Get(nameof(Setting_HotkeyConflict));
     public static string Setting_WordTranslation => Get(nameof(Setting_WordTranslation));
@@ -107,6 +116,7 @@ internal static class Strings
     public static string CloudService_Deeplx => Get(nameof(CloudService_Deeplx));
     public static string CloudService_OpenAI => Get(nameof(CloudService_OpenAI));
     public static string CloudService_SpaceOCR => Get(nameof(CloudService_SpaceOCR));
+    public static string CloudService_AI => Get(nameof(CloudService_AI));
 
     public static string OcrType_GeneralBasic => Get(nameof(OcrType_GeneralBasic));
     public static string OcrType_AccurateBasic => Get(nameof(OcrType_AccurateBasic));

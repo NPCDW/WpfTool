@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,8 +7,6 @@ using TencentCloud.Common;
 using TencentCloud.Common.Profile;
 using TencentCloud.Ocr.V20181119;
 using TencentCloud.Ocr.V20181119.Models;
-using TencentCloud.Tmt.V20180321;
-using TencentCloud.Tmt.V20180321.Models;
 using WpfTool.Entity;
 using WpfTool.Util;
 
@@ -17,43 +14,6 @@ namespace WpfTool.CloudService;
 
 public static class TencentCloudHelper
 {
-    public static async Task<string> Translate(string text, string sourceLanguage, string targetLanguage)
-    {
-        try
-        {
-            var cred = new Credential
-            {
-                SecretId = GlobalConfig.Translate.TencentCloud.SecretId,
-                SecretKey = GlobalConfig.Translate.TencentCloud.SecretKey
-            };
-
-            var clientProfile = new ClientProfile();
-            var httpProfile = new HttpProfile
-            {
-                Endpoint = "tmt.tencentcloudapi.com"
-            };
-            clientProfile.HttpProfile = httpProfile;
-
-            var client = new TmtClient(cred, "ap-beijing", clientProfile);
-            var req = new TextTranslateRequest
-            {
-                SourceText = text,
-                Source = sourceLanguage,
-                Target = targetLanguage,
-                ProjectId = 0
-            };
-
-            var resp = await client.TextTranslate(req);
-            var jsonStr = AbstractModel.ToJsonString(resp);
-            var jsonObj = JObject.Parse(jsonStr);
-            return jsonObj["TargetText"]!.ToString();
-        }
-        catch (Exception e)
-        {
-            return e.ToString();
-        }
-    }
-
     public static async Task<string> Ocr(Bitmap bmp, string? ocrTypeStr = null)
     {
         try
@@ -117,63 +77,6 @@ public static class TencentCloudHelper
         catch (Exception e)
         {
             return e.ToString();
-        }
-    }
-
-    public static async Task<Dictionary<string, string>> ScreenshotTranslate(Bitmap bmp)
-    {
-        try
-        {
-            var cred = new Credential
-            {
-                SecretId = GlobalConfig.Translate.TencentCloud.SecretId,
-                SecretKey = GlobalConfig.Translate.TencentCloud.SecretKey
-            };
-
-            var clientProfile = new ClientProfile();
-            var httpProfile = new HttpProfile
-            {
-                Endpoint = "tmt.tencentcloudapi.com"
-            };
-            clientProfile.HttpProfile = httpProfile;
-
-            var client = new TmtClient(cred, "ap-beijing", clientProfile);
-            var req = new ImageTranslateRequest
-            {
-                Data = Utils.BitmapToBase64String(bmp),
-                SessionUuid = Guid.NewGuid().ToString(),
-                Scene = "doc",
-                Source = GlobalConfig.Translate.DefaultTranslateSourceLanguage,
-                Target = GlobalConfig.Translate.DefaultTranslateTargetLanguage,
-                ProjectId = 0
-            };
-            var resp = await client.ImageTranslate(req);
-            var jsonStr = AbstractModel.ToJsonString(resp);
-            var jsonObj = JObject.Parse(jsonStr);
-            var jArray = jsonObj["ImageRecord"]!["Value"]!.ToArray();
-            var ocrText = "";
-            var translateText = "";
-            foreach (var jToken in jArray)
-            {
-                ocrText += jToken["SourceText"] + Environment.NewLine;
-                translateText += jToken["TargetText"] + Environment.NewLine;
-            }
-
-            var keyValues = new Dictionary<string, string>
-            {
-                { "ocrText", ocrText },
-                { "translateText", translateText }
-            };
-            return keyValues;
-        }
-        catch (Exception e)
-        {
-            var keyValues = new Dictionary<string, string>
-            {
-                { "ocrText", e.ToString() },
-                { "translateText", e.ToString() }
-            };
-            return keyValues;
         }
     }
 }

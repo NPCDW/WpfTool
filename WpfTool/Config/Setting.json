@@ -23,26 +23,20 @@
     }
   },
   "Translate": {
-    "defaultTranslateProvide": "TencentCloud",
+    "defaultTranslateProvide": "Ai",
     "defaultTranslateSourceLanguage": "auto",
     "defaultTranslateTargetLanguage": "zh",
+    "defaultAiProvider": "",
+    "defaultAiModel": "",
     "BaiduAI": {
       "app_id": "",
       "app_secret": ""
-    },
-    "TencentCloud": {
-      "secret_id": "",
-      "secret_key": ""
     },
     "Deeplx": {
       "Url": "",
       "Authorization": ""
     },
-    "OpenAi": {
-      "Url": "",
-      "ApiKey": "",
-      "Model": ""
-    }
+    "AiProviders": []
   },
   "HotKeys": {
     "Ocr": {
