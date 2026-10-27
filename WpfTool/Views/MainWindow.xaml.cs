@@ -30,7 +30,7 @@ public sealed partial class MainWindow : Window
             presenter.IsResizable = false;
         }
 
-        AppWindow.IsShownInSwitchers = false;
+        try { AppWindow.IsShownInSwitchers = false; } catch { }
         AppWindow.Resize(new Windows.Graphics.SizeInt32(1, 1));
     }
 
@@ -81,7 +81,7 @@ public sealed partial class MainWindow : Window
         var words = GetWords.Get();
         var window = WindowHelper.Activate<ResultWindow>();
         if (string.IsNullOrEmpty(words)) return;
-        window.OcrTextBox.Text = words.Trim();
+        window.SetOcrText(words.Trim());
         window.StartTranslate();
     }
 }

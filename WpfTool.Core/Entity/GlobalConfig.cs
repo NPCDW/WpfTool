@@ -156,7 +156,7 @@ public static class GlobalConfig
         jsonObj["Translate"]!["Deeplx"] = new JObject();
         jsonObj["Translate"]!["Deeplx"]!["Url"] = Translate.Deeplx.Url;
         jsonObj["Translate"]!["Deeplx"]!["Authorization"] = Translate.Deeplx.Authorization;
-        jsonObj["Translate"]!["AiProviders"] = ParseJson(Translate.AiProviders);
+        jsonObj["Translate"]!["AiProviders"] = Translate.ParseJson(Translate.AiProviders);
 
         jsonObj["HotKeys"] = new JObject();
         jsonObj["HotKeys"]!["Ocr"] = new JObject();
@@ -290,7 +290,7 @@ public static class GlobalConfig
             public static string Authorization = "";
         }
 
-        public static JsonArray ParseJson(object obj)
+        public static JArray ParseJson(object obj)
         {
             return JArray.FromObject(obj, JsonSerializer.CreateDefault(new JsonSerializerSettings
             {

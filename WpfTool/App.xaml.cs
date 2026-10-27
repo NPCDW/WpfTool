@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
 using Microsoft.UI.Xaml;
 using WpfTool.Entity;
@@ -30,6 +31,11 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
+        UnhandledException += (s, e) =>
+        {
+            Debug.WriteLine($"[UnhandledException] {e.Message}: {e.Exception}");
+        };
+
         _programStarted = new EventWaitHandle(false, EventResetMode.AutoReset, "WpfTool", out var createNew);
         if (!createNew)
         {

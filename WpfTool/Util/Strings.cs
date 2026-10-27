@@ -10,12 +10,17 @@ namespace WpfTool;
 /// </summary>
 internal static class Strings
 {
-    private static readonly ResourceManager Manager =
-        new("WpfTool.Strings.Resources", typeof(Strings).Assembly);
+    private static readonly ResourceManager ChineseManager =
+        new("WpfTool.Strings.zh_CN.Resources", typeof(Strings).Assembly);
+    private static readonly ResourceManager EnglishManager =
+        new("WpfTool.Strings.en_US.Resources", typeof(Strings).Assembly);
 
     private static string Get(string key)
     {
-        return Manager.GetString(key, CultureInfo.CurrentUICulture) ?? key;
+        var manager = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "zh"
+            ? ChineseManager
+            : EnglishManager;
+        return manager.GetString(key, CultureInfo.InvariantCulture) ?? key;
     }
 
     /// <summary>

@@ -117,13 +117,14 @@ internal static class ScreenshotHelper
     {
         using var ms = new MemoryStream();
         bitmap.Save(ms, ImageFormat.Png);
+        var bytes = ms.ToArray();
         var image = new BitmapImage();
-        ms.Position = 0;
         var stream = new InMemoryRandomAccessStream();
-        using (var target = stream.AsStreamForWrite())
+        using (var writer = new DataWriter(stream))
         {
-            ms.CopyTo(target);
-            target.Flush();
+            writer.WriteBytes(bytes);
+            writer.StoreAsync().AsTask().GetAwaiter().GetResult();
+            writer.DetachStream();
         }
 
         stream.Seek(0);

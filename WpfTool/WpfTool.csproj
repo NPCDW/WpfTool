@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WpfTool.Core\WpfTool.Core.csproj" />
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
   </ItemGroup>
 
   <ItemGroup>

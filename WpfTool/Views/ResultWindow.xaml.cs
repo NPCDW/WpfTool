@@ -46,13 +46,20 @@ public sealed partial class ResultWindow : Window
         TranslateButton.Content = Strings.ResultWindows_Translate;
 
         InitializeComboBoxes();
-        Loaded += (_, _) => LoadDefaults();
+        Activated += (_, _) =>
+        {
+            if (_windowLoaded) return;
+            _windowLoaded = true;
+            LoadDefaults();
+        };
         Closed += (_, _) =>
         {
             _bmp?.Dispose();
             Utils.FlushMemory();
         };
     }
+
+    public void SetOcrText(string text) => OcrTextBox.Text = text;
 
     private void InitializeComboBoxes()
     {

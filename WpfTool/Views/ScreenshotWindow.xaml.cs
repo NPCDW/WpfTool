@@ -52,13 +52,16 @@ public sealed partial class ScreenshotWindow : Window
             presenter.IsMaximizable = false;
         }
 
-        AppWindow.IsShownInSwitchers = false;
+        try { AppWindow.IsShownInSwitchers = false; } catch { }
 
         _bitmap = ScreenshotHelper.CaptureScreen(screenBounds);
         ScreenBrush.ImageSource = ScreenshotHelper.BitmapToBitmapImage(_bitmap);
 
-        Loaded += (_, _) =>
+        var initialized = false;
+        Activated += (_, _) =>
         {
+            if (initialized) return;
+            initialized = true;
             RootGrid.Focus(FocusState.Programmatic);
             ApplyMask(new Rect(0, 0, 0, 0));
         };
@@ -116,7 +119,7 @@ public sealed partial class ScreenshotWindow : Window
         if (width <= 0 || height <= 0) return;
 
         var cropped = ScreenshotHelper.Crop(_bitmap, new Rectangle(x, y, width, height));
-        Hide();
+        AppWindow.Hide();
         var resultWindow = WindowHelper.Activate<ResultWindow>();
         if (_goal == ScreenshotGoalEnum.Translate)
             _ = resultWindow.ScreenshotTranslateAsync(cropped);

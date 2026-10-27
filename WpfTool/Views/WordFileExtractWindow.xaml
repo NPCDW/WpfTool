@@ -33,6 +33,6 @@
         </Grid>
 
         <TextBox Grid.Row="2" x:Name="ConsoleOutputTextBox" AcceptsReturn="True" TextWrapping="Wrap"
-                 VerticalScrollBarVisibility="Auto" IsReadOnly="True" VerticalContentAlignment="Top" />
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" VerticalContentAlignment="Top" />
     </Grid>
 </Window>

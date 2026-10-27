@@ -26,6 +26,14 @@ internal sealed class TrayIcon : IDisposable
             System.Windows.Forms.ToolTipIcon.Info);
     }
 
+    private static void Dispatch(Action action)
+    {
+        if (WindowHelper.Dispatcher?.HasThreadAccess == true)
+            action();
+        else
+            WindowHelper.Dispatcher?.TryEnqueue(() => action());
+    }
+
     /// <summary>
     ///     切换语言后需要重建菜单与提示文案
     /// </summary>
@@ -36,18 +44,18 @@ internal sealed class TrayIcon : IDisposable
         _menu = new System.Windows.Forms.ContextMenuStrip();
         // 划词翻译需要先取词，走一次主窗口的逻辑
         _menu.Items.Add(Strings.MainWindows_WordTranslation, null,
-            (_, _) => App.Current.MainWindow.WordTranslation());
+            (_, _) => Dispatch(() => App.Current.MainWindow.WordTranslation()));
         _menu.Items.Add(Strings.MainWindows_ScreenshotTranslation, null,
-            (_, _) => WindowHelper.Activate<ScreenshotWindow>(ScreenshotGoalEnum.Translate));
+            (_, _) => Dispatch(() => WindowHelper.Activate<ScreenshotWindow>(ScreenshotGoalEnum.Translate)));
         _menu.Items.Add(Strings.MainWindows_OCR, null,
-            (_, _) => WindowHelper.Activate<ScreenshotWindow>(ScreenshotGoalEnum.Ocr));
+            (_, _) => Dispatch(() => WindowHelper.Activate<ScreenshotWindow>(ScreenshotGoalEnum.Ocr)));
         _menu.Items.Add(Strings.MainWindows_TopMostToggle, null, (_, _) =>
-            WindowTopMost.Exec(ScreenshotHelper.GetCursorPosition()));
+            Dispatch(() => WindowTopMost.Exec(ScreenshotHelper.GetCursorPosition())));
         _menu.Items.Add(Strings.MainWindows_WordFileExtract, null,
-            (_, _) => WindowHelper.Activate<WordFileExtractWindow>());
+            (_, _) => Dispatch(() => WindowHelper.Activate<WordFileExtractWindow>()));
         _menu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
-        _menu.Items.Add(Strings.MainWindows_Setting, null, (_, _) => WindowHelper.Activate<SettingWindow>());
-        _menu.Items.Add(Strings.MainWindows_Exit, null, (_, _) => App.Current.Quit());
+        _menu.Items.Add(Strings.MainWindows_Setting, null, (_, _) => Dispatch(() => WindowHelper.Activate<SettingWindow>()));
+        _menu.Items.Add(Strings.MainWindows_Exit, null, (_, _) => Dispatch(() => App.Current.Quit()));
 
         _notifyIcon.Text = Strings.MainWindows_Title;
         _notifyIcon.ContextMenuStrip = _menu;
