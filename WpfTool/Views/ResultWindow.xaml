@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="WpfTool.Views.ResultWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="mc"
+    Title="文字识别/机器翻译">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Height="32" Background="Transparent">
+            <TextBlock x:Name="TitleTextBlock" VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Margin="16,0,0,0" FontSize="12" Opacity="0.8" />
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="12,0,12,12" RowSpacing="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="100*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="100*" />
+            </Grid.RowDefinitions>
+
+            <!-- OCR 控制条 -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8">
+                <ComboBox x:Name="DefaultOcrProvideComboBox" Width="200"
+                          SelectionChanged="DefaultOcrProvideComboBox_SelectionChanged" />
+                <ComboBox x:Name="DefaultOcrTypeComboBox" Width="140"
+                          SelectionChanged="OcrTypeComboBox_SelectionChanged" />
+                <ComboBox x:Name="DefaultOcrLanguageComboBox" Width="140"
+                          SelectionChanged="OcrTypeComboBox_SelectionChanged" />
+                <CheckBox x:Name="DefaultOcrSettingCheck" Content="设为默认"
+                          Checked="DefaultOcrSettingCheck_Checked" VerticalAlignment="Center" />
+                <Button x:Name="OcrButton" Content="重新识别" Click="OcrButton_Click" />
+            </StackPanel>
+
+            <TextBox Grid.Row="1" x:Name="OcrTextBox" AcceptsReturn="True" TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" />
+
+            <!-- 翻译控制条 -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8">
+                <ComboBox x:Name="DefaultTranslateProvideComboBox" Width="200"
+                          SelectionChanged="DefaultTranslateProvideComboBox_SelectionChanged" />
+                <ComboBox x:Name="SourceLanguageComboBox" Width="140"
+                          SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
+                <ComboBox x:Name="TargetLanguageComboBox" Width="140"
+                          SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
+                <CheckBox x:Name="DefaultTranslateSettingCheck" Content="设为默认"
+                          Checked="DefaultTranslateSettingCheck_Checked" VerticalAlignment="Center" />
+                <Button x:Name="TranslateButton" Content="翻译" Click="TranslateButton_Click" />
+            </StackPanel>
+
+            <TextBox Grid.Row="3" x:Name="TranslateTextBox" AcceptsReturn="True" TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" />
+        </Grid>
+    </Grid>
+</Window>

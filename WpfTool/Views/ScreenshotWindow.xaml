@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="WpfTool.Views.ScreenshotWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WpfTool.Controls"
+    mc:Ignorable="mc"
+    Title="ScreenshotWindow">
+
+    <controls:CrossCursorGrid x:Name="RootGrid"
+          Background="Transparent"
+          IsTabStop="True"
+          KeyDown="RootGrid_KeyDown"
+          PointerMoved="RootGrid_PointerMoved"
+          PointerPressed="RootGrid_PointerPressed"
+          PointerReleased="RootGrid_PointerReleased">
+        <Grid>
+            <Grid.Background>
+                <ImageBrush x:Name="ScreenBrush" Stretch="Fill" />
+            </Grid.Background>
+            <!-- 选区外四块遮罩 -->
+            <Rectangle x:Name="LeftMask" Fill="#FF000000" Opacity="0.6" HorizontalAlignment="Left"
+                       VerticalAlignment="Top" />
+            <Rectangle x:Name="RightMask" Fill="#FF000000" Opacity="0.6" HorizontalAlignment="Left"
+                       VerticalAlignment="Top" />
+            <Rectangle x:Name="UpMask" Fill="#FF000000" Opacity="0.6" HorizontalAlignment="Left"
+                       VerticalAlignment="Top" />
+            <Rectangle x:Name="DownMask" Fill="#FF000000" Opacity="0.6" HorizontalAlignment="Left"
+                       VerticalAlignment="Top" />
+            <Border x:Name="SelectionBorder" BorderBrush="#FF3E9BFF" BorderThickness="1"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed" />
+        </Grid>
+    </controls:CrossCursorGrid>
+</Window>

@@ -1,7 +1,8 @@
 {
   "Common": {
     "WordSelectionInterval": 400,
-    "language": "en_US"
+    "language": "en_US",
+    "theme": "Default"
   },
   "Ocr": {
     "defaultOcrProvide": "TencentCloud",

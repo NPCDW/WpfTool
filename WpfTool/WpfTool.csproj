@@ -1,35 +1,54 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>WpfTool</RootNamespace>
+    <AssemblyName>WpfTool</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <EnableDefaultXamlItems>true</EnableDefaultXamlItems>
     <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <UseWindowsForms>True</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
     <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>1.16.0.0</FileVersion>
-    <AssemblyVersion>1.16.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <Authors>NPCDW</Authors>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/NPCDW/WpfTool.git</RepositoryUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/NPCDW/WpfTool.git</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Company />
-    <Authors>NPCDW</Authors>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\favicon.ico" />
+    <ProjectReference Include="..\WpfTool.Core\WpfTool.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250228001" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Manifest Include="$(ApplicationManifest)" />
     <Content Include="Resources\favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
+    <Content Include="Cross.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Setting.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -37,20 +56,6 @@
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Spire.Doc" Version="11.6.1" />
-    <PackageReference Include="TencentCloudSDK.Ocr" Version="3.0.784" />
-    <PackageReference Include="TencentCloudSDK.Tmt" Version="3.0.784" />
-    <PackageReference Include="WPF-UI" Version="2.0.3" />
-    <PackageReference Include="WpfScreenHelper" Version="2.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Config\Setting.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

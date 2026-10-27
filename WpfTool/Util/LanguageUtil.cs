@@ -1,24 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+using System.Globalization;
+using WpfTool.Entity;
 
 namespace WpfTool.Util;
 
 internal static class LanguageUtil
 {
+    /// <summary>
+    ///     切换应用语言。文案来自附属程序集（Strings/zh-CN、Strings/en-US），
+    ///     切换后需重建界面才能生效
+    /// </summary>
     public static void SwitchLanguage(string lang)
     {
-        // var dictionaryList = new List<ResourceDictionary>();
-        var dictionaryList = Application.Current.Resources.MergedDictionaries.Aggregate(new List<ResourceDictionary>(),
-            (current, t) =>
-            {
-                current.Add(t);
-                return current;
-            });
-
-        var resourceDictionary = dictionaryList.FirstOrDefault(d =>
-            d.Source != null && d.Source.OriginalString.Equals(@"Lang\" + lang + ".xaml"));
-        Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
-        Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+        var culture = string.IsNullOrWhiteSpace(lang) ? "en-US" : lang.Replace('_', '-');
+        var cultureInfo = new CultureInfo(culture);
+        CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+        CultureInfo.CurrentUICulture = cultureInfo;
+        GlobalConfig.Common.Language = lang;
     }
 }

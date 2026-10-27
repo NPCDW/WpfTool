@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WpfTool.Pages.OcrPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="mc"
+    Loaded="Page_Loaded">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="8" Margin="16">
+            <TextBlock x:Name="DefaultOcrHeader" FontWeight="SemiBold" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ComboBox x:Name="DefaultOcrProvideComboBox" Width="200"
+                          SelectionChanged="DefaultOcrProvideComboBox_SelectionChanged" />
+                <ComboBox x:Name="DefaultOcrTypeComboBox" Width="150"
+                          SelectionChanged="DefaultOcrTypeComboBox_SelectionChanged" />
+                <ComboBox x:Name="DefaultOcrLanguageComboBox" Width="150"
+                          SelectionChanged="DefaultOcrLanguageComboBox_SelectionChanged" />
+            </StackPanel>
+
+            <!-- 腾讯云 -->
+            <Grid ColumnSpacing="12" RowSpacing="8" Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="SecretID" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox Grid.Column="1" x:Name="TencentCloudOcrSecretIdInput"
+                         TextChanged="TencentCloudOcrSecretIdInput_TextChanged" />
+                <TextBlock Grid.Row="1" Text="SecretKey" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="TencentCloudOcrSecretKeyInput"
+                             PasswordChanged="TencentCloudOcrSecretKeyInput_PasswordChanged" />
+                <HyperlinkButton Grid.Row="2" Grid.Column="1" Content="腾讯云"
+                                 NavigateUri="https://cloud.tencent.com/document/product/866/35945" />
+            </Grid>
+
+            <!-- 百度云 -->
+            <Grid ColumnSpacing="12" RowSpacing="8" Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="AppKey" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox Grid.Column="1" x:Name="BaiduCloudAppKeyInput"
+                         TextChanged="BaiduCloudAppKeyInput_TextChanged" />
+                <TextBlock Grid.Row="1" Text="SecretKey" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="BaiduCloudSecretKeyInput"
+                             PasswordChanged="BaiduCloudSecretKeyInput_PasswordChanged" />
+                <HyperlinkButton Grid.Row="2" Grid.Column="1" Content="百度云"
+                                 NavigateUri="https://cloud.baidu.com/doc/OCR/s/fk3h7xu7h" />
+            </Grid>
+
+            <!-- SpaceOCR -->
+            <Grid ColumnSpacing="12" RowSpacing="8" Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="SecretKey" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <PasswordBox Grid.Column="1" x:Name="SpaceOcrApiKeyInput"
+                             PasswordChanged="SpaceOcrApiKeyInput_PasswordChanged" />
+                <HyperlinkButton Grid.Row="1" Grid.Column="1" Content="SpaceOCR"
+                                 NavigateUri="https://ocr.space/OCRAPI" />
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

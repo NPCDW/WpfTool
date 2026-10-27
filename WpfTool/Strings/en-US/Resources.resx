@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Setting_language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Setting_Title" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="Setting_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Setting_ThemeAuto" xml:space="preserve">
+    <value>System default</value>
+  </data>
+  <data name="Setting_ThemeLight" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Setting_ThemeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Setting_AutoStart" xml:space="preserve">
+    <value>Auto Start</value>
+  </data>
+  <data name="Setting_Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="Setting_ConfigurationFileStorageLocation" xml:space="preserve">
+    <value>Configuration file storage location</value>
+  </data>
+  <data name="Setting_UserDirectory" xml:space="preserve">
+    <value>User directory</value>
+  </data>
+  <data name="Setting_AppDirectory" xml:space="preserve">
+    <value>App directory</value>
+  </data>
+  <data name="Setting_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Setting_WordSelectionInterval" xml:space="preserve">
+    <value>Get Word Interval</value>
+  </data>
+  <data name="Setting_WordSelectionIntervalToolTip" xml:space="preserve">
+    <value>The realization principle of word-drawing translation is: the user uses the mouse to draw a word and then simulates Ctrl+C. After a certain period of time, the program fetches words from the clipboard. If the computer responds slowly, there may be a problem that words cannot be obtained. It can be adapted to some old machines</value>
+  </data>
+  <data name="Setting_OCR" xml:space="preserve">
+    <value>OCR</value>
+  </data>
+  <data name="Setting_DefaultOCR" xml:space="preserve">
+    <value>Default OCR</value>
+  </data>
+  <data name="Setting_GetFreeOCRQuota" xml:space="preserve">
+    <value>Get Free OCR Quota</value>
+  </data>
+  <data name="Setting_CopyEmailMessage" xml:space="preserve">
+    <value>Email address copied</value>
+  </data>
+  <data name="Setting_MachineTranslate" xml:space="preserve">
+    <value>Machine Translation</value>
+  </data>
+  <data name="Setting_defaultMachineTranslate" xml:space="preserve">
+    <value>Default Machine Translation</value>
+  </data>
+  <data name="Setting_GetFreeTranslateQuota" xml:space="preserve">
+    <value>Get Free Machine Translate Quota</value>
+  </data>
+  <data name="Setting_GlobalHotkey" xml:space="preserve">
+    <value>Global Hotkey</value>
+  </data>
+  <data name="Setting_HotkeyConflict" xml:space="preserve">
+    <value>Hotkey Conflict</value>
+  </data>
+  <data name="Setting_WordTranslation" xml:space="preserve">
+    <value>Get Word Translation</value>
+  </data>
+  <data name="Setting_ScreenshotTranslation" xml:space="preserve">
+    <value>Screenshot Translation</value>
+  </data>
+  <data name="Setting_TopMostToggle" xml:space="preserve">
+    <value>TopMost Toggle</value>
+  </data>
+  <data name="Setting_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Setting_about" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Setting_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Setting_license" xml:space="preserve">
+    <value>LICENSE</value>
+  </data>
+  <data name="Setting_AllRightsReserved" xml:space="preserve">
+    <value>AllRightsReserved</value>
+  </data>
+  <data name="Setting_SourceCode" xml:space="preserve">
+    <value>SourceCode</value>
+  </data>
+  <data name="Setting_feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="Setting_Links" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="Setting_GoogleFreeTranslate" xml:space="preserve">
+    <value>No need to claim, free and unlimited</value>
+  </data>
+  <data name="Setting_GetFreeDeeplx" xml:space="preserve">
+    <value>Get Free Deeplx (self-host or linux.do)</value>
+  </data>
+  <data name="MainWindows_HotkeyConflictMessage" xml:space="preserve">
+    <value>There is a conflict with the global shortcut keys, please go to the settings to reset</value>
+  </data>
+  <data name="MainWindows_TopMostMessage" xml:space="preserve">
+    <value>Please move the mouse to the title bar of the window you want to stick to the top (the top of the window), press F6 or the shortcut key you set yourself, you can stick it to the top or cancel it. Only Win32 applications are supported, UWP applications are not supported</value>
+  </data>
+  <data name="MainWindows_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="MainWindows_Running" xml:space="preserve">
+    <value>App starts running</value>
+  </data>
+  <data name="MainWindows_Title" xml:space="preserve">
+    <value>Text Recognition / Machine Translation</value>
+  </data>
+  <data name="MainWindows_WordTranslation" xml:space="preserve">
+    <value>Get Word Translation</value>
+  </data>
+  <data name="MainWindows_ScreenshotTranslation" xml:space="preserve">
+    <value>Screenshot Translation</value>
+  </data>
+  <data name="MainWindows_OCR" xml:space="preserve">
+    <value>Text Recognition</value>
+  </data>
+  <data name="MainWindows_TopMostToggle" xml:space="preserve">
+    <value>TopMost Toggle</value>
+  </data>
+  <data name="MainWindows_Setting" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="MainWindows_WordFileExtract" xml:space="preserve">
+    <value>Word File Extract</value>
+  </data>
+  <data name="ResultWindows_Title" xml:space="preserve">
+    <value>Text Recognition / Machine Translation</value>
+  </data>
+  <data name="ResultWindows_DialogClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ResultWindows_Translate" xml:space="preserve">
+    <value>Translate</value>
+  </data>
+  <data name="ResultWindows_SetAsDefault" xml:space="preserve">
+    <value>Set As Default</value>
+  </data>
+  <data name="ResultWindows_ReOCR" xml:space="preserve">
+    <value>ReOCR</value>
+  </data>
+  <data name="ResultWindows_translating" xml:space="preserve">
+    <value>Translating......</value>
+  </data>
+  <data name="ResultWindows_EmptyKeyMessage" xml:space="preserve">
+    <value>Please set the secret key information provided by the cloud service provider first, and you can click the link in the settings to get it for free</value>
+  </data>
+  <data name="ResultWindows_ocring" xml:space="preserve">
+    <value>Text recognition......</value>
+  </data>
+  <data name="ResultWindows_NotFoundImage" xml:space="preserve">
+    <value>Image Not Found</value>
+  </data>
+  <data name="ResultWindows_LimitOcrAndTranslate" xml:space="preserve">
+    <value>Only supports Baidu AI and Tencent cloud screenshot and recognition</value>
+  </data>
+  <data name="WordFileExtractWindow_Title" xml:space="preserve">
+    <value>Word File Extract</value>
+  </data>
+  <data name="WordFileExtractWindow_WordFilePath" xml:space="preserve">
+    <value>Word Filepath</value>
+  </data>
+  <data name="WordFileExtractWindow_SelectedFile" xml:space="preserve">
+    <value>Select the file</value>
+  </data>
+  <data name="WordFileExtractWindow_Extract" xml:space="preserve">
+    <value>Extract</value>
+  </data>
+  <data name="WordFileExtractWindow_WordNotFoundMessage" xml:space="preserve">
+    <value>Please select a Word file first</value>
+  </data>
+  <data name="WordFileExtractWindow_WordFileSelectedOutput" xml:space="preserve">
+    <value>Word file selection：</value>
+  </data>
+  <data name="WordFileExtractWindow_MkdirOutput" xml:space="preserve">
+    <value>The folder with the same name as the Word file does not exist, create a folder with the same name</value>
+  </data>
+  <data name="WordFileExtractWindow_ExtractImageOutput" xml:space="preserve">
+    <value>Extract Image: </value>
+  </data>
+  <data name="WordFileExtractWindow_ExtractFileOutput" xml:space="preserve">
+    <value>Extract File:</value>
+  </data>
+  <data name="WordFileExtractWindow_ExtractFinishOutput" xml:space="preserve">
+    <value>The extraction is complete, the extraction location is </value>
+  </data>
+  <data name="WordFileExtractWindow_SelectFileDoc" xml:space="preserve">
+    <value>Word document</value>
+  </data>
+  <data name="WordFileExtractWindow_SelectFileAll" xml:space="preserve">
+    <value>All files</value>
+  </data>
+  <data name="App_Run" xml:space="preserve">
+    <value>App is already running</value>
+  </data>
+  <data name="AutoStart_SetFail" xml:space="preserve">
+    <value>Failed to start automatically after booting</value>
+  </data>
+  <data name="CloudService_BaiduCloud" xml:space="preserve">
+    <value>Baidu Cloud</value>
+  </data>
+  <data name="CloudService_TencentCloud" xml:space="preserve">
+    <value>Tencent Cloud</value>
+  </data>
+  <data name="CloudService_BaiduAI" xml:space="preserve">
+    <value>BaiduAI</value>
+  </data>
+  <data name="CloudService_GoogleCloud" xml:space="preserve">
+    <value>GoogleCloud</value>
+  </data>
+  <data name="CloudService_Deeplx" xml:space="preserve">
+    <value>Deeplx</value>
+  </data>
+  <data name="CloudService_OpenAI" xml:space="preserve">
+    <value>OpenAI Compatible</value>
+  </data>
+  <data name="CloudService_SpaceOCR" xml:space="preserve">
+    <value>SpaceOCR</value>
+  </data>
+  <data name="OcrType_GeneralBasic" xml:space="preserve">
+    <value>General Basic</value>
+  </data>
+  <data name="OcrType_AccurateBasic" xml:space="preserve">
+    <value>Accurate Basic</value>
+  </data>
+  <data name="OcrType_Handwriting" xml:space="preserve">
+    <value>Handwriting</value>
+  </data>
+  <data name="OcrType_Engine1" xml:space="preserve">
+    <value>Engine1</value>
+  </data>
+  <data name="OcrType_Engine2" xml:space="preserve">
+    <value>Engine2</value>
+  </data>
+  <data name="OcrType_Engine3" xml:space="preserve">
+    <value>Engine3</value>
+  </data>
+  <data name="OcrType_Engine5" xml:space="preserve">
+    <value>Engine5</value>
+  </data>
+  <data name="Language_auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="Language_zh" xml:space="preserve">
+    <value>Simplified Chinese</value>
+  </data>
+  <data name="Language_cht" xml:space="preserve">
+    <value>Traditional Chinese</value>
+  </data>
+  <data name="Language_en" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language_en_gb" xml:space="preserve">
+    <value>English (British)</value>
+  </data>
+  <data name="Language_en_us" xml:space="preserve">
+    <value>English (American)</value>
+  </data>
+  <data name="Language_jp" xml:space="preserve">
+    <value>Japanese</value>
+  </data>
+  <data name="Language_kor" xml:space="preserve">
+    <value>Korean</value>
+  </data>
+  <data name="Language_fra" xml:space="preserve">
+    <value>French</value>
+  </data>
+  <data name="Language_spa" xml:space="preserve">
+    <value>Apanish</value>
+  </data>
+  <data name="Language_th" xml:space="preserve">
+    <value>Thai</value>
+  </data>
+  <data name="Language_ara" xml:space="preserve">
+    <value>Arabic</value>
+  </data>
+  <data name="Language_ru" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="Language_pt" xml:space="preserve">
+    <value>Portuguese</value>
+  </data>
+  <data name="Language_pt_br" xml:space="preserve">
+    <value>Portuguese (Brazilian)</value>
+  </data>
+  <data name="Language_pt_pt" xml:space="preserve">
+    <value>Portuguese (all Portuguese varieties excluding Brazilian Portuguese)</value>
+  </data>
+  <data name="Language_de" xml:space="preserve">
+    <value>German</value>
+  </data>
+  <data name="Language_it" xml:space="preserve">
+    <value>Italian</value>
+  </data>
+  <data name="Language_vie" xml:space="preserve">
+    <value>Vietnamese</value>
+  </data>
+  <data name="Language_el" xml:space="preserve">
+    <value>Greek</value>
+  </data>
+  <data name="Language_nl" xml:space="preserve">
+    <value>Dutch</value>
+  </data>
+  <data name="Language_pl" xml:space="preserve">
+    <value>Polish</value>
+  </data>
+  <data name="Language_bul" xml:space="preserve">
+    <value>Bulgarian</value>
+  </data>
+  <data name="Language_est" xml:space="preserve">
+    <value>Estonian</value>
+  </data>
+  <data name="Language_dan" xml:space="preserve">
+    <value>Danish</value>
+  </data>
+  <data name="Language_fin" xml:space="preserve">
+    <value>Finnish</value>
+  </data>
+  <data name="Language_cs" xml:space="preserve">
+    <value>Czech</value>
+  </data>
+  <data name="Language_rom" xml:space="preserve">
+    <value>Romanian</value>
+  </data>
+  <data name="Language_slo" xml:space="preserve">
+    <value>Slovenian</value>
+  </data>
+  <data name="Language_swe" xml:space="preserve">
+    <value>Swedish</value>
+  </data>
+  <data name="Language_hu" xml:space="preserve">
+    <value>Hungarian</value>
+  </data>
+  <data name="Language_tr" xml:space="preserve">
+    <value>Turkish</value>
+  </data>
+  <data name="Language_id" xml:space="preserve">
+    <value>Indonesian</value>
+  </data>
+  <data name="Language_ms" xml:space="preserve">
+    <value>Malaysian</value>
+  </data>
+  <data name="Language_hi" xml:space="preserve">
+    <value>Hindi</value>
+  </data>
+  <data name="Language_yue" xml:space="preserve">
+    <value>Cantonese</value>
+  </data>
+  <data name="Language_wyw" xml:space="preserve">
+    <value>Classical Chinese</value>
+  </data>
+  <data name="Language_af" xml:space="preserve">
+    <value>Afrikaans</value>
+  </data>
+  <data name="Language_sq" xml:space="preserve">
+    <value>Albanian</value>
+  </data>
+  <data name="Language_am" xml:space="preserve">
+    <value>Amharic</value>
+  </data>
+  <data name="Language_hy" xml:space="preserve">
+    <value>Armenian</value>
+  </data>
+  <data name="Language_az" xml:space="preserve">
+    <value>Azerbaijani</value>
+  </data>
+  <data name="Language_eu" xml:space="preserve">
+    <value>Basque</value>
+  </data>
+  <data name="Language_be" xml:space="preserve">
+    <value>Belarusian</value>
+  </data>
+  <data name="Language_bn" xml:space="preserve">
+    <value>Bengali</value>
+  </data>
+  <data name="Language_bs" xml:space="preserve">
+    <value>Bosnian</value>
+  </data>
+  <data name="Language_ca" xml:space="preserve">
+    <value>Catalan</value>
+  </data>
+  <data name="Language_ceb" xml:space="preserve">
+    <value>Cebuano</value>
+  </data>
+  <data name="Language_ny" xml:space="preserve">
+    <value>Chichewa</value>
+  </data>
+  <data name="Language_co" xml:space="preserve">
+    <value>Corsican</value>
+  </data>
+  <data name="Language_hr" xml:space="preserve">
+    <value>Croatian</value>
+  </data>
+  <data name="Language_eo" xml:space="preserve">
+    <value>Esperanto</value>
+  </data>
+  <data name="Language_tl" xml:space="preserve">
+    <value>Filipino</value>
+  </data>
+  <data name="Language_fy" xml:space="preserve">
+    <value>Frisian</value>
+  </data>
+  <data name="Language_gl" xml:space="preserve">
+    <value>Galician</value>
+  </data>
+  <data name="Language_ka" xml:space="preserve">
+    <value>Georgian</value>
+  </data>
+  <data name="Language_gu" xml:space="preserve">
+    <value>Gujarati</value>
+  </data>
+  <data name="Language_ht" xml:space="preserve">
+    <value>Haitian Creole</value>
+  </data>
+  <data name="Language_ha" xml:space="preserve">
+    <value>Hausa</value>
+  </data>
+  <data name="Language_haw" xml:space="preserve">
+    <value>Hawaiian</value>
+  </data>
+  <data name="Language_iw" xml:space="preserve">
+    <value>Hebrew</value>
+  </data>
+  <data name="Language_hmn" xml:space="preserve">
+    <value>Hmong</value>
+  </data>
+  <data name="Language_is" xml:space="preserve">
+    <value>Icelandic</value>
+  </data>
+  <data name="Language_ig" xml:space="preserve">
+    <value>Igbo</value>
+  </data>
+  <data name="Language_ga" xml:space="preserve">
+    <value>Irish</value>
+  </data>
+  <data name="Language_jw" xml:space="preserve">
+    <value>Javanese</value>
+  </data>
+  <data name="Language_kn" xml:space="preserve">
+    <value>Kannada</value>
+  </data>
+  <data name="Language_kk" xml:space="preserve">
+    <value>Kazakh</value>
+  </data>
+  <data name="Language_km" xml:space="preserve">
+    <value>Khmer</value>
+  </data>
+  <data name="Language_ku" xml:space="preserve">
+    <value>Kurdish (Kurmanji)</value>
+  </data>
+  <data name="Language_ky" xml:space="preserve">
+    <value>Kyrgyz</value>
+  </data>
+  <data name="Language_lo" xml:space="preserve">
+    <value>Lao</value>
+  </data>
+  <data name="Language_la" xml:space="preserve">
+    <value>Latin</value>
+  </data>
+  <data name="Language_lv" xml:space="preserve">
+    <value>Latvian</value>
+  </data>
+  <data name="Language_lt" xml:space="preserve">
+    <value>Lithuanian</value>
+  </data>
+  <data name="Language_lb" xml:space="preserve">
+    <value>Luxembourgish</value>
+  </data>
+  <data name="Language_mk" xml:space="preserve">
+    <value>Macedonian</value>
+  </data>
+  <data name="Language_mg" xml:space="preserve">
+    <value>Malagasy</value>
+  </data>
+  <data name="Language_ml" xml:space="preserve">
+    <value>Malayalam</value>
+  </data>
+  <data name="Language_mt" xml:space="preserve">
+    <value>Maltese</value>
+  </data>
+  <data name="Language_mi" xml:space="preserve">
+    <value>Maori</value>
+  </data>
+  <data name="Language_mr" xml:space="preserve">
+    <value>Marathi</value>
+  </data>
+  <data name="Language_mn" xml:space="preserve">
+    <value>Mongolian</value>
+  </data>
+  <data name="Language_my" xml:space="preserve">
+    <value>Myanmar (Burmese)</value>
+  </data>
+  <data name="Language_nb" xml:space="preserve">
+    <value>Norwegian Bokmål</value>
+  </data>
+  <data name="Language_ne" xml:space="preserve">
+    <value>Nepali</value>
+  </data>
+  <data name="Language_no" xml:space="preserve">
+    <value>Norwegian</value>
+  </data>
+  <data name="Language_ps" xml:space="preserve">
+    <value>Pashto</value>
+  </data>
+  <data name="Language_fa" xml:space="preserve">
+    <value>Persian</value>
+  </data>
+  <data name="Language_ma" xml:space="preserve">
+    <value>Punjabi</value>
+  </data>
+  <data name="Language_sm" xml:space="preserve">
+    <value>Samoan</value>
+  </data>
+  <data name="Language_gd" xml:space="preserve">
+    <value>Scots Gaelic</value>
+  </data>
+  <data name="Language_sr" xml:space="preserve">
+    <value>Serbian</value>
+  </data>
+  <data name="Language_st" xml:space="preserve">
+    <value>Sesotho</value>
+  </data>
+  <data name="Language_sn" xml:space="preserve">
+    <value>Shona</value>
+  </data>
+  <data name="Language_sd" xml:space="preserve">
+    <value>Sindhi</value>
+  </data>
+  <data name="Language_si" xml:space="preserve">
+    <value>Sinhala</value>
+  </data>
+  <data name="Language_sk" xml:space="preserve">
+    <value>Slovak</value>
+  </data>
+  <data name="Language_so" xml:space="preserve">
+    <value>Somali</value>
+  </data>
+  <data name="Language_su" xml:space="preserve">
+    <value>Sundanese</value>
+  </data>
+  <data name="Language_sw" xml:space="preserve">
+    <value>Swahili</value>
+  </data>
+  <data name="Language_tg" xml:space="preserve">
+    <value>Tajik</value>
+  </data>
+  <data name="Language_ta" xml:space="preserve">
+    <value>Tamil</value>
+  </data>
+  <data name="Language_te" xml:space="preserve">
+    <value>Telugu</value>
+  </data>
+  <data name="Language_uk" xml:space="preserve">
+    <value>Ukrainian</value>
+  </data>
+  <data name="Language_ur" xml:space="preserve">
+    <value>Urdu</value>
+  </data>
+  <data name="Language_uz" xml:space="preserve">
+    <value>Uzbek</value>
+  </data>
+  <data name="Language_cy" xml:space="preserve">
+    <value>Welsh</value>
+  </data>
+  <data name="Language_xh" xml:space="preserve">
+    <value>Xhosa</value>
+  </data>
+  <data name="Language_yi" xml:space="preserve">
+    <value>Yiddish</value>
+  </data>
+  <data name="Language_yo" xml:space="preserve">
+    <value>Yoruba</value>
+  </data>
+  <data name="Language_zu" xml:space="preserve">
+    <value>Zulu</value>
+  </data>
+</root>

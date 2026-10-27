@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Setting_language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Setting_Title" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Setting_Theme" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Setting_ThemeAuto" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="Setting_ThemeLight" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="Setting_ThemeDark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Setting_AutoStart" xml:space="preserve">
+    <value>开机启动</value>
+  </data>
+  <data name="Setting_Common" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="Setting_ConfigurationFileStorageLocation" xml:space="preserve">
+    <value>配置文件存储位置</value>
+  </data>
+  <data name="Setting_UserDirectory" xml:space="preserve">
+    <value>用户目录</value>
+  </data>
+  <data name="Setting_AppDirectory" xml:space="preserve">
+    <value>应用目录</value>
+  </data>
+  <data name="Setting_Open" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Setting_WordSelectionInterval" xml:space="preserve">
+    <value>取词间隔</value>
+  </data>
+  <data name="Setting_WordSelectionIntervalToolTip" xml:space="preserve">
+    <value>划词翻译实现原理是：用户用鼠标划词后模拟Ctrl+C，间隔一定时间后，程序再从剪切板取词，如果电脑反应慢，可能会出现取不到词的问题，将间隔调大可以适配一些老旧的机器</value>
+  </data>
+  <data name="Setting_OCR" xml:space="preserve">
+    <value>文字识别</value>
+  </data>
+  <data name="Setting_DefaultOCR" xml:space="preserve">
+    <value>默认文字识别</value>
+  </data>
+  <data name="Setting_GetFreeOCRQuota" xml:space="preserve">
+    <value>领取免费OCR额度</value>
+  </data>
+  <data name="Setting_CopyEmailMessage" xml:space="preserve">
+    <value>邮件地址已复制</value>
+  </data>
+  <data name="Setting_MachineTranslate" xml:space="preserve">
+    <value>机器翻译</value>
+  </data>
+  <data name="Setting_defaultMachineTranslate" xml:space="preserve">
+    <value>默认机器翻译</value>
+  </data>
+  <data name="Setting_GetFreeTranslateQuota" xml:space="preserve">
+    <value>领取免费翻译额度</value>
+  </data>
+  <data name="Setting_GlobalHotkey" xml:space="preserve">
+    <value>全局热键</value>
+  </data>
+  <data name="Setting_HotkeyConflict" xml:space="preserve">
+    <value>热键冲突</value>
+  </data>
+  <data name="Setting_WordTranslation" xml:space="preserve">
+    <value>划词翻译</value>
+  </data>
+  <data name="Setting_ScreenshotTranslation" xml:space="preserve">
+    <value>截图翻译</value>
+  </data>
+  <data name="Setting_TopMostToggle" xml:space="preserve">
+    <value>置顶/取消置顶</value>
+  </data>
+  <data name="Setting_Reset" xml:space="preserve">
+    <value>恢复默认</value>
+  </data>
+  <data name="Setting_about" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Setting_Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Setting_license" xml:space="preserve">
+    <value>开源许可</value>
+  </data>
+  <data name="Setting_AllRightsReserved" xml:space="preserve">
+    <value>版权所有</value>
+  </data>
+  <data name="Setting_SourceCode" xml:space="preserve">
+    <value>源码</value>
+  </data>
+  <data name="Setting_feedback" xml:space="preserve">
+    <value>反馈</value>
+  </data>
+  <data name="Setting_Links" xml:space="preserve">
+    <value>友情链接</value>
+  </data>
+  <data name="Setting_GoogleFreeTranslate" xml:space="preserve">
+    <value>无需领取，免费且不限量</value>
+  </data>
+  <data name="Setting_GetFreeDeeplx" xml:space="preserve">
+    <value>获取免费的 Deeplx (自建或 linux.do)</value>
+  </data>
+  <data name="MainWindows_HotkeyConflictMessage" xml:space="preserve">
+    <value>全局快捷键有冲突，请您到设置中重新设置</value>
+  </data>
+  <data name="MainWindows_TopMostMessage" xml:space="preserve">
+    <value>请将鼠标移动到您想要置顶的窗口的标题栏（窗口最上方），按F6或您自己设置的快捷键，即可置顶或取消置顶，只支持Win32应用，不支持UWP应用</value>
+  </data>
+  <data name="MainWindows_Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="MainWindows_Running" xml:space="preserve">
+    <value>程序开始运行</value>
+  </data>
+  <data name="MainWindows_Title" xml:space="preserve">
+    <value>文字识别/机器翻译</value>
+  </data>
+  <data name="MainWindows_WordTranslation" xml:space="preserve">
+    <value>划词翻译</value>
+  </data>
+  <data name="MainWindows_ScreenshotTranslation" xml:space="preserve">
+    <value>截图翻译</value>
+  </data>
+  <data name="MainWindows_OCR" xml:space="preserve">
+    <value>文字识别</value>
+  </data>
+  <data name="MainWindows_TopMostToggle" xml:space="preserve">
+    <value>置顶/取消置顶</value>
+  </data>
+  <data name="MainWindows_Setting" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="MainWindows_WordFileExtract" xml:space="preserve">
+    <value>Word图片附件提取</value>
+  </data>
+  <data name="ResultWindows_Title" xml:space="preserve">
+    <value>文字识别/机器翻译</value>
+  </data>
+  <data name="ResultWindows_DialogClose" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="ResultWindows_Translate" xml:space="preserve">
+    <value>翻译</value>
+  </data>
+  <data name="ResultWindows_SetAsDefault" xml:space="preserve">
+    <value>设为默认</value>
+  </data>
+  <data name="ResultWindows_ReOCR" xml:space="preserve">
+    <value>重新识别</value>
+  </data>
+  <data name="ResultWindows_translating" xml:space="preserve">
+    <value>翻译中，请稍等。。。</value>
+  </data>
+  <data name="ResultWindows_EmptyKeyMessage" xml:space="preserve">
+    <value>请先设置云服务商提供的秘钥信息，可以到设置中点击链接免费领取</value>
+  </data>
+  <data name="ResultWindows_ocring" xml:space="preserve">
+    <value>识别中，请稍等。。。</value>
+  </data>
+  <data name="ResultWindows_NotFoundImage" xml:space="preserve">
+    <value>未发现截图</value>
+  </data>
+  <data name="ResultWindows_LimitOcrAndTranslate" xml:space="preserve">
+    <value>只支持百度翻译开放平台与腾讯云的截图识别</value>
+  </data>
+  <data name="WordFileExtractWindow_Title" xml:space="preserve">
+    <value>Word图片附件提取</value>
+  </data>
+  <data name="WordFileExtractWindow_WordFilePath" xml:space="preserve">
+    <value>Word文件路径</value>
+  </data>
+  <data name="WordFileExtractWindow_SelectedFile" xml:space="preserve">
+    <value>选择文件</value>
+  </data>
+  <data name="WordFileExtractWindow_Extract" xml:space="preserve">
+    <value>提取</value>
+  </data>
+  <data name="WordFileExtractWindow_WordNotFoundMessage" xml:space="preserve">
+    <value>请先选择Word文件</value>
+  </data>
+  <data name="WordFileExtractWindow_WordFileSelectedOutput" xml:space="preserve">
+    <value>Word文件选择：</value>
+  </data>
+  <data name="WordFileExtractWindow_MkdirOutput" xml:space="preserve">
+    <value>Word文件同名文件夹不存在，创建同名文件夹</value>
+  </data>
+  <data name="WordFileExtractWindow_ExtractImageOutput" xml:space="preserve">
+    <value>提取图片：</value>
+  </data>
+  <data name="WordFileExtractWindow_ExtractFileOutput" xml:space="preserve">
+    <value>提取附件：</value>
+  </data>
+  <data name="WordFileExtractWindow_ExtractFinishOutput" xml:space="preserve">
+    <value>提取完成，提取位置：</value>
+  </data>
+  <data name="WordFileExtractWindow_SelectFileDoc" xml:space="preserve">
+    <value>Word文档</value>
+  </data>
+  <data name="WordFileExtractWindow_SelectFileAll" xml:space="preserve">
+    <value>所有文件</value>
+  </data>
+  <data name="App_Run" xml:space="preserve">
+    <value>程序已经在运行了</value>
+  </data>
+  <data name="AutoStart_SetFail" xml:space="preserve">
+    <value>开机自启动设置失败</value>
+  </data>
+  <data name="CloudService_BaiduCloud" xml:space="preserve">
+    <value>百度云</value>
+  </data>
+  <data name="CloudService_TencentCloud" xml:space="preserve">
+    <value>腾讯云</value>
+  </data>
+  <data name="CloudService_BaiduAI" xml:space="preserve">
+    <value>百度翻译开放平台</value>
+  </data>
+  <data name="CloudService_GoogleCloud" xml:space="preserve">
+    <value>谷歌云</value>
+  </data>
+  <data name="CloudService_Deeplx" xml:space="preserve">
+    <value>Deeplx</value>
+  </data>
+  <data name="CloudService_OpenAI" xml:space="preserve">
+    <value>OpenAI 兼容</value>
+  </data>
+  <data name="CloudService_SpaceOCR" xml:space="preserve">
+    <value>SpaceOCR</value>
+  </data>
+  <data name="OcrType_GeneralBasic" xml:space="preserve">
+    <value>通用</value>
+  </data>
+  <data name="OcrType_AccurateBasic" xml:space="preserve">
+    <value>高精度</value>
+  </data>
+  <data name="OcrType_Handwriting" xml:space="preserve">
+    <value>手写体</value>
+  </data>
+  <data name="OcrType_Engine1" xml:space="preserve">
+    <value>引擎1</value>
+  </data>
+  <data name="OcrType_Engine2" xml:space="preserve">
+    <value>引擎2</value>
+  </data>
+  <data name="OcrType_Engine3" xml:space="preserve">
+    <value>引擎3</value>
+  </data>
+  <data name="OcrType_Engine5" xml:space="preserve">
+    <value>引擎5</value>
+  </data>
+  <data name="Language_auto" xml:space="preserve">
+    <value>自动检测</value>
+  </data>
+  <data name="Language_zh" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="Language_cht" xml:space="preserve">
+    <value>繁体中文</value>
+  </data>
+  <data name="Language_en" xml:space="preserve">
+    <value>英语</value>
+  </data>
+  <data name="Language_en_gb" xml:space="preserve">
+    <value>英语（英国）</value>
+  </data>
+  <data name="Language_en_us" xml:space="preserve">
+    <value>英语（美国）</value>
+  </data>
+  <data name="Language_jp" xml:space="preserve">
+    <value>日语</value>
+  </data>
+  <data name="Language_kor" xml:space="preserve">
+    <value>韩语</value>
+  </data>
+  <data name="Language_fra" xml:space="preserve">
+    <value>法语</value>
+  </data>
+  <data name="Language_spa" xml:space="preserve">
+    <value>西班牙语</value>
+  </data>
+  <data name="Language_th" xml:space="preserve">
+    <value>泰语</value>
+  </data>
+  <data name="Language_ara" xml:space="preserve">
+    <value>阿拉伯语</value>
+  </data>
+  <data name="Language_ru" xml:space="preserve">
+    <value>俄语</value>
+  </data>
+  <data name="Language_pt" xml:space="preserve">
+    <value>葡萄牙语</value>
+  </data>
+  <data name="Language_pt_br" xml:space="preserve">
+    <value>葡萄牙语（巴西）</value>
+  </data>
+  <data name="Language_pt_pt" xml:space="preserve">
+    <value>葡萄牙语（除巴西葡萄牙语外的所有葡萄牙语变体）</value>
+  </data>
+  <data name="Language_de" xml:space="preserve">
+    <value>德语</value>
+  </data>
+  <data name="Language_it" xml:space="preserve">
+    <value>意大利语</value>
+  </data>
+  <data name="Language_vie" xml:space="preserve">
+    <value>越南语</value>
+  </data>
+  <data name="Language_el" xml:space="preserve">
+    <value>希腊语</value>
+  </data>
+  <data name="Language_nl" xml:space="preserve">
+    <value>荷兰语</value>
+  </data>
+  <data name="Language_pl" xml:space="preserve">
+    <value>波兰语</value>
+  </data>
+  <data name="Language_bul" xml:space="preserve">
+    <value>保加利亚语</value>
+  </data>
+  <data name="Language_est" xml:space="preserve">
+    <value>爱沙尼亚语</value>
+  </data>
+  <data name="Language_dan" xml:space="preserve">
+    <value>丹麦语</value>
+  </data>
+  <data name="Language_fin" xml:space="preserve">
+    <value>芬兰语</value>
+  </data>
+  <data name="Language_cs" xml:space="preserve">
+    <value>捷克语</value>
+  </data>
+  <data name="Language_rom" xml:space="preserve">
+    <value>罗马尼亚语</value>
+  </data>
+  <data name="Language_slo" xml:space="preserve">
+    <value>斯洛文尼亚语</value>
+  </data>
+  <data name="Language_swe" xml:space="preserve">
+    <value>瑞典语</value>
+  </data>
+  <data name="Language_hu" xml:space="preserve">
+    <value>匈牙利语</value>
+  </data>
+  <data name="Language_tr" xml:space="preserve">
+    <value>土耳其语</value>
+  </data>
+  <data name="Language_id" xml:space="preserve">
+    <value>印尼语</value>
+  </data>
+  <data name="Language_ms" xml:space="preserve">
+    <value>马来西亚语</value>
+  </data>
+  <data name="Language_hi" xml:space="preserve">
+    <value>印地语</value>
+  </data>
+  <data name="Language_yue" xml:space="preserve">
+    <value>粤语</value>
+  </data>
+  <data name="Language_wyw" xml:space="preserve">
+    <value>文言文</value>
+  </data>
+  <data name="Language_af" xml:space="preserve">
+    <value>南非荷兰语</value>
+  </data>
+  <data name="Language_sq" xml:space="preserve">
+    <value>阿尔巴尼亚语</value>
+  </data>
+  <data name="Language_am" xml:space="preserve">
+    <value>阿姆哈拉语</value>
+  </data>
+  <data name="Language_hy" xml:space="preserve">
+    <value>亚美尼亚语</value>
+  </data>
+  <data name="Language_az" xml:space="preserve">
+    <value>阿塞拜疆语</value>
+  </data>
+  <data name="Language_eu" xml:space="preserve">
+    <value>巴斯克语</value>
+  </data>
+  <data name="Language_be" xml:space="preserve">
+    <value>白俄罗斯语</value>
+  </data>
+  <data name="Language_bn" xml:space="preserve">
+    <value>孟加拉语</value>
+  </data>
+  <data name="Language_bs" xml:space="preserve">
+    <value>波斯尼亚语</value>
+  </data>
+  <data name="Language_ca" xml:space="preserve">
+    <value>加泰罗尼亚语</value>
+  </data>
+  <data name="Language_ceb" xml:space="preserve">
+    <value>宿雾语</value>
+  </data>
+  <data name="Language_ny" xml:space="preserve">
+    <value>奇切瓦语</value>
+  </data>
+  <data name="Language_co" xml:space="preserve">
+    <value>科西嘉语</value>
+  </data>
+  <data name="Language_hr" xml:space="preserve">
+    <value>克罗地亚语</value>
+  </data>
+  <data name="Language_eo" xml:space="preserve">
+    <value>世界语</value>
+  </data>
+  <data name="Language_tl" xml:space="preserve">
+    <value>菲律宾语</value>
+  </data>
+  <data name="Language_fy" xml:space="preserve">
+    <value>弗里斯兰语</value>
+  </data>
+  <data name="Language_gl" xml:space="preserve">
+    <value>加利西亚语</value>
+  </data>
+  <data name="Language_ka" xml:space="preserve">
+    <value>格鲁吉亚语</value>
+  </data>
+  <data name="Language_gu" xml:space="preserve">
+    <value>古吉拉特语</value>
+  </data>
+  <data name="Language_ht" xml:space="preserve">
+    <value>海地克里奥尔语</value>
+  </data>
+  <data name="Language_ha" xml:space="preserve">
+    <value>豪萨语</value>
+  </data>
+  <data name="Language_haw" xml:space="preserve">
+    <value>夏威夷语</value>
+  </data>
+  <data name="Language_iw" xml:space="preserve">
+    <value>希伯来语</value>
+  </data>
+  <data name="Language_hmn" xml:space="preserve">
+    <value>苗族</value>
+  </data>
+  <data name="Language_is" xml:space="preserve">
+    <value>冰岛语</value>
+  </data>
+  <data name="Language_ig" xml:space="preserve">
+    <value>伊博语</value>
+  </data>
+  <data name="Language_ga" xml:space="preserve">
+    <value>爱尔兰语</value>
+  </data>
+  <data name="Language_jw" xml:space="preserve">
+    <value>爪哇语</value>
+  </data>
+  <data name="Language_kn" xml:space="preserve">
+    <value>卡纳达语</value>
+  </data>
+  <data name="Language_kk" xml:space="preserve">
+    <value>哈萨克语</value>
+  </data>
+  <data name="Language_km" xml:space="preserve">
+    <value>高棉语</value>
+  </data>
+  <data name="Language_ku" xml:space="preserve">
+    <value>库尔德语（库尔曼吉语）</value>
+  </data>
+  <data name="Language_ky" xml:space="preserve">
+    <value>吉尔吉斯语</value>
+  </data>
+  <data name="Language_lo" xml:space="preserve">
+    <value>老挝语</value>
+  </data>
+  <data name="Language_la" xml:space="preserve">
+    <value>拉丁语</value>
+  </data>
+  <data name="Language_lv" xml:space="preserve">
+    <value>拉脱维亚语</value>
+  </data>
+  <data name="Language_lt" xml:space="preserve">
+    <value>立陶宛语</value>
+  </data>
+  <data name="Language_lb" xml:space="preserve">
+    <value>卢森堡语</value>
+  </data>
+  <data name="Language_mk" xml:space="preserve">
+    <value>马其顿语</value>
+  </data>
+  <data name="Language_mg" xml:space="preserve">
+    <value>马达加斯加语</value>
+  </data>
+  <data name="Language_ml" xml:space="preserve">
+    <value>马拉雅拉姆语</value>
+  </data>
+  <data name="Language_mt" xml:space="preserve">
+    <value>马耳他语</value>
+  </data>
+  <data name="Language_mi" xml:space="preserve">
+    <value>毛利语</value>
+  </data>
+  <data name="Language_mr" xml:space="preserve">
+    <value>马拉地语</value>
+  </data>
+  <data name="Language_mn" xml:space="preserve">
+    <value>蒙古语</value>
+  </data>
+  <data name="Language_my" xml:space="preserve">
+    <value>缅甸语（缅甸语）</value>
+  </data>
+  <data name="Language_nb" xml:space="preserve">
+    <value>挪威博克马尔语</value>
+  </data>
+  <data name="Language_ne" xml:space="preserve">
+    <value>尼泊尔语</value>
+  </data>
+  <data name="Language_no" xml:space="preserve">
+    <value>挪威语</value>
+  </data>
+  <data name="Language_ps" xml:space="preserve">
+    <value>普什图语</value>
+  </data>
+  <data name="Language_fa" xml:space="preserve">
+    <value>波斯语</value>
+  </data>
+  <data name="Language_ma" xml:space="preserve">
+    <value>旁遮普语</value>
+  </data>
+  <data name="Language_sm" xml:space="preserve">
+    <value>萨摩亚语</value>
+  </data>
+  <data name="Language_gd" xml:space="preserve">
+    <value>苏格兰盖尔语</value>
+  </data>
+  <data name="Language_sr" xml:space="preserve">
+    <value>塞尔维亚语</value>
+  </data>
+  <data name="Language_st" xml:space="preserve">
+    <value>塞索托语</value>
+  </data>
+  <data name="Language_sn" xml:space="preserve">
+    <value>绍纳语</value>
+  </data>
+  <data name="Language_sd" xml:space="preserve">
+    <value>信德语</value>
+  </data>
+  <data name="Language_si" xml:space="preserve">
+    <value>僧伽罗语</value>
+  </data>
+  <data name="Language_sk" xml:space="preserve">
+    <value>斯洛伐克语</value>
+  </data>
+  <data name="Language_so" xml:space="preserve">
+    <value>索马里语</value>
+  </data>
+  <data name="Language_su" xml:space="preserve">
+    <value>巽他语</value>
+  </data>
+  <data name="Language_sw" xml:space="preserve">
+    <value>斯瓦希里语</value>
+  </data>
+  <data name="Language_tg" xml:space="preserve">
+    <value>塔吉克语</value>
+  </data>
+  <data name="Language_ta" xml:space="preserve">
+    <value>泰米尔语</value>
+  </data>
+  <data name="Language_te" xml:space="preserve">
+    <value>泰卢固语</value>
+  </data>
+  <data name="Language_uk" xml:space="preserve">
+    <value>乌克兰语</value>
+  </data>
+  <data name="Language_ur" xml:space="preserve">
+    <value>乌尔都语</value>
+  </data>
+  <data name="Language_uz" xml:space="preserve">
+    <value>乌兹别克语</value>
+  </data>
+  <data name="Language_cy" xml:space="preserve">
+    <value>威尔士语</value>
+  </data>
+  <data name="Language_xh" xml:space="preserve">
+    <value>科萨语</value>
+  </data>
+  <data name="Language_yi" xml:space="preserve">
+    <value>意第绪语</value>
+  </data>
+  <data name="Language_yo" xml:space="preserve">
+    <value>约鲁巴语</value>
+  </data>
+  <data name="Language_zu" xml:space="preserve">
+    <value>祖鲁语</value>
+  </data>
+</root>

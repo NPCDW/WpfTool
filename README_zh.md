@@ -1,6 +1,8 @@
 # WpfTool
 
-该项目由 [NPCDW/WindowsFormsOCR](https://github.com/NPCDW/WindowsFormsOCR) 重写而来
+一个常驻托盘的 Windows 文字识别 / 翻译小工具，基于 **WinUI 3** 构建。
+
+项目最早由 [NPCDW/WindowsFormsOCR](https://github.com/NPCDW/WindowsFormsOCR) 重写为 WPF 版本，现已迁移到 WinUI 3（Windows App SDK），并把与界面无关的逻辑抽成共享的 Core 类库。
 
 此项目调用云平台开放接口实现文字识别以及翻译，目前仅支持下方所列的平台
 
@@ -33,8 +35,31 @@
 
 保持后台进程，内存占用大概在 `3-4M` 左右
 
+# 目录结构
+
+```
+WpfTool.sln
+├─ WpfTool.Core   # net8.0-windows 类库：配置、云服务、P/Invoke、公共工具
+└─ WpfTool        # WinUI 3 应用（Windows App SDK，非打包模式）
+   ├─ Views       # 窗口：主窗口 / 截图 / 结果 / 设置 / Word 提取
+   ├─ Pages       # 设置页，由 NavigationView 承载
+   ├─ Services    # 托盘图标、主题、窗口登记
+   ├─ Util        # 热键、截图与 DPI、多语言访问
+   └─ Strings     # resx 资源（zh-CN、en-US）
+```
+
+# 构建
+
+需要 .NET 8 SDK，Windows 10 1809 及以上（Windows App SDK 1.6）。
+
+```
+dotnet build WpfTool.sln -c Release -p:Platform=x64
+```
+
 # 升级
 
 配置文件存储路径：
 - 用户目录（默认），可直接将旧版本程序文件夹删除，然后解压更换新版本程序
-- 程序目录，请先将旧版本程序文件夹中的 `WpfTool/Resources/Setting.json` 取出，然后删除旧版本程序文件夹，再解压新的程序文件夹，并将 `Setting.json` 覆盖
+- 程序目录，请先将旧版本程序文件夹中的 `WpfTool/Config/Setting.json` 取出，然后删除旧版本程序文件夹，再解压新的程序文件夹，并将 `Setting.json` 覆盖
+
+配置结构保持兼容，仅新增 `Common.theme`（默认 `Default`，即跟随系统）。

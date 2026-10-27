@@ -1,31 +1,72 @@
-﻿using System;
+using System;
 using System.Threading;
-using System.Windows;
+using Microsoft.UI.Xaml;
+using WpfTool.Entity;
 using WpfTool.Util;
+using WpfTool.Views;
 
 namespace WpfTool;
 
 /// <summary>
-///     App.xaml 的交互逻辑
+///     应用入口，等价于原来 WPF 版本的 App.xaml.cs：
+///     单实例检测、读取配置、常驻托盘，主窗口只是持有消息循环的隐藏窗口
 /// </summary>
-public partial class App
+public partial class App : Application
 {
-    public EventWaitHandle? ProgramStarted;
+    private EventWaitHandle? _programStarted;
+    private MainWindow? _mainWindow;
+    private TrayIcon? _trayIcon;
 
-    protected override void OnStartup(StartupEventArgs e)
+    public App()
     {
-        bool createNew;
-        ProgramStarted = new EventWaitHandle(false, EventResetMode.AutoReset, "WpfTool", out createNew);
+        InitializeComponent();
+    }
 
+    public static new App Current => (App)Application.Current;
+
+    public MainWindow MainWindow => _mainWindow!;
+
+    internal TrayIcon? TrayIcon => _trayIcon;
+
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        _programStarted = new EventWaitHandle(false, EventResetMode.AutoReset, "WpfTool", out var createNew);
         if (!createNew)
         {
-            MessageBox.Show(FindResource("App_Run") as string);
+            DialogService.Show(Strings.App_Run, Strings.MainWindows_Title);
             Environment.Exit(0);
+            return;
         }
 
-        base.OnStartup(e);
-        var _ = new MainWindow();
+        GlobalConfig.GetConfig();
+        LanguageUtil.SwitchLanguage(GlobalConfig.Common.Language);
+
+        _mainWindow = new MainWindow();
+        WindowHelper.Track(_mainWindow);
+        _mainWindow.Activate();
+
+        // 等主窗口创建后再应用主题，否则没有可刷新的根元素
+        ThemeService.Apply(GlobalConfig.Common.Theme);
+
+        _trayIcon = new TrayIcon();
+        _trayIcon.Initialize();
+
+        if (GlobalConfig.HotKeys.OcrHotKey.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict ||
+            GlobalConfig.HotKeys.ScreenshotTranslate.Conflict ||
+            GlobalConfig.HotKeys.TopMost.Conflict)
+            DialogService.Show(Strings.MainWindows_HotkeyConflictMessage, Strings.MainWindows_Title);
+
+        AutoStart.Failed += () => DialogService.Show(Strings.AutoStart_SetFail, Strings.MainWindows_Title);
 
         Utils.FlushMemory();
+    }
+
+    /// <summary>
+    ///     退出应用（托盘菜单「退出」）
+    /// </summary>
+    public void Quit()
+    {
+        _trayIcon?.Dispose();
+        Environment.Exit(0);
     }
 }
