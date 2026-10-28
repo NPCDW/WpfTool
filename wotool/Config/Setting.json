@@ -49,16 +49,6 @@
       "Modifiers": 0,
       "Key": 113,
       "Text": "F2"
-    },
-    "ScreenshotTranslate": {
-      "Modifiers": 2,
-      "Key": 113,
-      "Text": "Ctrl+F2"
-    },
-    "TopMost": {
-      "Modifiers": 0,
-      "Key": 0,
-      "Text": ""
     }
   }
 }
