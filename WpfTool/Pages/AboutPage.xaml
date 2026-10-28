@@ -8,7 +8,14 @@
     Loaded="Page_Loaded">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="12" Margin="16">
+        <StackPanel Spacing="18" Margin="28,24,28,32">
+            <StackPanel Spacing="5">
+                <TextBlock Text="关于" FontSize="26" FontWeight="SemiBold" />
+                <TextBlock Text="应用信息、开源许可与反馈方式" Opacity="0.68" />
+            </StackPanel>
+            <Border Padding="18" CornerRadius="12" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+            <StackPanel Spacing="8">
             <StackPanel Orientation="Horizontal" Spacing="12">
                 <TextBlock x:Name="VersionHeader" VerticalAlignment="Center" Width="160" />
                 <HyperlinkButton Content="2.0.0.0"
@@ -35,6 +42,8 @@
                 <TextBlock x:Name="LinksHeader" VerticalAlignment="Center" Width="160" />
                 <HyperlinkButton Content="https://www.0520.site" NavigateUri="https://www.0520.site" />
             </StackPanel>
+            </StackPanel>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </Page>
