@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="wotool.Views.SettingWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="mc"
+    Title="设置">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 自定义标题栏 -->
+        <Grid Grid.Row="0" Height="48" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="AppTitleBar">
+            <TextBlock x:Name="AppTitleTextBlock" VerticalAlignment="Center" Margin="24,0,0,0"
+                       FontSize="13" FontWeight="SemiBold" Opacity="0.9" />
+        </Grid>
+
+        <NavigationView Grid.Row="1" x:Name="RootNavigation"
+                        IsBackButtonVisible="Collapsed"
+                        IsSettingsVisible="False"
+                        PaneDisplayMode="Left"
+                        OpenPaneLength="224"
+                        IsPaneToggleButtonVisible="False"
+                        SelectionChanged="RootNavigation_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="CommonNavItem" Tag="common" Icon="Home">
+                    <NavigationViewItem.Content>
+                        <TextBlock x:Name="CommonNavText" />
+                    </NavigationViewItem.Content>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="OcrNavItem" Tag="ocr" Icon="Page2">
+                    <NavigationViewItem.Content>
+                        <TextBlock x:Name="OcrNavText" />
+                    </NavigationViewItem.Content>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="TranslateNavItem" Tag="translate" Icon="Keyboard">
+                    <NavigationViewItem.Content>
+                        <TextBlock x:Name="TranslateNavText" />
+                    </NavigationViewItem.Content>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="HotkeyNavItem" Tag="hotkey" Icon="Setting">
+                    <NavigationViewItem.Content>
+                        <TextBlock x:Name="HotkeyNavText" />
+                    </NavigationViewItem.Content>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem x:Name="AboutNavItem" Tag="about" Icon="Help">
+                    <NavigationViewItem.Content>
+                        <TextBlock x:Name="AboutNavText" />
+                    </NavigationViewItem.Content>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
+
+            <Frame x:Name="RootFrame" />
+        </NavigationView>
+    </Grid>
+</Window>

@@ -1,10 +1,10 @@
-# WpfTool
+# wotool
 
 [简体中文](README_zh.md)
 
 A tray-resident OCR / translation tool for Windows, built with **WinUI 3**.
 
-The project started as a WPF app (rewritten from [NPCDW/WindowsFormsOCR](https://github.com/NPCDW/WindowsFormsOCR)),
+The project started as a WPF app (rewritten from [NPCDW/WindowsFormsOCR](https://github.com/NPCDW/WindowsFormsOCR)), in branch 'wpf',
 and has now been ported to WinUI 3 (Windows App SDK) with a shared platform-agnostic core library.
 
 It calls cloud platform open APIs for text recognition and translation, and currently only supports the platforms listed below.
@@ -38,9 +38,9 @@ Keep the background process, the memory usage is about `3-4M`
 # Project structure
 
 ```
-WpfTool.sln
-├─ WpfTool.Core   # net8.0-windows class library: config, cloud services, P/Invoke, shared utils
-└─ WpfTool        # WinUI 3 app (Windows App SDK, unpackaged)
+wotool.sln
+├─ wotool.Core    # net8.0-windows class library: config, cloud services, P/Invoke, shared utils
+└─ wotool        # WinUI 3 app (Windows App SDK, unpackaged)
    ├─ Views       # Windows: hidden hotkey host / Screenshot / Result / Setting
    ├─ Pages       # Settings pages hosted in the NavigationView frame
    ├─ Services    # Tray icon, theme, window bookkeeping
@@ -53,13 +53,13 @@ WpfTool.sln
 Requires .NET 8 SDK and Windows 10 1809+ (Windows App SDK 1.6).
 
 ```
-dotnet build WpfTool.sln -c Release -p:Platform=x64
+dotnet build wotool.sln -c Release -p:Platform=x64
 ```
 
 # Upgrade
 
 Configuration file storage path:
 - User directory (default), you can directly delete the old version of the program folder, and then decompress and replace it with the new version of the program
-- Program directory, please take out `WpfTool/Config/Setting.json` in the old version program folder first, then delete the old version program folder, then decompress the new program folder, and overwrite `Setting.json`
+- Before replacing an older release, preserve its `Config/Setting.json`, then restore that file in the new program folder.
 
 The configuration schema is unchanged; a new `Common.theme` key is added (defaults to `Default` = follow system).

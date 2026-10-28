@@ -5,7 +5,7 @@ $:
         - name: sync to github
           image: tencentcom/git-sync
           settings:
-            target_url: https://github.com/NPCDW/WpfTool.git
+            target_url: https://github.com/NPCDW/wotool.git
             auth_type: https
             username: ${GITHUB_USERNAME}
             password: ${GITHUB_ACCESS_TOKEN}

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>wotool</RootNamespace>
+    <Authors>NPCDW</Authors>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/NPCDW/wotool.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="TencentCloudSDK.Ocr" Version="3.0.784" />
+  </ItemGroup>
+
+</Project>

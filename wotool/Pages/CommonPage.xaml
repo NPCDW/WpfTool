@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="wotool.Pages.CommonPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="mc"
+    Loaded="Page_Loaded">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="20" Margin="32,28">
+            <StackPanel Spacing="6">
+                <TextBlock x:Name="PageTitle" FontSize="26" FontWeight="SemiBold" />
+                <TextBlock x:Name="PageDescription" Opacity="0.68" />
+            </StackPanel>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="12" Padding="20">
+            <StackPanel Spacing="18">
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="AutoStartHeader" VerticalAlignment="Center" />
+                <ToggleSwitch Grid.Column="1" x:Name="AutoStartSwitch" VerticalAlignment="Center"
+                              Toggled="AutoStartSwitch_Toggled" />
+            </Grid>
+
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="LanguageHeader" VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1" x:Name="LanguageComboBox" MinWidth="160"
+                          SelectionChanged="LanguageComboBox_SelectionChanged" />
+            </Grid>
+
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="ThemeHeader" VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1" x:Name="ThemeComboBox" MinWidth="160"
+                          SelectionChanged="ThemeComboBox_SelectionChanged" />
+            </Grid>
+
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="ConfigPathHeader" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12">
+                    <RadioButton x:Name="UserConfigRadioButton" GroupName="config"
+                                 Checked="UserConfigRadioButton_Checked" />
+                    <RadioButton x:Name="AppConfigRadioButton" GroupName="config"
+                                 Checked="AppConfigRadioButton_Checked" />
+                    <Button x:Name="OpenConfigButton" Click="OpenConfigButton_Click" />
+                </StackPanel>
+            </Grid>
+
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="WordSelectionIntervalHeader" VerticalAlignment="Center"
+                           TextWrapping="Wrap" />
+                <NumberBox Grid.Column="1" x:Name="WordSelectionIntervalNumberBox" Minimum="100" Maximum="1000"
+                           SmallChange="100" LargeChange="100" SpinButtonPlacementMode="Compact"
+                           ValueChanged="WordSelectionIntervalNumberBox_ValueChanged" />
+            </Grid>
+            </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
