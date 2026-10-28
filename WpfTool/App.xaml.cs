@@ -50,6 +50,7 @@ public partial class App : Application
         _mainWindow = new MainWindow();
         WindowHelper.Track(_mainWindow);
         _mainWindow.Activate();
+        _mainWindow.AppWindow.Hide();
         _mainWindow.InitializeHotKeys();
 
         // 等主窗口创建后再应用主题，否则没有可刷新的根元素
