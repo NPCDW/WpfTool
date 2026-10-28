@@ -7,7 +7,7 @@
     mc:Ignorable="mc"
     Title="文字识别/机器翻译">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="RootGrid" IsTabStop="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
@@ -18,80 +18,69 @@
                        FontSize="13" FontWeight="SemiBold" Opacity="0.9" />
         </Grid>
 
-        <Grid Grid.Row="1" Margin="16,4,16,16" RowSpacing="14">
+        <Grid Grid.Row="1" Margin="8,4,8,8" RowSpacing="6">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" RowSpacing="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+            <Grid x:Name="OcrPane" Grid.Row="0">
                 <Border Padding="12,10" CornerRadius="10"
                         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                    <Grid RowSpacing="8">
-                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                        <Grid ColumnSpacing="8">
-                            <Grid.ColumnDefinitions><ColumnDefinition Width="2*"/><ColumnDefinition Width="1.4*"/><ColumnDefinition Width="1.4*"/></Grid.ColumnDefinitions>
-                            <ComboBox x:Name="DefaultOcrProvideComboBox" Grid.Column="0" HorizontalAlignment="Stretch"
-                                      SelectionChanged="DefaultOcrProvideComboBox_SelectionChanged" />
-                            <ComboBox x:Name="DefaultOcrTypeComboBox" Grid.Column="1" HorizontalAlignment="Stretch"
-                                      SelectionChanged="OcrTypeComboBox_SelectionChanged" />
-                            <ComboBox x:Name="DefaultOcrLanguageComboBox" Grid.Column="2" HorizontalAlignment="Stretch"
-                                      SelectionChanged="OcrTypeComboBox_SelectionChanged" />
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <CheckBox x:Name="DefaultOcrSettingCheck" Content="设为默认"
-                                      Checked="DefaultOcrSettingCheck_Checked" VerticalAlignment="Center" />
-                            <Button x:Name="OcrButton" Content="重新识别" Click="OcrButton_Click"
-                                    HorizontalAlignment="Right" MinWidth="104" />
-                        </Grid>
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="2*"/><ColumnDefinition Width="1.2*"/><ColumnDefinition Width="1.2*"/><ColumnDefinition Width="112"/><ColumnDefinition Width="104"/></Grid.ColumnDefinitions>
+                        <ComboBox x:Name="DefaultOcrProvideComboBox" Grid.Column="0" HorizontalAlignment="Stretch"
+                                  SelectionChanged="DefaultOcrProvideComboBox_SelectionChanged" />
+                        <ComboBox x:Name="DefaultOcrTypeComboBox" Grid.Column="1" HorizontalAlignment="Stretch"
+                                  SelectionChanged="OcrTypeComboBox_SelectionChanged" />
+                        <ComboBox x:Name="DefaultOcrLanguageComboBox" Grid.Column="2" HorizontalAlignment="Stretch"
+                                  SelectionChanged="OcrTypeComboBox_SelectionChanged" />
+                        <CheckBox x:Name="DefaultOcrSettingCheck" Grid.Column="3" Content="设为默认" Width="112"
+                                  HorizontalContentAlignment="Left" Checked="DefaultOcrSettingCheck_Checked"
+                                  VerticalAlignment="Center" />
+                        <Button x:Name="OcrButton" Grid.Column="4" Content="重新识别" Click="OcrButton_Click"
+                                HorizontalAlignment="Stretch" />
                     </Grid>
                 </Border>
-                <TextBox Grid.Row="1" x:Name="OcrTextBox" AcceptsReturn="True" TextWrapping="Wrap"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top"
-                         Padding="14" CornerRadius="10" />
             </Grid>
+            <TextBox Grid.Row="1" x:Name="OcrTextBox" AcceptsReturn="True" TextWrapping="Wrap"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" />
 
-            <Grid Grid.Row="1" RowSpacing="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+            <Grid Grid.Row="2">
                 <Border Padding="12,10" CornerRadius="10"
                         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                    <Grid RowSpacing="8">
-                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                        <Grid ColumnSpacing="8">
-                            <Grid.ColumnDefinitions><ColumnDefinition Width="1.4*"/><ColumnDefinition Width="1.3*"/><ColumnDefinition Width="1.3*"/></Grid.ColumnDefinitions>
-                            <ComboBox x:Name="DefaultTranslateProvideComboBox" Grid.Column="0" HorizontalAlignment="Stretch"
+                    <StackPanel Spacing="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <ComboBox x:Name="DefaultTranslateProvideComboBox" Width="170"
                                       SelectionChanged="DefaultTranslateProvideComboBox_SelectionChanged" />
-                            <ComboBox x:Name="AiProviderComboBox" Grid.Column="1" Visibility="Collapsed" HorizontalAlignment="Stretch" />
-                            <ComboBox x:Name="AiModelComboBox" Grid.Column="2" Visibility="Collapsed" HorizontalAlignment="Stretch" />
-                        </Grid>
-                        <Grid Grid.Row="1" ColumnSpacing="8">
-                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                            <ComboBox x:Name="AiProviderComboBox" Width="160" Visibility="Collapsed" />
+                            <ComboBox x:Name="AiModelComboBox" Width="150" Visibility="Collapsed" />
+                            <CheckBox x:Name="StreamingOutputCheckBox" Content="流式输出" Width="112"
+                                      HorizontalContentAlignment="Left"
+                                      Click="StreamingOutputCheckBox_Click"
+                                      Visibility="Collapsed" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <Grid ColumnSpacing="8">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/><ColumnDefinition Width="112"/><ColumnDefinition Width="104"/></Grid.ColumnDefinitions>
                             <ComboBox x:Name="SourceLanguageComboBox" Grid.Column="0" HorizontalAlignment="Stretch"
                                       SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
                             <ComboBox x:Name="TargetLanguageComboBox" Grid.Column="1" HorizontalAlignment="Stretch"
                                       SelectionChanged="TranslateLanguageComboBox_SelectionChanged" />
+                            <CheckBox x:Name="DefaultTranslateSettingCheck" Grid.Column="2" Content="设为默认" Width="112"
+                                      HorizontalContentAlignment="Left" Checked="DefaultTranslateSettingCheck_Checked"
+                                      VerticalAlignment="Center" />
+                            <Button x:Name="TranslateButton" Grid.Column="3" Content="翻译" Click="TranslateButton_Click"
+                                    HorizontalAlignment="Stretch" />
                         </Grid>
-                        <Grid Grid.Row="2">
-                            <CheckBox x:Name="DefaultTranslateSettingCheck" Content="设为默认"
-                                      Checked="DefaultTranslateSettingCheck_Checked" VerticalAlignment="Center" />
-                            <Button x:Name="TranslateButton" Content="翻译" Click="TranslateButton_Click"
-                                    HorizontalAlignment="Right" MinWidth="104" />
-                        </Grid>
-                    </Grid>
+                    </StackPanel>
                 </Border>
-                <TextBox Grid.Row="1" x:Name="TranslateTextBox" AcceptsReturn="True" TextWrapping="Wrap"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top"
-                         Padding="14" CornerRadius="10" />
             </Grid>
+            <TextBox Grid.Row="3" x:Name="TranslateTextBox" AcceptsReturn="True" TextWrapping="Wrap"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" />
         </Grid>
     </Grid>
 </Window>

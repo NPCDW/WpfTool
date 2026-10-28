@@ -52,6 +52,8 @@ internal static class Strings
     public static string ResultWindows_SetAsDefault => Get(nameof(ResultWindows_SetAsDefault));
     public static string ResultWindows_ReOCR => Get(nameof(ResultWindows_ReOCR));
     public static string ResultWindows_translating => Get(nameof(ResultWindows_translating));
+    public static string ResultWindows_StreamingOutput => Get(nameof(ResultWindows_StreamingOutput));
+    public static string ResultWindows_Thinking => Get(nameof(ResultWindows_Thinking));
     public static string ResultWindows_ocring => Get(nameof(ResultWindows_ocring));
     public static string ResultWindows_EmptyKeyMessage => Get(nameof(ResultWindows_EmptyKeyMessage));
     public static string ResultWindows_NotFoundImage => Get(nameof(ResultWindows_NotFoundImage));

@@ -223,6 +223,12 @@
   <data name="ResultWindows_translating" xml:space="preserve">
     <value>Translating......</value>
   </data>
+  <data name="ResultWindows_StreamingOutput" xml:space="preserve">
+    <value>Stream output</value>
+  </data>
+  <data name="ResultWindows_Thinking" xml:space="preserve">
+    <value>Thinking...</value>
+  </data>
   <data name="ResultWindows_EmptyKeyMessage" xml:space="preserve">
     <value>Please set the secret key information provided by the cloud service provider first, and you can click the link in the settings to get it for free</value>
   </data>

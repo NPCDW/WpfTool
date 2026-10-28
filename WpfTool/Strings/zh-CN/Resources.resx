@@ -223,6 +223,12 @@
   <data name="ResultWindows_translating" xml:space="preserve">
     <value>翻译中，请稍等。。。</value>
   </data>
+  <data name="ResultWindows_StreamingOutput" xml:space="preserve">
+    <value>流式输出</value>
+  </data>
+  <data name="ResultWindows_Thinking" xml:space="preserve">
+    <value>思考中...</value>
+  </data>
   <data name="ResultWindows_EmptyKeyMessage" xml:space="preserve">
     <value>请先设置云服务商提供的秘钥信息，可以到设置中点击链接免费领取</value>
   </data>

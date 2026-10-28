@@ -85,6 +85,7 @@ public static class GlobalConfig
             Translate.DefaultAiModel = jsonObj["Translate"]!["defaultAiModel"] == null
                 ? ""
                 : jsonObj["Translate"]!["defaultAiModel"]!.ToString();
+            Translate.DefaultAiStreaming = jsonObj["Translate"]!["defaultAiStreaming"]?.Value<bool>() ?? true;
             Translate.DefaultTranslateSourceLanguage =
                 jsonObj["Translate"]!["defaultTranslateSourceLanguage"]!.ToString();
             Translate.DefaultTranslateTargetLanguage =
@@ -148,6 +149,7 @@ public static class GlobalConfig
         jsonObj["Translate"]!["defaultTranslateProvide"] = Translate.DefaultTranslateProvide.ToString();
         jsonObj["Translate"]!["defaultAiProvider"] = Translate.DefaultAiProvider;
         jsonObj["Translate"]!["defaultAiModel"] = Translate.DefaultAiModel;
+        jsonObj["Translate"]!["defaultAiStreaming"] = Translate.DefaultAiStreaming;
         jsonObj["Translate"]!["defaultTranslateSourceLanguage"] = Translate.DefaultTranslateSourceLanguage;
         jsonObj["Translate"]!["defaultTranslateTargetLanguage"] = Translate.DefaultTranslateTargetLanguage;
         jsonObj["Translate"]!["BaiduAI"] = new JObject();
@@ -272,6 +274,9 @@ public static class GlobalConfig
         ///     默认 AI 模型 ID
         /// </summary>
         public static string DefaultAiModel = "";
+
+        /// <summary>Whether AI translations stream output by default.</summary>
+        public static bool DefaultAiStreaming = true;
 
         /// <summary>
         ///     已配置的 AI 翻译服务商，每个服务商下可配置多个模型

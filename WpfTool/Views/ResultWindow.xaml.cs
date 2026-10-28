@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -19,10 +20,12 @@ public sealed partial class ResultWindow : Window
 {
     private Bitmap? _bmp;
     private bool _windowLoaded;
+    private readonly List<Control> _initialTabStops = new();
 
     public ResultWindow()
     {
         InitializeComponent();
+        SuppressInitialFocus();
         Title = Strings.ResultWindows_Title;
         TitleTextBlock.Text = Strings.ResultWindows_Title;
 
@@ -35,22 +38,28 @@ public sealed partial class ResultWindow : Window
 
         var handle = WindowNative.GetWindowHandle(this);
         AppWindow.Resize(new Windows.Graphics.SizeInt32((int)(800 * ScreenshotHelper.GetScaleFactor(handle)),
-            (int)(600 * ScreenshotHelper.GetScaleFactor(handle))));
+            (int)(900 * ScreenshotHelper.GetScaleFactor(handle))));
 
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(TitleTextBlock);
 
         DefaultOcrSettingCheck.Content = Strings.ResultWindows_SetAsDefault;
         DefaultTranslateSettingCheck.Content = Strings.ResultWindows_SetAsDefault;
+        StreamingOutputCheckBox.Content = Strings.ResultWindows_StreamingOutput;
         OcrButton.Content = Strings.ResultWindows_ReOCR;
         TranslateButton.Content = Strings.ResultWindows_Translate;
 
         InitializeComboBoxes();
         Activated += (_, _) =>
         {
-            if (_windowLoaded) return;
-            _windowLoaded = true;
-            LoadDefaults();
+            SuppressInitialFocus();
+            if (!_windowLoaded)
+            {
+                _windowLoaded = true;
+                LoadDefaults();
+            }
+            DispatcherQueue.TryEnqueue(RestoreInitialTabStops);
+            RootGrid.Focus(FocusState.Programmatic);
         };
         Closed += (_, _) =>
         {
@@ -108,6 +117,7 @@ public sealed partial class ResultWindow : Window
         SelectByTag(AiModelComboBox, GlobalConfig.Translate.DefaultAiModel);
         if (AiModelComboBox.SelectedItem == null && AiModelComboBox.Items.Count > 0)
             AiModelComboBox.SelectedIndex = 0;
+        StreamingOutputCheckBox.IsChecked = GlobalConfig.Translate.DefaultAiStreaming;
         RefreshTranslateItems();
         SelectByTag(SourceLanguageComboBox, GlobalConfig.Translate.DefaultTranslateSourceLanguage);
         SelectByTag(TargetLanguageComboBox, GlobalConfig.Translate.DefaultTranslateTargetLanguage);
@@ -206,6 +216,70 @@ public sealed partial class ResultWindow : Window
 
         try
         {
+            if (translateProvide == GlobalConfig.Translate.TranslateProvideEnum.Ai)
+            {
+                if (StreamingOutputCheckBox.IsChecked != true)
+                {
+                    TranslateTextBox.Text = await OpenAiHelper.Translate(ocrText, sourceLanguage, targetLanguage,
+                        aiProvider.Id, aiModel.Id);
+                    return;
+                }
+
+                var pending = new StringBuilder();
+                var rendered = new StringBuilder();
+                var sync = new object();
+                var renderQueued = false;
+                var firstDelta = true;
+                var hasRenderedContent = false;
+
+                void QueueRender(string delta)
+                {
+                    lock (sync)
+                    {
+                        pending.Append(delta);
+                        if (renderQueued) return;
+                        renderQueued = true;
+                    }
+
+                    DispatcherQueue.TryEnqueue(() =>
+                    {
+                        string batch;
+                        lock (sync)
+                        {
+                            batch = pending.ToString();
+                            pending.Clear();
+                            renderQueued = false;
+                        }
+
+                        if (firstDelta)
+                        {
+                            TranslateTextBox.Text = string.Empty;
+                            firstDelta = false;
+                        }
+
+                        rendered.Append(batch);
+                        TranslateTextBox.Text = rendered.ToString();
+                        hasRenderedContent = true;
+                        TranslateTextBox.SelectionStart = TranslateTextBox.Text.Length;
+                        TranslateTextBox.SelectionLength = 0;
+                    });
+                }
+
+                void ShowThinking()
+                {
+                    DispatcherQueue.TryEnqueue(() =>
+                    {
+                        if (!hasRenderedContent) TranslateTextBox.Text = Strings.ResultWindows_Thinking;
+                    });
+                }
+
+                var aiResult = await OpenAiHelper.TranslateStream(ocrText, sourceLanguage, targetLanguage, QueueRender,
+                    aiProvider.Id, aiModel.Id, onThinking: ShowThinking);
+                if (aiResult.StartsWith("AI API error:", StringComparison.Ordinal))
+                    TranslateTextBox.Text = aiResult;
+                return;
+            }
+
             TranslateTextBox.Text = translateProvide switch
             {
                 GlobalConfig.Translate.TranslateProvideEnum.BaiduAi =>
@@ -214,8 +288,6 @@ public sealed partial class ResultWindow : Window
                     await GoogleCloudHelper.Translate(ocrText, sourceLanguage, targetLanguage),
                 GlobalConfig.Translate.TranslateProvideEnum.Deeplx =>
                     await DeeplxHelper.Translate(ocrText, sourceLanguage, targetLanguage),
-                GlobalConfig.Translate.TranslateProvideEnum.Ai =>
-                    await OpenAiHelper.Translate(ocrText, sourceLanguage, targetLanguage, aiProvider.Id, aiModel.Id),
                 _ => string.Empty
             };
         }
@@ -230,6 +302,31 @@ public sealed partial class ResultWindow : Window
         _bmp = bmp;
         OcrTextBox.Text = Strings.ResultWindows_ocring;
         _ = OcrAsync(bmp, ocrProvideStr, ocrType, ocrLanguage);
+    }
+
+    private void SuppressInitialFocus()
+    {
+        Control[] controls =
+        {
+            DefaultOcrProvideComboBox, DefaultOcrTypeComboBox, DefaultOcrLanguageComboBox,
+            DefaultOcrSettingCheck, OcrButton, OcrTextBox,
+            DefaultTranslateProvideComboBox, AiProviderComboBox, AiModelComboBox,
+            StreamingOutputCheckBox, SourceLanguageComboBox, TargetLanguageComboBox,
+            DefaultTranslateSettingCheck, TranslateButton, TranslateTextBox
+        };
+
+        foreach (var control in controls)
+        {
+            if (!control.IsTabStop) continue;
+            control.IsTabStop = false;
+            _initialTabStops.Add(control);
+        }
+    }
+
+    private void RestoreInitialTabStops()
+    {
+        foreach (var control in _initialTabStops) control.IsTabStop = true;
+        _initialTabStops.Clear();
     }
 
     private async Task OcrAsync(Bitmap bmp, string? ocrProvideStr, string? ocrType, string? ocrLanguage)
@@ -407,6 +504,7 @@ public sealed partial class ResultWindow : Window
         var isAi = TagOf(DefaultTranslateProvideComboBox) == GlobalConfig.Translate.TranslateProvideEnum.Ai.ToString();
         AiProviderComboBox.Visibility = isAi ? Visibility.Visible : Visibility.Collapsed;
         AiModelComboBox.Visibility = isAi ? Visibility.Visible : Visibility.Collapsed;
+        StreamingOutputCheckBox.Visibility = isAi ? Visibility.Visible : Visibility.Collapsed;
         RefreshTranslateItems();
     }
 
@@ -472,7 +570,13 @@ public sealed partial class ResultWindow : Window
     {
         if (provide != GlobalConfig.Translate.TranslateProvideEnum.Ai.ToString()) return true;
         return TagOf(AiProviderComboBox) == GlobalConfig.Translate.DefaultAiProvider
-               && TagOf(AiModelComboBox) == GlobalConfig.Translate.DefaultAiModel;
+               && TagOf(AiModelComboBox) == GlobalConfig.Translate.DefaultAiModel
+               && StreamingOutputCheckBox.IsChecked == GlobalConfig.Translate.DefaultAiStreaming;
+    }
+
+    private void StreamingOutputCheckBox_Click(object sender, RoutedEventArgs e)
+    {
+        RefreshTranslateDefaultCheckState();
     }
 
     private void DefaultTranslateSettingCheck_Checked(object sender, RoutedEventArgs e)
@@ -494,6 +598,7 @@ public sealed partial class ResultWindow : Window
         {
             GlobalConfig.Translate.DefaultAiProvider = TagOf(AiProviderComboBox) ?? GlobalConfig.Translate.DefaultAiProvider;
             GlobalConfig.Translate.DefaultAiModel = TagOf(AiModelComboBox) ?? GlobalConfig.Translate.DefaultAiModel;
+            GlobalConfig.Translate.DefaultAiStreaming = StreamingOutputCheckBox.IsChecked == true;
         }
 
         GlobalConfig.SaveConfig();

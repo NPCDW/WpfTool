@@ -28,6 +28,7 @@
     "defaultTranslateTargetLanguage": "zh",
     "defaultAiProvider": "",
     "defaultAiModel": "",
+    "defaultAiStreaming": true,
     "BaiduAI": {
       "app_id": "",
       "app_secret": ""
