@@ -18,6 +18,8 @@ public sealed partial class CommonPage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        PageTitle.Text = Strings.Setting_Common;
+        PageDescription.Text = Strings.Setting_CommonDescription;
         AutoStartHeader.Text = Strings.Setting_AutoStart;
         LanguageHeader.Text = Strings.Setting_language;
         ThemeHeader.Text = Strings.Setting_Theme;

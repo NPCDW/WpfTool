@@ -82,6 +82,9 @@
   <data name="Setting_Common" xml:space="preserve">
     <value>常规</value>
   </data>
+  <data name="Setting_CommonDescription" xml:space="preserve">
+    <value>管理应用启动、语言、外观与本地配置。</value>
+  </data>
   <data name="Setting_ConfigurationFileStorageLocation" xml:space="preserve">
     <value>配置文件存储位置</value>
   </data>
@@ -123,6 +126,9 @@
   </data>
   <data name="Setting_GlobalHotkey" xml:space="preserve">
     <value>全局热键</value>
+  </data>
+  <data name="Setting_HotkeyDescription" xml:space="preserve">
+    <value>为截图 OCR 和划词翻译设置快捷键。</value>
   </data>
   <data name="Setting_HotkeyConflict" xml:space="preserve">
     <value>热键冲突</value>

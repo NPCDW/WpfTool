@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace WpfTool.Util;
 
@@ -53,6 +52,19 @@ public static class NativeMethod
     [DllImport("user32.dll", SetLastError = true)]
     public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
+    [DllImport("user32.dll")]
+    public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    public static extern bool BringWindowToTop(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy,
+        uint flags);
+
     /// <summary>
     ///     打开剪切板
     /// </summary>
@@ -99,34 +111,6 @@ public static class NativeMethod
     /// <returns></returns>
     [DllImport("User32", CharSet = CharSet.Unicode)]
     public static extern IntPtr SetClipboardData(int uFormat, IntPtr hMem);
-
-    /// <summary>
-    ///     获取窗口标题
-    /// </summary>
-    /// <returns></returns>
-    [DllImport("user32", SetLastError = true)]
-    public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-
-    /// <summary>
-    ///     获取类的名字
-    /// </summary>
-    /// <returns></returns>
-    [DllImport("user32.dll")]
-    public static extern int GetClassName(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-
-    /// <summary>
-    ///     根据坐标获取窗口句柄
-    /// </summary>
-    /// <returns></returns>
-    [DllImport("user32")]
-    public static extern IntPtr WindowFromPoint(Point point);
-
-    /// <summary>
-    ///     窗口置顶与取消置顶
-    /// </summary>
-    /// <returns></returns>
-    [DllImport("user32.dll")]
-    public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hPos, int x, int y, int cx, int cy, uint nflags);
 
     /// <summary>
     ///     获取当前鼠标位置（物理像素）

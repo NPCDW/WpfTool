@@ -21,13 +21,6 @@ public static class Utils
         return Convert.ToBase64String(ms.ToArray());
     }
 
-    public static byte[] BitmapToByteArray(Bitmap bmp)
-    {
-        using var ms = new MemoryStream();
-        bmp.Save(ms, ImageFormat.Jpeg);
-        return ms.ToArray();
-    }
-
     /// <summary>
     ///     清理内存
     /// </summary>

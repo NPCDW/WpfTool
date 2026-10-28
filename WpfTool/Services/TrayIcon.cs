@@ -45,14 +45,8 @@ internal sealed class TrayIcon : IDisposable
         // 划词翻译需要先取词，走一次主窗口的逻辑
         _menu.Items.Add(Strings.MainWindows_WordTranslation, null,
             (_, _) => Dispatch(() => App.Current.MainWindow.WordTranslation()));
-        _menu.Items.Add(Strings.MainWindows_ScreenshotTranslation, null,
-            (_, _) => Dispatch(() => WindowHelper.Activate<ScreenshotWindow>(ScreenshotGoalEnum.Translate)));
         _menu.Items.Add(Strings.MainWindows_OCR, null,
-            (_, _) => Dispatch(() => WindowHelper.Activate<ScreenshotWindow>(ScreenshotGoalEnum.Ocr)));
-        _menu.Items.Add(Strings.MainWindows_TopMostToggle, null, (_, _) =>
-            Dispatch(() => WindowTopMost.Exec(ScreenshotHelper.GetCursorPosition())));
-        _menu.Items.Add(Strings.MainWindows_WordFileExtract, null,
-            (_, _) => Dispatch(() => WindowHelper.Activate<WordFileExtractWindow>()));
+            (_, _) => Dispatch(() => WindowHelper.Activate<ScreenshotWindow>()));
         _menu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
         _menu.Items.Add(Strings.MainWindows_Setting, null, (_, _) => Dispatch(() => WindowHelper.Activate<SettingWindow>()));
         _menu.Items.Add(Strings.MainWindows_Exit, null, (_, _) => Dispatch(() => App.Current.Quit()));

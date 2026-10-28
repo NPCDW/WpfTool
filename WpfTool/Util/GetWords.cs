@@ -1,4 +1,3 @@
-using System.Threading;
 using WpfTool.Entity;
 
 namespace WpfTool.Util;
@@ -15,12 +14,9 @@ public static class GetWords
     /// <summary>
     ///     划词取词：先松开修饰键，再模拟 Ctrl+Insert 把选区送进剪贴板
     /// </summary>
-    public static string Get()
-    {
-        SendCtrlInsert();
-        Thread.Sleep(GlobalConfig.Common.WordSelectionInterval);
-        return NativeClipboard.GetText();
-    }
+    public static void BeginGet() => SendCtrlInsert();
+
+    public static string ReadClipboardText() => NativeClipboard.GetText();
 
     private static void SendCtrlInsert()
     {

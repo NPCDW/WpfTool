@@ -1,6 +1,8 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
+using WpfTool.Entity;
 using WpfTool.Util;
 using WinRT.Interop;
 
@@ -14,12 +16,12 @@ public sealed partial class MainWindow : Window
 {
     private const int WmHotKey = 0x0312;
     private NativeMethod.SubclassProc? _subclassProc;
+    private bool _hotKeysInitialized;
 
     public MainWindow()
     {
         InitializeComponent();
         HideFromTaskbar();
-        RegisterHotKeys();
     }
 
     private void HideFromTaskbar()
@@ -34,8 +36,10 @@ public sealed partial class MainWindow : Window
         AppWindow.Resize(new Windows.Graphics.SizeInt32(1, 1));
     }
 
-    private void RegisterHotKeys()
+    public void InitializeHotKeys()
     {
+        if (_hotKeysInitialized) return;
+        _hotKeysInitialized = true;
         var handle = WindowNative.GetWindowHandle(this);
         HotKeysUtil.RegisterHotKey(handle);
 
@@ -62,25 +66,26 @@ public sealed partial class MainWindow : Window
                 WordTranslation();
                 break;
             case HotKeysUtil.OcrId:
-                WindowHelper.Activate<ScreenshotWindow>(ScreenshotGoalEnum.Ocr);
-                break;
-            case HotKeysUtil.ScreenshotTranslateId:
-                WindowHelper.Activate<ScreenshotWindow>(ScreenshotGoalEnum.Translate);
-                break;
-            case HotKeysUtil.TopMostId:
-                WindowTopMost.Exec(ScreenshotHelper.GetCursorPosition());
+                WindowHelper.Activate<ScreenshotWindow>();
                 break;
         }
     }
 
     /// <summary>
-    ///     划词翻译：取词 -> 打开结果窗口 -> 自动翻译
+    ///     先取词，再打开并激活结果窗口进行翻译
     /// </summary>
     public void WordTranslation()
     {
-        var words = GetWords.Get();
+        _ = WordTranslationAsync();
+    }
+
+    private async Task WordTranslationAsync()
+    {
+        // Copy from the foreground app before the result window takes focus.
+        GetWords.BeginGet();
+        await Task.Delay(GlobalConfig.Common.WordSelectionInterval);
+        var words = GetWords.ReadClipboardText();
         var window = WindowHelper.Activate<ResultWindow>();
-        if (string.IsNullOrEmpty(words)) return;
         window.SetOcrText(words.Trim());
         window.StartTranslate();
     }

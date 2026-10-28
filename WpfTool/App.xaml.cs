@@ -50,6 +50,7 @@ public partial class App : Application
         _mainWindow = new MainWindow();
         WindowHelper.Track(_mainWindow);
         _mainWindow.Activate();
+        _mainWindow.InitializeHotKeys();
 
         // 等主窗口创建后再应用主题，否则没有可刷新的根元素
         ThemeService.Apply(GlobalConfig.Common.Theme);
@@ -57,9 +58,7 @@ public partial class App : Application
         _trayIcon = new TrayIcon();
         _trayIcon.Initialize();
 
-        if (GlobalConfig.HotKeys.OcrHotKey.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict ||
-            GlobalConfig.HotKeys.ScreenshotTranslate.Conflict ||
-            GlobalConfig.HotKeys.TopMost.Conflict)
+        if (GlobalConfig.HotKeys.OcrHotKey.Conflict || GlobalConfig.HotKeys.GetWordsTranslate.Conflict)
             DialogService.Show(Strings.MainWindows_HotkeyConflictMessage, Strings.MainWindows_Title);
 
         AutoStart.Failed += () => DialogService.Show(Strings.AutoStart_SetFail, Strings.MainWindows_Title);

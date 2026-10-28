@@ -24,13 +24,10 @@ Free Quota:
 
 * Support multi-screenshot text recognition, the default shortcut key is `F4`
 * Support word translation, the default shortcut key is `F2`, first select a piece of text with the mouse, and then press the shortcut key, a window will pop up for translation
-* Support multi-screenshot translation, the default shortcut key is `Ctrl + F2`
-* Supports setting and unpinning any window. The default shortcut key is `F6`. How to use it: move the mouse to the title bar of any window (at the top of the window, where there are the largest and smallest close buttons), and then press the shortcut key , the window can be pinned and unpinned, and multiple windows can be pinned, but UWP applications cannot be pinned. Recommended project [microsoft/PowerToys](https://github.com/microsoft/PowerToys)
-* Support extracting pictures and attachments in `Word`, there is no shortcut key available, you can right-click the icon in the taskbar
 
 # IMPORTANT
 
-Multi-screen capture text recognition or translation: only the screen where the mouse is placed will be captured
+Multi-screen OCR capture: only the screen where the mouse is placed will be captured
 
 How to cancel screenshot? Press `ESC` or right-click
 
@@ -44,7 +41,7 @@ Keep the background process, the memory usage is about `3-4M`
 WpfTool.sln
 ├─ WpfTool.Core   # net8.0-windows class library: config, cloud services, P/Invoke, shared utils
 └─ WpfTool        # WinUI 3 app (Windows App SDK, unpackaged)
-   ├─ Views       # Windows: Main / Screenshot / Result / Setting / WordFileExtract
+   ├─ Views       # Windows: hidden hotkey host / Screenshot / Result / Setting
    ├─ Pages       # Settings pages hosted in the NavigationView frame
    ├─ Services    # Tray icon, theme, window bookkeeping
    ├─ Util        # Hotkeys, screenshot/DPI helpers, i18n accessor

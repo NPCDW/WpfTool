@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
+using WpfTool.Util;
+using WinRT.Interop;
 
 namespace WpfTool;
 
@@ -63,5 +65,13 @@ internal static class WindowHelper
             presenter.State == OverlappedPresenterState.Minimized)
             presenter.Restore();
         window.AppWindow.MoveInZOrderAtTop();
+
+        var handle = WindowNative.GetWindowHandle(window);
+        NativeMethod.ShowWindow(handle, 9);
+        NativeMethod.BringWindowToTop(handle);
+        NativeMethod.SetForegroundWindow(handle);
+
+        if (window is Views.ScreenshotWindow)
+            NativeMethod.SetWindowPos(handle, new IntPtr(-1), 0, 0, 0, 0, 0x0001 | 0x0002 | 0x0040);
     }
 }

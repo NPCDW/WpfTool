@@ -6,64 +6,38 @@ using Microsoft.UI.Xaml.Input;
 using Windows.Foundation;
 using Windows.System;
 using WpfTool.Util;
-using WinRT.Interop;
 using Point = Windows.Foundation.Point;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace WpfTool.Views;
-
-public enum ScreenshotGoalEnum
-{
-    Translate,
-    Ocr
-}
 
 /// <summary>
 ///     全屏截图窗口：铺一张当前屏幕的静态截图做背景，四块遮罩裁出选区
 /// </summary>
 public sealed partial class ScreenshotWindow : Window
 {
-    private readonly ScreenshotGoalEnum _goal;
-    private readonly double _dpiScale;
     private readonly Bitmap _bitmap;
     private bool _mouseDown;
     private Point _startPoint;
     private Rect _rectangle;
 
-    public ScreenshotWindow(ScreenshotGoalEnum goal)
+    public ScreenshotWindow()
     {
-        _goal = goal;
-
         var screenBounds = ScreenshotHelper.GetScreenBoundsOfCursor();
         InitializeComponent();
 
-        var hwnd = WindowNative.GetWindowHandle(this);
-        _dpiScale = ScreenshotHelper.GetScaleFactor(hwnd);
-        if (_dpiScale <= 0) _dpiScale = 1;
-
         AppWindow.MoveAndResize(ScreenshotHelper.ToRectInt32(screenBounds));
-
-        if (AppWindow.Presenter is OverlappedPresenter presenter)
-        {
-            presenter.SetBorderAndTitleBar(false, false);
-            presenter.IsResizable = false;
-            presenter.IsAlwaysOnTop = true;
-            presenter.IsMinimizable = false;
-            presenter.IsMaximizable = false;
-        }
+        AppWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
 
         try { AppWindow.IsShownInSwitchers = false; } catch { }
 
         _bitmap = ScreenshotHelper.CaptureScreen(screenBounds);
         ScreenBrush.ImageSource = ScreenshotHelper.BitmapToBitmapImage(_bitmap);
 
-        var initialized = false;
         Activated += (_, _) =>
         {
-            if (initialized) return;
-            initialized = true;
             RootGrid.Focus(FocusState.Programmatic);
-            ApplyMask(new Rect(0, 0, 0, 0));
+            RootGrid.DispatcherQueue.TryEnqueue(() => ApplyMask(_rectangle));
         };
 
         Activated += OnActivated;
@@ -92,6 +66,12 @@ public sealed partial class ScreenshotWindow : Window
         if (!point.Properties.IsLeftButtonPressed) return;
         _mouseDown = true;
         _startPoint = point.Position;
+        InitialMask.Visibility = Visibility.Collapsed;
+        LeftMask.Visibility = Visibility.Visible;
+        RightMask.Visibility = Visibility.Visible;
+        UpMask.Visibility = Visibility.Visible;
+        DownMask.Visibility = Visibility.Visible;
+        ApplyMask(new Rect(0, 0, 0, 0));
         SelectionBorder.Visibility = Visibility.Visible;
     }
 
@@ -112,20 +92,28 @@ public sealed partial class ScreenshotWindow : Window
         if (!_mouseDown) return;
         _mouseDown = false;
 
-        var x = (int)(_rectangle.X * _dpiScale);
-        var y = (int)(_rectangle.Y * _dpiScale);
-        var width = (int)(_rectangle.Width * _dpiScale);
-        var height = (int)(_rectangle.Height * _dpiScale);
+        var scaleX = _bitmap.Width / Math.Max(RootGrid.ActualWidth, 1);
+        var scaleY = _bitmap.Height / Math.Max(RootGrid.ActualHeight, 1);
+        var x = (int)(_rectangle.X * scaleX);
+        var y = (int)(_rectangle.Y * scaleY);
+        var width = (int)(_rectangle.Width * scaleX);
+        var height = (int)(_rectangle.Height * scaleY);
+        x = Math.Clamp(x, 0, _bitmap.Width - 1);
+        y = Math.Clamp(y, 0, _bitmap.Height - 1);
+        width = Math.Clamp(width, 1, _bitmap.Width - x);
+        height = Math.Clamp(height, 1, _bitmap.Height - y);
         if (width <= 0 || height <= 0) return;
 
         var cropped = ScreenshotHelper.Crop(_bitmap, new Rectangle(x, y, width, height));
         AppWindow.Hide();
         var resultWindow = WindowHelper.Activate<ResultWindow>();
-        if (_goal == ScreenshotGoalEnum.Translate)
-            _ = resultWindow.ScreenshotTranslateAsync(cropped);
-        else
-            resultWindow.Ocr(cropped);
+        resultWindow.Ocr(cropped);
         Close();
+    }
+
+    private void RootGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        ApplyMask(_rectangle);
     }
 
     /// <summary>

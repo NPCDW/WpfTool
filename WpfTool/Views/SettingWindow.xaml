@@ -7,23 +7,24 @@
     mc:Ignorable="mc"
     Title="设置">
 
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- 自定义标题栏 -->
-        <Grid Grid.Row="0" Height="40" Background="Transparent" x:Name="AppTitleBar">
-            <TextBlock x:Name="AppTitleTextBlock" VerticalAlignment="Center" Margin="16,0,0,0"
-                       FontSize="12" Opacity="0.8" />
+        <Grid Grid.Row="0" Height="48" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="AppTitleBar">
+            <TextBlock x:Name="AppTitleTextBlock" VerticalAlignment="Center" Margin="24,0,0,0"
+                       FontSize="13" FontWeight="SemiBold" Opacity="0.9" />
         </Grid>
 
         <NavigationView Grid.Row="1" x:Name="RootNavigation"
                         IsBackButtonVisible="Collapsed"
                         IsSettingsVisible="False"
                         PaneDisplayMode="Left"
-                        OpenPaneLength="220"
+                        OpenPaneLength="224"
+                        IsPaneToggleButtonVisible="False"
                         SelectionChanged="RootNavigation_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="CommonNavItem" Tag="common" Icon="Home">

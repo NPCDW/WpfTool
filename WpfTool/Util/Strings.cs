@@ -74,6 +74,8 @@ internal static class Strings
     public static string Setting_OCR => Get(nameof(Setting_OCR));
     public static string Setting_MachineTranslate => Get(nameof(Setting_MachineTranslate));
     public static string Setting_GlobalHotkey => Get(nameof(Setting_GlobalHotkey));
+    public static string Setting_CommonDescription => Get(nameof(Setting_CommonDescription));
+    public static string Setting_HotkeyDescription => Get(nameof(Setting_HotkeyDescription));
     public static string Setting_about => Get(nameof(Setting_about));
     public static string Setting_AutoStart => Get(nameof(Setting_AutoStart));
     public static string Setting_language => Get(nameof(Setting_language));

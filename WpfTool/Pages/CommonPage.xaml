@@ -8,8 +8,14 @@
     Loaded="Page_Loaded">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="8" Margin="16">
-            <Grid ColumnSpacing="12">
+        <StackPanel Spacing="20" Margin="32,28">
+            <StackPanel Spacing="6">
+                <TextBlock x:Name="PageTitle" FontSize="26" FontWeight="SemiBold" />
+                <TextBlock x:Name="PageDescription" Opacity="0.68" />
+            </StackPanel>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="12" Padding="20">
+            <StackPanel Spacing="18">
+            <Grid ColumnSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -19,7 +25,7 @@
                               Toggled="AutoStartSwitch_Toggled" />
             </Grid>
 
-            <Grid ColumnSpacing="12">
+            <Grid ColumnSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -29,7 +35,7 @@
                           SelectionChanged="LanguageComboBox_SelectionChanged" />
             </Grid>
 
-            <Grid ColumnSpacing="12">
+            <Grid ColumnSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -39,7 +45,7 @@
                           SelectionChanged="ThemeComboBox_SelectionChanged" />
             </Grid>
 
-            <Grid ColumnSpacing="12">
+            <Grid ColumnSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -54,7 +60,7 @@
                 </StackPanel>
             </Grid>
 
-            <Grid ColumnSpacing="12">
+            <Grid ColumnSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -65,6 +71,8 @@
                            SmallChange="100" LargeChange="100" SpinButtonPlacementMode="Compact"
                            ValueChanged="WordSelectionIntervalNumberBox_ValueChanged" />
             </Grid>
+            </StackPanel>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </Page>

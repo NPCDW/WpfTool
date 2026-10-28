@@ -14,20 +14,22 @@
           KeyDown="RootGrid_KeyDown"
           PointerMoved="RootGrid_PointerMoved"
           PointerPressed="RootGrid_PointerPressed"
-          PointerReleased="RootGrid_PointerReleased">
+          PointerReleased="RootGrid_PointerReleased"
+          SizeChanged="RootGrid_SizeChanged">
         <Grid>
             <Grid.Background>
                 <ImageBrush x:Name="ScreenBrush" Stretch="Fill" />
             </Grid.Background>
+            <Rectangle x:Name="InitialMask" Fill="#FF000000" Opacity="0.6" />
             <!-- 选区外四块遮罩 -->
             <Rectangle x:Name="LeftMask" Fill="#FF000000" Opacity="0.6" HorizontalAlignment="Left"
-                       VerticalAlignment="Top" />
+                       VerticalAlignment="Top" Visibility="Collapsed" />
             <Rectangle x:Name="RightMask" Fill="#FF000000" Opacity="0.6" HorizontalAlignment="Left"
-                       VerticalAlignment="Top" />
+                       VerticalAlignment="Top" Visibility="Collapsed" />
             <Rectangle x:Name="UpMask" Fill="#FF000000" Opacity="0.6" HorizontalAlignment="Left"
-                       VerticalAlignment="Top" />
+                       VerticalAlignment="Top" Visibility="Collapsed" />
             <Rectangle x:Name="DownMask" Fill="#FF000000" Opacity="0.6" HorizontalAlignment="Left"
-                       VerticalAlignment="Top" />
+                       VerticalAlignment="Top" Visibility="Collapsed" />
             <Border x:Name="SelectionBorder" BorderBrush="#FF3E9BFF" BorderThickness="1"
                     HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed" />
         </Grid>

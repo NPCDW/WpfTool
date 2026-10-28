@@ -82,6 +82,9 @@
   <data name="Setting_Common" xml:space="preserve">
     <value>Common</value>
   </data>
+  <data name="Setting_CommonDescription" xml:space="preserve">
+    <value>Manage startup, language, appearance, and local configuration.</value>
+  </data>
   <data name="Setting_ConfigurationFileStorageLocation" xml:space="preserve">
     <value>Configuration file storage location</value>
   </data>
@@ -123,6 +126,9 @@
   </data>
   <data name="Setting_GlobalHotkey" xml:space="preserve">
     <value>Global Hotkey</value>
+  </data>
+  <data name="Setting_HotkeyDescription" xml:space="preserve">
+    <value>Set shortcuts for screenshot OCR and word translation.</value>
   </data>
   <data name="Setting_HotkeyConflict" xml:space="preserve">
     <value>Hotkey Conflict</value>

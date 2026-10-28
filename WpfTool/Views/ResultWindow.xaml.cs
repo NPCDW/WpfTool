@@ -147,6 +147,22 @@ public sealed partial class ResultWindow : Window
     public void Translate(string? translateProvideStr = null, string? sourceLanguage = null,
         string? targetLanguage = null, string? aiProviderId = null, string? aiModelId = null)
     {
+        TranslateTextBox.Text = Strings.ResultWindows_translating;
+        _ = TranslateAsync(translateProvideStr, sourceLanguage, targetLanguage, aiProviderId, aiModelId);
+    }
+
+    private async Task TranslateAsync(string? translateProvideStr, string? sourceLanguage, string? targetLanguage,
+        string? aiProviderId, string? aiModelId)
+    {
+        // Let WinUI render the result window and its progress state before starting network work.
+        await Task.Yield();
+        var ocrText = OcrTextBox.Text?.Trim();
+        if (string.IsNullOrEmpty(ocrText))
+        {
+            TranslateTextBox.Text = string.Empty;
+            return;
+        }
+
         GlobalConfig.Translate.TranslateProvideEnum translateProvide;
         if (string.IsNullOrWhiteSpace(translateProvideStr))
             translateProvide = GlobalConfig.Translate.DefaultTranslateProvide;
@@ -188,29 +204,38 @@ public sealed partial class ResultWindow : Window
             return;
         }
 
-        TranslateTextBox.Text = Strings.ResultWindows_translating;
-        var ocrText = OcrTextBox.Text;
-
-        Task<string> task = translateProvide switch
+        try
         {
-            GlobalConfig.Translate.TranslateProvideEnum.BaiduAi =>
-                BaiduAiHelper.Translate(ocrText, sourceLanguage, targetLanguage),
-            GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud =>
-                GoogleCloudHelper.Translate(ocrText, sourceLanguage, targetLanguage),
-            GlobalConfig.Translate.TranslateProvideEnum.Deeplx =>
-                DeeplxHelper.Translate(ocrText, sourceLanguage, targetLanguage),
-            GlobalConfig.Translate.TranslateProvideEnum.Ai =>
-                OpenAiHelper.Translate(ocrText, sourceLanguage, targetLanguage, aiProvider.Id, aiModel.Id),
-            _ => Task.FromResult(string.Empty)
-        };
-
-        task.ContinueWith(result =>
-            DispatcherHelper.Invoke(() => TranslateTextBox.Text = result.Result));
+            TranslateTextBox.Text = translateProvide switch
+            {
+                GlobalConfig.Translate.TranslateProvideEnum.BaiduAi =>
+                    await BaiduAiHelper.Translate(ocrText, sourceLanguage, targetLanguage),
+                GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud =>
+                    await GoogleCloudHelper.Translate(ocrText, sourceLanguage, targetLanguage),
+                GlobalConfig.Translate.TranslateProvideEnum.Deeplx =>
+                    await DeeplxHelper.Translate(ocrText, sourceLanguage, targetLanguage),
+                GlobalConfig.Translate.TranslateProvideEnum.Ai =>
+                    await OpenAiHelper.Translate(ocrText, sourceLanguage, targetLanguage, aiProvider.Id, aiModel.Id),
+                _ => string.Empty
+            };
+        }
+        catch (Exception ex)
+        {
+            TranslateTextBox.Text = ex.Message;
+        }
     }
 
     public void Ocr(Bitmap bmp, string? ocrProvideStr = null, string? ocrType = null, string? ocrLanguage = null)
     {
         _bmp = bmp;
+        OcrTextBox.Text = Strings.ResultWindows_ocring;
+        _ = OcrAsync(bmp, ocrProvideStr, ocrType, ocrLanguage);
+    }
+
+    private async Task OcrAsync(Bitmap bmp, string? ocrProvideStr, string? ocrType, string? ocrLanguage)
+    {
+        // Keep the progress state visible before invoking an OCR provider.
+        await Task.Yield();
         GlobalConfig.Ocr.OcrProvideEnum ocrProvide;
         if (string.IsNullOrWhiteSpace(ocrProvideStr))
             ocrProvide = GlobalConfig.Ocr.DefaultOcrProvide;
@@ -243,47 +268,20 @@ public sealed partial class ResultWindow : Window
             return;
         }
 
-        OcrTextBox.Text = Strings.ResultWindows_ocring;
-
-        Task<string> task = ocrProvide switch
+        try
         {
-            GlobalConfig.Ocr.OcrProvideEnum.TencentCloud => TencentCloudHelper.Ocr(bmp, ocrType),
-            GlobalConfig.Ocr.OcrProvideEnum.BaiduCloud => BaiduCloudHelper.Ocr(bmp, ocrType),
-            GlobalConfig.Ocr.OcrProvideEnum.SpaceOcr => SpaceOcrHelper.Ocr(bmp, ocrType, ocrLanguage),
-            _ => Task.FromResult(string.Empty)
-        };
-
-        task.ContinueWith(result => DispatcherHelper.Invoke(() => OcrTextBox.Text = result.Result));
-    }
-
-    public async Task ScreenshotTranslateAsync(Bitmap bmp)
-    {
-        _bmp = bmp;
-        var provide = GlobalConfig.Translate.DefaultTranslateProvide;
-
-        if (provide == GlobalConfig.Translate.TranslateProvideEnum.GoogleCloud ||
-            provide == GlobalConfig.Translate.TranslateProvideEnum.Deeplx ||
-            provide == GlobalConfig.Translate.TranslateProvideEnum.Ai)
-        {
-            DialogService.Show(Strings.ResultWindows_LimitOcrAndTranslate);
-            return;
+            OcrTextBox.Text = ocrProvide switch
+            {
+                GlobalConfig.Ocr.OcrProvideEnum.TencentCloud => await TencentCloudHelper.Ocr(bmp, ocrType),
+                GlobalConfig.Ocr.OcrProvideEnum.BaiduCloud => await BaiduCloudHelper.Ocr(bmp, ocrType),
+                GlobalConfig.Ocr.OcrProvideEnum.SpaceOcr => await SpaceOcrHelper.Ocr(bmp, ocrType, ocrLanguage),
+                _ => string.Empty
+            };
         }
-
-        if (provide == GlobalConfig.Translate.TranslateProvideEnum.BaiduAi &&
-            (string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAi.AppId) ||
-             string.IsNullOrEmpty(GlobalConfig.Translate.BaiduAi.AppSecret)))
+        catch (Exception ex)
         {
-            DialogService.Show(Strings.ResultWindows_EmptyKeyMessage);
-            return;
+            OcrTextBox.Text = ex.Message;
         }
-
-        OcrTextBox.Text = Strings.ResultWindows_ocring;
-        TranslateTextBox.Text = Strings.ResultWindows_translating;
-
-        var keyValues = await BaiduAiHelper.ScreenshotTranslate(bmp);
-
-        OcrTextBox.Text = keyValues["ocrText"];
-        TranslateTextBox.Text = keyValues["translateText"];
     }
 
     private void OcrButton_Click(object sender, RoutedEventArgs e)
